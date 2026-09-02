@@ -1,12 +1,16 @@
 import { appendFile, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
+import { PROMPT_CONFIG } from "../prompt-config";
+import { validateNarrativeSentences, type NarrativeSentence } from "../../../lib/narrative";
+import { joinNarrative, parseLanguage } from "../../../lib/language";
+import { RESULT_CSV_FILENAME, RESULT_CSV_PATH } from "../../../lib/result-storage";
 
 export const runtime = "nodejs";
 
 const DATA_DIRECTORY = path.join(process.cwd(), "data");
-const CSV_PATH = path.join(DATA_DIRECTORY, "results-v0.4.1.csv");
-const PROTOCOL_VERSION = "v0.3.0-draft";
-const PROMPT_VERSION = "prompt-catalog-v0.4.1-mock-draft";
+const CSV_PATH = path.join(DATA_DIRECTORY, RESULT_CSV_FILENAME);
+const PROTOCOL_VERSION = "v0.4.0-draft";
+const PROMPT_VERSION = PROMPT_CONFIG.version;
 const CONDITIONS = new Set(["standard", "visual", "odor"]);
 const RECORD_TYPES = new Set(["participant", "batch_synthetic"]);
 const FOLLOW_UP_TURNS = 6;
@@ -18,17 +22,19 @@ const columns = [
   "protocol_version",
   "prompt_version",
   "condition",
+  "language",
   "initial_fragment",
   ...Array.from({ length: FOLLOW_UP_TURNS }, (_, index) => `question_${index + 1}`),
   ...Array.from({ length: FOLLOW_UP_TURNS }, (_, index) => `answer_${index + 1}`),
   "question_metadata_json",
   "final_result",
-  "narrative_evidence_json",
+  "narrative_annotations_json",
   "evaluation_json",
   "checks_json",
 ] as const;
 
 type SaveResultBody = {
+  language?: unknown;
   sessionId?: string;
   recordType?: "participant" | "batch_synthetic";
   condition?: string;
@@ -37,7 +43,8 @@ type SaveResultBody = {
   questionMetadata?: Array<Record<string, unknown> | null>;
   answers?: string[];
   finalResult?: string;
-  narrativeSentences?: Array<{ text?: string; evidenceIds?: string[] }>;
+  narrativeSentences?: NarrativeSentence[];
+  narrativePromptVersion?: string;
   evaluation?: Record<string, number>;
   checks?: Record<string, number>;
 };
@@ -71,26 +78,10 @@ function isValidQuestionMetadata(value: unknown) {
   );
 }
 
-function isValidNarrativeEvidence(value: unknown) {
-  return Boolean(
-    Array.isArray(value) &&
-      value.length >= 1 &&
-      value.every((item) =>
-        item &&
-        typeof item === "object" &&
-        !Array.isArray(item) &&
-        typeof (item as { text?: unknown }).text === "string" &&
-        Boolean((item as { text: string }).text.trim()) &&
-        Array.isArray((item as { evidenceIds?: unknown }).evidenceIds) &&
-        (item as { evidenceIds: unknown[] }).evidenceIds.length >= 1 &&
-        (item as { evidenceIds: unknown[] }).evidenceIds.every((id) => typeof id === "string" && id.length > 0),
-      ),
-  );
-}
-
 function validateBody(body: SaveResultBody) {
+  const language = parseLanguage(body?.language);
   return Boolean(
-    body.sessionId?.trim() &&
+    body && language && body.sessionId?.trim() &&
       body.fragment?.trim() &&
       body.finalResult?.trim() &&
       RECORD_TYPES.has(body.recordType ?? "participant") &&
@@ -103,7 +94,9 @@ function validateBody(body: SaveResultBody) {
       Array.isArray(body.answers) &&
       body.answers.length === FOLLOW_UP_TURNS &&
       body.answers.every((answer) => typeof answer === "string" && answer.trim()) &&
-      isValidNarrativeEvidence(body.narrativeSentences) &&
+      body.narrativePromptVersion === PROMPT_VERSION &&
+      validateNarrativeSentences(body.narrativeSentences, FOLLOW_UP_TURNS, PROMPT_CONFIG.narrativeMaxSentences, language).length === 0 &&
+      joinNarrative(body.narrativeSentences!, language) === body.finalResult &&
       isValidRatingMap(body.evaluation) &&
       isValidRatingMap(body.checks),
   );
@@ -129,6 +122,7 @@ async function appendResult(body: SaveResultBody) {
     PROTOCOL_VERSION,
     PROMPT_VERSION,
     body.condition,
+    parseLanguage(body.language),
     body.fragment,
     ...(body.questions ?? []),
     ...(body.answers ?? []),
@@ -139,6 +133,7 @@ async function appendResult(body: SaveResultBody) {
     JSON.stringify(body.checks ?? {}),
   ];
   const header = columns.map(csvCell).join(",");
+  if (existing && existing.split(/\r?\n/u)[0] !== header) throw new Error("Result CSV header does not match the bilingual schema.");
   const row = values.map(csvCell).join(",");
   const prefix = existing.length === 0 ? `${header}\n` : existing.endsWith("\n") ? "" : "\n";
   await appendFile(CSV_PATH, `${prefix}${row}\n`, "utf8");
@@ -153,7 +148,7 @@ export async function POST(request: Request) {
     }
 
     const saved = await enqueueWrite(() => appendResult(body));
-    return Response.json({ saved, duplicate: !saved, path: "data/results-v0.4.1.csv" });
+    return Response.json({ saved, duplicate: !saved, language: parseLanguage(body.language), path: RESULT_CSV_PATH });
   } catch (error) {
     console.error("[result storage]", error);
     return Response.json({ error: "Could not save the result CSV." }, { status: 500 });

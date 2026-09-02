@@ -73,13 +73,13 @@ export async function createResponse(input: {
                           type: "object",
                           properties: {
                             text: { type: "string" },
-                            evidenceIds: {
+                            sourceIds: {
                               type: "array",
-                              minItems: 1,
                               items: { type: "string" },
                             },
+                            containsCreativeAddition: { type: "boolean" },
                           },
-                          required: ["text", "evidenceIds"],
+                          required: ["text", "sourceIds", "containsCreativeAddition"],
                           additionalProperties: false,
                         },
                       },

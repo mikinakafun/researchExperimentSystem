@@ -1,59 +1,19 @@
 import { createResponse, jsonError, OpenAIRequestError, parseJsonObject } from "../openai";
 import { buildNarrativeInstructions, PROMPT_CONFIG } from "../prompt-config";
-import { saysNoRecall } from "../question-validation";
-
-type NarrativeSentence = {
-  text: string;
-  evidenceIds: string[];
-};
-
-const disclosurePattern = /(?:Standard|Visual|Odor|Neutral|条件|仮説|実験|研究|AI|プロンプト|condition|hypothesis|experiment|study|prompt)/iu;
-
-function parseSentences(parsed: Record<string, unknown>) {
-  if (!Array.isArray(parsed.sentences)) return [];
-  return parsed.sentences.map((item): NarrativeSentence => {
-    if (!item || typeof item !== "object" || Array.isArray(item)) return { text: "", evidenceIds: [] };
-    const record = item as Record<string, unknown>;
-    return {
-      text: typeof record.text === "string" ? record.text.trim() : "",
-      evidenceIds: Array.isArray(record.evidenceIds)
-        ? record.evidenceIds.filter((id): id is string => typeof id === "string")
-        : [],
-    };
-  });
-}
-
-function validateSentences(
-  sentences: NarrativeSentence[],
-  answers: Array<{ question: string; answer: string }>,
-) {
-  const flags: string[] = [];
-  const allowedIds = new Set(["fragment", ...answers.map((_, index) => `answer-${index + 1}`)]);
-  const noRecallIds = new Set(
-    answers.flatMap((item, index) => saysNoRecall(item.answer) ? [`answer-${index + 1}`] : []),
-  );
-  if (sentences.length < 1 || sentences.length > PROMPT_CONFIG.narrativeMaxSentences) flags.push("sentence_count");
-  if (new Set(sentences.map((sentence) => sentence.text)).size !== sentences.length) flags.push("duplicate_sentence");
-  sentences.forEach((sentence, index) => {
-    if (!sentence.text) flags.push(`sentence_${index + 1}_empty`);
-    if ((sentence.text.match(/[。！？!?]/gu) ?? []).length !== 1) flags.push(`sentence_${index + 1}_punctuation`);
-    if (disclosurePattern.test(sentence.text)) flags.push(`sentence_${index + 1}_disclosure`);
-    if (sentence.evidenceIds.length < 1) flags.push(`sentence_${index + 1}_empty_evidence`);
-    if (new Set(sentence.evidenceIds).size !== sentence.evidenceIds.length) flags.push(`sentence_${index + 1}_duplicate_evidence`);
-    if (sentence.evidenceIds.some((id) => !allowedIds.has(id))) flags.push(`sentence_${index + 1}_unknown_evidence`);
-    if (sentence.evidenceIds.some((id) => noRecallIds.has(id))) flags.push(`sentence_${index + 1}_non_recall_evidence`);
-  });
-  return [...new Set(flags)];
-}
+import { validateNarrativeSentences, type NarrativeSentence } from "../../../lib/narrative";
+import { joinNarrative, parseLanguage } from "../../../lib/language";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json() as {
       fragment?: string;
       answers?: Array<{ question: string; answer: string }>;
+      language?: unknown;
     };
+    const language = parseLanguage(body?.language);
     if (
-      !body.fragment?.trim() ||
+      !body || !language ||
+      typeof body.fragment !== "string" || !body.fragment.trim() ||
       !Array.isArray(body.answers) ||
       body.answers.length !== PROMPT_CONFIG.followUpTurns ||
       body.answers.some((turn) => !turn || typeof turn.question !== "string" || !turn.question.trim() || typeof turn.answer !== "string" || !turn.answer.trim())
@@ -70,23 +30,26 @@ export async function POST(request: Request) {
         const result = await createResponse({
           temperature: PROMPT_CONFIG.narrativeTemperature,
           responseFormat: "narrative",
-          instructions: buildNarrativeInstructions(retryReason),
+          instructions: buildNarrativeInstructions(retryReason, language),
           input: JSON.stringify({
-            evidence: [
+            language,
+            materials: [
               { id: "fragment", text: fragment },
               ...answers.map((item, index) => ({ id: `answer-${index + 1}`, text: item.answer })),
             ],
             questionContext: answers.map((item, index) => ({
               question: item.question,
-              answerEvidenceId: `answer-${index + 1}`,
+              answerSourceId: `answer-${index + 1}`,
             })),
           }),
         });
-        const sentences = parseSentences(parseJsonObject(result.text));
-        const flags = validateSentences(sentences, answers);
+        const parsed = parseJsonObject(result.text);
+        const flags = validateNarrativeSentences(parsed?.sentences, answers.length, PROMPT_CONFIG.narrativeMaxSentences, language);
         if (flags.length === 0) {
+          const sentences = (parsed.sentences as NarrativeSentence[]).map((sentence) => ({ ...sentence, text: sentence.text.trim() }));
           return Response.json({
-            narrative: sentences.map((sentence) => sentence.text).join(""),
+            narrative: joinNarrative(sentences, language),
+            language,
             sentences,
             model: result.model,
             requestId: result.id,

@@ -1,6 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { DEFAULT_LANGUAGE, isLanguage, LANGUAGE_STORAGE_KEY, type Language } from "../lib/language";
+import { translate, type MessageKey } from "../lib/ui-language";
+import { RESULT_CSV_PATH } from "../lib/result-storage";
+import type { NarrativeSentence } from "../lib/narrative";
+import ReferenceMaterials from "./reference-materials";
 
 type Step = "welcome" | "consent" | "recall" | "questions" | "narrative" | "evaluation" | "check" | "debrief" | "done";
 type Condition = "standard" | "visual" | "odor";
@@ -11,7 +16,6 @@ type QuestionMetadata = {
   nonRecallTransition: boolean;
   insufficientEvidenceTransition: boolean;
 };
-type NarrativeSentence = { text: string; evidenceIds: string[] };
 
 const workflowSteps: Exclude<Step, "done">[] = ["welcome", "consent", "recall", "questions", "narrative", "evaluation", "check", "debrief"];
 
@@ -34,29 +38,32 @@ const checks = [
   { id: "DQ-PRESSURE", text: "実際には思い出せない詳細まで答えるよう求められていると、どの程度感じましたか。", low: "全く感じなかった", high: "非常に強く感じた" },
   { id: "DQ-MEMORYBASIS", text: "あなたの回答は、推測ではなく、実際に思い出せた内容にどの程度基づいていましたか。", low: "全く基づいていなかった", high: "完全に基づいていた" },
   { id: "DQ-UNSAID", text: "作成された文章には、あなたが答えていない内容が、どの程度含まれていたと感じましたか。", low: "全く含まれていなかった", high: "非常に多く含まれていた" },
-];
+] as const;
 
-async function callApi(path: string, body: unknown) {
+async function callApi(path: string, body: Record<string, unknown>, language: Language) {
+  const t = (key: MessageKey) => translate(language, key);
+  const failureMessage = path === "/api/save-result"
+    ? t("CSVへの保存に失敗しました。サーバーのdataディレクトリを確認してください。")
+    : t("生成に失敗しました。入力内容を確認して、もう一度お試しください。");
   const response = await fetch(path, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(body),
-  });
+    body: JSON.stringify({ ...body, language }),
+  }).catch(() => { throw new Error(failureMessage); });
   const payload = await response.json().catch(() => null) as { error?: string } | null;
   if (!response.ok) {
     if (payload?.error === "OPENAI_API_KEY is not configured on the server.") {
-      throw new Error("実APIの設定がありません。サーバーの環境変数を確認してください。");
+      throw new Error(t("実APIの設定がありません。サーバーの環境変数を確認してください。"));
     }
-    if (path === "/api/save-result") {
-      throw new Error("CSVへの保存に失敗しました。サーバーのdataディレクトリを確認してください。");
-    }
-    throw new Error("生成に失敗しました。入力内容を確認して、もう一度お試しください。");
+    throw new Error(failureMessage);
   }
+  if (!payload || typeof payload !== "object") throw new Error(failureMessage);
   return payload as {
     question?: string;
     metadata?: QuestionMetadata;
     narrative?: string;
     sentences?: NarrativeSentence[];
+    promptVersion?: string;
     saved?: boolean;
   };
 }
@@ -71,6 +78,24 @@ function createSessionId() {
 }
 
 export default function Page() {
+  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
+  const [languageReady, setLanguageReady] = useState(false);
+  const t = (key: MessageKey) => translate(language, key);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+      if (isLanguage(stored)) setLanguage(stored);
+    } catch { /* Language switching still works when browser storage is unavailable. */ }
+    setLanguageReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!languageReady) return;
+    document.documentElement.lang = language;
+    document.title = translate(language, "記憶に関する研究 | Mock");
+    try { localStorage.setItem(LANGUAGE_STORAGE_KEY, language); } catch { /* Optional preference persistence. */ }
+  }, [language, languageReady]);
   const [step, setStep] = useState<Step>("welcome");
   const [consent, setConsent] = useState(false);
   const [fragment, setFragment] = useState("");
@@ -81,6 +106,7 @@ export default function Page() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [narrative, setNarrative] = useState("");
   const [narrativeSentences, setNarrativeSentences] = useState<NarrativeSentence[]>([]);
+  const [narrativePromptVersion, setNarrativePromptVersion] = useState("");
   const [ratings, setRatings] = useState<Record<string, number>>({});
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -93,6 +119,16 @@ export default function Page() {
   const setRating = (id: string, value: number) => setRatings((current) => ({ ...current, [id]: value }));
   const allRatingsAnswered = evaluationItems.every(({ id }) => ratings[id] !== undefined);
   const allChecksAnswered = checks.every(({ id }) => ratings[id] !== undefined);
+
+  const languageLocked = busy || !["welcome", "consent", "recall"].includes(step);
+
+  function changeLanguage(next: Language) {
+    if (languageLocked || !languageReady || next === language) return;
+    setLanguage(next);
+    setConsent(false);
+    if (step === "recall") setStep("consent");
+    setError(null);
+  }
 
   async function startQuestions() {
     const assignedCondition = randomCondition();
@@ -113,8 +149,8 @@ export default function Page() {
         fragment,
         history: [],
         turn: 1,
-      });
-      if (!payload.question || !payload.metadata) throw new Error("実APIから検証済み質問を受け取れませんでした。");
+      }, language);
+      if (!payload.question || !payload.metadata) throw new Error(t("実APIから検証済み質問を受け取れませんでした。"));
       setQuestionTexts((current) => current.map((value, index) => index === 0 ? payload.question! : value));
       setQuestionMetadata((current) => current.map((value, index) => index === 0 ? payload.metadata! : value));
     } catch (caught) {
@@ -124,7 +160,7 @@ export default function Page() {
       setCurrentQuestion(0);
       setCondition(null);
       setStep("recall");
-      setError(caught instanceof Error ? caught.message : "生成に失敗しました。もう一度お試しください。");
+      setError(caught instanceof Error ? caught.message : t("生成に失敗しました。もう一度お試しください。"));
     } finally {
       setBusy(false);
     }
@@ -158,13 +194,14 @@ export default function Page() {
         answers,
         finalResult: narrative,
         narrativeSentences,
+        narrativePromptVersion,
         evaluation: Object.fromEntries(evaluationItems.map(({ id }) => [id, ratings[id]])),
         checks: Object.fromEntries(checks.map(({ id }) => [id, ratings[id]])),
-      });
+      }, language);
       setSaved(true);
       setStep("done");
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "CSVへの保存に失敗しました。もう一度お試しください。");
+      setError(caught instanceof Error ? caught.message : t("CSVへの保存に失敗しました。もう一度お試しください。"));
     } finally {
       setBusy(false);
     }
@@ -183,13 +220,14 @@ export default function Page() {
         const payload = await callApi("/api/narrative", {
           fragment,
           answers: completedAnswers.map((value, index) => ({ question: questionTexts[index], answer: value })),
-        });
-        if (!payload.narrative) throw new Error("実APIから文章を受け取れませんでした。");
+        }, language);
+        if (!payload.narrative || !payload.sentences || !payload.promptVersion) throw new Error(t("実APIから文章を受け取れませんでした。"));
         setNarrative(payload.narrative);
         setNarrativeSentences(payload.sentences ?? []);
+        setNarrativePromptVersion(payload.promptVersion);
         setStep("narrative");
       } catch (caught) {
-        setError(caught instanceof Error ? caught.message : "生成に失敗しました。もう一度お試しください。");
+        setError(caught instanceof Error ? caught.message : t("生成に失敗しました。もう一度お試しください。"));
       } finally {
         setBusy(false);
       }
@@ -207,13 +245,13 @@ export default function Page() {
           metadata: questionMetadata[index] ?? undefined,
         })),
         turn: currentQuestion + 2,
-      });
-      if (!payload.question || !payload.metadata) throw new Error("実APIから検証済み質問を受け取れませんでした。");
+      }, language);
+      if (!payload.question || !payload.metadata) throw new Error(t("実APIから検証済み質問を受け取れませんでした。"));
       setQuestionTexts((current) => current.map((value, index) => index === currentQuestion + 1 ? payload.question! : value));
       setQuestionMetadata((current) => current.map((value, index) => index === currentQuestion + 1 ? payload.metadata! : value));
       setCurrentQuestion(currentQuestion + 1);
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "生成に失敗しました。もう一度お試しください。");
+      setError(caught instanceof Error ? caught.message : t("生成に失敗しました。もう一度お試しください。"));
     } finally {
       setBusy(false);
     }
@@ -233,34 +271,40 @@ export default function Page() {
     setSaved(false);
     setNarrative("");
     setNarrativeSentences([]);
+    setNarrativePromptVersion("");
     setRatings({});
     setError(null);
   }
 
-  return <main className="shell">
-    <header className="header"><div><p className="eyebrow">記憶に関する研究（検証用mock）</p><p className="draft">MOCK / DRAFT — 研究実施未承認</p></div><span className="version">PROTOCOL v0.3.0 / PROMPT v0.4.1</span></header>
-    <div className="notice">これはローカル検証用です。質問生成と文章生成で実OpenAI APIを呼び出し、入力内容を外部へ送信します。完了時に結果をローカルCSVへ保存します。</div>
+  return <main className="shell" lang={language}>
+    <div className="language-controls">
+      <div role="group" aria-label={t("言語")} aria-describedby="language-hint" className="language-options">
+        {(["ja", "en"] as const).map((option) => <button key={option} type="button" lang={option} aria-pressed={language === option} disabled={languageLocked || !languageReady} onClick={() => changeLanguage(option)}>{option === "ja" ? "日本語" : "English"}</button>)}
+      </div>
+      <p className="hint" id="language-hint">{languageLocked ? t("質問開始後は言語を変更できません。終了して最初に戻ると変更できます。") : t("表示と生成に使う言語を選択してください。")}</p>
+    </div>
+    <div className="notice">{t("これはローカル検証用です。質問生成と文章生成で実OpenAI APIを呼び出し、入力内容を外部へ送信します。完了時に結果をローカルCSVへ保存します。")}</div>
     <section className="panel" aria-busy={busy}>
       {error && <div className="error-alert" role="alert">{error}</div>}
-      {busy && <div className="status-line" role="status">{step === "debrief" ? "CSVへ保存中…" : "OpenAI APIへ送信中…"}</div>}
+      {busy && <div className="status-line" role="status">{step === "debrief" ? t("CSVへ保存中…") : t("OpenAI APIへ送信中…")}</div>}
       {step !== "done" && <div className="workflow-status">
-        <div className="workflow-copy"><span>進行</span><span>STEP {workflowStep} / {workflowSteps.length}</span></div>
-        <div className="workflow-track" role="progressbar" aria-label="全体の進行" aria-valuemin={1} aria-valuemax={workflowSteps.length} aria-valuenow={workflowStep} aria-valuetext={`ステップ ${workflowStep} / ${workflowSteps.length}`}><span style={{ transform: `scaleX(${workflowProgress})` }} /></div>
+        <div className="workflow-copy"><span>{t("進行")}</span><span>STEP {workflowStep} / {workflowSteps.length}</span></div>
+        <div className="workflow-track" role="progressbar" aria-label={t("全体の進行")} aria-valuemin={1} aria-valuemax={workflowSteps.length} aria-valuenow={workflowStep} aria-valuetext={`${t("ステップ")} ${workflowStep} / ${workflowSteps.length}`}><span style={{ transform: `scaleX(${workflowProgress})` }} /></div>
       </div>}
-      {step === "welcome" && <><h1><span className="title-line"><span className="title-phrase">過去の出来事</span><wbr /><span className="title-phrase">について</span></span><span className="title-line"><span className="title-phrase">短い文章を</span><wbr /><span className="title-phrase">作ります</span></span></h1><p className="lead">あなたの断片的な記憶と、質問への回答を材料に、実APIで質問と文章を生成し、その文章について評価します。</p><div className="callout"><strong>質問条件は参加者画面に<wbr /><span className="title-phrase">表示しません</span></strong><br />有効な初期断片を入力した後、質問条件へ割り付けます。</div><button className="primary" onClick={() => setStep("consent")}>説明を読む</button></>}
-      {step === "consent" && <><h1>参加前の説明</h1><div className="copy"><p>この検証は、自伝的記憶に関する質問戦略の参加者フローを確認するためのものです。</p><p>入力した記憶内容と質問への回答は、質問生成と文章生成のためにOpenAI APIへ送信されます。完了時には、初期断片、質問、回答、生成文章、評価結果をこのPCのローカルCSVへ保存します。</p><p>API側のデータ取扱いと、このPCのCSVファイルの管理方法を確認してください。安全に説明できる出来事を選び、答えたくない場合はいつでも中止できます。</p></div><label className="check"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} /> 説明を読み、実APIへの送信とローカルCSVへの保存を理解して検証を開始します。</label><div className="actions"><button className="secondary" onClick={() => setStep("done")}>参加しない</button><button className="primary" disabled={!consent} onClick={() => setStep("recall")}>同意して進む</button></div></>}
-      {step === "recall" && <><h1>一つの出来事を思い出す</h1><p className="lead">あなた自身の過去の、習慣や長い期間ではなく、特定の一回の出来事を選んでください。少なくとも1週間前に起きた、安全に説明できる出来事にしてください。楽しかった、普通だった、つらかったなど、感情の種類は問いません。匂いや特定の感覚に意識を向ける必要はありません。</p><form onSubmit={submitRecall}><label htmlFor="fragment">その出来事を一文で書いてください</label><textarea id="fragment" value={fragment} maxLength={100} onChange={(event) => setFragment(event.target.value)} placeholder="例：休日に友人と公園を歩いた。" aria-describedby="fragment-hint" required /><p className="hint" id="fragment-hint">氏名、住所、電話番号などは書かないでください。{fragment.length} / 100文字</p><div className="actions"><button className="secondary" type="button" onClick={noRecall}>{recallAttempts === 0 ? "思い出せない" : "別の出来事も思い出せない"}</button><button className="primary" type="submit">この内容で進む</button></div></form></>}
-      {step === "questions" && <><h1>記憶についての質問</h1><div className="progress-label"><span>質問 {currentQuestion + 1} / 6</span><span>回答は思い出せる範囲で</span></div><div className="progress" role="progressbar" aria-label="質問への回答の進行" aria-valuemin={1} aria-valuemax={6} aria-valuenow={currentQuestion + 1}><span style={{ transform: `scaleX(${questionProgress})` }} /></div><p className="question">{questionTexts[currentQuestion] || "APIから質問を取得しています…"}</p><form onSubmit={submitAnswer}><label htmlFor="answer">思い出せる範囲で答えてください</label><textarea id="answer" value={answers[currentQuestion]} onChange={(event) => setAnswers((current) => current.map((value, index) => index === currentQuestion ? event.target.value : value))} aria-describedby="answer-hint" disabled={busy || !questionTexts[currentQuestion]} required /><p className="hint" id="answer-hint">分からない、思い出せない、という回答でも構いません。</p><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")} disabled={busy}>ここで中止する</button><button className="primary" type="submit" disabled={busy || !questionTexts[currentQuestion]}>{busy ? "生成中…" : currentQuestion === 5 ? "回答を終える" : "次の質問へ"}</button></div></form></>}
-      {step === "narrative" && <><h1>作成された文章</h1><p className="lead">初期断片と回答だけを事実の材料に、実APIが整えた一人称文章です。質問文は回答対象を解釈する文脈としてだけ使われます。</p><div className="narrative">{narrative}</div><div className="callout">この文章は研究上の正確な記憶の再構築を保証するものではありません。</div><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")}>ここで中止する</button><button className="primary" onClick={() => setStep("evaluation")}>文章を評価する</button></div></>}
-      {step === "evaluation" && <><h1>文章についての評価</h1><p className="lead">文章を読み、以下の各項目で1〜7のいずれかを選んでください。初期値はありません。</p><fieldset className="group"><legend>文章について、各項目に回答してください</legend>{evaluationItems.map(({ id, text }) => <Rating key={id} id={id} text={text} value={ratings[id]} onChange={setRating} />)}</fieldset><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")}>ここで中止する</button><button className="primary" disabled={!allRatingsAnswered} onClick={() => setStep("check")}>評価を確定して進む</button></div></>}
-      {step === "check" && <><h1>質問についての確認</h1><p className="lead">質問がどこへ注意を向けたか、文章の品質について回答してください。</p><fieldset className="group"><legend>質問と文章について、各項目に回答してください</legend>{checks.map((item) => <Rating key={item.id} id={item.id} text={item.text} value={ratings[item.id]} lowLabel={item.low} highLabel={item.high} onChange={setRating} />)}</fieldset><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")}>ここで中止する</button><button className="primary" disabled={!allChecksAnswered} onClick={() => setStep("debrief")}>確認を確定して進む</button></div></>}
-      {step === "debrief" && <><h1>説明</h1><div className="copy"><p>この検証では、質問の向け方が、生成された文章の受け取られ方（評価）に与える影響を確認します。</p><p>質問条件は、出来事の構造、視覚、匂いに関する注意のいずれかでした。条件名は回答終了まで表示していません。</p><p>完了すると、初期断片、6つの質問と回答、質問の分岐記録、生成文章と証拠ID、条件、評価結果がこのPCの<code>data/results-v0.4.1.csv</code>へ1行で追記されます。</p></div><button className="primary" onClick={saveResult} disabled={busy || saved}>{busy ? "CSVへ保存中…" : "保存して完了する"}</button></>}
-      {step === "done" && <div className="terminal"><div className="mark">✓</div><h1>{fragment ? "ご協力ありがとうございました" : "参加せずに終了しました"}</h1><p>{fragment ? (saved ? "結果をローカルCSVへ保存しました。" : "保存せずに終了しました。") : "入力や条件割付を行わずに終了しました。"}</p><button className="secondary" onClick={reset}>最初に戻る</button></div>}
+      {step === "welcome" && <><h1>{language === "en" ? "Create a short story about a past event" : <><span className="title-line"><span className="title-phrase">過去の出来事</span><wbr /><span className="title-phrase">について</span></span><span className="title-line"><span className="title-phrase">短い文章を</span><wbr /><span className="title-phrase">作ります</span></span></>}</h1><p className="lead">{t("あなたの断片的な記憶と、質問への回答を材料に、実APIで質問と文章を生成し、その文章について評価します。")}</p><div className="callout"><strong>{t("質問条件は参加者画面に表示しません")}</strong><br />{t("有効な初期断片を入力した後、質問条件へ割り付けます。")}</div><button className="primary" onClick={() => setStep("consent")}>{t("説明を読む")}</button></>}
+      {step === "consent" && <><h1>{t("参加前の説明")}</h1><div className="copy"><p>{t("この検証は、自伝的記憶に関する質問と、AIが作る物語への評価の流れを確認するためのものです。")}</p><p>{t("AIは初期断片と回答を素材に物語を創作します。回答にない情景や感情、出来事が加わることがあります。生成文章は、実際の記憶を復元した記録ではありません。")}</p><p>{t("入力した記憶内容と質問への回答は、質問生成と文章生成のためにOpenAI APIへ送信されます。完了時には、初期断片、質問、回答、生成文章、評価結果をこのPCのローカルCSVへ保存します。")}</p><p>{t("API側のデータ取扱いと、このPCのCSVファイルの管理方法を確認してください。安全に説明できる出来事を選び、答えたくない場合はいつでも中止できます。")}</p></div><label className="check"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />{t("説明を読み、物語にAIの創作が含まれること、実APIへの送信とローカルCSVへの保存を理解して検証を開始します。")}</label><div className="actions"><button className="secondary" onClick={() => setStep("done")}>{t("参加しない")}</button><button className="primary" disabled={!consent} onClick={() => setStep("recall")}>{t("同意して進む")}</button></div></>}
+      {step === "recall" && <><h1>{t("一つの出来事を思い出す")}</h1><p className="lead">{t("あなた自身の過去の、習慣や長い期間ではなく、特定の一回の出来事を選んでください。少なくとも1週間前に起きた、安全に説明できる出来事にしてください。楽しかった、普通だった、つらかったなど、感情の種類は問いません。匂いや特定の感覚に意識を向ける必要はありません。")}</p><form onSubmit={submitRecall}><label htmlFor="fragment">{t("その出来事を一文で書いてください")}</label><textarea id="fragment" value={fragment} maxLength={100} onChange={(event) => setFragment(event.target.value)} placeholder={t("例：休日に友人と公園を歩いた。")} aria-describedby="fragment-hint" required /><p className="hint" id="fragment-hint">{t("氏名、住所、電話番号などは書かないでください。")} {fragment.length} / 100 {t("文字")}</p><div className="actions"><button className="secondary" type="button" onClick={noRecall}>{recallAttempts === 0 ? t("思い出せない") : t("別の出来事も思い出せない")}</button><button className="primary" type="submit">{t("この内容で進む")}</button></div></form></>}
+      {step === "questions" && <><h1>{t("記憶についての質問")}</h1><div className="progress-label"><span>{t("質問")} {currentQuestion + 1} / 6</span><span>{t("回答は思い出せる範囲で")}</span></div><div className="progress" role="progressbar" aria-label={t("質問への回答の進行")} aria-valuemin={1} aria-valuemax={6} aria-valuenow={currentQuestion + 1}><span style={{ transform: `scaleX(${questionProgress})` }} /></div><p className="question">{questionTexts[currentQuestion] || t("APIから質問を取得しています…")}</p><form onSubmit={submitAnswer}><label htmlFor="answer">{t("思い出せる範囲で答えてください")}</label><textarea id="answer" value={answers[currentQuestion]} onChange={(event) => setAnswers((current) => current.map((value, index) => index === currentQuestion ? event.target.value : value))} aria-describedby="answer-hint" disabled={busy || !questionTexts[currentQuestion]} required /><p className="hint" id="answer-hint">{t("分からない、思い出せない、という回答でも構いません。")}</p><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")} disabled={busy}>{t("ここで中止する")}</button><button className="primary" type="submit" disabled={busy || !questionTexts[currentQuestion]}>{busy ? t("生成中…") : currentQuestion === 5 ? t("回答を終える") : t("次の質問へ")}</button></div></form></>}
+      {step === "narrative" && <><h1>{t("作成された文章")}</h1><p className="lead">{t("あなたの初期断片と回答を素材に、AIが創作した一人称の物語です。")}</p><div className="narrative">{narrative}</div><div className="callout">{t("回答にない描写や出来事が含まれることがあります。実際の記憶を復元した記録ではありません。")}</div><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")}>{t("ここで中止する")}</button><button className="primary" onClick={() => setStep("evaluation")}>{t("文章を評価する")}</button></div></>}
+      {step === "evaluation" && <><h1>{t("文章についての評価")}</h1><p className="lead">{t("文章を読み、以下の各項目で1〜7のいずれかを選んでください。初期値はありません。")}</p><ReferenceMaterials language={language} key="evaluation" narrative={narrative} /><fieldset className="group"><legend>{t("文章について、各項目に回答してください")}</legend>{evaluationItems.map(({ id, text }) => <Rating language={language} key={id} id={id} text={t(text)} value={ratings[id]} onChange={setRating} />)}</fieldset><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")}>{t("ここで中止する")}</button><button className="primary" disabled={!allRatingsAnswered} onClick={() => setStep("check")}>{t("評価を確定して進む")}</button></div></>}
+      {step === "check" && <><h1>{t("質問についての確認")}</h1><p className="lead">{t("質問がどこへ注意を向けたか、文章の品質について回答してください。")}</p><ReferenceMaterials language={language} key="check" narrative={narrative} questions={questionTexts} /><fieldset className="group"><legend>{t("質問と文章について、各項目に回答してください")}</legend>{checks.map((item) => <Rating language={language} key={item.id} id={item.id} text={t(item.text)} value={ratings[item.id]} lowLabel={t(item.low)} highLabel={t(item.high)} onChange={setRating} />)}</fieldset><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")}>{t("ここで中止する")}</button><button className="primary" disabled={!allChecksAnswered} onClick={() => setStep("debrief")}>{t("確認を確定して進む")}</button></div></>}
+      {step === "debrief" && <><h1>{t("説明")}</h1><div className="copy"><p>{t("この検証では、質問の向け方が、AIの創作を含む物語の受け取られ方に与える影響を確認します。文章には回答にない描写や出来事が含まれることがあります。")}</p><p>{t("質問条件は、出来事の構造、視覚、匂いに関する注意のいずれかでした。条件名は回答終了まで表示していません。")}</p><p>{t("完了すると、初期断片、6つの質問と回答、質問の分岐記録、生成文章と作成記録、条件、言語、評価結果がこのPCの次のファイルへ1行で追記されます。")} <code>{RESULT_CSV_PATH}</code></p></div><button className="primary" onClick={saveResult} disabled={busy || saved}>{busy ? t("CSVへ保存中…") : t("保存して完了する")}</button></>}
+      {step === "done" && <div className="terminal"><div className="mark">✓</div><h1>{fragment ? t("ご協力ありがとうございました") : t("参加せずに終了しました")}</h1><p>{fragment ? (saved ? t("結果をローカルCSVへ保存しました。") : t("保存せずに終了しました。")) : t("入力や条件割付を行わずに終了しました。")}</p><button className="secondary" onClick={reset}>{t("最初に戻る")}</button></div>}
     </section>
-    <footer>研究実施前の検証用 mock ／ 条件・尺度・保存方針は DRAFT です</footer>
+    <footer>{t("研究実施前の検証用 mock ／ 条件・尺度・保存方針は DRAFT です")}</footer>
   </main>;
 }
 
-function Rating({ id, text, value, lowLabel = "全くそう感じない", highLabel = "非常に強くそう感じる", onChange }: { id: string; text: string; value?: number; lowLabel?: string; highLabel?: string; onChange: (id: string, value: number) => void }) {
-  return <div className="rating"><p id={`${id}-label`}>{text}</p><div className="rating-options" role="radiogroup" aria-labelledby={`${id}-label`}>{[1, 2, 3, 4, 5, 6, 7].map((number) => <label key={number}><input type="radio" name={id} checked={value === number} onChange={() => onChange(id, number)} /><span>{number}</span></label>)}</div><div className="scale"><span>{lowLabel}</span><span>{highLabel}</span></div></div>;
+function Rating({ language, id, text, value, lowLabel, highLabel, onChange }: { language: Language; id: string; text: string; value?: number; lowLabel?: string; highLabel?: string; onChange: (id: string, value: number) => void }) {
+  return <div className="rating"><p id={`${id}-label`}>{text}</p><div className="rating-options" role="radiogroup" aria-labelledby={`${id}-label`}>{[1, 2, 3, 4, 5, 6, 7].map((number) => <label key={number}><input type="radio" name={id} checked={value === number} onChange={() => onChange(id, number)} /><span>{number}</span></label>)}</div><div className="scale"><span>{lowLabel ?? translate(language, "全くそう感じない")}</span><span>{highLabel ?? translate(language, "非常に強くそう感じる")}</span></div></div>;
 }

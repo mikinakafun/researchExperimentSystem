@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit --incremental false",
+    "test": "node --test tests/*.test.cjs",
     "check:api": "node --env-file-if-exists=.env.local scripts/check-api.mjs",
     "run:persona-batch": "node --env-file-if-exists=.env.local scripts/run-persona-batch.mjs"
   },

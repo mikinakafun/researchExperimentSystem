@@ -3,7 +3,7 @@
 - 作成日: 2026-07-15
 - 更新日: 2026-08-16（Standard / Visual / OdorとOdor対Visualの主対比へ更新）
 - 状態: 初稿改訂。指導教員レビュー・認知インタビュー・パイロット前
-- 対応する決定: DEC-014、DEC-033、DEC-034
+- 対応する決定: DEC-014、DEC-033、DEC-036
 - 実装用仕様: [`../../experiment/manipulation-check.yaml`](../../experiment/manipulation-check.yaml)
 - 提示位置: Memory-Likenessを含む主要・副次評価の回答後、デブリーフィング前
 
@@ -38,7 +38,7 @@
 |---|---|---|---|
 | DQ-PRESSURE | 実際には思い出せない詳細まで答えるよう求められていると、どの程度感じましたか。 | To what extent did you feel that you were being asked to provide details you could not actually remember? | 高いほど創作圧力が強い可能性 |
 | DQ-MEMORYBASIS | あなたの回答は、推測ではなく、実際に思い出せた内容にどの程度基づいていましたか。 | To what extent were your answers based on details you actually remembered rather than guesses? | 高いほど記憶に基づく自己報告 |
-| DQ-UNSAID | 作成された文章には、あなたが答えていない内容が、どの程度含まれていたと感じましたか。 | To what extent did you feel that the generated story contained content you had not provided in your answers? | 高いほど参加者が入力にない内容を知覚（DEC-032追記を維持。DEC-034実装後も、除外・再生成・共変量に使わず条件別集計の診断のみ） |
+| DQ-UNSAID | 作成された文章には、あなたが答えていない内容が、どの程度含まれていたと感じましたか。 | To what extent did you feel that the generated story contained content you had not provided in your answers? | 高いほど参加者が入力にない内容を知覚。DEC-036で創作を許可したため、高得点を品質不合格としない。除外、再生成、主分析の共変量に使わず条件別集計の診断のみ |
 
 ## 分析と成立判定
 

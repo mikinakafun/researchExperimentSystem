@@ -11,8 +11,8 @@
 ## 現在地（3行）
 
 1. 研究: 三条件（Standard / Visual / Odor）の質問焦点がLLM生成物語の本人評価（主=Perceived Memory-Likeness、他3軸は副）へ与える影響。被験者間、日本語基本。主たる計画対比はOdor対Visual。
-2. 実装: `expTest1`は旧技術デモ、`memoryExperimentSystem`は削除・保全済み。現行の`mockExperimentSystem`へPrompt Catalog v0.4.1-draftを反映し、実APIスモークまで完了したが、30件再評価前のため**人間パイロットと本実験には使えない。**
-3. 律速: 同じ合成データ30件で機械再評価し、質問違反、条件別フォールバック率、証拠量、文章長、証拠逸脱を判定すること。その後に教員確認と小規模な人間パイロットへ進む。
+2. 実装: 全体版はv0.4.3。質問はDEC-035、創作を許す最終文章はDEC-036に従う。30件再評価と本人評価の確認前。研究実施の承認状態は変更していない。
+3. 律速: 同じ合成データ30件で機械再評価し、質問違反、条件別フォールバック率、入力量、文章長、入力との矛盾と創作追加の傾向を確認すること。その後に教員確認と小規模な人間パイロットへ進む。
 
 ## 文書地図
 
@@ -33,20 +33,22 @@
 | ファイル | 役割 |
 | --- | --- |
 | [MASTER.md](MASTER.md)（本書） | 入口・地図・決定待ちリスト |
-| [project/decisions.md](project/decisions.md) | 全決定の正本（DEC-001〜034、状態・根拠・履歴付き） |
+| [project/decisions.md](project/decisions.md) | 全決定の正本（DEC-001〜036、状態・根拠・履歴付き） |
 | [project/prototype-progress.md](project/prototype-progress.md) | 旧2実装と現行mockの進捗・判定の正本 |
 
 ### B. 仕様初稿（レビュー待ち。承認されれば次期PROTOCOL.mdへ統合）
 
 | ファイル | 内容 | 状態 |
 | --- | --- | --- |
-| [protocol/PROTOCOL.md](protocol/PROTOCOL.md) | パイロット実験プロトコル一枚仕様 v0.3.0-draft。確定・暫定・未決定と承認ゲートG1〜G5を集約 | DRAFT。mockへの同期と実APIスモークは完了、30件再評価は未了 |
-| [protocol/consent-form-ja.md](protocol/consent-form-ja.md) | 参加者向け同意文 v0.1.0-draft（DEC-019） | 連絡先・所属機関窓口の記入と教員確認前 |
+| [protocol/PROTOCOL.md](protocol/PROTOCOL.md) | パイロット実験プロトコル仕様 v0.4.0-draft。確定・暫定・未決定と承認ゲートG1〜G5を集約 | DRAFT。創作方針をmockへ同期。新方針の出力品質評価前 |
+| [protocol/consent-form-ja.md](protocol/consent-form-ja.md) | 参加者向け同意文 v0.2.0-draft（DEC-019、036） | 連絡先・所属機関窓口の記入と教員確認前 |
 | [protocol/initial-recall-trigger.md](protocol/initial-recall-trigger.md) | 初期想起トリガー v0.1.2（DEC-015） | 指導教員レビュー・認知インタビュー前 |
 | [protocol/manipulation-check.md](protocol/manipulation-check.md) + `experiment/manipulation-check.yaml` | Manipulation Check v0.2.0-draft（DEC-014、033） | 同上 |
 | [archive/memory-experiment-system-archive.md](archive/memory-experiment-system-archive.md) | 削除した旧production candidateの履歴・再利用判断・検証結果 | 保全記録。仕様の正本ではない |
-| [prompts/PROMPT_CATALOG_V0.4.1_DRAFT.md](prompts/PROMPT_CATALOG_V0.4.1_DRAFT.md) | Standard / Visual / Odor、共通ターン機能、証拠制約を定めた次期プロンプトカタログ | DRAFT。研究方針は採用済み、既存コードへは未反映 |
-| `prompts/` | 実行時に読み込む UTF-8 のプロンプト本文。現行mockは`v0.4.1-mock-draft`、`v0.3.0-*`は旧挙動の比較用 | 編集後にサーバー再起動 |
+| [prompts/PROMPT_CATALOG_V0.4.1_DRAFT.md](prompts/PROMPT_CATALOG_V0.4.1_DRAFT.md) | Standard / Visual / Odor、共通ターン機能、証拠制約を定めた次期プロンプトカタログ | 旧版。質問はDEC-035、文章はDEC-036で更新 |
+| [prompts/PROMPT_CATALOG_V0.4.2_DRAFT.md](prompts/PROMPT_CATALOG_V0.4.2_DRAFT.md) | DEC-035に基づく現行質問検証と生成方針 | DRAFT。30件再評価前 |
+| [prompts/PROMPT_CATALOG_V0.4.3_DRAFT.md](prompts/PROMPT_CATALOG_V0.4.3_DRAFT.md) | DEC-036に基づく創作文章と作成記録 | DRAFT。出力品質評価前 |
+| `prompts/` | 現行質問は`v0.4.2-mock-draft`、文章はv0.4.3。旧版は比較用 | 編集後にサーバー再起動 |
 
 ### C. 履歴・旧仕様（読む必要なし。削除もしない）
 
@@ -68,7 +70,7 @@
 | `expTest1/artifacts/prompt-pilot/`（6件: 最終report 3件＋Fableレビュー3件） | decisions.mdが引用する検証証跡のみ残存。中間版ログは2026-07-16に削除済み |
 | [archive/memory-experiment-system-archive.md](archive/memory-experiment-system-archive.md) | v0.3.0乾式・旧実API検証・未解決リスクの結果を要約保全 |
 | `mockExperimentSystem/README.md` | 現行mockの範囲、起動、バッチ検証手順、利用禁止範囲 |
-| `mockExperimentSystem/artifacts/prompt-eval-2026-07-25/` | v0.3.0実API評価とv0.4.0対照評価。現行プロンプトの不合格根拠と修正候補 |
+| `mockExperimentSystem/artifacts/prompt-eval-2026-07-25/` | v0.3.0実API評価とv0.4.0対照評価。旧方針の評価履歴 |
 
 ## 確定事項の要約（詳細は`docs/project/decisions.md`）
 
@@ -80,7 +82,7 @@
 - 追質問は条件制約付きLLM生成、全条件同一ターン数で、**パイロット版は6ターンを暫定採用**（DEC-029追記。理由: 最終文章の情報量確保。正式値の承認は残る）。再生成上限3試行＋フォールバック＋全ログ（DEC-030、パイロット合格・本番承認未了）。
 - 生成質問は初期記憶断片を入力に、出来事に関連した記憶を掘り出す方向で生成する（DEC-025 note追記）。ターン数・モデル・温度・プロンプト版・検査閾値・フォールバック規則は、設計上一箇所の変数として設置し操作可能にする（DEC-030追記）。
 - 三条件はStandard、Visual、Odorとし、独立変数を質問焦点（出来事構造、視覚、匂い）の三水準とする。主たる計画対比はOdor対Visualであり、「匂い対非嗅覚感覚全般」とは解釈しない（DEC-033）。
-- 最終文章の事実証拠は初期断片と参加者回答だけに限定する。質問は文脈としてのみ使用し、最低文数と当事者ペルソナを廃止する。全条件で同一の条件盲検編集処理を使う（DEC-034）。
+- 最終文章は初期断片と回答を素材とするAIの創作を許す。全条件で共通の生成処理と説明を使い、質問から創作を含む読後反応までの処理全体を比較する。作成記録は素材参照と追加の自己申告とする（DEC-036）。
 - expTest1は技術デモ（DEC-009）。旧APIキー失効済み（DEC-026）。倫理審査は行わない、ただし同意・説明は必須（DEC-027）。入試は8月5-6日（DEC-028）。
 
 ## 決定すべき事項（優先順・依存順）
@@ -100,14 +102,14 @@
 | # | 決めること | 対応ID |
 | --- | --- | --- |
 | 6 | 初期想起トリガー最終文言（一文・100文字暫定は反映済み・仕様v0.1.2。残: 「1週間前」の妥当性、上限の正式承認、センシティブ対応の教員確認） | DEC-015 / OD-007 |
-| 7 | Prompt Catalog v0.4.1-draftを実装し、同一合成データで再検証して凍結する | DEC-012, 029〜034 / OD-006 |
+| 7 | Prompt Catalog v0.4.3-draftを同一合成データで再検証し、本人評価の確認を経て凍結する | DEC-012, 029〜034 / OD-006 |
 | 8 | モデル版・temperature・再試行上限の正式値（4o系は方向のみ。`gpt-4o-mini`は未確定） | DEC-018 / OD-004, 005 |
 | 9 | 4評価軸の項目文・尺度・得点化の最終化（日本語原案は作成済み。項目理解・妥当性・7件法は未承認） | DEC-010 / OD-009 |
 | 10 | H1と主対比は決定済み。検定法・多重比較・除外規則を最終化する | DEC-011後半, 021 |
 | 11 | Manipulation Check最終文言と英語版同等性 | DEC-014 / OD-010 |
 | 12 | 同意文・API送信説明・撤回手続きの最終化（草案作成済み。連絡先・機関確認が残る） | DEC-019 / OD-008 |
 | 13 | 保存項目・保持期間・削除方法（10年基準案は作成済み。所属機関規程・削除手順の確認が残る） | DEC-020 / OD-011 |
-| 14 | DEC-034の証拠制約を実装し、証拠逸脱・文章長・条件別証拠量を再評価する | DEC-032, 034 / OD-022 |
+| 14 | DEC-036の創作方針で、入力との矛盾、文章量、条件別の追加内容を再評価する | DEC-032, 036 / OD-022 |
 
 **Tier 2 — 募集・分析（Tier 1確定後、パイロット前）**
 

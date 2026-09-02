@@ -2,6 +2,7 @@ import { createResponse, jsonError, OpenAIRequestError, parseJsonObject } from "
 import { fallbackQuestion } from "../fallback-questions";
 import { buildFollowUpInstructions, PROMPT_CONFIG, type ConversationTurn, type PromptCondition, type QuestionMetadata } from "../prompt-config";
 import { hasNoRecallAtLatestTurn, validateQuestion, type QuestionCandidate } from "../question-validation";
+import { parseLanguage } from "../../../lib/language";
 
 const conditions = new Set<PromptCondition>(["standard", "visual", "odor"]);
 
@@ -30,10 +31,13 @@ export async function POST(request: Request) {
       fragment?: string;
       history?: Array<{ question: string; answer: string }>;
       turn?: number;
+      language?: unknown;
     };
+    const language = parseLanguage(body?.language);
     if (
+      !body || !language ||
       !body.condition || !conditions.has(body.condition as PromptCondition) ||
-      !body.fragment?.trim() || !Array.isArray(body.history) ||
+      typeof body.fragment !== "string" || !body.fragment.trim() || !Array.isArray(body.history) ||
       typeof body.turn !== "number" || !Number.isInteger(body.turn) || body.turn < 1 || body.turn > PROMPT_CONFIG.followUpTurns ||
       body.history.some((turn) => !turn || typeof turn.question !== "string" || !turn.question.trim() || typeof turn.answer !== "string" || !turn.answer.trim()) ||
       body.history.length !== body.turn - 1
@@ -46,14 +50,15 @@ export async function POST(request: Request) {
     const fragment = body.fragment as string;
     const history = body.history as ConversationTurn[];
     let retryReason = "";
-    const rejectionLog: Array<{ attempt: number; flags: string[] }> = [];
+    const rejectionLog: Array<{ attempt: number; flags: string[]; question?: string; metadata?: QuestionMetadata }> = [];
     for (let attempt = 1; attempt <= PROMPT_CONFIG.maxFollowUpAttempts; attempt += 1) {
       try {
         const result = await createResponse({
           temperature: PROMPT_CONFIG.followUpTemperature,
           responseFormat: "follow-up",
-          instructions: buildFollowUpInstructions(condition, turn, hasNoRecallAtLatestTurn(history), retryReason),
+          instructions: buildFollowUpInstructions(condition, turn, hasNoRecallAtLatestTurn(history), retryReason, language),
           input: JSON.stringify({
+            language,
             turn,
             assignedCondition: condition,
             evidence: [
@@ -66,11 +71,11 @@ export async function POST(request: Request) {
         });
         const parsed = parseJsonObject(result.text);
         const { candidate, schemaFlags } = parseCandidate(parsed);
-        const flags = [...schemaFlags, ...validateQuestion({ ...candidate, condition, turn, fragment, history })];
+        const flags = [...schemaFlags, ...validateQuestion({ ...candidate, condition, turn, fragment, history, language })];
         if (flags.length === 0) {
-          return Response.json({ ...candidate, model: result.model, requestId: result.id, promptVersion: PROMPT_CONFIG.version, source: "generated", attempts: attempt, diagnostics: { rejections: rejectionLog } });
+          return Response.json({ ...candidate, language, model: result.model, requestId: result.id, promptVersion: PROMPT_CONFIG.version, source: "generated", attempts: attempt, diagnostics: { rejections: rejectionLog } });
         }
-        rejectionLog.push({ attempt, flags });
+        rejectionLog.push({ attempt, flags, question: candidate.question, metadata: candidate.metadata });
         console.warn("[follow-up validation]", JSON.stringify({ condition, turn, attempt, flags }));
         retryReason = flags.join(", ");
       } catch (error) {
@@ -82,8 +87,8 @@ export async function POST(request: Request) {
       }
     }
 
-    const candidate = fallbackQuestion({ condition, turn, fragment, history });
-    return Response.json({ ...candidate, model: "fallback", requestId: null, promptVersion: PROMPT_CONFIG.version, source: "fallback", attempts: PROMPT_CONFIG.maxFollowUpAttempts, diagnostics: { rejections: rejectionLog } });
+    const candidate = fallbackQuestion({ condition, turn, fragment, history, language });
+    return Response.json({ ...candidate, language, model: "fallback", requestId: null, promptVersion: PROMPT_CONFIG.version, source: "fallback", attempts: PROMPT_CONFIG.maxFollowUpAttempts, diagnostics: { rejections: rejectionLog } });
   } catch (error) {
     return jsonError(error);
   }

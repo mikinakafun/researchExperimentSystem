@@ -121,4 +121,4 @@ rules:
   - "Do not replace randomized condition assignment with manipulation-check responses in the primary analysis."
   - "Do not combine the three attention items into a single total score."
   - "Treat DQ-PRESSURE and DQ-MEMORYBASIS as diagnostics, not manipulation-check outcomes."
-  - "Treat DQ-UNSAID as a per-condition diagnostic of perceived unprovided content; never use it for exclusion, regeneration, or as a covariate (DEC-032 addendum retained under DEC-034)."
+  - "Treat DQ-UNSAID as a per-condition diagnostic of perceived unprovided content; never use it for exclusion, regeneration, or as a covariate (DEC-036: creative additions are permitted and a high score is not a quality failure)."

@@ -150,12 +150,13 @@ async function runSession(condition, persona) {
     answers: turns.map(({ answer }) => answer),
     finalResult: narrativePayload.narrative,
     narrativeSentences: narrativePayload.sentences,
+    narrativePromptVersion: narrativePayload.promptVersion,
     evaluation: {},
     checks: {},
   });
   if (!savePayload?.saved && !savePayload?.duplicate) throw new Error(`${sessionId}: result was not saved`);
   await mkdir(DATA_DIRECTORY, { recursive: true });
-  await appendFile(LOG_PATH, `${JSON.stringify({ sessionId, personaId: persona.id, condition, odorMemory: persona.odorMemory, turns, narrativeSentences: narrativePayload.sentences, narrativeAttempts: narrativePayload.attempts, savedAt: new Date().toISOString() })}\n`, "utf8");
+  await appendFile(LOG_PATH, `${JSON.stringify({ sessionId, personaId: persona.id, condition, odorMemory: persona.odorMemory, turns, narrativeSentences: narrativePayload.sentences, narrativePromptVersion: narrativePayload.promptVersion, narrativeAttempts: narrativePayload.attempts, savedAt: new Date().toISOString() })}\n`, "utf8");
   return { sessionId, persona, condition, turns, narrative: narrativePayload.narrative, source: savePayload.duplicate ? "duplicate" : "saved" };
 }
 
