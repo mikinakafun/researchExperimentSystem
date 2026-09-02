@@ -14,7 +14,7 @@ require.extensions['.ts'] = (module, filename) => {
 const { fallbackQuestion } = require('../app/api/fallback-questions.ts');
 const { PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
 const { isLanguage, joinNarrative } = require('../lib/language.ts');
-const { validateNarrativeSentences } = require('../lib/narrative.ts');
+const { parseResultData } = require('../lib/result-validation.ts');
 const requests = [];
 const results = [];
 
@@ -35,19 +35,17 @@ http.createServer(async (req, res) => {
       if (req.url === '/api/follow-up') {
         // Deterministic error path, with no provider call.
         if (body.fragment === 'offline-error') return json(res, 503, { error: 'OPENAI_API_KEY is not configured on the server.' });
-        return json(res, 200, { ...fallbackQuestion(body), language: body.language, promptVersion: PROMPT_CONFIG.version });
+        return json(res, 200, { ...fallbackQuestion(body), language: body.language, promptVersion: PROMPT_CONFIG.version, source: 'fallback', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['offline_fixture'] })) } });
       }
       if (req.url === '/api/narrative') {
         const sentences = (body.language === 'en'
           ? ['I walked through the park with a friend.', 'We said goodbye and went home.']
           : ['友人と公園を歩いた。', '別れを告げて家に帰った。']
         ).map((text) => ({ text, sourceIds: ['fragment'], containsCreativeAddition: true }));
-        return json(res, 200, { language: body.language, narrative: joinNarrative(sentences, body.language), sentences, promptVersion: PROMPT_CONFIG.version });
+        return json(res, 200, { language: body.language, narrative: joinNarrative(sentences, body.language), sentences, promptVersion: PROMPT_CONFIG.version, source: 'generated', model: 'offline-fixture', requestId: 'offline-narrative', attempts: 1, diagnostics: { rejections: [] } });
       }
       if (req.url === '/api/save-result') {
-        const flags = validateNarrativeSentences(body.narrativeSentences, 6, 10, body.language);
-        if (flags.length || joinNarrative(body.narrativeSentences, body.language) !== body.finalResult) return json(res, 400, { error: 'Invalid narrative.' });
-        if (Object.keys(body.evaluation).length !== 12 || Object.keys(body.checks).length !== 6) return json(res, 400, { error: 'Incomplete ratings.' });
+        if (!parseResultData(body)) return json(res, 400, { error: 'Invalid result payload.' });
         results.push(body);
         return json(res, 200, { saved: true, language: body.language });
       }

@@ -120,6 +120,11 @@ function validatePersonas() {
   if (errors.length) throw new Error(`Persona validation failed: ${errors.join(", ")}`);
 }
 
+function generationMetadata(payload) {
+  const { model, requestId, promptVersion, source, attempts, diagnostics } = payload;
+  return { model, requestId, promptVersion, source, attempts, diagnostics };
+}
+
 async function runSession(condition, persona) {
   const sessionId = `${BATCH_ID}-${condition}-${persona.id}`;
   const turns = [];
@@ -130,7 +135,7 @@ async function runSession(condition, persona) {
     const answer = await simulateAnswer(persona, payload.question);
     const diagnostics = payload.diagnostics?.rejections ?? [];
     if (!payload.metadata) throw new Error(`${sessionId}: question ${turn} metadata was empty`);
-    turns.push({ turn, question: payload.question, answer, metadata: payload.metadata, source: payload.source, attempts: payload.attempts, rejections: diagnostics });
+    turns.push({ turn, question: payload.question, answer, metadata: payload.metadata, generation: generationMetadata(payload), source: payload.source, attempts: payload.attempts, rejections: diagnostics });
     history = [...history, { question: payload.question, answer, metadata: payload.metadata }];
   }
 
@@ -147,16 +152,18 @@ async function runSession(condition, persona) {
     fragment: persona.fragment,
     questions: turns.map(({ question }) => question),
     questionMetadata: turns.map(({ metadata }) => metadata),
+    questionGeneration: turns.map(({ generation }) => generation),
     answers: turns.map(({ answer }) => answer),
     finalResult: narrativePayload.narrative,
     narrativeSentences: narrativePayload.sentences,
     narrativePromptVersion: narrativePayload.promptVersion,
+    narrativeGeneration: generationMetadata(narrativePayload),
     evaluation: {},
     checks: {},
   });
   if (!savePayload?.saved && !savePayload?.duplicate) throw new Error(`${sessionId}: result was not saved`);
   await mkdir(DATA_DIRECTORY, { recursive: true });
-  await appendFile(LOG_PATH, `${JSON.stringify({ sessionId, personaId: persona.id, condition, odorMemory: persona.odorMemory, turns, narrativeSentences: narrativePayload.sentences, narrativePromptVersion: narrativePayload.promptVersion, narrativeAttempts: narrativePayload.attempts, savedAt: new Date().toISOString() })}\n`, "utf8");
+  await appendFile(LOG_PATH, `${JSON.stringify({ sessionId, personaId: persona.id, condition, odorMemory: persona.odorMemory, turns, narrativeSentences: narrativePayload.sentences, narrativePromptVersion: narrativePayload.promptVersion, narrativeAttempts: narrativePayload.attempts, narrativeGeneration: generationMetadata(narrativePayload), savedAt: new Date().toISOString() })}\n`, "utf8");
   return { sessionId, persona, condition, turns, narrative: narrativePayload.narrative, source: savePayload.duplicate ? "duplicate" : "saved" };
 }
 

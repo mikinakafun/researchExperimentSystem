@@ -2,6 +2,17 @@ import type { Language } from "./language";
 
 // Japanese source strings are stable keys; translating labels never changes rating IDs.
 export const englishMessages = {
+  "保存先の設定が変更されました。ページを開き直し、新しい検証を開始してください。": "The storage destination has changed. Reload the page and start a new test session.",
+  "結果の保存に失敗しました。入力を保持したまま、もう一度お試しください。": "Could not save the result. Your input is still here. Please try again.",
+  "結果の保存に失敗しました。もう一度お試しください。": "Could not save the result. Please try again.",
+  "結果を保存中…": "Saving the result…",
+  "これは接続検証用です。入力内容をOpenAI APIへ送信し、完了時に結果をSupabaseのクラウドDBへ保存します。": "This is a connection test. Your input is sent to the OpenAI API. Completed results are stored in the Supabase cloud database.",
+  "入力した記憶内容と質問への回答は、質問生成と文章生成のためにOpenAI APIへ送信されます。完了時には、初期断片、質問、回答、生成文章、評価結果をSupabaseのクラウドDBへ保存します。": "Your memory content and answers are sent to the OpenAI API to generate questions and a story. On completion, your initial fragment, questions, answers, generated story, and ratings are stored in the Supabase cloud database.",
+  "現在は架空の出来事による接続検証の段階です。人間の研究参加には使用しないでください。OpenAIとSupabaseでのデータ取扱いを確認してください。": "This stage uses fictional events to test the connection. Do not use it for human research participation. Check how OpenAI and Supabase handle data.",
+  "説明を読み、物語にAIの創作が含まれること、OpenAI APIへの送信とSupabaseへの保存を理解して検証を開始します。": "I have read the information and understand that the story includes AI-created content, my input is sent to the OpenAI API, and completed results are saved to Supabase.",
+  "完了すると、初期断片、6つの質問と回答、生成文章、生成記録、条件、言語、評価結果をSupabaseのクラウドDBへ保存します。": "On completion, your initial fragment, six questions and answers, generated story, generation records, condition, language, and ratings are stored in the Supabase cloud database.",
+  "結果をSupabaseへ保存しました。": "The result has been saved to Supabase.",
+
   "記憶に関する研究 | Mock": "Memory Study | Mock",
   "言語": "Language",
   "表示と生成に使う言語を選択してください。": "Choose the language for the interface and generated content.",
@@ -116,4 +127,3 @@ export type MessageKey = keyof typeof englishMessages;
 export function translate(language: Language, key: MessageKey): string {
   return language === "en" ? englishMessages[key] : key;
 }
-

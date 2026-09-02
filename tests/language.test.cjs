@@ -33,6 +33,8 @@ function mockKey(t) {
   t.after(() => { if (original === undefined) delete process.env.OPENAI_API_KEY; else process.env.OPENAI_API_KEY = original; });
 }
 
+const { generationMetadata } = require('./result-fixtures.cjs');
+const { readGenerationMetadata } = require('../lib/generation.ts');
 test('language defaults, invalid input, and all UI translations are explicit', () => {
   assert.equal(parseLanguage(undefined), 'ja');
   for (const language of ['ja', 'en']) assert.equal(parseLanguage(language), language);
@@ -180,7 +182,8 @@ test('English narrative generation retries, joins sentences with spaces, and sav
     questions: answers.map((item) => item.question), answers: answers.map((item) => item.answer),
     questionMetadata: Array(6).fill({ conditionFocus: 'odor' }),
     finalResult: generated.narrative, narrativeSentences: generated.sentences,
-    narrativePromptVersion: PROMPT_CONFIG.version, evaluation: { test: 4 }, checks: { test: 4 },
+    narrativePromptVersion: PROMPT_CONFIG.version, evaluation: {}, checks: {},
+    narrativeGeneration: readGenerationMetadata(generated), questionGeneration: Array.from({ length: 6 }, () => generationMetadata()),
   };
   const saved = await save(request(payload));
   assert.equal(saved.status, 200);
@@ -194,7 +197,7 @@ test('English narrative generation retries, joins sentences with spaces, and sav
   for (const language of [null, 'fr', 'ja']) assert.equal((await save(request({ ...payload, language }))).status, 400);
   assert.equal((await save(request({ ...payload, finalResult: sentences.map((item) => item.text).join('') }))).status, 400);
   fs.writeFileSync(path.join(temporary, RESULT_CSV_PATH), 'mismatched,header\n');
-  assert.equal((await save(request({ ...payload, sessionId: 'header-test' }))).status, 500);
+  assert.equal((await save(request({ ...payload, sessionId: 'header-test' }))).status, 503);
   assert.equal(fs.readFileSync(path.join(temporary, RESULT_CSV_PATH), 'utf8'), 'mismatched,header\n');
 });
 

@@ -52,6 +52,7 @@ export async function POST(request: Request) {
             language,
             sentences,
             model: result.model,
+            source: "generated",
             requestId: result.id,
             promptVersion: PROMPT_CONFIG.version,
             attempts: attempt,
