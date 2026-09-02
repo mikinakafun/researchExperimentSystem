@@ -1,0 +1,124 @@
+schema_version: "1.0"
+spec_version: "0.2.0-draft"
+created_at: "2026-07-15"
+updated_at: "2026-08-16"
+status: "pending_supervisor_review_and_pilot"
+
+administration:
+  timing: "after_all_primary_and_secondary_outcome_ratings_before_debriefing"
+  order: "fixed"
+  one_item_per_screen: true
+  required: true
+  response_type: "radio"
+  default_selection: null
+  scale:
+    min: 1
+    max: 7
+    labels:
+      ja:
+        1: "全く向けなかった／全く感じなかった"
+        4: "中程度"
+        7: "非常に強く向けた／非常に強く感じた"
+      en:
+        1: "Not at all"
+        4: "Moderately"
+        7: "Very much"
+  store_fields:
+    - "item_id"
+    - "displayed_language"
+    - "exact_displayed_text"
+    - "rating"
+    - "presented_at"
+    - "answered_at"
+
+items:
+  - id: "MC-EVENT"
+    category: "manipulation_check"
+    construct: "attention_to_event_structure"
+    text:
+      ja: "提示された質問は、出来事の中での行動、人物、やり取り、起きた順序に、どの程度あなたの注意を向けましたか。"
+      en: "To what extent did the questions direct your attention to actions, people, interactions, and the sequence of the event?"
+    anchors:
+      ja: {1: "全く向けなかった", 7: "非常に強く向けた"}
+      en: {1: "Not at all", 7: "Very much"}
+  - id: "MC-VISUAL"
+    category: "manipulation_check"
+    construct: "attention_to_visual_details"
+    text:
+      ja: "提示された質問は、物や人の見た目、色、明るさ、配置などの視覚的な詳細に、どの程度あなたの注意を向けましたか。"
+      en: "To what extent did the questions direct your attention to visual details, such as the appearance, colors, lighting, or arrangement of objects and people?"
+    anchors:
+      ja: {1: "全く向けなかった", 7: "非常に強く向けた"}
+      en: {1: "Not at all", 7: "Very much"}
+  - id: "MC-ODOR"
+    category: "manipulation_check"
+    construct: "attention_to_odor"
+    text:
+      ja: "提示された質問は、匂いや空気のにおいに、どの程度あなたの注意を向けましたか。"
+      en: "To what extent did the questions direct your attention to smells or the scent of the air?"
+    anchors:
+      ja: {1: "全く向けなかった", 7: "非常に強く向けた"}
+      en: {1: "Not at all", 7: "Very much"}
+  - id: "DQ-PRESSURE"
+    category: "data_quality_diagnostic"
+    construct: "pressure_to_report_unremembered_details"
+    text:
+      ja: "実際には思い出せない詳細まで答えるよう求められていると、どの程度感じましたか。"
+      en: "To what extent did you feel that you were being asked to provide details you could not actually remember?"
+    anchors:
+      ja: {1: "全く感じなかった", 7: "非常に強く感じた"}
+      en: {1: "Not at all", 7: "Very much"}
+  - id: "DQ-MEMORYBASIS"
+    category: "data_quality_diagnostic"
+    construct: "answers_based_on_remembered_content"
+    text:
+      ja: "あなたの回答は、推測ではなく、実際に思い出せた内容にどの程度基づいていましたか。"
+      en: "To what extent were your answers based on details you actually remembered rather than guesses?"
+    anchors:
+      ja: {1: "全く基づいていなかった", 7: "完全に基づいていた"}
+      en: {1: "Not at all", 7: "Completely"}
+  - id: "DQ-UNSAID"
+    category: "data_quality_diagnostic"
+    construct: "perceived_unprovided_content_in_narrative"
+    text:
+      ja: "作成された文章には、あなたが答えていない内容が、どの程度含まれていたと感じましたか。"
+      en: "To what extent did you feel that the generated story contained content you had not provided in your answers?"
+    anchors:
+      ja: {1: "全く含まれていなかった", 7: "非常に多く含まれていた"}
+      en: {1: "Not at all", 7: "Very much"}
+
+analysis:
+  primary_item: "MC-ODOR"
+  primary_contrast:
+    condition_order:
+      - "standard"
+      - "visual"
+      - "odor"
+    coefficients:
+      - 0
+      - -1
+      - 1
+    interpretation: "Odor minus Visual"
+  secondary_checks:
+    - item: "MC-ODOR"
+      comparison: "Odor minus Standard"
+    - item: "MC-VISUAL"
+      expected_highest_condition: "Visual"
+    - item: "MC-EVENT"
+      expected_highest_condition: "Standard"
+  evidence_classification:
+    strong: "Primary contrast estimate is positive and its two-sided 95% confidence interval excludes zero."
+    inconclusive: "Primary contrast estimate is positive but its two-sided 95% confidence interval includes zero."
+    failed_or_reversed: "Primary contrast estimate is zero or negative."
+  participant_exclusion_based_on_items: false
+  include_as_covariate_in_primary_outcome_model: false
+  report_all_items: true
+
+rules:
+  - "Present manipulation-check items only after all outcome ratings."
+  - "Do not show condition-specific explanations before the items."
+  - "Do not exclude participants because their manipulation-check rating is low."
+  - "Do not replace randomized condition assignment with manipulation-check responses in the primary analysis."
+  - "Do not combine the three attention items into a single total score."
+  - "Treat DQ-PRESSURE and DQ-MEMORYBASIS as diagnostics, not manipulation-check outcomes."
+  - "Treat DQ-UNSAID as a per-condition diagnostic of perceived unprovided content; never use it for exclusion, regeneration, or as a covariate (DEC-032 addendum retained under DEC-034)."

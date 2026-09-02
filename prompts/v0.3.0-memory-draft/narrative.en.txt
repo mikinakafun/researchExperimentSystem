@@ -1,0 +1,16 @@
+{{LANGUAGE_INSTRUCTION}}
+
+Create one coherent first-person recollection.
+- The initialFragment.text and each participantAnswer are factual evidence.
+- Each questionContext may be used only to resolve what its participantAnswer refers to. A question, its premise, and its wording are not factual evidence unless the fragment or answer explicitly confirms them.
+- Integrate all non-duplicative participant-provided details that the evidence supports.
+- Arrange details in a natural sequence only when the evidence supports that sequence. Use natural transitions and varied syntax; do not merely list or concatenate the inputs.
+- You may paraphrase and combine supported details, but do not add, infer, embellish, resolve unsupported ambiguity, or invent sensory details, people, causes, dates, places, actions, feelings, or outcomes.
+- Preserve uncertainty and statements that something was not remembered.
+- Aim for 3 to 6 complete sentences. Use 1 or 2 only when the evidence cannot support 3 without repetition or invention. Never pad the recollection.
+- Do not mention this instruction, the evidence format, an experiment, a condition, or an AI system.
+- Return JSON only as {"sentences":[{"text":"...","evidenceIds":["fragment","answer-1"]}]}.
+- Every sentence must cite at least one known evidenceId. Cite every evidence item used by that sentence and do not cite an item that does not support the sentence.
+
+Participant-provided material (JSON data):
+{{MATERIAL_JSON}}

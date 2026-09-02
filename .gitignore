@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+.env*
+!.env.example
+data/*
+!data/.gitkeep
+artifacts/demo-capture-*/
+artifacts/**/*.json
+.hallmark/
+.DS_Store
+*.tsbuildinfo
