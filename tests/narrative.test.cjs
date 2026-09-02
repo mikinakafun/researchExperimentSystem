@@ -24,6 +24,9 @@ const sentences = [
 ];
 const validate = (value) => validateNarrativeSentences(value, 6, 10);
 
+const { RESULT_CSV_PATH } = require('../lib/result-storage.ts');
+const { generationMetadata } = require('./result-fixtures.cjs');
+const { readGenerationMetadata } = require('../lib/generation.ts');
 test('creative and mixed sentences, including partly recalled material, need no factual evidence', () => {
   assert.deepEqual(validate(sentences), []);
   assert.deepEqual(validate([{ ...sentences[0], sourceIds: ['answer-1'] }]), []);
@@ -96,7 +99,8 @@ test('API retries invalid annotations and passes creative text through to versio
     fragment: '友人と公園を歩いた。', questions: answers.map((item) => item.question),
     answers: answers.map((item) => item.answer), questionMetadata: Array(6).fill({ conditionFocus: 'visual' }),
     finalResult: generated.narrative, narrativeSentences: generated.sentences,
-    narrativePromptVersion: generated.promptVersion, evaluation: { test: 4 }, checks: { 'DQ-UNSAID': 7 },
+    narrativePromptVersion: generated.promptVersion, evaluation: {}, checks: {},
+    narrativeGeneration: readGenerationMetadata(generated), questionGeneration: Array.from({ length: 6 }, () => generationMetadata()),
   };
   const submit = (overrides = {}) => save(new Request('http://localhost/api/save-result', {
     method: 'POST', body: JSON.stringify({ ...payload, ...overrides }),
@@ -108,9 +112,9 @@ test('API retries invalid annotations and passes creative text through to versio
   ]) assert.equal((await submit(overrides)).status, 400);
   const saved = await submit();
   assert.equal(saved.status, 200);
-  assert.equal((await saved.json()).path, 'data/results-v0.4.3-bilingual.csv');
+  assert.equal((await saved.json()).path, RESULT_CSV_PATH);
   assert.equal((await (await submit()).json()).duplicate, true);
-  const csv = fs.readFileSync(path.join(temporary, 'data/results-v0.4.3-bilingual.csv'), 'utf8');
+  const csv = fs.readFileSync(path.join(temporary, RESULT_CSV_PATH), 'utf8');
   assert.ok(csv.includes('narrative_annotations_json'));
   assert.ok(csv.includes('containsCreativeAddition'));
   assert.ok(csv.includes('v0.4.0-draft'));
