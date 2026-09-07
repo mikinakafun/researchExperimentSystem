@@ -57,7 +57,7 @@ Presented **after** all outcome ratings, before debriefing, so the items cannot 
 
 Two groups, so the primary test is a straight between-group comparison — no contrast coefficients.
 
-**Manipulation check (must pass before outcomes are interpreted):**
+**Manipulation check** — with two groups the planned contrast is simply `[visual −1, odor +1]`:
 
 - `MC-ODOR` higher under Odor than Visual.
 - `MC-VISUAL` higher under Visual than Odor.
@@ -90,6 +90,6 @@ At both rating steps the participant must be able to re-read the narrative; at t
 
 A fallback question is a different stimulus from a generated one, and a neutral question is a partial withdrawal of the manipulation. A session whose questions were half canned did not receive the condition at full strength.
 
-This is why [`DESIGN.md`](../DESIGN.md) §9 makes the synthetic harness a go/no-go gate: a condition that cannot be generated reliably cannot be administered reliably either. The retired `standard` arm failed exactly here — 2 of 6 turns canned — and it failed silently until the generation records were examined.
+Nothing blocks collection on this. The synthetic harness runs continuously but is deliberately **not** a gate ([`DESIGN.md`](../DESIGN.md) §9), which makes the reporting obligation stronger rather than weaker: a condition can reach participants while its fallback rate is high, so that rate has to appear in the results rather than in a pre-flight check nobody sees. The retired `standard` arm is the worked example — 2 of 6 turns canned, and it failed silently until the generation records were examined.
 
 Carry the per-session generation source, fallback count, and neutral-transition count into the analysis dataset, not just into a log.

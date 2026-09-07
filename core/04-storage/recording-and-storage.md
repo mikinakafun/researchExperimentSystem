@@ -7,7 +7,7 @@
 | Group | Fields |
 |---|---|
 | identity | session id (stable, unique), record type (`participant` \| `synthetic`) |
-| assignment | condition, language |
+| assignment | condition, language, allocation-log entry (block, position within block, seed reference — DEC-003) |
 | input | initial fragment |
 | questions | 6 texts, 6 metadata objects, 6 generation records |
 | answers | 6 texts |
@@ -56,6 +56,15 @@ A byte-identical re-submit under the same session id is a success that wrote not
 ## Privacy
 
 Fragment input is capped at 100 characters with a warning against identifiers, but there is **no automated PII scrubbing**. Free text is identifiable — handle the store accordingly. The model API key is server-side only; provider calls opt out of retention.
+
+## Retention and deletion (DEC-020)
+
+- **Retention:** research data underlying a published result is kept for **ten years from final publication**; an unpublished pilot's data for ten years from the end-of-study report. A longer period required by institutional rules, law, contract or the consent text takes precedence.
+- **What is kept**, access-restricted: the primary store, exports, fragments, questions and answers, narratives, ratings and checks, allocation log, consent and withdrawal records, generation records, protocol version, retention deadline and deletion status. No direct identifiers are collected.
+- **Anonymisation:** fragments, free text and narratives remain re-identifiable even after formal identifier checks and are never released as open data. Publications use aggregates or sufficiently anonymised examples only.
+- **Withdrawal:** accepted by session id before anonymisation or aggregation; delete that session's fragment, answers, generation attempts, narrative, ratings, checks and allocation entry. After anonymisation individual deletion is impossible — the consent text says so.
+- **Deletion at expiry:** inventory the primary store, journals and temporary files, exports, generation logs and backups, and destroy them irrecoverably (including key destruction where encrypted). Keep only a deletion record: date, scope, who, verification.
+- Anonymised aggregates needed to verify published results, and the deletion record, are managed separately under institutional rules.
 
 ## Reference: the current column layout
 

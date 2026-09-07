@@ -33,11 +33,13 @@ The model call should be constrained by a strict schema, but re-check the parsed
 | visual: odor contamination | `visual` question uses odor wording |
 | visual: condition contamination | `visual` question uses auditory, bodily, or emotion wording |
 | odor: condition contamination | `odor` question uses visual, auditory, bodily, or emotion wording |
-| odor: source inference | `odor` question asks where the smell came from, why, or asks the participant to guess |
+| odor: source inference | `odor` question asks the participant to explain a cause or to guess at a source |
 
 Contamination checks are skipped for `neutral`, which is instead held to the stricter combined sensory-or-emotion rule.
 
-`odor: source inference` has no counterpart in `visual`. Asking "what was that smell from?" invites confabulation about something the participant may never have encoded — the failure mode the study observes rather than manufactures.
+`odor: source inference` has no counterpart in `visual`. It covers explicit requests to reason — "why", "what caused it", "guess" — and nothing else.
+
+Naming what an odor was an odor of is **not** a violation (DEC-049). Olfactory perception is object-based: the source label is the percept, not an inference about it, and in Japanese it is close to the only available way to describe a smell. Forbidding it left `odor` unable to ask for object identity while `visual` asked for it freely — an asymmetry in the one contrast the two-condition design is built on. The narrower rule was never load-bearing in practice: the flag fired zero times across every stored evaluation artifact.
 
 > The `standard` condition's two rules — sensory contamination and emotion focus — are **retired** with the arm itself. See [`DESIGN.md`](../DESIGN.md) §2.
 
@@ -67,8 +69,7 @@ emotion    気持ち|考え|感情|気分|どう感じ|どのように感じ|ど
 sensory    = visual | auditory | bodily | odor | 雰囲気|空気|味|食感|表情 | atmosphere|air|taste|flavo(u)r(s)|expression(s)
 no-recall  思い出せ(ません|ない|なかった)|覚えてい(ません|ない)|記憶(が|は)(ありません|ない)|分かりません|分からない|わかりません|わからない|覚えがありません
            | no memory/recall/odour/smell | do(n't)/did(n't)/cannot/can't/could(n't) remember|recall|know
-source-inf どこから|何から|(どの(ような)?|どんな)(花|植物|食べ物|物|もの)から|発生源|原因|なぜ|どうして|推測|想像
-           | what caused|where ... from|guess|infer|imagine|why|source|cause | which/what ... flower/food/plant/object ... from
+source-inf 原因|なぜ|どうして|推測|想像 | why|guess|infer|imagine|cause(s)|caused
 ```
 
 Study-disclosure pattern, applied to questions **and** every narrative sentence:

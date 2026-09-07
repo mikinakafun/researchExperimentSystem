@@ -78,12 +78,14 @@ test('condition contamination and odor source inference are still rejected', () 
     ['visual', '何か音を覚えていますか？', 'visual_condition_contamination'],
     ['odor', '何色でしたか？', 'odor_condition_contamination'],
     ['odor', '匂いの原因を想像できますか？', 'odor_source_inference'],
-    ['odor', 'その甘い花の香りは、どのような花から感じられましたか？', 'odor_source_inference'],
+    ['odor', 'その甘い花の香りは、なぜしたのだと思いますか？', 'odor_source_inference'],
   ];
   for (const [condition, question, flag] of cases) {
     assert.ok(validateQuestion(input(question, { condition })).includes(flag), question);
   }
   assert.deepEqual(validateQuestion(input('その匂いは、どの時点から覚えていますか？', { condition: 'odor' })), []);
+  // DEC-049: naming what an odor was an odor of is recall, not source inference.
+  assert.deepEqual(validateQuestion(input('その甘い香りは、どのような花の匂いだったか覚えていますか？', { condition: 'odor' })), []);
   assert.ok(validateQuestion(input('何か匂いを覚えていますか？', {
     metadata: { conditionFocus: 'neutral', nonRecallTransition: true },
   })).includes('neutral_focus_contamination'));

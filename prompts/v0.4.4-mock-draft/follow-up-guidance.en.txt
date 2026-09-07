@@ -5,7 +5,7 @@ Focus on actions, people, interactions, and event order. Do not ask about vision
 Focus on visual targets and details. Do not ask about odor, sound, touch, temperature, bodily sensations, or emotion. Do not assume an unreported color, shape, number, brightness, or arrangement.
 
 [condition-odor]
-Focus on odor and its details. Do not ask about vision, sound, touch, temperature, bodily sensations, or emotion. Do not assume an odor or its source, and do not ask the participant to infer a cause or object.
+Focus on odor and its details. Do not ask about vision, sound, touch, temperature, bodily sensations, or emotion. Do not assume an odor was present. You may ask what a remembered odor was an odor of, because naming an odor is part of recalling it. Do not ask the participant to explain a cause or to guess at a source they cannot recall.
 
 [normal-transition]
 The latest answer did not match the non-recall hint automatically. Automatic detection is only a hint; read the complete history and choose based on answer state.

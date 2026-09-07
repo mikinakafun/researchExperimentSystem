@@ -415,13 +415,13 @@ footer{border-top:1px solid var(--rule-2);padding-top:22px;margin-top:16px;
         <ul class="rowset">
           <li><span class="mk y">✓</span><span>Smell and its qualities — type, strength, pleasantness</span></li>
           <li><span class="mk n">✗</span><span>Sight, sound, touch, temperature, body, emotion</span></li>
-          <li><span class="mk n">✗</span><span><strong>Where the smell came from, or what caused it</strong></span></li>
+          <li><span class="mk n">✗</span><span><strong>Explaining a cause, or guessing at a source</strong></span></li>
         </ul>
         <div class="sample"><span class="k">real question, turn 5</span><q>公園で感じた甘い花の香りについて、どのような花の匂いだったか思い出せることはありますか？</q></div>
       </div>
     </div>
   </div>
-  <div class="col"><p class="note"><strong>Only odor forbids asking about the source.</strong> Asking someone to name what a smell came from invites them to invent a detail they may never have encoded — which is the failure this study is trying to observe, not manufacture.</p></div>
+  <div class="col"><p class="note"><strong>Only odor forbids asking the participant to reason.</strong> What is barred is explaining a cause or guessing at a source that cannot be recalled. Naming what a remembered smell was a smell of is allowed: olfactory perception is object-based, so the source label is the percept itself, and in Japanese there is little other vocabulary for describing a smell (DEC-049).</p></div>
 </section>
 
 
@@ -457,7 +457,7 @@ footer{border-top:1px solid var(--rule-2);padding-top:22px;margin-top:16px;
         <span class="k">Constraints in force</span>
         <div class="tgt"><span class="s">must</span><span>Point at one existing evidence id, or none at all</span></div>
         <div class="tgt"><span class="s">must not</span><span>Repeat any of the four questions already asked</span></div>
-        <div class="tgt"><span class="s">must not</span><span>Ask where a smell came from, or what caused it</span></div>
+        <div class="tgt"><span class="s">must not</span><span>Ask the participant to explain or guess at a cause</span></div>
         <div class="tgt"><span class="s">must not</span><span>Mention sight, sound, touch, temperature, body or feeling</span></div>
         <div class="tgt"><span class="s">must not</span><span>Reveal the condition, the study, or that a model is writing</span></div>
       </div>
@@ -468,7 +468,7 @@ footer{border-top:1px solid var(--rule-2);padding-top:22px;margin-top:16px;
     </div>
   </div>
 
-  <div class="col"><p class="note">It picked an <em>open</em> target and asked about a quality of it — not its source. Note what it did <strong>not</strong> do: reopen the smell the participant had already failed to recall.</p></div>
+  <div class="col"><p class="note">It picked an <em>open</em> target and asked what the participant still remembers of it, without asking anyone to guess. Note what it did <strong>not</strong> do: reopen the smell the participant had already failed to recall.</p></div>
 </section>
 
 <section>
@@ -516,7 +516,7 @@ transition:      none | non-recall
     <div class="src">
       <span class="fn">follow-up-guidance.ja.txt</span>
       <div class="sec"><span class="lbl">[condition-visual]</span>視覚的な対象や詳細へ注意を向ける。匂い、音、触覚、温度、身体感覚、感情を尋ねない。</div>
-      <div class="sec"><span class="lbl">[condition-odor]</span>匂いとその詳細へ注意を向ける。……匂いの存在や発生源を決めつけず、原因や元の物を推測させない。</div>
+      <div class="sec"><span class="lbl">[condition-odor]</span>匂いとその詳細へ注意を向ける。……匂いの存在を決めつけない。何の匂いだったかは尋ねてよい。原因の説明や発生源の推測は求めない。</div>
       <div class="sec"><span class="lbl">[normal-transition]</span>直前の回答に自動検出された非想起表現はない。ただし自動検出は補助情報にすぎない。</div>
       <div class="sec"><span class="lbl">[non-recall-transition]</span>……同じ思い出せない対象を繰り返し要求せず、条件内の別対象か中立的な出来事を尋ねる。</div>
     </div>
@@ -697,7 +697,7 @@ transition:      none | non-recall
     </div>
   </div>
 
-  <div class="col"><p class="note" style="margin-top:20px"><strong>Before any human participant:</strong> run the synthetic harness and check its fallback rate per condition against a threshold set <em>before</em> the run. That gate is what would have caught the retired condition's failure — it never showed up on a participant screen, only in the generation records.</p></div>
+  <div class="col"><p class="note" style="margin-top:20px"><strong>Re-run the synthetic harness on every prompt-design change.</strong> It is standing practice, not a milestone — and deliberately <em>not</em> a gate: passing it is not a precondition for running human participants, and the two proceed in parallel. Keep measuring per-condition fallback, rejection and neutral-transition counts and report them descriptively. Not gating and not measuring are different things: the retired condition&#39;s failure never showed up on a participant screen, only in the generation records.</p></div>
 </section>
 
 <footer>ResearchPilotSystem · core/ · pilot instrument, not an approved protocol · figures from the live run of 2026-09-07</footer>

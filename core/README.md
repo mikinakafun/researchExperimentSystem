@@ -16,6 +16,7 @@ A between-subjects experiment on **question design in AI-assisted autobiographic
 | 2 | [`01-research/research-context.md`](01-research/research-context.md) | Why this is being studied, and what must **not** be claimed. |
 | 3 | [`DESIGN.md`](DESIGN.md) · [`DESIGN.ja.md`](DESIGN.ja.md) | The specification. Same content in both languages. |
 | 4 | the numbered directories | Detail, on demand — each one answers a different kind of question. |
+| 5 | [`00-decisions/`](00-decisions/README.md) | When the spec and your reading of it disagree. Every decision is numbered and names the module it lands in; the decision wins. |
 
 ## The directories, by role
 
@@ -23,6 +24,7 @@ Every module lives in the directory named for the question it answers.
 
 | Directory | Answers | Contains |
 |---|---|---|
+| **`00-decisions/`** | *What was decided, why, where does it land here, and what is still open?* | [`README.md`](00-decisions/README.md) · [`decisions.md`](00-decisions/decisions.md) · [`tasks.md`](00-decisions/tasks.md) · [`decisions-archive.md`](00-decisions/decisions-archive.md) · [`provenance.md`](00-decisions/provenance.md) |
 | **`01-research/`** | *Why does this exist? What may we claim?* | [`research-context.md`](01-research/research-context.md) |
 | **`02-generation/`** | *How is each question and the story produced, and what makes one unacceptable?* | [`question-strategy.md`](02-generation/question-strategy.md) · [`narrative-generation.md`](02-generation/narrative-generation.md) · [`validation-rules.md`](02-generation/validation-rules.md) · [`fallback-questions.md`](02-generation/fallback-questions.md) · [`contract.md`](02-generation/contract.md) · [`prompts/`](02-generation/prompts/) |
 | **`03-measurement/`** | *What is asked of the participant, and how is it analysed?* | [`measures.md`](03-measurement/measures.md) |
@@ -48,6 +50,8 @@ By design, because the builder should produce them:
 - **Regular expressions as code.** [`validation-rules.md`](02-generation/validation-rules.md) gives every pattern's content and intent in readable form. Implement them in your language, and keep the word-boundary behaviour the notes call out.
 - **A test suite.** The behaviours worth pinning are stated throughout as requirements; turn them into tests in whatever framework you use.
 
-## Before any human participant
+## Keep the synthetic harness running
 
-Run the synthetic harness ([`evaluation-harness.md`](05-verification/evaluation-harness.md)) and check its per-condition fallback rate against a threshold set **before** the run. This is a go/no-go gate, not a report. It is what would have caught the retired condition's failure before anyone saw it.
+Re-run the harness ([`05-verification/evaluation-harness.md`](05-verification/evaluation-harness.md)) **every time the prompt design changes** — guidance, validator rules, candidate strategy. Standing practice, not a milestone.
+
+It is **not a gate**: passing it is not a precondition for running human participants, and the two proceed in parallel. What it does is catch a change that breaks a condition, and quantify how well each condition can be sustained. Keep measuring per-condition fallback, rejection and neutral-transition counts and report them descriptively — never as an exclusion criterion or a covariate.

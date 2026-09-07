@@ -8,7 +8,7 @@ One session = **one initial fragment + exactly 6 generated questions + 6 answers
 
 Six is the fixed turn count and it propagates everywhere — the recorded arrays, the narrative input, the evidence id space. Make it one constant.
 
-Condition (`visual` | `odor`) is assigned uniformly at random **after** a valid fragment is submitted, and is never shown to the participant before debriefing.
+Condition (`visual` | `odor`) is assigned **after** a valid fragment is submitted, by block randomisation stratified by language with an allocation log (DEC-003 — block size, ratio and seed still open, TASK-016), and is never shown to the participant before debriefing.
 
 ## What the generator gets each turn
 

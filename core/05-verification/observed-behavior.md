@@ -116,7 +116,7 @@ Each of these became a decision in [`DESIGN.md`](../DESIGN.md). This section rec
 4. **Exact-match duplicate detection is not enough by turn 5.** → near-duplicate detection required (§4).
 5. **`turnFunction` was inert** — never enforced, never read, 3 of 6 values never emitted. → **dropped from the contract** (§5).
 6. **`sourceIds` and `containsCreativeAddition` are unreliable self-reports.** → kept as a variable to study, never as provenance (§6).
-7. **Generation health is invisible from the participant screens.** The `standard` failure showed up only in the generation records. → the synthetic harness became a pre-collection go/no-go gate ([`evaluation-harness.md`](evaluation-harness.md)), and fallback and neutral-transition counts became reported quantities ([`measures.md`](../03-measurement/measures.md)).
+7. **Generation health is invisible from the participant screens.** The `standard` failure showed up only in the generation records. → the synthetic harness became standing practice, re-run on every prompt-design change ([`evaluation-harness.md`](evaluation-harness.md)) — though **not** a gate in front of human collection (DEC-044) — and fallback and neutral-transition counts became reported quantities ([`measures.md`](../03-measurement/measures.md)).
 
 ---
 

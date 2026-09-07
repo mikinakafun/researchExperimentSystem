@@ -19,50 +19,58 @@
     "spec": {
       "en": "DESIGN.md",
       "ja": "DESIGN.ja.md"
-    }
+    },
+    "decisions": "00-decisions/README.md"
   },
   "designDecisions": [
     {
       "id": "two-conditions",
       "decision": "Conditions are visual and odor. The standard (event-structure) arm is retired.",
       "why": "Zero weight in the primary comparison; defined purely by exclusion; produced 6/6 of all observed validation rejections and fell back on 2 of 6 turns while visual and odor had zero rejections across 18 turns.",
-      "where": "DESIGN.md#2"
+      "where": "DESIGN.md#2",
+      "decisionRecord": "DEC-041"
     },
     {
       "id": "validator-is-load-bearing",
       "decision": "Prompt proposes, deterministic validator disposes, guaranteed fallback keeps session length fixed at 6 turns.",
       "why": "A study whose manipulation silently leaks produces nothing; a condition-dependent dropout is worse than a non-uniform stimulus.",
-      "where": "DESIGN.md#4"
+      "where": "DESIGN.md#4",
+      "decisionRecord": "DEC-030, DEC-035"
     },
     {
       "id": "rejections-are-data",
       "decision": "Rejected candidates and fallback reasons are persisted with the result and carried into analysis.",
       "why": "Rejection and fallback rate per condition measures whether a condition can be sustained; the standard arm failed silently until generation records were examined.",
-      "where": "DESIGN.md#4"
+      "where": "DESIGN.md#4",
+      "decisionRecord": "DEC-048"
     },
     {
       "id": "parallel-candidates",
       "decision": "Draw candidates in parallel and use the validator to select; add a repair pass before falling back.",
       "why": "Sequential retry with flag-name feedback recovered 0 of 6 observed failures.",
-      "where": "DESIGN.md#4"
+      "where": "DESIGN.md#4",
+      "decisionRecord": "DEC-045"
     },
     {
       "id": "turnfunction-dropped",
       "decision": "The six-value turnFunction field is removed.",
       "why": "Never enforced against the turn number, never read, and only 3 of its 6 values were ever emitted across 24 live turns.",
-      "where": "DESIGN.md#5"
+      "where": "DESIGN.md#5",
+      "decisionRecord": "DEC-046"
     },
     {
       "id": "mc-event-reclassified",
       "decision": "MC-EVENT is a dilution diagnostic, not a manipulation check.",
       "why": "With standard retired, event-structure content enters only via neutral transitions; MC-EVENT now measures that leakage.",
-      "where": "measures.md"
+      "where": "measures.md",
+      "decisionRecord": "DEC-047"
     },
     {
-      "id": "gate-before-humans",
-      "decision": "The synthetic harness must pass a pre-registered per-condition fallback threshold before any human participant.",
-      "why": "A condition that cannot be generated reliably cannot be administered reliably.",
-      "where": "evaluation-harness.md"
+      "id": "harness-runs-continuously-not-a-gate",
+      "decision": "The synthetic harness is re-run on every prompt-design change, in parallel with human piloting. It is explicitly not a gate: no pre-registered threshold blocks an arm.",
+      "why": "Re-evaluation is standing practice, so per-change approval tasks add nothing, and passing a machine check is not a precondition for human piloting. Fallback, rejection and neutral-transition counts are still measured and reported descriptively — not gating is not the same as not measuring.",
+      "where": "05-verification/evaluation-harness.md",
+      "decisionRecord": "DEC-044"
     }
   ],
   "inherited": [
@@ -89,6 +97,19 @@
       "translations": {
         "ja": "overview.ja.html"
       }
+    },
+    {
+      "id": "decisions",
+      "path": "00-decisions/decisions.md",
+      "purpose": "Every active decision constraining the system: status, domain, approval, open task, the core module it lands in, current wording, one-line source. Archive and frozen provenance alongside.",
+      "directory": "00-decisions",
+      "index": "00-decisions/README.md"
+    },
+    {
+      "id": "tasks",
+      "path": "00-decisions/tasks.md",
+      "purpose": "Open work, one list, with the decisions each item depends on",
+      "directory": "00-decisions"
     },
     {
       "id": "research-context",
@@ -154,7 +175,7 @@
     {
       "id": "evaluation-harness",
       "path": "05-verification/evaluation-harness.md",
-      "purpose": "Synthetic persona batch, its metrics, and the go/no-go gate",
+      "purpose": "Synthetic persona batch, its metrics, and when to re-run it (continuously, and not as a gate)",
       "inherited": true,
       "directory": "05-verification"
     },
@@ -253,7 +274,8 @@
       "RESULT_STORAGE",
       "SUPABASE_URL",
       "SUPABASE_SECRET_KEY"
-    ]
+    ],
+    "assignment": "block randomisation stratified by language, with an allocation log (DEC-003); block size, ratio, seed and concealment open (TASK-016)"
   },
   "doNotTrust": [
     {
@@ -269,8 +291,8 @@
       "why": "describes the question, not whether the participant recalled"
     },
     {
-      "path": "docs/, README.md, AGENTS.md, experiment/conditions.yaml",
-      "why": "describe superseded designs; this directory supersedes them"
+      "path": "docs/protocol/PROTOCOL.md (retired), docs/prompts/PROMPT_CATALOG_*.md, experiment/conditions.yaml, README.md and AGENTS.md project-context lines",
+      "why": "describe superseded designs (three conditions, fixed questions, approval gates); this directory supersedes them. docs/project/decisions-active.md is not superseded: it holds the project-management decisions that are deliberately kept outside core/."
     }
   ],
   "commands": {
@@ -301,10 +323,19 @@
     }
   ],
   "directories": {
+    "00-decisions": "What was decided, why, where it lands in this spec, and what is still open?",
     "01-research": "Why does this exist, and what may we claim?",
     "02-generation": "How is each question and the story produced, and what makes one unacceptable?",
     "03-measurement": "What is asked of the participant, and how is it analysed?",
     "04-storage": "What is kept, where, and under what consent?",
     "05-verification": "How do we know it works before recruiting anyone?"
+  },
+  "decisionRecords": {
+    "index": "00-decisions/README.md",
+    "active": "00-decisions/decisions.md",
+    "tasks": "00-decisions/tasks.md",
+    "archive": "00-decisions/decisions-archive.md",
+    "provenance": "00-decisions/provenance.md",
+    "note": "Complete log of every decision that constrains this system (DEC-001 onward), each with a 反映先 naming the module it lands in. designDecisions above are only the entries that most recently changed the design. Project-management decisions (schedule, approvals, key revocation, ethics-review process) live outside this directory in docs/project/decisions-active.md."
   }
 }

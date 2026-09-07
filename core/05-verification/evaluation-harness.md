@@ -1,6 +1,6 @@
 # Evaluation Harness
 
-**Inherited, and promoted to a go/no-go gate.**
+**Inherited. Run continuously — but it is not a gate.**
 
 The offline evaluation harness. It runs the **real pipeline end to end** — the same generation path, prompts, validator, and storage as a real session — with an LLM playing the participant against a fixed ground-truth memory. This is how the system is regression-tested without recruiting anyone.
 
@@ -60,17 +60,21 @@ A batch-diff tool compares two runs, for judging whether a prompt revision actua
 
 ---
 
-## The go/no-go gate
+## When to run it, and what it is not (DEC-044)
 
-**This harness runs before any human participant, and its result is a gate, not a report.**
+**Run this every time the prompt design changes** — question-selection guidance, condition guidance, validator rules, candidate strategy. It is standing practice, not a milestone: changing how questions are chosen and not re-running it means the next result describes a system that no longer exists.
 
-Pre-register a maximum fallback rate **per condition** and refuse to administer an arm that exceeds it. A suggested starting threshold is **≤5% of turns** (≈3 of 60 turns per arm at 10 personas). Set the number before running, not after seeing the result.
+**Passing it is not a precondition for running human participants.** The synthetic re-evaluation and human piloting proceed **in parallel**. There is no pre-registered threshold that blocks an arm, and no machine gate in front of data collection.
 
-Rationale, from the live run: the retired `standard` arm produced a fallback on 2 of 6 turns — roughly 33% — and every validation rejection observed in the whole run. It failed silently. Nothing in a participant-facing screen would have shown it; only the generation records did. A condition that cannot be generated reliably cannot be administered reliably either, and discovering that after collection is discovering it too late.
+That is a deliberate trade. Without a front gate, human collection can begin while a condition's fallback rate is still high. The mitigation is measurement, not permission:
 
-Also gate on:
+- **Keep measuring** per-condition fallback rate, rejection rate, and neutral-transition count. *Not gating* and *not measuring* are different things.
+- **Report them descriptively** in the results, per condition.
+- **Never** use them as an exclusion criterion, and never as a covariate — they are consequences of the assigned condition, so adjusting for them would absorb part of the effect.
 
-- **Persona fidelity** — the no-odor personas must actually produce non-recall under the odor arm. If the simulated participant broke character, the run says nothing about the system.
-- **Zero cross-condition leakage in questions.** Any odor wording in a `visual` question is a validator failure and blocks release.
+What the harness is for, then: catching a change that breaks a condition, and quantifying how well each condition can be sustained. The retired `standard` arm is the worked example — a fallback on 2 of 6 turns, every validation rejection in the run, and none of it visible on any participant-facing screen. Only the generation records showed it. That is the class of problem this run exists to surface early, whether or not anything is blocked on it.
 
-Re-run the gate after any change to the prompts, the validator, or the candidate strategy.
+## Two things worth watching in every run
+
+- **Persona fidelity** — the no-odor personas must actually produce non-recall under the odor arm. If the simulated participant broke character, the run says nothing about the system and its numbers should not be reported.
+- **Cross-condition leakage in questions** — any odor wording in a `visual` question is a validator failure, and a defect to fix rather than a statistic to note.

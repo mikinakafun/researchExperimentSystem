@@ -412,13 +412,13 @@ footer{border-top:1px solid var(--rule-2);padding-top:22px;margin-top:16px;
         <ul class="rowset">
           <li><span class="mk y">✓</span><span>匂いとその質 — 種類、強さ、快・不快</span></li>
           <li><span class="mk n">✗</span><span>視覚、音、触覚、温度、身体、感情</span></li>
-          <li><span class="mk n">✗</span><span><strong>匂いがどこから来たか、何が原因か</strong></span></li>
+          <li><span class="mk n">✗</span><span><strong>匂いの原因の説明、思い出せない発生源の推測</strong></span></li>
         </ul>
         <div class="sample"><span class="k">実際の質問・ターン5</span><q>公園で感じた甘い花の香りについて、どのような花の匂いだったか思い出せることはありますか？</q></div>
       </div>
     </div>
   </div>
-  <div class="col"><p class="note"><strong>発生源の禁止は匂い条件にしかない。</strong>匂いが何から来たかを答えさせることは、そもそも記銘されていないかもしれない詳細を作らせることになる。それはこの研究が観察すべき失敗であって、こちらから作り出してよいものではない。</p></div>
+  <div class="col"><p class="note"><strong>推測の禁止は匂い条件にしかない。</strong>禁じるのは原因の説明要求と、思い出せない発生源の推測要求だけである。何の匂いだったかを答えることは推測ではなく想起そのものなので許可する — 嗅覚は混合物を一つの対象として捉え、日本語では源の名前以外に匂いを言い表す語彙がほとんどない（DEC-049）。</p></div>
 </section>
 
 <section>
@@ -453,7 +453,7 @@ footer{border-top:1px solid var(--rule-2);padding-top:22px;margin-top:16px;
         <span class="k">効いている制約</span>
         <div class="tgt"><span class="s">必須</span><span>既存の証拠IDを一つ指すか、何も指さないか</span></div>
         <div class="tgt"><span class="s">禁止</span><span>既に尋ねた4問のいずれかを繰り返すこと</span></div>
-        <div class="tgt"><span class="s">禁止</span><span>匂いがどこから来たか、何が原因かを尋ねること</span></div>
+        <div class="tgt"><span class="s">禁止</span><span>匂いの原因の説明や、発生源の推測を求めること</span></div>
         <div class="tgt"><span class="s">禁止</span><span>視覚・音・触覚・温度・身体・感情に触れること</span></div>
         <div class="tgt"><span class="s">禁止</span><span>条件、研究、モデルが書いていることを明かすこと</span></div>
       </div>
@@ -464,7 +464,7 @@ footer{border-top:1px solid var(--rule-2);padding-top:22px;margin-top:16px;
     </div>
   </div>
 
-  <div class="col"><p class="note"><em>未質問</em>の対象を選び、発生源ではなくその質を尋ねている。そして<strong>やらなかったこと</strong>に注目 — 参加者が一度「思い出せない」と答えた匂いを、蒸し返していない。</p></div>
+  <div class="col"><p class="note"><em>未質問</em>の対象を選び、覚えている範囲でその匂いが何の匂いだったかを尋ねている（推測は求めていない）。そして<strong>やらなかったこと</strong>に注目 — 参加者が一度「思い出せない」と答えた匂いを、蒸し返していない。</p></div>
 </section>
 
 <section>
@@ -512,7 +512,7 @@ transition:      なし | 非想起
     <div class="src">
       <span class="fn">follow-up-guidance.ja.txt</span>
       <div class="sec"><span class="lbl">[condition-visual]</span>視覚的な対象や詳細へ注意を向ける。匂い、音、触覚、温度、身体感覚、感情を尋ねない。</div>
-      <div class="sec"><span class="lbl">[condition-odor]</span>匂いとその詳細へ注意を向ける。……匂いの存在や発生源を決めつけず、原因や元の物を推測させない。</div>
+      <div class="sec"><span class="lbl">[condition-odor]</span>匂いとその詳細へ注意を向ける。……匂いの存在を決めつけない。何の匂いだったかは尋ねてよい。原因の説明や発生源の推測は求めない。</div>
       <div class="sec"><span class="lbl">[normal-transition]</span>直前の回答に自動検出された非想起表現はない。ただし自動検出は補助情報にすぎない。</div>
       <div class="sec"><span class="lbl">[non-recall-transition]</span>……同じ思い出せない対象を繰り返し要求せず、条件内の別対象か中立的な出来事を尋ねる。</div>
     </div>
@@ -694,7 +694,7 @@ transition:      なし | 非想起
     </div>
   </div>
 
-  <div class="col"><p class="note" style="margin-top:20px"><strong>人を対象にする前に:</strong> 合成ハーネスを走らせ、条件別のフォールバック率を、実行<em>前</em>に決めた閾値と照合すること。廃止した条件の失敗を捕まえられたはずなのはこのゲートである — それは参加者の画面には一度も現れず、生成記録の中にしかなかった。</p></div>
+  <div class="col"><p class="note" style="margin-top:20px"><strong>プロンプト設計を変えるたびに合成ハーネスを回す。</strong>マイルストーンではなく常時運用であり、意図的に<em>ゲートではない</em> — 通過が人間パイロット開始の前提条件になることはなく、両者は並行して進む。条件別のフォールバック率・棄却率・中立遷移数は測り続け、記述指標として報告する。ゲートにしないことと測らないことは別である — 廃止した条件の失敗は参加者の画面には一度も現れず、生成記録の中にしかなかった。</p></div>
 </section>
 
 <footer>ResearchPilotSystem · core/ · 承認済みプロトコルではなくパイロット計測器 · 数値は2026-09-07の実行ログより</footer>

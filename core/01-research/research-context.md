@@ -68,6 +68,7 @@ The narrative **includes model invention**, this is disclosed to participants in
 
 | | |
 |---|---|
+| Working title | *How Questioning Strategies Shape Autobiographical Narrative Reconstruction* (DEC-024; an LLM-narrative variant is a candidate) |
 | Design | Between-subjects; **one condition per participant** |
 | Manipulation | Question wording only; **no odor stimulus** |
 | Conditions | Visual, Odor (an event-structure arm was retired — [`DESIGN.md`](../DESIGN.md) §2) |
@@ -83,7 +84,13 @@ Spontaneous out-of-condition detail from a participant is **accepted but never p
 
 ## Status
 
-This is a **pilot instrument, not an approved protocol.** It has not been through ethics review, and its parameters — turn count, model, temperature, item set, sample size — are pilot values, not settled ones. The consent, API-disclosure, and personal-information provisions must be finalised before any human data collection.
+This is a **pilot instrument, not an approved protocol.**
+
+**Ethics review will be carried out** for the undergraduate study (DEC-042, reversing an earlier decision not to). The review body, forms, required documents, duration and submission timing are all still undetermined. Consent wording, storage and anonymisation, retention and deletion, and participant recruitment all fall inside its scope, and anything the review requires changed has to come back into these documents. **The start of participant data collection depends on the review outcome** — that dependency is a schedule constraint, not a formality.
+
+**Parameters are not being fixed in advance.** Turn count, model, temperature, candidate count, item set and sample size are pilot values that get re-tuned each time the output is calibrated; the values actually used are what goes into the paper. Nothing here is waiting on an approval to become official. What stays required is that every value and prompt version is recorded on every result, kept operable from one place, and that a version mismatch is refused at save time. The caution that follows: once collection starts, changing a parameter makes condition differences inseparable from generation-setting differences, so freeze the values then and treat later changes as a separate collection. When that freeze happens is not yet decided.
+
+Consent, API-disclosure, and personal-information provisions must be finalised before any human data collection.
 
 Diagnostic quantities that must be recorded and **reported as results of the manipulation, never used as exclusion criteria**: per-condition non-recall rate, substantive answer count, answer length, and (added from live evidence) fallback and neutral-transition counts.
 

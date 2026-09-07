@@ -2,9 +2,11 @@
 
 ## Project context
 
-- This is a research mock comparing Standard, Visual, and Odor question conditions.
+- This is a research mock for a two-condition (Visual / Odor) question-focus experiment. Standard was retired (DEC-041); the code is still three-condition until TASK-023 lands.
 - Read `README.md` for current behavior and commands; use `docs/MASTER.md` to find task-relevant specifications.
-- Research decisions belong in `docs/project/decisions.md`. Check their status and superseding entries; report conflicts rather than silently resolving them.
+- Decisions that constrain the system live in `core/00-decisions/decisions.md`; project-management decisions in `docs/project/decisions-active.md`; the index of every DEC is `core/00-decisions/README.md`. Superseded ones are in `core/00-decisions/decisions-archive.md`. Check the `状態` / `承認` fields and superseding entries; report conflicts rather than silently resolving them. Each DEC names its 反映先 — when a `core/` module disagrees with a decision, the decision wins and the module is what gets fixed.
+- Open work belongs in `core/00-decisions/tasks.md`. Do not add work items to the decision files, and do not add decisions to `tasks.md`. Do not introduce a new judgement inside a spec file; record it as a DEC first.
+- `core/` is a self-contained rebuild specification (`core/DESIGN.md`); `docs/protocol/PROTOCOL.md` is retired.
 
 ## Coding subagent policy
 

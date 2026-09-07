@@ -4,15 +4,16 @@
 - 目的: 分散した文書の「どれが正本で、どれが履歴か」を一枚で示し、決定すべき事項を優先順に集約する。
 - 2026-07-16整理: 約80あった文書を38へ削減。正本から引用されていない中間検証ログ（v0.1.x、v0.2.3〜0.2.7、v0.2.8乾式、v0.2.9乾式）、レビューパケット、移行完了記録を削除した。以後、検証ログは「最終結果＋正本から引用されるもの」だけを残す。
 - 運用ルール:
-  1. **決定の正本は`docs/project/decisions.md`だけ**。新しい決定・変更はそこにのみ追記し、本書は地図として更新する。
+  1. **実験システムを規定する決定の正本は`core/00-decisions/decisions.md`、研究プロジェクト運営の決定の正本は`docs/project/decisions-active.md`、やることの正本は`core/00-decisions/tasks.md`だけ**。全DECの索引と運用規則は`core/00-decisions/README.md`。上書きされた決定は`core/00-decisions/decisions-archive.md`へ移す。本書は地図として更新する。
   2. 本書に事実の詳細を書かない。詳細は正本へのリンクで示す（同じ事実を二箇所に書くと必ず矛盾する）。
-  3. 迷ったら本書→`project/decisions.md`の順で読む。他の文書はこの二つから辿る。
+  3. 迷ったら本書→`core/00-decisions/tasks.md`（次に何をするか）→`core/00-decisions/README.md`（どの決定がどこにあるか）→`core/DESIGN.ja.md`（仕様）の順で読む。他の文書はここから辿る。
+  4. `core/`は自己完結の再構築仕様であり、将来は別ディレクトリへ切り出して実験システムの土台にする。`core/`内の仕様と決定が食い違ったら決定が正。仕様書の中で新しい判断をせず、先にDECを起こす。
 
 ## 現在地（3行）
 
-1. 研究: 三条件（Standard / Visual / Odor）の質問焦点がLLM生成物語の本人評価（主=Perceived Memory-Likeness、他3軸は副）へ与える影響。被験者間、日本語基本。主たる計画対比はOdor対Visual。
-2. 実装: 質問はDEC-035・039による回答状態優先のv0.4.4、創作を許す最終文章はDEC-036によるv0.4.3。30件再評価と本人評価の確認前。研究実施の承認状態は変更していない。
-3. 律速: 同じ合成データ30件で機械再評価し、質問違反、条件別フォールバック率、入力量、文章長、入力との矛盾と創作追加の傾向を確認すること。その後に教員確認と小規模な人間パイロットへ進む。
+1. 研究: **二条件（Visual / Odor）**の質問焦点がLLM生成物語の本人評価（主=Perceived Memory-Likeness、他3軸は副）へ与える影響。被験者間、日本語基本。H1はOdor対Visualの差（DEC-041、2026-09-07にStandard条件を廃止）。
+2. 実装: 質問はDEC-035・039による回答状態優先のv0.4.4、創作を許す最終文章はDEC-036によるv0.4.3。**いずれもまだ三条件前提のコード・仕様のまま**で、二条件化はTASK-023で未着手。
+3. 律速: 二条件化を仕様と実装へ反映すること（TASK-023）と、倫理審査の申請（TASK-024、DEC-042で方針変更）。機械再評価はプロンプト変更ごとの常時運用へ移し、人間パイロットの前置ゲートにしない（DEC-044）。
 
 ## 文書地図
 
@@ -26,21 +27,27 @@
 | [research/](research/) | 研究背景・研究計画とプロジェクト管理のレビュー |
 | [archive/](archive/) | 旧仕様・旧システムの保全記録 |
 
+プロジェクト直下の[core/](../core/)は2026-09-07に作成された**再構築仕様**（実装のための仕様であり、既存コードの説明ではない）。`core/00-decisions/`に、システムを規定する決定・タスク・履歴・引用原文を置く。同日にPROTOCOL.mdは退役し、`core/DESIGN.ja.md`へ一本化した。
+
 実行時に読み込むプロンプト本文は、プロジェクト直下の[prompts/](../prompts/)で管理する。
 
 ### A. 正本（現行・これだけ維持更新する）
 
 | ファイル | 役割 |
 | --- | --- |
-| [MASTER.md](MASTER.md)（本書） | 入口・地図・決定待ちリスト |
-| [project/decisions.md](project/decisions.md) | 全決定の正本（DEC-001〜039、状態・根拠・履歴付き） |
+| [MASTER.md](MASTER.md)（本書） | 入口・地図 |
+| [`core/00-decisions/README.md`](../core/00-decisions/README.md) | **全DECの索引と運用規則**。所在（core / docs）とリンク |
+| [`core/00-decisions/decisions.md`](../core/00-decisions/decisions.md) | 実験システムを規定する有効な決定（32件。各決定に反映先モジュール付き） |
+| [project/decisions-active.md](project/decisions-active.md) | 研究プロジェクト運営の有効な決定（7件: DEC-008、009、026、028、031、040、042） |
+| [`core/00-decisions/tasks.md`](../core/00-decisions/tasks.md) | 未了作業の正本（一つの一覧） |
+| [`core/00-decisions/decisions-archive.md`](../core/00-decisions/decisions-archive.md) | 上書き・却下された決定と旧本文。引用原文は同ディレクトリの`provenance.md`（凍結） |
+| [`core/DESIGN.ja.md`](../core/DESIGN.ja.md) | 仕様の正本（旧PROTOCOL.mdを吸収）。英語版`DESIGN.md`と同内容 |
 | [project/prototype-progress.md](project/prototype-progress.md) | 旧2実装と現行mockの進捗・判定の正本 |
 
-### B. 仕様初稿（レビュー待ち。承認されれば次期PROTOCOL.mdへ統合）
+### B. 仕様初稿（レビュー待ち）
 
 | ファイル | 内容 | 状態 |
 | --- | --- | --- |
-| [protocol/PROTOCOL.md](protocol/PROTOCOL.md) | パイロット実験プロトコル仕様 v0.4.0-draft。確定・暫定・未決定と承認ゲートG1〜G5を集約 | DRAFT。創作方針をmockへ同期。新方針の出力品質評価前 |
 | [protocol/consent-form-ja.md](protocol/consent-form-ja.md) | 参加者向け同意文 v0.2.0-draft（DEC-019、036） | 連絡先・所属機関窓口の記入と教員確認前 |
 | [protocol/initial-recall-trigger.md](protocol/initial-recall-trigger.md) | 初期想起トリガー v0.1.2（DEC-015） | 指導教員レビュー・認知インタビュー前 |
 | [protocol/manipulation-check.md](protocol/manipulation-check.md) + `experiment/manipulation-check.yaml` | Manipulation Check v0.2.0-draft（DEC-014、033） | 同上 |
@@ -55,7 +62,8 @@
 
 | ファイル | 上書き理由 |
 | --- | --- |
-| [archive/condition-question-matrix.md](archive/condition-question-matrix.md)、`experiment/conditions.yaml` | 固定質問方式v0.1.0。DEC-029（生成質問）で上書き。decisions.mdが参照するため保持 |
+| [protocol/PROTOCOL.md](protocol/PROTOCOL.md) | 2026-09-07に退役。`core/DESIGN.ja.md`へ一本化。承認ゲートG1〜G5はDEC-040/041/043/044で廃止。旧本文はgit履歴 |
+| [archive/condition-question-matrix.md](archive/condition-question-matrix.md)、`experiment/conditions.yaml` | 固定質問方式v0.1.0。DEC-029（生成質問）で上書き。決定記録が参照するため保持 |
 | [archive/memory-experiment-system-archive.md](archive/memory-experiment-system-archive.md) | 旧v0.2.9/v0.3.0候補の履歴を要約保全 |
 | [prompts/codex-prompt-production-build.md](prompts/codex-prompt-production-build.md) | memoryExperimentSystem構築指示。DEC-031で役割終了。PHASE0_AUDITが参照するため保持 |
 
@@ -63,63 +71,41 @@
 
 | ファイル | 内容 |
 | --- | --- |
-| [research/research-context.md](research/research-context.md) | ChatGPTプロジェクト移行時の統合コンテキスト（2026-07-10時点。以降はdecisions.mdが優先） |
+| [research/research-context.md](research/research-context.md) | ChatGPTプロジェクト移行時の統合コンテキスト（2026-07-10時点。以降はdecisions-active.mdが優先） |
 | [research/research-plan-review.md](research/research-plan-review.md) | 暫定研究計画書PDF（2026-06-22版）のレビュー |
 | [research/pm-review-2026-07-15.md](research/pm-review-2026-07-15.md) | プロジェクトマネジメント・レビュー |
 | [prompts/codex-prompt-persona-batch.md](prompts/codex-prompt-persona-batch.md) | 合成バッチをペルソナ回答方式へ変更する作業指示書 |
 | [archive/memory-experiment-system-archive.md](archive/memory-experiment-system-archive.md) | 旧production candidateの設計反省、ADR、運用、readiness、未決定事項を要約保全 |
-| `expTest1/artifacts/prompt-pilot/`（6件: 最終report 3件＋Fableレビュー3件） | decisions.mdが引用する検証証跡のみ残存。中間版ログは2026-07-16に削除済み |
+| `expTest1/artifacts/prompt-pilot/`（6件: 最終report 3件＋Fableレビュー3件） | 決定記録が引用する検証証跡のみ残存。中間版ログは2026-07-16に削除済み |
 | [archive/memory-experiment-system-archive.md](archive/memory-experiment-system-archive.md) | v0.3.0乾式・旧実API検証・未解決リスクの結果を要約保全 |
 | `mockExperimentSystem/README.md` | 現行mockの範囲、起動、バッチ検証手順、利用禁止範囲 |
 | `mockExperimentSystem/artifacts/prompt-eval-2026-07-25/` | v0.3.0実API評価とv0.4.0対照評価。旧方針の評価履歴 |
 
-## 確定事項の要約（詳細は`docs/project/decisions.md`）
+## 確定事項の要約（詳細は`core/00-decisions/decisions.md`）
 
-- 実匂い刺激は使わず質問操作のみ（DEC-001）。三条件・被験者間（DEC-002）。ブロック無作為化＋割付ログ（DEC-003、運用値未定）。
+- 実匂い刺激は使わず質問操作のみ（DEC-001）。**二条件（Visual / Odor）・被験者間**（DEC-041がDEC-002を更新）。ブロック無作為化＋割付ログ（DEC-003、運用値未定・二群として決め直す）。
 - 本人評価が主要な研究結果（DEC-004）。主評価軸=Perceived Memory-Likeness（記憶様感）、副評価軸=Scene Construction Rating（情景構成感）、Narrative Vividness（叙述鮮明性）、Emotional Reliving（感情再体験感）。4軸は合算しない（DEC-010/011）。
 - 生成文は「断片からの物語文章」と説明し「記憶の再構築」と言わない（DEC-005）。Manipulation Check実施・除外には使わない（DEC-006、DEC-014方針）。
 - 共通の初期想起トリガーを使う（DEC-007）。初期断片は**一文の自由記述**（DEC-015追記、2026-07-16。仕様v0.1.1）。
 - 日本語基本・英語版併設だが、**パイロット版は日本語のみ**（DEC-016追記、2026-07-16）。英語データは当面探索的。
-- 追質問は条件制約付きLLM生成、全条件同一ターン数で、**パイロット版は6ターンを暫定採用**（DEC-029追記。理由: 最終文章の情報量確保。正式値の承認は残る）。再生成上限3試行＋フォールバック＋全ログ（DEC-030、パイロット合格・本番承認未了）。
+- 追質問は条件制約付きLLM生成、全条件同一ターン数で、**パイロット版は6ターンを暫定採用**（DEC-029。理由: 最終文章の情報量確保。DEC-043により正式承認は取らない）。試行上限＋固定フォールバック＋全ログ（DEC-030。逐次3試行はDEC-045で並列候補生成＋修復パスへ）。
 - 生成質問は初期記憶断片を入力に、出来事に関連した記憶を掘り出す方向で生成する（DEC-025 note追記）。ターン数・モデル・温度・プロンプト版・検査閾値・フォールバック規則は、設計上一箇所の変数として設置し操作可能にする（DEC-030追記）。
-- 三条件はStandard、Visual、Odorとし、独立変数を質問焦点（出来事構造、視覚、匂い）の三水準とする。主たる計画対比はOdor対Visualであり、「匂い対非嗅覚感覚全般」とは解釈しない（DEC-033）。
+- 条件はVisualとOdorの二つ。独立変数は質問焦点（視覚、匂い）の二水準。Odor対Visualが唯一の計画対比であり、「匂い対非嗅覚感覚全般」とは解釈しない（DEC-041がDEC-033を更新）。Standard条件は生成の安定性を理由に廃止した（実測: 棄却6/6、フォールバック2/6ターン）。Odor条件では「何の匂いだったか」を尋ねてよく、禁じるのは原因の説明と発生源の推測の要求だけ（DEC-049）。
 - 最終文章は初期断片と回答を素材とするAIの創作を許す。全条件で共通の生成処理と説明を使い、質問から創作を含む読後反応までの処理全体を比較する。作成記録は素材参照と追加の自己申告とする（DEC-036）。
-- expTest1は技術デモ（DEC-009）。旧APIキー失効済み（DEC-026）。倫理審査は行わない、ただし同意・説明は必須（DEC-027）。入試は8月5-6日（DEC-028）。
+- expTest1は技術デモ（DEC-009）。旧APIキー失効済み（DEC-026）。**倫理審査を行う**（DEC-042がDEC-027を上書き）。入試は8月5-6日（DEC-028）。
+- 指導教員確認を承認ゲートに置かない（DEC-040）。生成パラメータの正式値を事前に固定せず最終値を論文へ記載（DEC-043）。機械再評価と人間パイロットは並行（DEC-044）。
+- Manipulation Checkは操作確認2件（MC-ODOR / MC-VISUAL）＋診断4件。対比係数は`[-1, +1]`（DEC-047がDEC-014を更新）。
 
-## 決定すべき事項（優先順・依存順）
+## 決定すべき事項
 
-**Tier 0 — 今すぐ・指導教員と（他の全てを塞いでいる）**
+この一覧は[`core/00-decisions/tasks.md`](../core/00-decisions/tasks.md)へ移した。以前は同じ「やること」が`decisions.md`の「未決定事項」表と本書のTier 0〜2表に二重に書かれ、表現がずれていた。**作業一覧は`core/00-decisions/tasks.md`だけを更新する。**
 
-| # | 決めること | 対応ID |
-| --- | --- | --- |
-| 1 | 作り直しの確定 | DEC-031（確定） |
-| 2 | 独立変数の正式表現（質問焦点の三水準として決定。指導教員確認が残る） | DEC-024, 033 / OD-001 |
-| 3 | 質問ターン数の正式承認（6ターンはパイロット暫定採用。残る判断は参加者負担・完遂率の確認と正式値の承認） | DEC-029追記 / OD-002 |
-| 4 | 現行mockの回答状態に応じた質問選択・全ターン分岐・条件別フォールバック率の再評価、指導教員確認 | DEC-035・039 / OD-006, 022 |
-| 5 | 承認した修正版を同じ合成データで再評価し、機械ゲート通過後に小規模な人間パイロットを実施する | DEC-030留保(4) / OD-016 |
-
-**Tier 1 — PROTOCOL.mdを構成する研究仕様（コードを書く前に全て確定）**
-
-| # | 決めること | 対応ID |
-| --- | --- | --- |
-| 6 | 初期想起トリガー最終文言（一文・100文字暫定は反映済み・仕様v0.1.2。残: 「1週間前」の妥当性、上限の正式承認、センシティブ対応の教員確認） | DEC-015 / OD-007 |
-| 7 | Prompt Catalog v0.4.3-draftを同一合成データで再検証し、本人評価の確認を経て凍結する | DEC-012, 029〜034 / OD-006 |
-| 8 | モデル版・temperature・再試行上限の正式値（4o系は方向のみ。`gpt-4o-mini`は未確定） | DEC-018 / OD-004, 005 |
-| 9 | 4評価軸の項目文・尺度・得点化の最終化（日本語原案は作成済み。項目理解・妥当性・7件法は未承認） | DEC-010 / OD-009 |
-| 10 | H1と主対比は決定済み。検定法・多重比較・除外規則を最終化する | DEC-011後半, 021 |
-| 11 | Manipulation Check最終文言と英語版同等性 | DEC-014 / OD-010 |
-| 12 | 同意文・API送信説明・撤回手続きの最終化（草案作成済み。連絡先・機関確認が残る） | DEC-019 / OD-008 |
-| 13 | 保存項目・保持期間・削除方法（10年基準案は作成済み。所属機関規程・削除手順の確認が残る） | DEC-020 / OD-011 |
-| 14 | DEC-036の創作方針で、入力との矛盾、文章量、条件別の追加内容を再評価する | DEC-032, 036 / OD-022 |
-
-**Tier 2 — 募集・分析（Tier 1確定後、パイロット前）**
-
-| # | 決めること | 対応ID |
-| --- | --- | --- |
-| 15 | 対象者・募集方法・除外基準 | DEC-017 |
-| 16 | サンプルサイズと検出力、ブロックサイズ・割付seed | DEC-022, 003下位 / OD-003 |
-| 17 | 事前登録の有無と登録先 | DEC-023 / OD-014 |
-| 18 | 英語データの確認的分析への統合条件（パイロットは日本語のみ確定。本実験での英語版提供時期も要判断） | DEC-016下位 |
+| いま見るもの | 場所 |
+| --- | --- |
+| 最優先（他を塞いでいる作業） | [tasks.md 最優先](../core/00-decisions/tasks.md#最優先) — TASK-023（二条件化の反映）、TASK-024（倫理審査の申請） |
+| 高 | [tasks.md 高](../core/00-decisions/tasks.md#高) — TASK-009、010、012、016 |
+| 中 | [tasks.md 中](../core/00-decisions/tasks.md#中) — TASK-015、017、018 |
+| 終わったこと（完了・中止） | [tasks.md 完了・中止](../core/00-decisions/tasks.md#完了中止) |
 
 **判断不要（DEC-031により次期版のスコープ外）**: memoryExperimentSystemの`OPEN_DECISIONS.md`のうち工学項目（OD-012, 013, 017〜021, 023〜026: 認証、hosted DB、トランザクション設計、削除ledger、アクセシビリティ監査等）は、単一PC・単一run・単一SQLiteの制約下では要件が消えるか大幅に単純化される。作り直し確定まで凍結。
 
@@ -148,3 +134,6 @@ note — `mockExperimentSystem`はこの順序より先に作られた検証用�
 | 2026-08-16 | DEC-033・034を同期。三条件をStandard / Visual / Odor、主対比をOdor対Visualへ変更し、Prompt Catalog v0.4.1-draft、条件盲検の証拠制約付き文章生成、全ターンの非想起処理を次期仕様とした。コードは未変更。 |
 | 2026-08-16 | Prompt Catalog v0.4.1-draftを`mockExperimentSystem`へ実装。三条件、共通ターン機能、全ターン非想起分岐、質問メタデータ検査、条件盲検の可変長文章、文別`evidenceIds`、v0.4.1専用CSVを反映。型検査・ビルド・実APIスモークは通過、30件再評価は未了。 |
 | 2026-09-02 | 文書14件を用途別の5ディレクトリへ移動。MASTERを入口として維持し、文書間・タスク一覧・Obsidianの参照先を更新。 |
+| 2026-09-07 | `project/decisions.md`を3文書（decisions-active / decisions-archive / tasks）へ分割。本書の「決定すべき事項」Tier 0〜2表を`project/tasks.md`へ統合し、作業一覧の二重管理を解消。決定内容は変更していない。 |
+| 2026-09-07 | 決定・タスクを`core/00-decisions/`へ移動。システムを規定する32件を`decisions.md`（反映先付き・出典1行の書式）、運営の7件を`docs/project/decisions-active.md`に分け、引用原文を`provenance.md`に凍結。PROTOCOL.mdを退役し`core/DESIGN.ja.md`へ一本化。core本文の決定との食い違い4件（割付方式、保持・削除、初期想起の条件、正式題名）を修正し、manifestのdesignDecisionsをDEC番号へ紐付け。TASK-025・026を完了。 |
+| 2026-09-07 | tasks.mdへの研究者追記を反映。Standard条件の廃止（DEC-041）、倫理審査の実施（DEC-042）、指導教員確認を承認ゲートにしない方針（DEC-040）、機械ゲートの前置廃止（DEC-044）を現在地・確定事項の要約へ同期。`core/`を再構築仕様として地図へ暫定的に追加した（分類はTASK-026）。 |

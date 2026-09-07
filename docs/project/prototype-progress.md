@@ -168,7 +168,7 @@ note — Web UIとLLM APIは技術デモとして実装済みだが、研究計�
 現行の優先順は末尾の`mockExperimentSystem`節を使う。
 
 1. **APIキー失効操作・目視確認と`.env.example`無害化は完了。** 秘密値を共有しない運用を継続する。
-2. `docs/project/decisions.md`で題名、4項目の統計的位置づけ、参加者言語、LLMモデル版、追質問数のルール、保存方針、主要対比、サンプルサイズを確定する。
+2. `docs/project/tasks.md`で題名、4項目の統計的位置づけ、参加者言語、LLMモデル版、追質問数のルール、保存方針、主要対比、サンプルサイズを確定する。
 3. 作成済みの`experiment/conditions.yaml` v0.1.0を指導教員レビューと認知インタビューで検証し、修正後に版を凍結する。
 4. 参加者画面と研究者画面を分離し、条件名・説明・割付操作を参加者から隠す。
 5. 作成済みの`docs/protocol/initial-recall-trigger.md` v0.1.0をレビュー・認知インタビューで検証し、初期想起トリガー、想起不能、センシティブ記憶、同意、API送信説明を実装する。
@@ -193,7 +193,7 @@ note — Web UIとLLM APIは技術デモとして実装済みだが、研究計�
 
 original_text — 「とりあえずBにして結果を得てからAとしてもいいと考える。」
 
-source — [`docs/project/decisions.md`](decisions.md) DEC-011追記（2026-07-15確認）
+source — [`docs/project/decisions-active.md`](decisions-active.md) DEC-011追記（2026-07-15確認）
 
 note — これは実装の問題ではなく、主仮説・多重比較・サンプルサイズを先に固定する研究設計上の問題である。
 
