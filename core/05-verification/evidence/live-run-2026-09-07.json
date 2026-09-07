@@ -1,0 +1,2857 @@
+{
+  "meta": {
+    "startedAt": "2026-09-07T03:15:53.160Z",
+    "finishedAt": "2026-09-07T03:17:01.008Z"
+  },
+  "conversations": {
+    "ja_standard": [
+      {
+        "turn": 1,
+        "request": {
+          "condition": "standard",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [],
+          "turn": 1,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "その公園で友人とどんな会話をしましたか？",
+            "metadata": {
+              "conditionFocus": "standard",
+              "turnFunction": "action_relation",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_011822822fb6e9d1016a9e2c69eab887d09efb4d38bcb21d0e",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "standard",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [],
+                "turn": 1,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "その公園で友人とどんな会話をしましたか？",
+                "metadata": {
+                  "conditionFocus": "standard",
+                  "turnFunction": "action_relation",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_011822822fb6e9d1016a9e2c69eab887d09efb4d38bcb21d0e",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 2,
+        "request": {
+          "condition": "standard",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "その公園で友人とどんな会話をしましたか？",
+              "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+            }
+          ],
+          "turn": 2,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+            "metadata": {
+              "conditionFocus": "standard",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_05a85ded3ab308da016a9e2c6bb64887d099778b8b802f3f4c",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "standard",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "その公園で友人とどんな会話をしましたか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+                  }
+                ],
+                "turn": 2,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+                "metadata": {
+                  "conditionFocus": "standard",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_05a85ded3ab308da016a9e2c6bb64887d099778b8b802f3f4c",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 3,
+        "request": {
+          "condition": "standard",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "その公園で友人とどんな会話をしましたか？",
+              "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+            },
+            {
+              "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+              "answer": "公園に着いてからはベンチに座って少し話をしました。特に予定は決めていませんでした。"
+            }
+          ],
+          "turn": 3,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "その出来事の中で、何をしていたか覚えていますか？",
+            "metadata": {
+              "conditionFocus": "standard",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": null,
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "fallback",
+            "requestId": null,
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "fallback",
+            "attempts": 3,
+            "diagnostics": {
+              "rejections": [
+                {
+                  "attempt": 1,
+                  "flags": [
+                    "standard_sensory_contamination"
+                  ],
+                  "question": "その公園で友人と座っていたベンチの周りには、どんな景色や人々がいましたか？",
+                  "metadata": {
+                    "conditionFocus": "standard",
+                    "turnFunction": "grounded_detail",
+                    "targetEvidenceId": "answer-2",
+                    "nonRecallTransition": false,
+                    "insufficientEvidenceTransition": false
+                  }
+                },
+                {
+                  "attempt": 2,
+                  "flags": [
+                    "standard_sensory_contamination"
+                  ],
+                  "question": "友人と公園を歩いているとき、周りの風景や雰囲気について何か気づいたことはありますか？",
+                  "metadata": {
+                    "conditionFocus": "standard",
+                    "turnFunction": "broad_recall",
+                    "targetEvidenceId": "fragment",
+                    "nonRecallTransition": false,
+                    "insufficientEvidenceTransition": false
+                  }
+                },
+                {
+                  "attempt": 3,
+                  "flags": [
+                    "standard_sensory_contamination"
+                  ],
+                  "question": "公園を歩いているとき、周りの景色や雰囲気について何か思い出せることはありますか？",
+                  "metadata": {
+                    "conditionFocus": "standard",
+                    "turnFunction": "broad_recall",
+                    "targetEvidenceId": "fragment",
+                    "nonRecallTransition": false,
+                    "insufficientEvidenceTransition": false
+                  }
+                }
+              ]
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "standard",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "その公園で友人とどんな会話をしましたか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+                  },
+                  {
+                    "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+                    "answer": "公園に着いてからはベンチに座って少し話をしました。特に予定は決めていませんでした。"
+                  }
+                ],
+                "turn": 3,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "その出来事の中で、何をしていたか覚えていますか？",
+                "metadata": {
+                  "conditionFocus": "standard",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": null,
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "fallback",
+                "requestId": null,
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "fallback",
+                "attempts": 3,
+                "diagnostics": {
+                  "rejections": [
+                    {
+                      "attempt": 1,
+                      "flags": [
+                        "standard_sensory_contamination"
+                      ],
+                      "question": "その公園で友人と座っていたベンチの周りには、どんな景色や人々がいましたか？",
+                      "metadata": {
+                        "conditionFocus": "standard",
+                        "turnFunction": "grounded_detail",
+                        "targetEvidenceId": "answer-2",
+                        "nonRecallTransition": false,
+                        "insufficientEvidenceTransition": false
+                      }
+                    },
+                    {
+                      "attempt": 2,
+                      "flags": [
+                        "standard_sensory_contamination"
+                      ],
+                      "question": "友人と公園を歩いているとき、周りの風景や雰囲気について何か気づいたことはありますか？",
+                      "metadata": {
+                        "conditionFocus": "standard",
+                        "turnFunction": "broad_recall",
+                        "targetEvidenceId": "fragment",
+                        "nonRecallTransition": false,
+                        "insufficientEvidenceTransition": false
+                      }
+                    },
+                    {
+                      "attempt": 3,
+                      "flags": [
+                        "standard_sensory_contamination"
+                      ],
+                      "question": "公園を歩いているとき、周りの景色や雰囲気について何か思い出せることはありますか？",
+                      "metadata": {
+                        "conditionFocus": "standard",
+                        "turnFunction": "broad_recall",
+                        "targetEvidenceId": "fragment",
+                        "nonRecallTransition": false,
+                        "insufficientEvidenceTransition": false
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 4,
+        "request": {
+          "condition": "standard",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "その公園で友人とどんな会話をしましたか？",
+              "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+            },
+            {
+              "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+              "answer": "公園に着いてからはベンチに座って少し話をしました。特に予定は決めていませんでした。"
+            },
+            {
+              "question": "その出来事の中で、何をしていたか覚えていますか？",
+              "answer": "着いたのはお昼を少し過ぎたころだったと思います。1時間くらい滞在しました。"
+            }
+          ],
+          "turn": 4,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "その公園で過ごした時間の中で、何か特別な出来事や印象に残った瞬間はありましたか？",
+            "metadata": {
+              "conditionFocus": "standard",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "answer-3",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0f43b552a18fd3e4016a9e2c7753a887d09543783a3fe9297b",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "standard",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "その公園で友人とどんな会話をしましたか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+                  },
+                  {
+                    "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+                    "answer": "公園に着いてからはベンチに座って少し話をしました。特に予定は決めていませんでした。"
+                  },
+                  {
+                    "question": "その出来事の中で、何をしていたか覚えていますか？",
+                    "answer": "着いたのはお昼を少し過ぎたころだったと思います。1時間くらい滞在しました。"
+                  }
+                ],
+                "turn": 4,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "その公園で過ごした時間の中で、何か特別な出来事や印象に残った瞬間はありましたか？",
+                "metadata": {
+                  "conditionFocus": "standard",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": "answer-3",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0f43b552a18fd3e4016a9e2c7753a887d09543783a3fe9297b",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 5,
+        "request": {
+          "condition": "standard",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "その公園で友人とどんな会話をしましたか？",
+              "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+            },
+            {
+              "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+              "answer": "公園に着いてからはベンチに座って少し話をしました。特に予定は決めていませんでした。"
+            },
+            {
+              "question": "その出来事の中で、何をしていたか覚えていますか？",
+              "answer": "着いたのはお昼を少し過ぎたころだったと思います。1時間くらい滞在しました。"
+            },
+            {
+              "question": "その公園で過ごした時間の中で、何か特別な出来事や印象に残った瞬間はありましたか？",
+              "answer": "友人と近況について話しながら、公園の中を一緒に歩き回りました。"
+            }
+          ],
+          "turn": 5,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "その公園での友人との会話の中で、どんな話題が出ましたか？",
+            "metadata": {
+              "conditionFocus": "standard",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "answer-4",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0b9abeeadaa37f64016a9e2c795f7087d098f3c4d97fc745b2",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "standard",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "その公園で友人とどんな会話をしましたか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+                  },
+                  {
+                    "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+                    "answer": "公園に着いてからはベンチに座って少し話をしました。特に予定は決めていませんでした。"
+                  },
+                  {
+                    "question": "その出来事の中で、何をしていたか覚えていますか？",
+                    "answer": "着いたのはお昼を少し過ぎたころだったと思います。1時間くらい滞在しました。"
+                  },
+                  {
+                    "question": "その公園で過ごした時間の中で、何か特別な出来事や印象に残った瞬間はありましたか？",
+                    "answer": "友人と近況について話しながら、公園の中を一緒に歩き回りました。"
+                  }
+                ],
+                "turn": 5,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "その公園での友人との会話の中で、どんな話題が出ましたか？",
+                "metadata": {
+                  "conditionFocus": "standard",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "answer-4",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0b9abeeadaa37f64016a9e2c795f7087d098f3c4d97fc745b2",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 6,
+        "request": {
+          "condition": "standard",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "その公園で友人とどんな会話をしましたか？",
+              "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+            },
+            {
+              "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+              "answer": "公園に着いてからはベンチに座って少し話をしました。特に予定は決めていませんでした。"
+            },
+            {
+              "question": "その出来事の中で、何をしていたか覚えていますか？",
+              "answer": "着いたのはお昼を少し過ぎたころだったと思います。1時間くらい滞在しました。"
+            },
+            {
+              "question": "その公園で過ごした時間の中で、何か特別な出来事や印象に残った瞬間はありましたか？",
+              "answer": "友人と近況について話しながら、公園の中を一緒に歩き回りました。"
+            },
+            {
+              "question": "その公園での友人との会話の中で、どんな話題が出ましたか？",
+              "answer": "帰り道にコンビニに寄って飲み物を買いました。特に変わったことはありませんでした。"
+            }
+          ],
+          "turn": 6,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "metadata": {
+              "conditionFocus": "neutral",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": null,
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": true
+            },
+            "language": "ja",
+            "model": "fallback",
+            "requestId": null,
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "fallback",
+            "attempts": 3,
+            "diagnostics": {
+              "rejections": [
+                {
+                  "attempt": 1,
+                  "flags": [
+                    "standard_sensory_contamination"
+                  ],
+                  "question": "公園で過ごした時間の中で、周囲の雰囲気や景色について何か覚えていることはありますか？",
+                  "metadata": {
+                    "conditionFocus": "standard",
+                    "turnFunction": "broad_recall",
+                    "targetEvidenceId": "fragment",
+                    "nonRecallTransition": false,
+                    "insufficientEvidenceTransition": false
+                  }
+                },
+                {
+                  "attempt": 2,
+                  "flags": [
+                    "standard_emotion_focus"
+                  ],
+                  "question": "公園での友人との会話の中で、どんな気持ちで話していましたか？",
+                  "metadata": {
+                    "conditionFocus": "standard",
+                    "turnFunction": "action_relation",
+                    "targetEvidenceId": "fragment",
+                    "nonRecallTransition": false,
+                    "insufficientEvidenceTransition": false
+                  }
+                },
+                {
+                  "attempt": 3,
+                  "flags": [
+                    "standard_emotion_focus"
+                  ],
+                  "question": "その公園での友人との会話の中で、どんな感情を感じましたか？",
+                  "metadata": {
+                    "conditionFocus": "standard",
+                    "turnFunction": "action_relation",
+                    "targetEvidenceId": "fragment",
+                    "nonRecallTransition": false,
+                    "insufficientEvidenceTransition": false
+                  }
+                }
+              ]
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "standard",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "その公園で友人とどんな会話をしましたか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+                  },
+                  {
+                    "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+                    "answer": "公園に着いてからはベンチに座って少し話をしました。特に予定は決めていませんでした。"
+                  },
+                  {
+                    "question": "その出来事の中で、何をしていたか覚えていますか？",
+                    "answer": "着いたのはお昼を少し過ぎたころだったと思います。1時間くらい滞在しました。"
+                  },
+                  {
+                    "question": "その公園で過ごした時間の中で、何か特別な出来事や印象に残った瞬間はありましたか？",
+                    "answer": "友人と近況について話しながら、公園の中を一緒に歩き回りました。"
+                  },
+                  {
+                    "question": "その公園での友人との会話の中で、どんな話題が出ましたか？",
+                    "answer": "帰り道にコンビニに寄って飲み物を買いました。特に変わったことはありませんでした。"
+                  }
+                ],
+                "turn": 6,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+                "metadata": {
+                  "conditionFocus": "neutral",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": null,
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": true
+                },
+                "language": "ja",
+                "model": "fallback",
+                "requestId": null,
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "fallback",
+                "attempts": 3,
+                "diagnostics": {
+                  "rejections": [
+                    {
+                      "attempt": 1,
+                      "flags": [
+                        "standard_sensory_contamination"
+                      ],
+                      "question": "公園で過ごした時間の中で、周囲の雰囲気や景色について何か覚えていることはありますか？",
+                      "metadata": {
+                        "conditionFocus": "standard",
+                        "turnFunction": "broad_recall",
+                        "targetEvidenceId": "fragment",
+                        "nonRecallTransition": false,
+                        "insufficientEvidenceTransition": false
+                      }
+                    },
+                    {
+                      "attempt": 2,
+                      "flags": [
+                        "standard_emotion_focus"
+                      ],
+                      "question": "公園での友人との会話の中で、どんな気持ちで話していましたか？",
+                      "metadata": {
+                        "conditionFocus": "standard",
+                        "turnFunction": "action_relation",
+                        "targetEvidenceId": "fragment",
+                        "nonRecallTransition": false,
+                        "insufficientEvidenceTransition": false
+                      }
+                    },
+                    {
+                      "attempt": 3,
+                      "flags": [
+                        "standard_emotion_focus"
+                      ],
+                      "question": "その公園での友人との会話の中で、どんな感情を感じましたか？",
+                      "metadata": {
+                        "conditionFocus": "standard",
+                        "turnFunction": "action_relation",
+                        "targetEvidenceId": "fragment",
+                        "nonRecallTransition": false,
+                        "insufficientEvidenceTransition": false
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "ja_visual": [
+      {
+        "turn": 1,
+        "request": {
+          "condition": "visual",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [],
+          "turn": 1,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "その公園にはどんな色の花が咲いていましたか？",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0629f79140f8198e016a9e2c7ffe3087d09778c72a57c332f8",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [],
+                "turn": 1,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "その公園にはどんな色の花が咲いていましたか？",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0629f79140f8198e016a9e2c7ffe3087d09778c72a57c332f8",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 2,
+        "request": {
+          "condition": "visual",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "その公園にはどんな色の花が咲いていましたか？",
+              "answer": "友人と近所の公園まで歩いて行きました。木々の緑がとても鮮やかに見えました。"
+            }
+          ],
+          "turn": 2,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "公園の木々の中で、特に印象に残っている木の種類は何ですか？",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0422114bb1ba1c4f016a9e2c82506c87d096f63bd5ac28d435",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "その公園にはどんな色の花が咲いていましたか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。木々の緑がとても鮮やかに見えました。"
+                  }
+                ],
+                "turn": 2,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "公園の木々の中で、特に印象に残っている木の種類は何ですか？",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0422114bb1ba1c4f016a9e2c82506c87d096f63bd5ac28d435",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 3,
+        "request": {
+          "condition": "visual",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "その公園にはどんな色の花が咲いていましたか？",
+              "answer": "友人と近所の公園まで歩いて行きました。木々の緑がとても鮮やかに見えました。"
+            },
+            {
+              "question": "公園の木々の中で、特に印象に残っている木の種類は何ですか？",
+              "answer": "公園の花壇にはオレンジ色や黄色の花がたくさん咲いていて、明るい色合いが印象的でした。"
+            }
+          ],
+          "turn": 3,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "公園の木々の色や形について、もう少し詳しく教えてもらえますか？",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "answer-1",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_019dd329765bd991016a9e2c84ffd887d0af87f4ae1c292901",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "その公園にはどんな色の花が咲いていましたか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。木々の緑がとても鮮やかに見えました。"
+                  },
+                  {
+                    "question": "公園の木々の中で、特に印象に残っている木の種類は何ですか？",
+                    "answer": "公園の花壇にはオレンジ色や黄色の花がたくさん咲いていて、明るい色合いが印象的でした。"
+                  }
+                ],
+                "turn": 3,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "公園の木々の色や形について、もう少し詳しく教えてもらえますか？",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "answer-1",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_019dd329765bd991016a9e2c84ffd887d0af87f4ae1c292901",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 4,
+        "request": {
+          "condition": "visual",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "その公園にはどんな色の花が咲いていましたか？",
+              "answer": "友人と近所の公園まで歩いて行きました。木々の緑がとても鮮やかに見えました。"
+            },
+            {
+              "question": "公園の木々の中で、特に印象に残っている木の種類は何ですか？",
+              "answer": "公園の花壇にはオレンジ色や黄色の花がたくさん咲いていて、明るい色合いが印象的でした。"
+            },
+            {
+              "question": "公園の木々の色や形について、もう少し詳しく教えてもらえますか？",
+              "answer": "着いたのはお昼過ぎで、日差しが強くて地面に木漏れ日の模様ができていました。"
+            }
+          ],
+          "turn": 4,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "公園の中で特に目を引いた木の形や大きさについて教えてください。",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "answer-3",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_060579d0ac568e6b016a9e2c86f87487d0a80d546dd7038e59",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "その公園にはどんな色の花が咲いていましたか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。木々の緑がとても鮮やかに見えました。"
+                  },
+                  {
+                    "question": "公園の木々の中で、特に印象に残っている木の種類は何ですか？",
+                    "answer": "公園の花壇にはオレンジ色や黄色の花がたくさん咲いていて、明るい色合いが印象的でした。"
+                  },
+                  {
+                    "question": "公園の木々の色や形について、もう少し詳しく教えてもらえますか？",
+                    "answer": "着いたのはお昼過ぎで、日差しが強くて地面に木漏れ日の模様ができていました。"
+                  }
+                ],
+                "turn": 4,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "公園の中で特に目を引いた木の形や大きさについて教えてください。",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "answer-3",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_060579d0ac568e6b016a9e2c86f87487d0a80d546dd7038e59",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 5,
+        "request": {
+          "condition": "visual",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "その公園にはどんな色の花が咲いていましたか？",
+              "answer": "友人と近所の公園まで歩いて行きました。木々の緑がとても鮮やかに見えました。"
+            },
+            {
+              "question": "公園の木々の中で、特に印象に残っている木の種類は何ですか？",
+              "answer": "公園の花壇にはオレンジ色や黄色の花がたくさん咲いていて、明るい色合いが印象的でした。"
+            },
+            {
+              "question": "公園の木々の色や形について、もう少し詳しく教えてもらえますか？",
+              "answer": "着いたのはお昼過ぎで、日差しが強くて地面に木漏れ日の模様ができていました。"
+            },
+            {
+              "question": "公園の中で特に目を引いた木の形や大きさについて教えてください。",
+              "answer": "そのときの具体的な光景については、正直あまりよく思い出せません。"
+            }
+          ],
+          "turn": 5,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "公園の中で特に目を引いた花の形や大きさについて、何か思い出せることはありますか？",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "answer-2",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0a9c8050080141b7016a9e2c89142487d0b3da2f6c5a66db18",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "その公園にはどんな色の花が咲いていましたか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。木々の緑がとても鮮やかに見えました。"
+                  },
+                  {
+                    "question": "公園の木々の中で、特に印象に残っている木の種類は何ですか？",
+                    "answer": "公園の花壇にはオレンジ色や黄色の花がたくさん咲いていて、明るい色合いが印象的でした。"
+                  },
+                  {
+                    "question": "公園の木々の色や形について、もう少し詳しく教えてもらえますか？",
+                    "answer": "着いたのはお昼過ぎで、日差しが強くて地面に木漏れ日の模様ができていました。"
+                  },
+                  {
+                    "question": "公園の中で特に目を引いた木の形や大きさについて教えてください。",
+                    "answer": "そのときの具体的な光景については、正直あまりよく思い出せません。"
+                  }
+                ],
+                "turn": 5,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "公園の中で特に目を引いた花の形や大きさについて、何か思い出せることはありますか？",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "answer-2",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0a9c8050080141b7016a9e2c89142487d0b3da2f6c5a66db18",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 6,
+        "request": {
+          "condition": "visual",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "その公園にはどんな色の花が咲いていましたか？",
+              "answer": "友人と近所の公園まで歩いて行きました。木々の緑がとても鮮やかに見えました。"
+            },
+            {
+              "question": "公園の木々の中で、特に印象に残っている木の種類は何ですか？",
+              "answer": "公園の花壇にはオレンジ色や黄色の花がたくさん咲いていて、明るい色合いが印象的でした。"
+            },
+            {
+              "question": "公園の木々の色や形について、もう少し詳しく教えてもらえますか？",
+              "answer": "着いたのはお昼過ぎで、日差しが強くて地面に木漏れ日の模様ができていました。"
+            },
+            {
+              "question": "公園の中で特に目を引いた木の形や大きさについて教えてください。",
+              "answer": "そのときの具体的な光景については、正直あまりよく思い出せません。"
+            },
+            {
+              "question": "公園の中で特に目を引いた花の形や大きさについて、何か思い出せることはありますか？",
+              "answer": "池のそばを歩いたとき、水面が太陽の光を反射してきらきら光っていたのを覚えています。"
+            }
+          ],
+          "turn": 6,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "公園の中で見た他の植物について、何か覚えていることはありますか？",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "answer-5",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0dfd3d0edd575195016a9e2c8afee887d0a64e5f5b5bdc4607",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "その公園にはどんな色の花が咲いていましたか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。木々の緑がとても鮮やかに見えました。"
+                  },
+                  {
+                    "question": "公園の木々の中で、特に印象に残っている木の種類は何ですか？",
+                    "answer": "公園の花壇にはオレンジ色や黄色の花がたくさん咲いていて、明るい色合いが印象的でした。"
+                  },
+                  {
+                    "question": "公園の木々の色や形について、もう少し詳しく教えてもらえますか？",
+                    "answer": "着いたのはお昼過ぎで、日差しが強くて地面に木漏れ日の模様ができていました。"
+                  },
+                  {
+                    "question": "公園の中で特に目を引いた木の形や大きさについて教えてください。",
+                    "answer": "そのときの具体的な光景については、正直あまりよく思い出せません。"
+                  },
+                  {
+                    "question": "公園の中で特に目を引いた花の形や大きさについて、何か思い出せることはありますか？",
+                    "answer": "池のそばを歩いたとき、水面が太陽の光を反射してきらきら光っていたのを覚えています。"
+                  }
+                ],
+                "turn": 6,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "公園の中で見た他の植物について、何か覚えていることはありますか？",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": "answer-5",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0dfd3d0edd575195016a9e2c8afee887d0a64e5f5b5bdc4607",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "ja_odor": [
+      {
+        "turn": 1,
+        "request": {
+          "condition": "odor",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [],
+          "turn": 1,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+            "metadata": {
+              "conditionFocus": "odor",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0ac2d7afc20d9719016a9e2c8d22f087d09b9f7476d7f80c0a",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "odor",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [],
+                "turn": 1,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+                "metadata": {
+                  "conditionFocus": "odor",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0ac2d7afc20d9719016a9e2c8d22f087d09b9f7476d7f80c0a",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 2,
+        "request": {
+          "condition": "odor",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+              "answer": "友人と近所の公園まで歩いて行きました。あたりには青草のような匂いが漂っていました。"
+            }
+          ],
+          "turn": 2,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "その青草の匂い以外に、公園で感じた匂いについて何か思い出せることはありますか？",
+            "metadata": {
+              "conditionFocus": "odor",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "answer-1",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_00b1c35262bd191a016a9e2c8f112487d0a2e1ad5d5dfe14c6",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "odor",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。あたりには青草のような匂いが漂っていました。"
+                  }
+                ],
+                "turn": 2,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "その青草の匂い以外に、公園で感じた匂いについて何か思い出せることはありますか？",
+                "metadata": {
+                  "conditionFocus": "odor",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": "answer-1",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_00b1c35262bd191a016a9e2c8f112487d0a2e1ad5d5dfe14c6",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 3,
+        "request": {
+          "condition": "odor",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+              "answer": "友人と近所の公園まで歩いて行きました。あたりには青草のような匂いが漂っていました。"
+            },
+            {
+              "question": "その青草の匂い以外に、公園で感じた匂いについて何か思い出せることはありますか？",
+              "answer": "匂いは思い出せません。"
+            }
+          ],
+          "turn": 3,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "公園での時間の中で、他にどんな匂いを感じたことがあるか、思い出せる範囲で教えてください。",
+            "metadata": {
+              "conditionFocus": "odor",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0769d7acc602071e016a9e2c934a4c87d085b46cf369d12075",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "odor",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。あたりには青草のような匂いが漂っていました。"
+                  },
+                  {
+                    "question": "その青草の匂い以外に、公園で感じた匂いについて何か思い出せることはありますか？",
+                    "answer": "匂いは思い出せません。"
+                  }
+                ],
+                "turn": 3,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "公園での時間の中で、他にどんな匂いを感じたことがあるか、思い出せる範囲で教えてください。",
+                "metadata": {
+                  "conditionFocus": "odor",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0769d7acc602071e016a9e2c934a4c87d085b46cf369d12075",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 4,
+        "request": {
+          "condition": "odor",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+              "answer": "友人と近所の公園まで歩いて行きました。あたりには青草のような匂いが漂っていました。"
+            },
+            {
+              "question": "その青草の匂い以外に、公園で感じた匂いについて何か思い出せることはありますか？",
+              "answer": "匂いは思い出せません。"
+            },
+            {
+              "question": "公園での時間の中で、他にどんな匂いを感じたことがあるか、思い出せる範囲で教えてください。",
+              "answer": "公園の花壇の近くを通ったときは甘い花の香りがした気がします。"
+            }
+          ],
+          "turn": 4,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "公園での散歩中に、他に特に印象に残った匂いはありましたか？",
+            "metadata": {
+              "conditionFocus": "odor",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "answer-3",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0768c9709f3eb328016a9e2c955a4c87d0a09622125e5591c4",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "odor",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。あたりには青草のような匂いが漂っていました。"
+                  },
+                  {
+                    "question": "その青草の匂い以外に、公園で感じた匂いについて何か思い出せることはありますか？",
+                    "answer": "匂いは思い出せません。"
+                  },
+                  {
+                    "question": "公園での時間の中で、他にどんな匂いを感じたことがあるか、思い出せる範囲で教えてください。",
+                    "answer": "公園の花壇の近くを通ったときは甘い花の香りがした気がします。"
+                  }
+                ],
+                "turn": 4,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "公園での散歩中に、他に特に印象に残った匂いはありましたか？",
+                "metadata": {
+                  "conditionFocus": "odor",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": "answer-3",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0768c9709f3eb328016a9e2c955a4c87d0a09622125e5591c4",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 5,
+        "request": {
+          "condition": "odor",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+              "answer": "友人と近所の公園まで歩いて行きました。あたりには青草のような匂いが漂っていました。"
+            },
+            {
+              "question": "その青草の匂い以外に、公園で感じた匂いについて何か思い出せることはありますか？",
+              "answer": "匂いは思い出せません。"
+            },
+            {
+              "question": "公園での時間の中で、他にどんな匂いを感じたことがあるか、思い出せる範囲で教えてください。",
+              "answer": "公園の花壇の近くを通ったときは甘い花の香りがした気がします。"
+            },
+            {
+              "question": "公園での散歩中に、他に特に印象に残った匂いはありましたか？",
+              "answer": "芝生のそばでは少し土の匂いも感じました。"
+            }
+          ],
+          "turn": 5,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "公園で感じた甘い花の香りについて、どのような花の匂いだったか思い出せることはありますか？",
+            "metadata": {
+              "conditionFocus": "odor",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "answer-3",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_02d240eea925c9db016a9e2c97387487d09fdb25393228c8a4",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "odor",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。あたりには青草のような匂いが漂っていました。"
+                  },
+                  {
+                    "question": "その青草の匂い以外に、公園で感じた匂いについて何か思い出せることはありますか？",
+                    "answer": "匂いは思い出せません。"
+                  },
+                  {
+                    "question": "公園での時間の中で、他にどんな匂いを感じたことがあるか、思い出せる範囲で教えてください。",
+                    "answer": "公園の花壇の近くを通ったときは甘い花の香りがした気がします。"
+                  },
+                  {
+                    "question": "公園での散歩中に、他に特に印象に残った匂いはありましたか？",
+                    "answer": "芝生のそばでは少し土の匂いも感じました。"
+                  }
+                ],
+                "turn": 5,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "公園で感じた甘い花の香りについて、どのような花の匂いだったか思い出せることはありますか？",
+                "metadata": {
+                  "conditionFocus": "odor",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "answer-3",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_02d240eea925c9db016a9e2c97387487d09fdb25393228c8a4",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 6,
+        "request": {
+          "condition": "odor",
+          "fragment": "休日に友人と公園を歩いた。",
+          "history": [
+            {
+              "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+              "answer": "友人と近所の公園まで歩いて行きました。あたりには青草のような匂いが漂っていました。"
+            },
+            {
+              "question": "その青草の匂い以外に、公園で感じた匂いについて何か思い出せることはありますか？",
+              "answer": "匂いは思い出せません。"
+            },
+            {
+              "question": "公園での時間の中で、他にどんな匂いを感じたことがあるか、思い出せる範囲で教えてください。",
+              "answer": "公園の花壇の近くを通ったときは甘い花の香りがした気がします。"
+            },
+            {
+              "question": "公園での散歩中に、他に特に印象に残った匂いはありましたか？",
+              "answer": "芝生のそばでは少し土の匂いも感じました。"
+            },
+            {
+              "question": "公園で感じた甘い花の香りについて、どのような花の匂いだったか思い出せることはありますか？",
+              "answer": "帰り道に通ったパン屋さんから焼きたてパンの香ばしい匂いがしてきました。"
+            }
+          ],
+          "turn": 6,
+          "language": "ja"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "公園を歩いているときに感じた匂いの中で、特に印象に残っている匂いはありますか？",
+            "metadata": {
+              "conditionFocus": "odor",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "answer-5",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "ja",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_013e72f6eea98888016a9e2c99500c87d0b9535ac4618d319b",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "odor",
+                "fragment": "休日に友人と公園を歩いた。",
+                "history": [
+                  {
+                    "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+                    "answer": "友人と近所の公園まで歩いて行きました。あたりには青草のような匂いが漂っていました。"
+                  },
+                  {
+                    "question": "その青草の匂い以外に、公園で感じた匂いについて何か思い出せることはありますか？",
+                    "answer": "匂いは思い出せません。"
+                  },
+                  {
+                    "question": "公園での時間の中で、他にどんな匂いを感じたことがあるか、思い出せる範囲で教えてください。",
+                    "answer": "公園の花壇の近くを通ったときは甘い花の香りがした気がします。"
+                  },
+                  {
+                    "question": "公園での散歩中に、他に特に印象に残った匂いはありましたか？",
+                    "answer": "芝生のそばでは少し土の匂いも感じました。"
+                  },
+                  {
+                    "question": "公園で感じた甘い花の香りについて、どのような花の匂いだったか思い出せることはありますか？",
+                    "answer": "帰り道に通ったパン屋さんから焼きたてパンの香ばしい匂いがしてきました。"
+                  }
+                ],
+                "turn": 6,
+                "language": "ja"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "公園を歩いているときに感じた匂いの中で、特に印象に残っている匂いはありますか？",
+                "metadata": {
+                  "conditionFocus": "odor",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": "answer-5",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "ja",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_013e72f6eea98888016a9e2c99500c87d0b9535ac4618d319b",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "en_visual": [
+      {
+        "turn": 1,
+        "request": {
+          "condition": "visual",
+          "fragment": "I walked through a park with a friend on a day off.",
+          "history": [],
+          "turn": 1,
+          "language": "en"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "What did the park look like on that day?",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "en",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_059b8924cec6f48d016a9e2c9b0ff087d0867e45b1c6bbbb9f",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "I walked through a park with a friend on a day off.",
+                "history": [],
+                "turn": 1,
+                "language": "en"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "What did the park look like on that day?",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "en",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_059b8924cec6f48d016a9e2c9b0ff087d0867e45b1c6bbbb9f",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 2,
+        "request": {
+          "condition": "visual",
+          "fragment": "I walked through a park with a friend on a day off.",
+          "history": [
+            {
+              "question": "What did the park look like on that day?",
+              "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+            }
+          ],
+          "turn": 2,
+          "language": "en"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "Can you describe what else you saw in the park besides the trees?",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "en",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_08688c7650b0fa04016a9e2c9cf64087d094143b218198930f",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "I walked through a park with a friend on a day off.",
+                "history": [
+                  {
+                    "question": "What did the park look like on that day?",
+                    "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+                  }
+                ],
+                "turn": 2,
+                "language": "en"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "Can you describe what else you saw in the park besides the trees?",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "en",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_08688c7650b0fa04016a9e2c9cf64087d094143b218198930f",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 3,
+        "request": {
+          "condition": "visual",
+          "fragment": "I walked through a park with a friend on a day off.",
+          "history": [
+            {
+              "question": "What did the park look like on that day?",
+              "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+            },
+            {
+              "question": "Can you describe what else you saw in the park besides the trees?",
+              "answer": "There was a flower bed with bright orange and yellow flowers that really stood out to me."
+            }
+          ],
+          "turn": 3,
+          "language": "en"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "What else can you remember about the arrangement of the flower bed or the flowers?",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "answer-2",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "en",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_09be36ed50b6336e016a9e2c9eb12c87d084434cb6718e8860",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "I walked through a park with a friend on a day off.",
+                "history": [
+                  {
+                    "question": "What did the park look like on that day?",
+                    "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+                  },
+                  {
+                    "question": "Can you describe what else you saw in the park besides the trees?",
+                    "answer": "There was a flower bed with bright orange and yellow flowers that really stood out to me."
+                  }
+                ],
+                "turn": 3,
+                "language": "en"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "What else can you remember about the arrangement of the flower bed or the flowers?",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "answer-2",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "en",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_09be36ed50b6336e016a9e2c9eb12c87d084434cb6718e8860",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 4,
+        "request": {
+          "condition": "visual",
+          "fragment": "I walked through a park with a friend on a day off.",
+          "history": [
+            {
+              "question": "What did the park look like on that day?",
+              "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+            },
+            {
+              "question": "Can you describe what else you saw in the park besides the trees?",
+              "answer": "There was a flower bed with bright orange and yellow flowers that really stood out to me."
+            },
+            {
+              "question": "What else can you remember about the arrangement of the flower bed or the flowers?",
+              "answer": "We arrived a bit after noon, and the sunlight created dappled patterns of light and shadow on the ground."
+            }
+          ],
+          "turn": 4,
+          "language": "en"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "What specific types of trees do you remember seeing in the park?",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "en",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0735b3ed9ceab0dc016a9e2ca08bd487d080647cb1bf670ee2",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "I walked through a park with a friend on a day off.",
+                "history": [
+                  {
+                    "question": "What did the park look like on that day?",
+                    "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+                  },
+                  {
+                    "question": "Can you describe what else you saw in the park besides the trees?",
+                    "answer": "There was a flower bed with bright orange and yellow flowers that really stood out to me."
+                  },
+                  {
+                    "question": "What else can you remember about the arrangement of the flower bed or the flowers?",
+                    "answer": "We arrived a bit after noon, and the sunlight created dappled patterns of light and shadow on the ground."
+                  }
+                ],
+                "turn": 4,
+                "language": "en"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "What specific types of trees do you remember seeing in the park?",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "en",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0735b3ed9ceab0dc016a9e2ca08bd487d080647cb1bf670ee2",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 5,
+        "request": {
+          "condition": "visual",
+          "fragment": "I walked through a park with a friend on a day off.",
+          "history": [
+            {
+              "question": "What did the park look like on that day?",
+              "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+            },
+            {
+              "question": "Can you describe what else you saw in the park besides the trees?",
+              "answer": "There was a flower bed with bright orange and yellow flowers that really stood out to me."
+            },
+            {
+              "question": "What else can you remember about the arrangement of the flower bed or the flowers?",
+              "answer": "We arrived a bit after noon, and the sunlight created dappled patterns of light and shadow on the ground."
+            },
+            {
+              "question": "What specific types of trees do you remember seeing in the park?",
+              "answer": "We walked together past the pond, chatting about random things along the way."
+            }
+          ],
+          "turn": 5,
+          "language": "en"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "What did the pond look like as you walked past it?",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "en",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_0b39bbf7352b7743016a9e2ca272d887d0a650855f11d76a92",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "I walked through a park with a friend on a day off.",
+                "history": [
+                  {
+                    "question": "What did the park look like on that day?",
+                    "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+                  },
+                  {
+                    "question": "Can you describe what else you saw in the park besides the trees?",
+                    "answer": "There was a flower bed with bright orange and yellow flowers that really stood out to me."
+                  },
+                  {
+                    "question": "What else can you remember about the arrangement of the flower bed or the flowers?",
+                    "answer": "We arrived a bit after noon, and the sunlight created dappled patterns of light and shadow on the ground."
+                  },
+                  {
+                    "question": "What specific types of trees do you remember seeing in the park?",
+                    "answer": "We walked together past the pond, chatting about random things along the way."
+                  }
+                ],
+                "turn": 5,
+                "language": "en"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "What did the pond look like as you walked past it?",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "broad_recall",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "en",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_0b39bbf7352b7743016a9e2ca272d887d0a650855f11d76a92",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "turn": 6,
+        "request": {
+          "condition": "visual",
+          "fragment": "I walked through a park with a friend on a day off.",
+          "history": [
+            {
+              "question": "What did the park look like on that day?",
+              "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+            },
+            {
+              "question": "Can you describe what else you saw in the park besides the trees?",
+              "answer": "There was a flower bed with bright orange and yellow flowers that really stood out to me."
+            },
+            {
+              "question": "What else can you remember about the arrangement of the flower bed or the flowers?",
+              "answer": "We arrived a bit after noon, and the sunlight created dappled patterns of light and shadow on the ground."
+            },
+            {
+              "question": "What specific types of trees do you remember seeing in the park?",
+              "answer": "We walked together past the pond, chatting about random things along the way."
+            },
+            {
+              "question": "What did the pond look like as you walked past it?",
+              "answer": "The water in the pond was sparkling because the sunlight was reflecting off small ripples."
+            }
+          ],
+          "turn": 6,
+          "language": "en"
+        },
+        "result": {
+          "finalStatus": 200,
+          "finalBody": {
+            "question": "What did the area around the pond look like as you walked by it?",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "grounded_detail",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            },
+            "language": "en",
+            "model": "gpt-4o-mini-2024-07-18",
+            "requestId": "resp_01196446139e65d8016a9e2ca4278487d0bba119a0855ca9bd",
+            "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+            "source": "generated",
+            "attempts": 1,
+            "diagnostics": {
+              "rejections": []
+            }
+          },
+          "attempts": [
+            {
+              "attemptNumber": 1,
+              "requestBody": {
+                "condition": "visual",
+                "fragment": "I walked through a park with a friend on a day off.",
+                "history": [
+                  {
+                    "question": "What did the park look like on that day?",
+                    "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+                  },
+                  {
+                    "question": "Can you describe what else you saw in the park besides the trees?",
+                    "answer": "There was a flower bed with bright orange and yellow flowers that really stood out to me."
+                  },
+                  {
+                    "question": "What else can you remember about the arrangement of the flower bed or the flowers?",
+                    "answer": "We arrived a bit after noon, and the sunlight created dappled patterns of light and shadow on the ground."
+                  },
+                  {
+                    "question": "What specific types of trees do you remember seeing in the park?",
+                    "answer": "We walked together past the pond, chatting about random things along the way."
+                  },
+                  {
+                    "question": "What did the pond look like as you walked past it?",
+                    "answer": "The water in the pond was sparkling because the sunlight was reflecting off small ripples."
+                  }
+                ],
+                "turn": 6,
+                "language": "en"
+              },
+              "status": 200,
+              "responseBody": {
+                "question": "What did the area around the pond look like as you walked by it?",
+                "metadata": {
+                  "conditionFocus": "visual",
+                  "turnFunction": "grounded_detail",
+                  "targetEvidenceId": "fragment",
+                  "nonRecallTransition": false,
+                  "insufficientEvidenceTransition": false
+                },
+                "language": "en",
+                "model": "gpt-4o-mini-2024-07-18",
+                "requestId": "resp_01196446139e65d8016a9e2ca4278487d0bba119a0855ca9bd",
+                "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+                "source": "generated",
+                "attempts": 1,
+                "diagnostics": {
+                  "rejections": []
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "narratives": {
+    "ja_standard_narrative": {
+      "request": {
+        "fragment": "休日に友人と公園を歩いた。",
+        "answers": [
+          {
+            "question": "その公園で友人とどんな会話をしましたか？",
+            "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+          },
+          {
+            "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+            "answer": "公園に着いてからはベンチに座って少し話をしました。特に予定は決めていませんでした。"
+          },
+          {
+            "question": "その出来事の中で、何をしていたか覚えていますか？",
+            "answer": "着いたのはお昼を少し過ぎたころだったと思います。1時間くらい滞在しました。"
+          },
+          {
+            "question": "その公園で過ごした時間の中で、何か特別な出来事や印象に残った瞬間はありましたか？",
+            "answer": "友人と近況について話しながら、公園の中を一緒に歩き回りました。"
+          },
+          {
+            "question": "その公園での友人との会話の中で、どんな話題が出ましたか？",
+            "answer": "帰り道にコンビニに寄って飲み物を買いました。特に変わったことはありませんでした。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "そのあとはそれぞれ家に帰りました。細かい時間まではっきり思い出せない部分もあります。"
+          }
+        ],
+        "language": "ja"
+      },
+      "result": {
+        "finalStatus": 200,
+        "finalBody": {
+          "narrative": "休日、友人と近所の公園を歩きながら、明るい天気に誘われて軽装で出かけました。公園に着くと、少しお昼を過ぎた頃で、ベンチに腰掛けてお互いの近況を話し始めました。特に予定は決めていなかったのですが、思いつくままに公園内を歩き回り、友人との会話に花を咲かせました。帰り道にはコンビニに寄り、冷たい飲み物を買いながら、特別なことはなかったけれど、温かい思い出が残りました。その後、それぞれの家に帰る途中、心の中にささやかな幸せを抱えながら、また会う日を楽しみにしています。",
+          "language": "ja",
+          "sentences": [
+            {
+              "text": "休日、友人と近所の公園を歩きながら、明るい天気に誘われて軽装で出かけました。",
+              "sourceIds": [
+                "fragment",
+                "answer-1"
+              ],
+              "containsCreativeAddition": false
+            },
+            {
+              "text": "公園に着くと、少しお昼を過ぎた頃で、ベンチに腰掛けてお互いの近況を話し始めました。",
+              "sourceIds": [
+                "answer-2",
+                "answer-3"
+              ],
+              "containsCreativeAddition": false
+            },
+            {
+              "text": "特に予定は決めていなかったのですが、思いつくままに公園内を歩き回り、友人との会話に花を咲かせました。",
+              "sourceIds": [
+                "answer-4"
+              ],
+              "containsCreativeAddition": true
+            },
+            {
+              "text": "帰り道にはコンビニに寄り、冷たい飲み物を買いながら、特別なことはなかったけれど、温かい思い出が残りました。",
+              "sourceIds": [
+                "answer-5"
+              ],
+              "containsCreativeAddition": true
+            },
+            {
+              "text": "その後、それぞれの家に帰る途中、心の中にささやかな幸せを抱えながら、また会う日を楽しみにしています。",
+              "sourceIds": [
+                "answer-6"
+              ],
+              "containsCreativeAddition": true
+            }
+          ],
+          "model": "gpt-4o-mini-2024-07-18",
+          "source": "generated",
+          "requestId": "resp_09758c2e06d0a900016a9e2ca60eb487d0b1107af47cd2cea7",
+          "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+          "attempts": 1,
+          "diagnostics": {
+            "rejections": []
+          }
+        },
+        "attempts": [
+          {
+            "attemptNumber": 1,
+            "requestBody": {
+              "fragment": "休日に友人と公園を歩いた。",
+              "answers": [
+                {
+                  "question": "その公園で友人とどんな会話をしましたか？",
+                  "answer": "友人と近所の公園まで歩いて行きました。天気が良かったので二人とも軽装でした。"
+                },
+                {
+                  "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+                  "answer": "公園に着いてからはベンチに座って少し話をしました。特に予定は決めていませんでした。"
+                },
+                {
+                  "question": "その出来事の中で、何をしていたか覚えていますか？",
+                  "answer": "着いたのはお昼を少し過ぎたころだったと思います。1時間くらい滞在しました。"
+                },
+                {
+                  "question": "その公園で過ごした時間の中で、何か特別な出来事や印象に残った瞬間はありましたか？",
+                  "answer": "友人と近況について話しながら、公園の中を一緒に歩き回りました。"
+                },
+                {
+                  "question": "その公園での友人との会話の中で、どんな話題が出ましたか？",
+                  "answer": "帰り道にコンビニに寄って飲み物を買いました。特に変わったことはありませんでした。"
+                },
+                {
+                  "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+                  "answer": "そのあとはそれぞれ家に帰りました。細かい時間まではっきり思い出せない部分もあります。"
+                }
+              ],
+              "language": "ja"
+            },
+            "status": 200,
+            "responseBody": {
+              "narrative": "休日、友人と近所の公園を歩きながら、明るい天気に誘われて軽装で出かけました。公園に着くと、少しお昼を過ぎた頃で、ベンチに腰掛けてお互いの近況を話し始めました。特に予定は決めていなかったのですが、思いつくままに公園内を歩き回り、友人との会話に花を咲かせました。帰り道にはコンビニに寄り、冷たい飲み物を買いながら、特別なことはなかったけれど、温かい思い出が残りました。その後、それぞれの家に帰る途中、心の中にささやかな幸せを抱えながら、また会う日を楽しみにしています。",
+              "language": "ja",
+              "sentences": [
+                {
+                  "text": "休日、友人と近所の公園を歩きながら、明るい天気に誘われて軽装で出かけました。",
+                  "sourceIds": [
+                    "fragment",
+                    "answer-1"
+                  ],
+                  "containsCreativeAddition": false
+                },
+                {
+                  "text": "公園に着くと、少しお昼を過ぎた頃で、ベンチに腰掛けてお互いの近況を話し始めました。",
+                  "sourceIds": [
+                    "answer-2",
+                    "answer-3"
+                  ],
+                  "containsCreativeAddition": false
+                },
+                {
+                  "text": "特に予定は決めていなかったのですが、思いつくままに公園内を歩き回り、友人との会話に花を咲かせました。",
+                  "sourceIds": [
+                    "answer-4"
+                  ],
+                  "containsCreativeAddition": true
+                },
+                {
+                  "text": "帰り道にはコンビニに寄り、冷たい飲み物を買いながら、特別なことはなかったけれど、温かい思い出が残りました。",
+                  "sourceIds": [
+                    "answer-5"
+                  ],
+                  "containsCreativeAddition": true
+                },
+                {
+                  "text": "その後、それぞれの家に帰る途中、心の中にささやかな幸せを抱えながら、また会う日を楽しみにしています。",
+                  "sourceIds": [
+                    "answer-6"
+                  ],
+                  "containsCreativeAddition": true
+                }
+              ],
+              "model": "gpt-4o-mini-2024-07-18",
+              "source": "generated",
+              "requestId": "resp_09758c2e06d0a900016a9e2ca60eb487d0b1107af47cd2cea7",
+              "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+              "attempts": 1,
+              "diagnostics": {
+                "rejections": []
+              }
+            }
+          }
+        ]
+      }
+    },
+    "en_visual_narrative": {
+      "request": {
+        "fragment": "I walked through a park with a friend on a day off.",
+        "answers": [
+          {
+            "question": "What did the park look like on that day?",
+            "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+          },
+          {
+            "question": "Can you describe what else you saw in the park besides the trees?",
+            "answer": "There was a flower bed with bright orange and yellow flowers that really stood out to me."
+          },
+          {
+            "question": "What else can you remember about the arrangement of the flower bed or the flowers?",
+            "answer": "We arrived a bit after noon, and the sunlight created dappled patterns of light and shadow on the ground."
+          },
+          {
+            "question": "What specific types of trees do you remember seeing in the park?",
+            "answer": "We walked together past the pond, chatting about random things along the way."
+          },
+          {
+            "question": "What did the pond look like as you walked past it?",
+            "answer": "The water in the pond was sparkling because the sunlight was reflecting off small ripples."
+          },
+          {
+            "question": "What did the area around the pond look like as you walked by it?",
+            "answer": "As we left in the early evening, the sky had an orange and pink gradient that looked really pretty."
+          }
+        ],
+        "language": "en"
+      },
+      "result": {
+        "finalStatus": 200,
+        "finalBody": {
+          "narrative": "On a sunlit day off, I walked through a park near my friend's place, where the trees glistened in vivid green, creating a vibrant canopy overhead. As we strolled past a flower bed, the bright orange and yellow blooms caught my eye, their colors so striking against the green backdrop. Arriving a bit after noon, we were greeted by dappled patterns of light and shadow dancing on the ground, a beautiful play of nature's artistry. We chatted about random things while walking past a sparkling pond, the sunlight reflecting off the small ripples and making the water shimmer. As our day came to an end and we left in the early evening, the sky transformed into a breathtaking gradient of orange and pink, wrapping up our perfect day.",
+          "language": "en",
+          "sentences": [
+            {
+              "text": "On a sunlit day off, I walked through a park near my friend's place, where the trees glistened in vivid green, creating a vibrant canopy overhead.",
+              "sourceIds": [
+                "fragment",
+                "answer-1"
+              ],
+              "containsCreativeAddition": false
+            },
+            {
+              "text": "As we strolled past a flower bed, the bright orange and yellow blooms caught my eye, their colors so striking against the green backdrop.",
+              "sourceIds": [
+                "answer-2"
+              ],
+              "containsCreativeAddition": false
+            },
+            {
+              "text": "Arriving a bit after noon, we were greeted by dappled patterns of light and shadow dancing on the ground, a beautiful play of nature's artistry.",
+              "sourceIds": [
+                "answer-3"
+              ],
+              "containsCreativeAddition": false
+            },
+            {
+              "text": "We chatted about random things while walking past a sparkling pond, the sunlight reflecting off the small ripples and making the water shimmer.",
+              "sourceIds": [
+                "answer-4",
+                "answer-5"
+              ],
+              "containsCreativeAddition": false
+            },
+            {
+              "text": "As our day came to an end and we left in the early evening, the sky transformed into a breathtaking gradient of orange and pink, wrapping up our perfect day.",
+              "sourceIds": [
+                "answer-6"
+              ],
+              "containsCreativeAddition": false
+            }
+          ],
+          "model": "gpt-4o-mini-2024-07-18",
+          "source": "generated",
+          "requestId": "resp_0ef95866bd65db10016a9e2ca9322087d0abf3b713b8c3c901",
+          "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+          "attempts": 1,
+          "diagnostics": {
+            "rejections": []
+          }
+        },
+        "attempts": [
+          {
+            "attemptNumber": 1,
+            "requestBody": {
+              "fragment": "I walked through a park with a friend on a day off.",
+              "answers": [
+                {
+                  "question": "What did the park look like on that day?",
+                  "answer": "We walked to the park near my friend's place. The trees looked really vivid green in the sunlight."
+                },
+                {
+                  "question": "Can you describe what else you saw in the park besides the trees?",
+                  "answer": "There was a flower bed with bright orange and yellow flowers that really stood out to me."
+                },
+                {
+                  "question": "What else can you remember about the arrangement of the flower bed or the flowers?",
+                  "answer": "We arrived a bit after noon, and the sunlight created dappled patterns of light and shadow on the ground."
+                },
+                {
+                  "question": "What specific types of trees do you remember seeing in the park?",
+                  "answer": "We walked together past the pond, chatting about random things along the way."
+                },
+                {
+                  "question": "What did the pond look like as you walked past it?",
+                  "answer": "The water in the pond was sparkling because the sunlight was reflecting off small ripples."
+                },
+                {
+                  "question": "What did the area around the pond look like as you walked by it?",
+                  "answer": "As we left in the early evening, the sky had an orange and pink gradient that looked really pretty."
+                }
+              ],
+              "language": "en"
+            },
+            "status": 200,
+            "responseBody": {
+              "narrative": "On a sunlit day off, I walked through a park near my friend's place, where the trees glistened in vivid green, creating a vibrant canopy overhead. As we strolled past a flower bed, the bright orange and yellow blooms caught my eye, their colors so striking against the green backdrop. Arriving a bit after noon, we were greeted by dappled patterns of light and shadow dancing on the ground, a beautiful play of nature's artistry. We chatted about random things while walking past a sparkling pond, the sunlight reflecting off the small ripples and making the water shimmer. As our day came to an end and we left in the early evening, the sky transformed into a breathtaking gradient of orange and pink, wrapping up our perfect day.",
+              "language": "en",
+              "sentences": [
+                {
+                  "text": "On a sunlit day off, I walked through a park near my friend's place, where the trees glistened in vivid green, creating a vibrant canopy overhead.",
+                  "sourceIds": [
+                    "fragment",
+                    "answer-1"
+                  ],
+                  "containsCreativeAddition": false
+                },
+                {
+                  "text": "As we strolled past a flower bed, the bright orange and yellow blooms caught my eye, their colors so striking against the green backdrop.",
+                  "sourceIds": [
+                    "answer-2"
+                  ],
+                  "containsCreativeAddition": false
+                },
+                {
+                  "text": "Arriving a bit after noon, we were greeted by dappled patterns of light and shadow dancing on the ground, a beautiful play of nature's artistry.",
+                  "sourceIds": [
+                    "answer-3"
+                  ],
+                  "containsCreativeAddition": false
+                },
+                {
+                  "text": "We chatted about random things while walking past a sparkling pond, the sunlight reflecting off the small ripples and making the water shimmer.",
+                  "sourceIds": [
+                    "answer-4",
+                    "answer-5"
+                  ],
+                  "containsCreativeAddition": false
+                },
+                {
+                  "text": "As our day came to an end and we left in the early evening, the sky transformed into a breathtaking gradient of orange and pink, wrapping up our perfect day.",
+                  "sourceIds": [
+                    "answer-6"
+                  ],
+                  "containsCreativeAddition": false
+                }
+              ],
+              "model": "gpt-4o-mini-2024-07-18",
+              "source": "generated",
+              "requestId": "resp_0ef95866bd65db10016a9e2ca9322087d0abf3b713b8c3c901",
+              "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+              "attempts": 1,
+              "diagnostics": {
+                "rejections": []
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "edgeProbes": [
+    {
+      "label": "history_length_mismatch",
+      "path": "/api/follow-up",
+      "request": {
+        "condition": "standard",
+        "fragment": "休日に友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "質問1",
+            "answer": "回答1"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "result": {
+        "finalStatus": 400,
+        "finalBody": {
+          "error": "Invalid follow-up request."
+        },
+        "attempts": [
+          {
+            "attemptNumber": 1,
+            "requestBody": {
+              "condition": "standard",
+              "fragment": "休日に友人と公園を歩いた。",
+              "history": [
+                {
+                  "question": "質問1",
+                  "answer": "回答1"
+                }
+              ],
+              "turn": 3,
+              "language": "ja"
+            },
+            "status": 400,
+            "responseBody": {
+              "error": "Invalid follow-up request."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "invalid_condition",
+      "path": "/api/follow-up",
+      "request": {
+        "condition": "invalid",
+        "fragment": "休日に友人と公園を歩いた。",
+        "history": [],
+        "turn": 1,
+        "language": "ja"
+      },
+      "result": {
+        "finalStatus": 400,
+        "finalBody": {
+          "error": "Invalid follow-up request."
+        },
+        "attempts": [
+          {
+            "attemptNumber": 1,
+            "requestBody": {
+              "condition": "invalid",
+              "fragment": "休日に友人と公園を歩いた。",
+              "history": [],
+              "turn": 1,
+              "language": "ja"
+            },
+            "status": 400,
+            "responseBody": {
+              "error": "Invalid follow-up request."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "turn_out_of_range_7",
+      "path": "/api/follow-up",
+      "request": {
+        "condition": "standard",
+        "fragment": "休日に友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "q1",
+            "answer": "a1"
+          },
+          {
+            "question": "q2",
+            "answer": "a2"
+          },
+          {
+            "question": "q3",
+            "answer": "a3"
+          },
+          {
+            "question": "q4",
+            "answer": "a4"
+          },
+          {
+            "question": "q5",
+            "answer": "a5"
+          },
+          {
+            "question": "q6",
+            "answer": "a6"
+          }
+        ],
+        "turn": 7,
+        "language": "ja"
+      },
+      "result": {
+        "finalStatus": 400,
+        "finalBody": {
+          "error": "Invalid follow-up request."
+        },
+        "attempts": [
+          {
+            "attemptNumber": 1,
+            "requestBody": {
+              "condition": "standard",
+              "fragment": "休日に友人と公園を歩いた。",
+              "history": [
+                {
+                  "question": "q1",
+                  "answer": "a1"
+                },
+                {
+                  "question": "q2",
+                  "answer": "a2"
+                },
+                {
+                  "question": "q3",
+                  "answer": "a3"
+                },
+                {
+                  "question": "q4",
+                  "answer": "a4"
+                },
+                {
+                  "question": "q5",
+                  "answer": "a5"
+                },
+                {
+                  "question": "q6",
+                  "answer": "a6"
+                }
+              ],
+              "turn": 7,
+              "language": "ja"
+            },
+            "status": 400,
+            "responseBody": {
+              "error": "Invalid follow-up request."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "invalid_language_fr",
+      "path": "/api/follow-up",
+      "request": {
+        "condition": "standard",
+        "fragment": "休日に友人と公園を歩いた。",
+        "history": [],
+        "turn": 1,
+        "language": "fr"
+      },
+      "result": {
+        "finalStatus": 400,
+        "finalBody": {
+          "error": "Invalid follow-up request."
+        },
+        "attempts": [
+          {
+            "attemptNumber": 1,
+            "requestBody": {
+              "condition": "standard",
+              "fragment": "休日に友人と公園を歩いた。",
+              "history": [],
+              "turn": 1,
+              "language": "fr"
+            },
+            "status": 400,
+            "responseBody": {
+              "error": "Invalid follow-up request."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "narrative_only_5_answers",
+      "path": "/api/narrative",
+      "request": {
+        "fragment": "休日に友人と公園を歩いた。",
+        "answers": [
+          {
+            "question": "q1",
+            "answer": "a1"
+          },
+          {
+            "question": "q2",
+            "answer": "a2"
+          },
+          {
+            "question": "q3",
+            "answer": "a3"
+          },
+          {
+            "question": "q4",
+            "answer": "a4"
+          },
+          {
+            "question": "q5",
+            "answer": "a5"
+          }
+        ],
+        "language": "ja"
+      },
+      "result": {
+        "finalStatus": 400,
+        "finalBody": {
+          "error": "Invalid narrative request."
+        },
+        "attempts": [
+          {
+            "attemptNumber": 1,
+            "requestBody": {
+              "fragment": "休日に友人と公園を歩いた。",
+              "answers": [
+                {
+                  "question": "q1",
+                  "answer": "a1"
+                },
+                {
+                  "question": "q2",
+                  "answer": "a2"
+                },
+                {
+                  "question": "q3",
+                  "answer": "a3"
+                },
+                {
+                  "question": "q4",
+                  "answer": "a4"
+                },
+                {
+                  "question": "q5",
+                  "answer": "a5"
+                }
+              ],
+              "language": "ja"
+            },
+            "status": 400,
+            "responseBody": {
+              "error": "Invalid narrative request."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

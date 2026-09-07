@@ -11,7 +11,7 @@ require.extensions['.ts'] = (module, filename) => {
 };
 const { validateQuestion } = require('../app/api/question-validation.ts');
 const { POST } = require('../app/api/follow-up/route.ts');
-const { buildFollowUpInstructions } = require('../app/api/prompt-config.ts');
+const { buildFollowUpInstructions, PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
 
 function input(question, overrides = {}) {
   return {
@@ -115,8 +115,152 @@ test('all prompt branches render without requiring a fixed opening', () => {
       for (const nonRecall of [true, false]) {
         const instructions = buildFollowUpInstructions(condition, turn, nonRecall);
         assert.ok(!instructions.includes('{{'));
-        assert.ok(instructions.includes('必須ではありません'));
+        assert.ok(instructions.includes('全履歴'));
+        assert.ok(instructions.includes('既に尋ねた'));
+        assert.ok(!instructions.includes('ターン別の機能は目安'));
         assert.ok(!instructions.includes('80文字以内'));
+      }
+    }
+  }
+});
+
+test('v0.4.4 keeps first-turn absence separate from non-recall and preserves the condition boundary', () => {
+  for (const [condition, expected] of [
+    ['standard', 'その出来事の中で、何をしていたか覚えていますか？'],
+    ['visual', 'その時、何か目に入ったものを覚えていますか？'],
+    ['odor', 'その時、何か匂いを思い出せますか？'],
+  ]) {
+    const candidate = require('../app/api/fallback-questions.ts').fallbackQuestion({
+      condition, turn: 1, fragment: '友人と公園にいた。', history: [], language: 'ja',
+    });
+    assert.equal(candidate.question, expected);
+    assert.equal(candidate.metadata.conditionFocus, condition);
+    assert.equal(candidate.metadata.turnFunction, 'broad_recall');
+    assert.equal(candidate.metadata.targetEvidenceId, null);
+    assert.equal(candidate.metadata.nonRecallTransition, false);
+    assert.equal(candidate.metadata.insufficientEvidenceTransition, false);
+  }
+  const odorPrompt = buildFollowUpInstructions('odor', 1, false, undefined, 'ja');
+  assert.match(odorPrompt, /初期断片に匂いを示す語がなくても/);
+  for (const [condition, expected] of [
+    ['standard', 'What do you remember doing during that event?'],
+    ['visual', 'Do you remember anything you saw at the time?'],
+    ['odor', 'Do you remember any smell at the time?'],
+  ]) {
+    const candidate = require('../app/api/fallback-questions.ts').fallbackQuestion({
+      condition, turn: 1, fragment: 'I was at a park with a friend.', history: [], language: 'en',
+    });
+    assert.equal(candidate.question, expected);
+    assert.equal(candidate.metadata.turnFunction, 'broad_recall');
+    assert.deepEqual(validateQuestion({ condition, turn: 1, fragment: 'I was at a park with a friend.', history: [], language: 'en', ...candidate }), []);
+  }
+  assert.match(buildFollowUpInstructions('odor', 1, false, undefined, 'en'), /initial fragment contains no odor word/);
+});
+
+test('fallback does not switch solely because of turn five or six and keeps neutral flags consistent', () => {
+  const { fallbackQuestion } = require('../app/api/fallback-questions.ts');
+  for (const turn of [5, 6]) {
+    const history = Array.from({ length: turn - 1 }, (_, i) => ({ question: `質問${i + 1}？`, answer: '公園にいた。' }));
+    const ordinary = fallbackQuestion({ condition: 'visual', turn, fragment: '公園にいた。', history, language: 'ja' });
+    assert.equal(ordinary.metadata.conditionFocus, 'visual');
+    assert.equal(ordinary.metadata.nonRecallTransition, false);
+    assert.equal(ordinary.metadata.insufficientEvidenceTransition, false);
+    assert.equal(ordinary.metadata.targetEvidenceId, null);
+    assert.ok(['broad_recall', 'grounded_detail', 'temporal_anchor', 'action_relation', 'second_grounded_detail', 'unresolved_attribute'].includes(ordinary.metadata.turnFunction));
+    const nonRecall = fallbackQuestion({ condition: 'visual', turn, fragment: '公園にいた。', history: [...history.slice(0, -1), { question: '前の質問？', answer: '思い出せません。' }], language: 'ja' });
+    assert.equal(nonRecall.metadata.nonRecallTransition, true);
+    assert.equal(nonRecall.metadata.insufficientEvidenceTransition, false);
+    const exhausted = fallbackQuestion({ condition: 'visual', turn, fragment: '公園にいた。', history: [{ question: 'その時、何か目に入ったものを覚えていますか？', answer: '公園にいた。' }, ...history.slice(1)], language: 'ja' });
+    assert.equal(exhausted.metadata.conditionFocus, 'neutral');
+    assert.equal(exhausted.metadata.nonRecallTransition, false);
+    assert.equal(exhausted.metadata.insufficientEvidenceTransition, true);
+  }
+});
+
+test('API sends full history and accepts an independently chosen function for partial recall', async (t) => {
+  const originalKey = process.env.OPENAI_API_KEY;
+  process.env.OPENAI_API_KEY = 'offline-test';
+  t.after(() => { if (originalKey === undefined) delete process.env.OPENAI_API_KEY; else process.env.OPENAI_API_KEY = originalKey; });
+  const history = [{ question: '何か見えましたか？', answer: '場所は思い出せませんが、赤い花は見えました。' }];
+  const output = { question: 'その赤い花について、ほかに覚えている見た目はありますか？', conditionFocus: 'visual', turnFunction: 'unresolved_attribute', targetEvidenceId: 'answer-1', nonRecallTransition: false, insufficientEvidenceTransition: false };
+  t.mock.method(global, 'fetch', async (url, options) => {
+    const request = JSON.parse(options.body);
+    const input = JSON.parse(request.input);
+    assert.equal(input.previousTurns.length, 1);
+    assert.equal(input.previousTurns[0].answer, history[0].answer);
+    assert.match(request.instructions, /既知の内容/);
+    return Response.json({ id: 'state-test', model: 'offline-fixture', output: [{ content: [{ type: 'output_text', text: JSON.stringify(output) }] }] });
+  });
+  const response = await POST(new Request('http://localhost/api/follow-up', { method: 'POST', body: JSON.stringify({ condition: 'visual', turn: 2, fragment: '友人と公園を歩いた。', history }) }));
+  const body = await response.json();
+  assert.equal(body.source, 'generated');
+  assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
+  assert.equal(body.metadata.turnFunction, 'unresolved_attribute');
+});
+
+test('both languages keep instructions independent of turn position and forward older evidence', async (t) => {
+  const originalKey = process.env.OPENAI_API_KEY;
+  process.env.OPENAI_API_KEY = 'offline-test';
+  t.after(() => { if (originalKey === undefined) delete process.env.OPENAI_API_KEY; else process.env.OPENAI_API_KEY = originalKey; });
+  let expected;
+  t.mock.method(global, 'fetch', async (url, options) => {
+    assert.equal(url, 'https://api.openai.com/v1/responses');
+    const sent = JSON.parse(options.body);
+    const input = JSON.parse(sent.input);
+    assert.deepEqual(input.previousTurns, expected.history);
+    assert.deepEqual(input.evidence, [{ id: 'fragment', text: expected.fragment }, ...expected.history.map((item, i) => ({ id: `answer-${i + 1}`, text: item.answer }))]);
+    assert.equal(input.lastAnswerWasNonRecall, true);
+    assert.equal(input.turn, 6);
+    return Response.json({ id: 'older-evidence', model: 'offline-fixture', output: [{ content: [{ type: 'output_text', text: JSON.stringify(expected.output) }] }] });
+  });
+  for (const language of ['ja', 'en']) {
+    for (const condition of ['standard', 'visual', 'odor']) {
+      for (const nonRecall of [false, true]) {
+        const first = buildFollowUpInstructions(condition, 1, nonRecall, undefined, language);
+        for (let turn = 2; turn <= 6; turn++) assert.equal(buildFollowUpInstructions(condition, turn, nonRecall, undefined, language), first);
+      }
+    }
+    const answer = language === 'ja' ? '赤い花は覚えていますが、場所は思い出せません。' : 'I remember red flowers, but I cannot remember the place.';
+    expected = {
+      fragment: language === 'ja' ? '友人と公園を歩いた。' : 'I walked in a park with a friend.',
+      history: Array.from({ length: 5 }, (_, i) => ({ question: language === 'ja' ? `以前の質問${i + 1}？` : `Earlier question ${i + 1}?`, answer })),
+      output: { question: language === 'ja' ? 'その花を目にしたのは、出来事のどの時点でしたか？' : 'At what point in the event did you see those flowers?', conditionFocus: 'visual', turnFunction: 'temporal_anchor', targetEvidenceId: 'answer-1', nonRecallTransition: false, insufficientEvidenceTransition: false },
+    };
+    const response = await POST(new Request('http://localhost/api/follow-up', { method: 'POST', body: JSON.stringify({ language, condition: 'visual', turn: 6, fragment: expected.fragment, history: expected.history }) }));
+    assert.equal(response.status, 200);
+    const body = await response.json();
+    assert.equal(body.source, 'generated');
+    assert.equal(body.metadata.targetEvidenceId, 'answer-1');
+    assert.equal(body.metadata.turnFunction, 'temporal_anchor');
+  }
+});
+
+test('fixed fallbacks complete six turns in both languages without assuming a reported target', () => {
+  const { fallbackQuestion } = require('../app/api/fallback-questions.ts');
+  for (const language of ['ja', 'en']) {
+    for (const condition of ['standard', 'visual', 'odor']) {
+      for (const nonRecall of [false, true]) {
+        const history = [];
+        const fragment = language === 'ja' ? '公園にいた。' : 'I was in a park.';
+        for (let turn = 1; turn <= 6; turn++) {
+          const candidate = fallbackQuestion({ condition, turn, fragment, history, language });
+          assert.deepEqual(validateQuestion({ condition, turn, fragment, history, language, ...candidate }), []);
+          assert.equal(candidate.metadata.targetEvidenceId, null);
+          assert.doesNotMatch(candidate.question, /直前に述べた|その匂い|その行動|that action|that smell|just described/);
+          if (turn > 1) {
+            assert.equal(candidate.metadata.conditionFocus, 'neutral');
+            assert.equal(candidate.metadata.nonRecallTransition, nonRecall);
+            assert.equal(candidate.metadata.insufficientEvidenceTransition, !nonRecall);
+          }
+          history.push({ ...candidate, answer: nonRecall ? (language === 'ja' ? '思い出せません。' : 'I cannot remember.') : fragment });
+        }
+        // Late questions may still use an unused broad condition prompt.
+        for (const turn of [5, 6]) {
+          const previous = history.slice(0, turn - 1).map((item, i) => ({ ...item, question: language === 'ja' ? `以前の質問${i}？` : `Earlier question ${i}?`, answer: fragment }));
+          const candidate = fallbackQuestion({ condition, turn, fragment, history: previous, language });
+          assert.equal(candidate.metadata.conditionFocus, condition);
+          assert.equal(candidate.metadata.turnFunction, 'broad_recall');
+        }
       }
     }
   }
@@ -140,6 +284,7 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   let response = await POST(request());
   let body = await response.json();
   assert.equal(body.source, 'generated');
+  assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
   assert.equal(body.question, valid.question);
   assert.equal(calls, 1);
 
@@ -148,6 +293,7 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   response = await POST(request());
   body = await response.json();
   assert.equal(body.source, 'fallback');
+  assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
   assert.equal(calls, 3);
   assert.equal(body.diagnostics.rejections[0].question, output.question);
   assert.equal(body.diagnostics.rejections[0].metadata.conditionFocus, 'visual');
@@ -156,5 +302,6 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   response = await POST(request());
   body = await response.json();
   assert.equal(body.source, 'fallback');
+  assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
   assert.ok(body.diagnostics.rejections[0].flags.includes('non_recall_transition_schema'));
 });

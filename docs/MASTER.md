@@ -11,7 +11,7 @@
 ## 現在地（3行）
 
 1. 研究: 三条件（Standard / Visual / Odor）の質問焦点がLLM生成物語の本人評価（主=Perceived Memory-Likeness、他3軸は副）へ与える影響。被験者間、日本語基本。主たる計画対比はOdor対Visual。
-2. 実装: 全体版はv0.4.3。質問はDEC-035、創作を許す最終文章はDEC-036に従う。30件再評価と本人評価の確認前。研究実施の承認状態は変更していない。
+2. 実装: 質問はDEC-035・039による回答状態優先のv0.4.4、創作を許す最終文章はDEC-036によるv0.4.3。30件再評価と本人評価の確認前。研究実施の承認状態は変更していない。
 3. 律速: 同じ合成データ30件で機械再評価し、質問違反、条件別フォールバック率、入力量、文章長、入力との矛盾と創作追加の傾向を確認すること。その後に教員確認と小規模な人間パイロットへ進む。
 
 ## 文書地図
@@ -33,7 +33,7 @@
 | ファイル | 役割 |
 | --- | --- |
 | [MASTER.md](MASTER.md)（本書） | 入口・地図・決定待ちリスト |
-| [project/decisions.md](project/decisions.md) | 全決定の正本（DEC-001〜036、状態・根拠・履歴付き） |
+| [project/decisions.md](project/decisions.md) | 全決定の正本（DEC-001〜039、状態・根拠・履歴付き） |
 | [project/prototype-progress.md](project/prototype-progress.md) | 旧2実装と現行mockの進捗・判定の正本 |
 
 ### B. 仕様初稿（レビュー待ち。承認されれば次期PROTOCOL.mdへ統合）
@@ -46,9 +46,10 @@
 | [protocol/manipulation-check.md](protocol/manipulation-check.md) + `experiment/manipulation-check.yaml` | Manipulation Check v0.2.0-draft（DEC-014、033） | 同上 |
 | [archive/memory-experiment-system-archive.md](archive/memory-experiment-system-archive.md) | 削除した旧production candidateの履歴・再利用判断・検証結果 | 保全記録。仕様の正本ではない |
 | [prompts/PROMPT_CATALOG_V0.4.1_DRAFT.md](prompts/PROMPT_CATALOG_V0.4.1_DRAFT.md) | Standard / Visual / Odor、共通ターン機能、証拠制約を定めた次期プロンプトカタログ | 旧版。質問はDEC-035、文章はDEC-036で更新 |
-| [prompts/PROMPT_CATALOG_V0.4.2_DRAFT.md](prompts/PROMPT_CATALOG_V0.4.2_DRAFT.md) | DEC-035に基づく現行質問検証と生成方針 | DRAFT。30件再評価前 |
+| [prompts/PROMPT_CATALOG_V0.4.2_DRAFT.md](prompts/PROMPT_CATALOG_V0.4.2_DRAFT.md) | DEC-035に基づく質問検証と生成方針 | 質問選択はDEC-039で更新。必須検証は継続 |
 | [prompts/PROMPT_CATALOG_V0.4.3_DRAFT.md](prompts/PROMPT_CATALOG_V0.4.3_DRAFT.md) | DEC-036に基づく創作文章と作成記録 | DRAFT。出力品質評価前 |
-| `prompts/` | 現行質問は`v0.4.2-mock-draft`、文章はv0.4.3。旧版は比較用 | 編集後にサーバー再起動 |
+| [prompts/PROMPT_CATALOG_V0.4.4_DRAFT.md](prompts/PROMPT_CATALOG_V0.4.4_DRAFT.md) | DEC-039に基づく回答状態優先の質問選択 | DRAFT。実API品質評価前 |
+| `prompts/` | 現行質問は`v0.4.4-mock-draft`、文章はv0.4.3。旧版は比較用 | 編集後にサーバー再起動 |
 
 ### C. 履歴・旧仕様（読む必要なし。削除もしない）
 
@@ -94,7 +95,7 @@
 | 1 | 作り直しの確定 | DEC-031（確定） |
 | 2 | 独立変数の正式表現（質問焦点の三水準として決定。指導教員確認が残る） | DEC-024, 033 / OD-001 |
 | 3 | 質問ターン数の正式承認（6ターンはパイロット暫定採用。残る判断は参加者負担・完遂率の確認と正式値の承認） | DEC-029追記 / OD-002 |
-| 4 | 2026-07-25評価の研究判断はDEC-033・034で決定。残る作業は仕様の実装、共通ターン機能・全ターン分岐・条件別フォールバック率の機械再評価、指導教員確認 | DEC-029〜034 / OD-006, 022 |
+| 4 | 現行mockの回答状態に応じた質問選択・全ターン分岐・条件別フォールバック率の再評価、指導教員確認 | DEC-035・039 / OD-006, 022 |
 | 5 | 承認した修正版を同じ合成データで再評価し、機械ゲート通過後に小規模な人間パイロットを実施する | DEC-030留保(4) / OD-016 |
 
 **Tier 1 — PROTOCOL.mdを構成する研究仕様（コードを書く前に全て確定）**

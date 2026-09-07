@@ -36,6 +36,7 @@ export const TURN_FUNCTIONS: Record<number, TurnFunction> = {
 
 export const PROMPT_CONFIG = {
   version: "prompt-catalog-v0.4.3-mock-draft",
+  followUpVersion: "prompt-catalog-v0.4.4-mock-draft",
   followUpTurns: 6,
   followUpTemperature: 0.55,
   maxFollowUpAttempts: 3,
@@ -51,14 +52,12 @@ export function buildFollowUpInstructions(
   retryReason?: string,
   language: Language = DEFAULT_LANGUAGE,
 ) {
-  const guidancePath = `v0.4.2-mock-draft/follow-up-guidance.${language}.txt`;
-  const turnFunction = TURN_FUNCTIONS[turn];
-  if (!turnFunction) throw new Error(`Unsupported follow-up turn: ${turn}`);
-  return renderPrompt(`v0.4.2-mock-draft/follow-up.${language}.txt`, {
-    TURN: String(turn),
-    TURN_FUNCTION: turnFunction,
+  if (!Number.isInteger(turn) || turn < 1 || turn > PROMPT_CONFIG.followUpTurns) {
+    throw new Error(`Unsupported follow-up turn: ${turn}`);
+  }
+  const guidancePath = `v0.4.4-mock-draft/follow-up-guidance.${language}.txt`;
+  return renderPrompt(`v0.4.4-mock-draft/follow-up.${language}.txt`, {
     CONDITION_GUIDANCE: readPromptSection(guidancePath, `condition-${condition}`),
-    TURN_GUIDANCE: readPromptSection(guidancePath, `turn-${turn}`),
     TRANSITION_GUIDANCE: readPromptSection(
       guidancePath,
       lastAnswerWasNonRecall ? "non-recall-transition" : "normal-transition",

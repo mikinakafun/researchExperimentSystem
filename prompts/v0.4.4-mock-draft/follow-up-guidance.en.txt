@@ -1,0 +1,14 @@
+[condition-standard]
+Focus on actions, people, interactions, and event order. Do not ask about vision, sound, odor, touch, temperature, bodily sensations, atmosphere, or emotion.
+
+[condition-visual]
+Focus on visual targets and details. Do not ask about odor, sound, touch, temperature, bodily sensations, or emotion. Do not assume an unreported color, shape, number, brightness, or arrangement.
+
+[condition-odor]
+Focus on odor and its details. Do not ask about vision, sound, touch, temperature, bodily sensations, or emotion. Do not assume an odor or its source, and do not ask the participant to infer a cause or object.
+
+[normal-transition]
+The latest answer did not match the non-recall hint automatically. Automatic detection is only a hint; read the complete history and choose based on answer state.
+
+[non-recall-transition]
+The latest answer contains a non-recall expression. If it also contains recalled content, that content may be used. Do not repeatedly request the unrecalled target; ask about another in-condition target or a neutral event.
