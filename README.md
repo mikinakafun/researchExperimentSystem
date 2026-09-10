@@ -7,7 +7,7 @@
 - 指導教員のapproval gateは置きません。ただし倫理審査と、参加者収集を開始してよいという研究上の条件は別途満たす必要があります。
 - API秘密値・参加者データ・収録素材を文書やGitへ記載・追加しません。APIキーはサーバ側の環境変数だけに置きます。
 - モデルAPI呼出しは `store: false` を指定しますが、入力内容自体は外部APIへ送信されます。同意文と実運用のデータ取扱いはこの事実を前提にします。
-- `prompts/` は現行runtime assetです。`core/02-generation/prompts/` の保存プロンプトへ勝手に差し替えません。
+- `prompts/` が実行時プロンプト本文の唯一の正本です。旧版と変更理由はgit履歴から追跡します。
 - `scripts/run-persona-batch.mjs` が `core/05-verification/personas.mjs` をimportする構造を維持します。
 
 ## セットアップ
@@ -114,5 +114,6 @@ npm run check:result-schema
 ## 参照先
 
 - 仕様・設計・制約・未実装差分・実装順序・受け入れ条件: [`docs/SPEC.md`](docs/SPEC.md)
-- 保存資産（プロンプト、18評価項目、想起トリガー、fallback、validator、10 personas）: `core/`
+- 実行資産: `prompts/`、`app/experiment.tsx`、`app/api/fallback-questions.ts`、`app/api/question-validation.ts`、`lib/survey.ts`、`lib/ui-language.ts`
+- 10 personas: `core/05-verification/personas.mjs`
 - 凍結レポート・生成記録・検証証跡: `artifacts/`、`core/05-verification/evidence/`

@@ -5,11 +5,11 @@
 - This is a research mock for a two-condition (Visual / Odor) question-focus experiment. Standard is retired in the specification; the code is still three-condition until the corresponding implementation work lands.
 - Read `README.md` for current behavior and commands; read `docs/SPEC.md` for the integrated specification and implementation gaps.
 - **The specification is the source of truth.** `docs/SPEC.md` states the requirements and current gaps; git holds when and why they changed. There is no separate decision record that outranks it.
-- A boundary that still constrains the work is a rule stated in the present tense in `docs/SPEC.md` or in the preserved measurement asset `core/03-measurement/measures.md`. Do not write it up as history; if a rejected option no longer constrains anything, it does not get recorded at all.
+- A boundary that still constrains the work is a rule stated in the present tense in `docs/SPEC.md`. Do not write it up as history; if a rejected option no longer constrains anything, it does not get recorded at all.
 - `DEC-xxx` ids appear in frozen reports under `artifacts/` and `core/05-verification/evidence/`, and in a few code comments. The decision records they point to were deleted on 2026-09-08; read them with `git log -p --follow -- core/00-decisions/`. Do not create new DEC numbers.
 - Open work lives in GitHub Projects (https://github.com/users/mikinakafun/projects/3), not in the repository.
-- `core/` contains preserved research assets and frozen evidence; `docs/SPEC.md` is the integrated specification for this existing application.
-- Prompt text, the 18 rating items, the recall trigger, the fallback question sets, the validator rules and the ten personas are **preserved assets** under `core/` and `prompts/`: reuse them, do not re-derive them.
+- `core/` contains the synthetic personas and frozen evidence; `docs/SPEC.md` is the integrated specification for this existing application.
+- Runtime prompt text, rating items, participant text, fallback questions and validator rules live with the implementation under `prompts/`, `app/` and `lib/`. The ten personas live at `core/05-verification/personas.mjs`. These are **preserved assets**: reuse them, do not re-derive them.
 
 ## Working policy
 
@@ -21,7 +21,7 @@
 
 ## Research and data boundaries
 
-- Do not change experimental conditions, survey meaning, or generation rules outside the requested scope. For prompt work, consult `docs/SPEC.md` and the preserved prompt catalog under `core/02-generation/prompts/catalog/`.
+- Do not change experimental conditions, survey meaning, or generation rules outside the requested scope. For prompt work, consult `docs/SPEC.md` and the runtime files under `prompts/`; use git history for older versions and rationale.
 - Preserve generation records and existing results; do not invent missing history or silently migrate stored data.
 - Use synthetic data for development checks. Keep credentials and private research data out of source control, reports, and unauthorized external transfers.
 - Live API calls, persona batches, Supabase operations, and deployment must stay within the user's authorized scope; routine verification is offline.

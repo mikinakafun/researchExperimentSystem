@@ -4,7 +4,7 @@
 
 本書は、`core/` の自己完結型再構築要求を、別システムへ移して作り直す前提ではなく、現在のResearchPilotSystem（Next.js実験システム）へ適用するために統合した日本語の単一正本である。ここには研究上の問い、設計制約、入出力契約、保存制約、現在の未実装差分、実装順序、受け入れ条件を現在形で記す。変更理由と時系列はgitにのみ残し、新しいDEC番号、変更履歴表、恒久PLAN文書は作らない。
 
-本書の要求は、今回削除した旧設計文書と各保存資産から統合した。旧文書の内容と変更理由はgit履歴で追跡できる。本書の「現行」はコードと保存形式を調べた結果、「要求」はそこから継承した要件を示す。
+本書の「現行」はコードと保存形式による実装状態、「要求」は適用すべき要件を示す。過去の内容と変更理由はgit履歴で追跡する。
 
 ### 適用状態
 
@@ -17,7 +17,7 @@
 | 保存 | 二条件値域、同意保存先lock、冪等性、整合性、保持・撤回・削除 | schema v2、CSV/Supabase、lock/冪等性は一部実装、二条件化と管理削除は未実装 | 部分実装 |
 | UI | 条件秘匿、同意・中止・デブリーフ、生成文が復元ではないことの明示 | 現行mockとして一部実装 | 要確認・未実装あり |
 
-今回の文書統合では、上の差分をコードへ反映しない。実装順序は §12 に固定する。
+上の差分は未実装である。実装順序は §12 に固定する。
 
 ## 2. 研究の問いと主張の境界
 
@@ -25,9 +25,9 @@
 
 主要評価は物語の記憶様感（4軸のうち3項目平均）、主比較はOdor対Visualである。情景構成感、叙述鮮明性、感情再体験感は副次評価であり、4軸を合算しない。
 
-物語は参加者の記憶を復元したものではない。参加者向け本文では `reconstruction`（再構築・復元）を、題名候補の `Reconstruction` と矛盾する形で使わない。この題名と本文方針の併存は未解決であり、文書統合で勝手に解消しない。
+物語は参加者の記憶を復元したものではない。参加者向け本文では `reconstruction`（再構築・復元）を、題名候補の `Reconstruction` と矛盾する形で使わない。この題名と本文方針の併存は未解決である。
 
-research-context の主仮説は方向を指定しない一方、measures は `MC-ODOR` がOdorで高くなるなどのpredicted directionを要求する。この非方向主仮説とpredicted direction要求の併存も未解決であり、分析上の採否を本書で決めない。
+主仮説は方向を指定しない一方、操作チェックには `MC-ODOR` がOdorで高くなるなどのpredicted directionがある。この非方向主仮説とpredicted direction要求の併存は未解決であり、分析上の採否を本書で決めない。
 
 本システムは因果的な記憶復元、モデル自己申告による出所証明、参加者の回答が真の記憶であること、生成物の人間的真正性を主張しない。モデルの `sourceIds` や `containsCreativeAddition` は未検証のannotationであり、検証済み出典扱いしない。
 
@@ -48,8 +48,8 @@ research-context の主仮説は方向を指定しない一方、measures は `M
 順序は固定する。画面構造とスタイルは裁量だが、要件を省略しない。
 
 1. **welcome** — 実モデルAPIを使うこと、条件は非表示であることを説明する。
-2. **consent** — モデルAPIへの送信と、ローカルファイルまたはクラウドDBへの保存先を平易に示し、能動的同意を得る。保存資産は [`../core/04-storage/consent-form-ja.md`](../core/04-storage/consent-form-ja.md) を再導出せず使う。連絡先・所属機関窓口は倫理審査前の未確定事項である。
-3. **recall** — 少なくとも1週間前の特定の一回の出来事を、感情価・感覚を指定せず一文、100文字以内で記入する。個人識別情報を書かない警告を出す。「思い出せない」は有効回答で、別の出来事を一度だけ選び直せる。再度想起できなければ終了し、保存しない。文言は [`../core/03-measurement/initial-recall-trigger.md`](../core/03-measurement/initial-recall-trigger.md) を使う。
+2. **consent** — モデルAPIへの送信と、ローカルファイルまたはクラウドDBへの保存先を平易に示し、能動的同意を得る。参加者へ実際に示す文言は [`../app/experiment.tsx`](../app/experiment.tsx) と [`../lib/ui-language.ts`](../lib/ui-language.ts) を唯一の正本とする。連絡先・所属機関窓口は倫理審査前の未確定事項である。
+3. **recall** — 少なくとも1週間前の特定の一回の出来事を、感情価・感覚を指定せず一文、100文字以内で記入する。個人識別情報を書かない警告を出す。「思い出せない」は有効回答で、別の出来事を一度だけ選び直せる。再度想起できなければ終了し、保存しない。実際の表示文言は [`../app/experiment.tsx`](../app/experiment.tsx) と [`../lib/ui-language.ts`](../lib/ui-language.ts) を唯一の正本とする。
 4. **questions** — ここで割付し、言語を固定する。6ターン、一度に1問、回答必須。各API呼出しはturn-1からの完全履歴と過去の全質問・回答を渡す。
 5. **narrative** — 初期断片と6回答から1〜10文の短い物語を提示する。参加者が述べていない内容が含まれ得ることを常時表示し、復元・事実証明と説明しない。
 6. **evaluation** — 12項目、7件法、初期選択なし、必須。保存資産の日本語/英語文言とアンカーをそのまま使う。
@@ -90,7 +90,7 @@ research-context の主仮説は方向を指定しない一方、measures は `M
 
 ターン数、model、temperature、候補数、試行上限、prompt versionは一か所で管理し、各結果に実際の値を保存する。6ターンは現行pilot値であり、指導教員の承認待ちではない。参加者データ収集開始時に生成設定を凍結し、以後の変更は別の収集として扱う。
 
-保存資産: [`../core/02-generation/validation-rules.md`](../core/02-generation/validation-rules.md)、[`../core/02-generation/fallback-questions.md`](../core/02-generation/fallback-questions.md)、[`../core/02-generation/prompts/`](../core/02-generation/prompts/)。今回の文書統合で `prompts/` のruntime本文を差し替えない。
+実行時の正本は、プロンプトが [`../prompts/`](../prompts/)、fallbackが [`../app/api/fallback-questions.ts`](../app/api/fallback-questions.ts)、質問validatorが [`../app/api/question-validation.ts`](../app/api/question-validation.ts) である。要求仕様と現行実装の差は本書に記録し、別の複製資産を維持しない。
 
 ## 6. 物語生成
 
@@ -100,7 +100,7 @@ research-context の主仮説は方向を指定しない一方、measures は `M
 
 ## 7. 測定と分析
 
-18項目の全文言・ID・アンカーは [`../core/03-measurement/measures.md`](../core/03-measurement/measures.md) を保存資産として使う。12評価項目は4軸×3、6 check/diagnostic項目は評価後に置く。すべて7件法、必須、初期選択なし。
+18項目のID・日本語文言・アンカーは [`../lib/survey.ts`](../lib/survey.ts)、英語文言は [`../lib/ui-language.ts`](../lib/ui-language.ts) が実行時の正本である。12評価項目は4軸×3、6 check/diagnostic項目は評価後に置く。すべて7件法、必須、初期選択なし。
 
 `MC-ODOR` と `MC-VISUAL` は操作チェック、`MC-EVENT` は診断、`DQ-*` は診断である。操作チェック得点で参加者を除外しない。チェック回答を割付の代替にしない。`MC-EVENT` と `DQ-*` を結果変数に合算しない。`DQ-UNSAID` を除外・再生成・共変量調整へ使わない。主評価は収集前に固定する。
 
@@ -121,23 +121,22 @@ research-context の主仮説は方向を指定しない一方、measures は `M
 
 SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`session_id`主キー、6件配列制約、`condition in ('visual','odor')` は [`../supabase/migrations/202609030001_experiment_results.sql`](../supabase/migrations/202609030001_experiment_results.sql) とREADMEの手順で検証する。現行migrationの三条件値域は未実装差分であり、この文書作業では変更しない。
 
-## 9. 保存資産と証跡の扱い
+## 9. 実行資産と証跡の扱い
 
-次は再導出・翻訳し直し・置換しない保存資産である。
+次はシステムが直接参照する唯一の正本である。別のディレクトリに複製を維持せず、変更履歴はgitで追跡する。
 
-- プロンプト本文: `core/02-generation/prompts/`
-- 18評価項目とアンカー: `core/03-measurement/measures.md`
-- 初期想起トリガー: `core/03-measurement/initial-recall-trigger.md`
-- 同意文: `core/04-storage/consent-form-ja.md`
-- fallback質問: `core/02-generation/fallback-questions.md`
-- validator規則: `core/02-generation/validation-rules.md`
+- 実行時プロンプト本文: `prompts/`
+- 参加者画面の同意・想起トリガー: `app/experiment.tsx`、`lib/ui-language.ts`
+- 18評価項目とアンカー: `lib/survey.ts`、`lib/ui-language.ts`
+- fallback質問: `app/api/fallback-questions.ts`
+- validator規則: `app/api/question-validation.ts`、`lib/content-validation.ts`、`app/api/narrative/route.ts`
 - 10 personas: `core/05-verification/personas.mjs`
 
 `artifacts/` と `core/05-verification/evidence/` の凍結レポート、生成記録、検証証跡は保持する。DEC番号が残る報告書は歴史的な参照であり、現在の要件の出典として新しいDEC記録を作らない。`core/05-verification/observed-behavior.md` も凍結された観察記録として保持する。`scripts/run-persona-batch.mjs` のpersona importを維持する。
 
 ## 10. 現行アプリとの観察済み差分
 
-文書統合時点で確認できる差分は次のとおりである。
+要求仕様と現行アプリの差分は次のとおりである。
 
 - `app/experiment.tsx` と各API routeが `standard` を型・入力・validator・fallback・schemaで受け入れる。
 - 条件割付はクライアント側の `Math.random()` で、有効断片送信後のサーバ側ブロック割付・割付ログではない。
@@ -161,11 +160,11 @@ SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`se
 
 ## 11. スコープ外・未解決事項
 
-文書統合では次を決めない、変更しない。
+次は未解決または現行の適用スコープ外である。
 
 - 実験条件、調査票の意味、生成規則、保存済みデータ、実験文言、runtime prompt本文。
 - ブロックサイズ、割付比、seed、割付隠蔽、収集時に凍結するモデル・temperature・候補数の最終値、サンプルサイズ、分析モデル。
-- `research-context` の非方向主仮説と `measures` のpredicted direction要求の整合。
+- 非方向主仮説と操作チェックのpredicted direction要求の整合。
 - 題名の `Reconstruction` と参加者向けの「reconstructionを禁じる」説明の整合。
 - 倫理審査の機関名・連絡先・提出日、参加者収集開始条件の具体的手続き。
 - 認証、途中保存・再開、管理者画面、公開デプロイ、ガスセンサ、deep learning、TouchDesigner。
@@ -174,11 +173,10 @@ SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`se
 
 実装は別の恒久PLAN文書を作らず、次の順で進める。
 
-1. **文書統合** — 本書とREADMEを正本にし、参照を整える（今回のスコープ）。
-2. **条件と入出力契約** — 二条件化、server割付、turn-1完全履歴、bounded timeout、strict schema、diagnostics、auth/quota/unavailableの中断を実装する。
-3. **質問候補・validator・repair** — 並列候補、語境界、近似重複、repair、fallback理由、連続attemptsを実装する。
-4. **保存整合性** — 二条件schema、同意lock、冪等性、競合、version mismatch拒否、保持・撤回・削除、Supabase/RLSを実装・検証する。
-5. **UI/合成データ検証** — 条件秘匿、デブリーフ、保存先表示、fixture、二条件persona batchを検証する。
+1. **条件と入出力契約** — 二条件化、server割付、turn-1完全履歴、bounded timeout、strict schema、diagnostics、auth/quota/unavailableの中断を実装する。
+2. **質問候補・validator・repair** — 並列候補、語境界、近似重複、repair、fallback理由、連続attemptsを実装する。
+3. **保存整合性** — 二条件schema、同意lock、冪等性、競合、version mismatch拒否、保持・撤回・削除、Supabase/RLSを実装・検証する。
+4. **UI/合成データ検証** — 条件秘匿、デブリーフ、保存先表示、fixture、二条件persona batchを検証する。
 
 受け入れ条件は以下である。
 
@@ -186,7 +184,8 @@ SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`se
 - READMEからSPECへ、AGENTSからREADME/SPECへ、残存する保存資産・証跡へそれぞれ正しく辿れる。
 - Visual/Odor要求、現行Standardを含む三条件、client割付、未実装を明示し、実装済みと誤認させない。
 - 指導教員approval gate不要、倫理審査・収集開始条件必要、研究上の未解決事項、非想起・DQ/MC-EVENT/fallbackの扱いを明示する。
-- 保存資産、runtime prompts、コード、実験文言、保存済みデータ、artifacts、evidenceに無断変更がない。
-- 削除済みの説明文書・履歴表・作業用文書への生きた参照がなく、残存する保存資産・証跡の役割だけがリンクで説明されている。
+- 実行資産は §9 の正本に一本化し、別ディレクトリに比較用コピーや履歴表を維持しない。
+- 保存済みデータ、artifacts、凍結evidenceは保持する。
+- 削除済みの説明文書・履歴表・作業用文書への生きた参照がない。
 - 文書内リンク、対象ファイル参照、削除・整理対象への参照を検査する。
-- 文書変更ではapplication testsを不要とするが、git diffと資産SHA256比較を行い、実行しなかった検証を成功扱いしない。
+- コードまたは実行資産の変更では `npm test`、`npm run typecheck`、`npm run build` を順番に実行する。
