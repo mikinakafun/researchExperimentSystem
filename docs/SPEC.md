@@ -146,6 +146,16 @@ SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`se
 - 保存先lock、CSV直列化、同一IDの競合拒否などは一部実装済みだが、撤回・保持期限・管理削除・認証・公開運用は未実装。
 - オフラインfixtureとテストは存在するが、現行三条件の実装を二条件要求の証明として扱わない。
 
+### 現行互換性契約
+
+現行実装を扱う際に、仕様移行や既存結果比較で失ってはならない互換性情報は次のとおりである。
+
+- `record_type` は `participant` / `batch_synthetic`。participantは12評価項目と6 checksの完全ID集合および1〜7整数を必須とする。batch_syntheticはevaluationとchecksがともに空、またはともに完全集合の場合だけ許容し、片方だけの部分入力は拒否する。
+- 質問prompt versionは `prompt-catalog-v0.4.4-mock-draft`、物語prompt versionは `prompt-catalog-v0.4.3-mock-draft`。既存結果の比較では質問generation record内のversionで区別する。
+- `attempts` は採用候補を含むAPI内試行数。`source=generated` は最後の試行を採用し、`source=fallback` は全試行棄却で、fallbackは `model=fallback`、`requestId=null`。現行保存形式には棄却ごとのmodel/request IDや画面再送前の失敗履歴がなく、要求との差分である。
+- API `language` は `ja` / `en`、未指定は互換性上 `ja`、その他は拒否。言語変更後の現行UIは同意画面へ戻り初期断片を保持し、質問開始後は固定する。JSON key/id/enum値は言語間で不変、100文字上限は両言語同じ。
+- 現行CSVはbilingual schema v2で `language` 列を含む。旧CSVは移行・書換えず、header mismatchへの追記は拒否する。
+
 ## 11. スコープ外・未解決事項
 
 文書統合では次を決めない、変更しない。
