@@ -1,6 +1,6 @@
 # Observed Behavior — Evidence Appendix
 
-**This records the behaviour of the previous three-condition implementation.** The index of every run on record, with the configuration behind the numbers, is [`evidence/README.md`](evidence/README.md). It is kept because the decisions in `DESIGN.md` rest on it — retiring `standard`, replacing sequential retry with parallel candidates, distrusting the narrative annotations, fixing the duplicate check. It is evidence, not a specification. Nothing here describes the system you are building.
+**This records the behaviour of the previous three-condition implementation.** The index of every run on record, with the configuration behind the numbers, is [`evidence/README.md`](evidence/README.md). It is kept because requirements in the [integrated specification](../../docs/SPEC.md) rest on it — retiring `standard`, replacing sequential retry with parallel candidates, distrusting the narrative annotations, fixing the duplicate check. It is evidence, not a specification. Nothing here establishes the current implementation state.
 
 Produced by driving the running app against the real OpenAI API on **2026-09-07 03:15-03:17 UTC**: four full 6-turn conversations (24 question calls), two narrative calls, five malformed-request probes.
 
@@ -128,7 +128,7 @@ Across all stored runs, `odor_source_inference` fired 0 times (the rule was narr
 
 ## What this evidence established
 
-Each of these became a decision in `DESIGN.md`. This section records the inference; the spec records the outcome.
+Each of these became a requirement in the [integrated specification](../../docs/SPEC.md). This section records the inference; the specification records the outcome.
 
 1. **The validator earns its place.** It is the only thing separating the conditions, and it caught 6 real violations in 24 turns. → kept as the core mechanism (§4).
 2. **`standard` could not be generated reliably.** 2 of 6 turns canned, all 6 rejections, zero recovery — while `visual` and `odor` had zero rejections in 18 turns. → **the arm was retired** (§2), not repaired. A baseline arm, if ever wanted again, is defined as *unguided* rather than by exclusion.
@@ -136,7 +136,7 @@ Each of these became a decision in `DESIGN.md`. This section records the inferen
 4. **Exact-match duplicate detection is not enough by turn 5.** → near-duplicate detection required (§4).
 5. **`turnFunction` was inert** — never enforced, never read, 3 of 6 values never emitted. → **dropped from the contract** (§5).
 6. **`sourceIds` and `containsCreativeAddition` are unreliable self-reports.** → kept as a variable to study, never as provenance (§6).
-7. **Generation health is invisible from the participant screens.** The `standard` failure showed up only in the generation records. → the synthetic harness became standing practice, re-run on every prompt-design change ([`evaluation-harness.md`](evaluation-harness.md)) — though **not** a gate in front of human collection — and fallback and neutral-transition counts became reported quantities (`measures.md`).
+7. **Generation health is invisible from the participant screens.** The `standard` failure showed up only in the generation records. → the synthetic harness became standing practice, re-run on every prompt-design change ([operations](../../README.md)) — though **not** a gate in front of human collection — and fallback and neutral-transition counts became reported quantities ([specification](../../docs/SPEC.md)).
 
 ---
 

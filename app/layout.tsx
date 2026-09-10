@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "記憶に関する研究 | Mock",
-  description: "PROTOCOL v0.4.0-draft・Prompt Catalog v0.4.3 に基づく参加者フローのローカル mock",
+  description: "ResearchPilotSystemの参加者フローを確認するローカルmock",
   robots: { index: false, follow: false },
 };
 
