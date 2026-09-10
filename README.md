@@ -6,6 +6,7 @@
 
 - 指導教員のapproval gateは置きません。ただし倫理審査と、参加者収集を開始してよいという研究上の条件は別途満たす必要があります。
 - API秘密値・参加者データ・収録素材を文書やGitへ記載・追加しません。APIキーはサーバ側の環境変数だけに置きます。
+- モデルAPI呼出しは `store: false` を指定しますが、入力内容自体は外部APIへ送信されます。同意文と実運用のデータ取扱いはこの事実を前提にします。
 - `prompts/` は現行runtime assetです。`core/02-generation/prompts/` の保存プロンプトへ勝手に差し替えません。
 - `scripts/run-persona-batch.mjs` が `core/05-verification/personas.mjs` をimportする構造を維持します。
 

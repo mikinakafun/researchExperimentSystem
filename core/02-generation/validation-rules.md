@@ -41,7 +41,7 @@ Contamination checks are skipped for `neutral`, which is instead held to the str
 
 Naming what an odor was an odor of is **not** a violation. Olfactory perception is object-based: the source label is the percept, not an inference about it, and in Japanese it is close to the only available way to describe a smell. Forbidding it left `odor` unable to ask for object identity while `visual` asked for it freely — an asymmetry in the one contrast the two-condition design is built on. The narrower rule was never load-bearing in practice: the flag fired zero times across every stored evaluation artifact.
 
-> The `standard` condition's two rules — sensory contamination and emotion focus — are **retired** with the arm itself. See `DESIGN.md` §2.
+> The `standard` condition's two rules — sensory contamination and emotion focus — are **retired** with the arm itself. See the [integrated specification](../../docs/SPEC.md).
 
 ### Normalisation before the duplicate check
 NFKC → strip whitespace → strip `？?。！!、,「」『』` → lowercase. Punctuation and spacing changes cannot evade it; rewording can.
@@ -117,7 +117,7 @@ Structural only.
 
 The last is the only cross-field rule: content must be claimed either as sourced or as invented, never as neither.
 
-**Everything here is structural. The annotations themselves are never verified against the text** — see `DESIGN.md` §6 for the live case where all five English sentences claimed no creative addition while inventing a sunset.
+**Everything here is structural. The annotations themselves are never verified against the text** — see the [integrated specification](../../docs/SPEC.md) for the live case where all five English sentences claimed no creative addition while inventing a sunset.
 
 ## Retry contract
 

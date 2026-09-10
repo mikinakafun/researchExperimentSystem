@@ -53,7 +53,7 @@ First, describe the event in one sentence. Do not include names, addresses, tele
 
 original_text — 「最初の想起トリガーを設計し、完全自由入力を減らす。」
 
-source — [`docs/research/research-context.md`](../01-research/research-context.md):694
+source — 削除前の `docs/research/research-context.md`:694（git履歴で追跡）
 
 note — 本初稿は自由入力を完全には排除せず、出来事単位、回答量、安全性、感覚誘導の不在を共通化する設計である。
 

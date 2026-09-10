@@ -2,12 +2,12 @@
 
 > **The working asset. Reuse the wording rather than re-deriving it.**
 >
-> One edit has been made against the three-condition original: the `[condition-standard]` guidance section was **deleted** on 2026-09-07 with the arm itself (`../DESIGN.md` §2). Because guidance is spliced one section at a time, that section never entered a `visual` or `odor` prompt, so its removal cannot change what those two conditions produce — the rendered prompt is byte-identical to the one behind every number in `../../05-verification/evidence/`. The deleted text is in [`catalog/PROMPT_CATALOG_V0.4.1_DRAFT.md`](catalog/PROMPT_CATALOG_V0.4.1_DRAFT.md) and in the repository history.
+> One edit has been made against the three-condition original: the `[condition-standard]` guidance section was **deleted** on 2026-09-07 with the arm itself ([integrated specification](../../../docs/SPEC.md)). Because guidance is spliced one section at a time, that section never entered a `visual` or `odor` prompt, so its removal cannot change what those two conditions produce — the rendered prompt is byte-identical to the one behind every number in `../../05-verification/evidence/`. The deleted text is in [`catalog/PROMPT_CATALOG_V0.4.1_DRAFT.md`](catalog/PROMPT_CATALOG_V0.4.1_DRAFT.md) and in the repository history.
 >
 > One retirement is **not** yet applied here: `turnFunction` is dropped from the contract (§5) but is still named in `follow-up.ja.txt` / `follow-up.en.txt`. That text sits in the body of every rendered prompt, so removing it does change the prompt for both conditions and the result has not been measured. It is open work — TASK-023.
 
 
-The question and narrative prompts are versioned **independently** — see `../DESIGN.md` §4. Versions are recorded on every result, and the save path refuses a mismatch.
+The question and narrative prompts are versioned **independently** — see the [integrated specification](../../../docs/SPEC.md). Versions are recorded on every result, and the save path refuses a mismatch.
 
 | File | Role | Placeholders |
 |---|---|---|

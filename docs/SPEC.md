@@ -36,6 +36,7 @@ research-context の主仮説は方向を指定しない一方、measures は `M
 - 条件はVisualとOdorの二条件。Standardは要求仕様上廃止済みだが、コードと一部保存スキーマには残る。
 - Visualは視覚的対象・詳細に焦点を置き、匂い・音・触覚・温度・身体・感情を尋ねない。
 - Odorは匂い、その質、覚えている匂いが何の匂いだったかを扱うが、視覚・音・触覚・温度・身体・感情、原因説明・発生源の推測を尋ねない。
+- 将来ベースライン条件が必要になっても、廃止したStandardを再利用しない。条件ガイダンスを与えない無誘導条件として改めて定義し、条件外への逸脱は検証失敗ではなく測定値とする。
 - 条件名、研究、仮説、モデル、プロンプトはデブリーフまで参加者へ開示しない。
 - 条件秘匿とサーバ側割付は要求である。割付は有効な初期断片送信後、言語を層として行い、すべて割付ログへ残す。ブロックサイズ、割付比、seed、隠蔽方法は未決定であり、最終値を勝手に補わない。
 - 指導教員approval gateは不要。ただし倫理審査を経て、参加者収集を開始できる条件を満たす必要がある。mockの動作確認や合成ハーネス通過は倫理承認でも研究実施許可でもない。
@@ -85,7 +86,9 @@ research-context の主仮説は方向を指定しない一方、measures は `M
 
 候補は逐次再プロンプトだけに依存せず、1ターンあたり複数候補を並列に生成し選別する。棄却時は候補本文と違反箇所をrepair段へ渡し、temperature 0で最小修正を求め、strict schemaと同じvalidatorで再検証する。候補予算が尽きたら、条件質問→検証済み中立質問の固定ラダーへ進み、6問を必ず完走する。fallback理由（材料枯渇、非想起、生成棄却）は別フィールドに記録する。
 
-`auth`、quota、provider unavailable、timeoutなどAPI基盤の失敗はfallbackへ変換しない。bounded timeoutの後にセッションを中断し、参加者に安全な失敗を示す。diagnosticsが欠落した生成結果は受け付けない。attemptsは初回を含む連続試行数、棄却候補・理由・request IDを記録する。
+`auth`、quota、provider unavailable、timeoutなどAPI基盤の失敗はfallbackへ変換しない。bounded timeoutの後にセッションを中断し、参加者に安全な失敗を示す。API keyはサーバ側だけで読み、provider呼出しは保持をオプトアウトする。providerのerror本文や資格情報をclientへ返さない。diagnosticsが欠落した生成結果は受け付けない。attemptsは初回を含む連続試行数、棄却候補・理由・request IDを記録する。要求したmodel aliasだけでなく、providerが応答した具体的なmodel版を保存する。
+
+ターン数、model、temperature、候補数、試行上限、prompt versionは一か所で管理し、各結果に実際の値を保存する。6ターンは現行pilot値であり、指導教員の承認待ちではない。参加者データ収集開始時に生成設定を凍結し、以後の変更は別の収集として扱う。
 
 保存資産: [`../core/02-generation/validation-rules.md`](../core/02-generation/validation-rules.md)、[`../core/02-generation/fallback-questions.md`](../core/02-generation/fallback-questions.md)、[`../core/02-generation/prompts/`](../core/02-generation/prompts/)。今回の文書統合で `prompts/` のruntime本文を差し替えない。
 
@@ -93,7 +96,7 @@ research-context の主仮説は方向を指定しない一方、measures は `M
 
 6回答後に一回呼び出し、初期断片と質問・回答を素材、質問文を文脈として扱う。質問に含まれた前提を参加者の申告済み事実として扱わない。創作（情景、感覚、感情、会話、結末）は許可されるが、明示された人物・場所・行動・否定と矛盾せず、非想起を想起済みとして書かず、条件・研究・モデル・promptを開示しない。
 
-出力はセッション言語、1〜10文、参加者が見た本文と注釈から再構成可能であること。各文の`sourceIds`と`containsCreativeAddition`は保存するが、モデル自己申告は検証済み出典でも創作判定でもない。narrative validator違反やstrict schema不一致は最大試行後にエラーとし、質問のような物語fallbackは設けない。
+出力はセッション言語、1〜10文とし、各unitは正確に1文だけを持つ。各文をtrimして保存し、日本語は区切りなし、英語は半角スペース1つで連結した本文が、参加者の評価した表示本文と一致しなければならない。各文の`sourceIds`と`containsCreativeAddition`は保存するが、モデル自己申告は検証済み出典でも創作判定でもない。narrative validator違反やstrict schema不一致は最大試行後にエラーとし、質問のような物語fallbackは設けない。
 
 ## 7. 測定と分析
 
@@ -161,7 +164,7 @@ SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`se
 文書統合では次を決めない、変更しない。
 
 - 実験条件、調査票の意味、生成規則、保存済みデータ、実験文言、runtime prompt本文。
-- ブロックサイズ、割付比、seed、割付隠蔽、正式なモデル・temperature・候補数、正式な6ターン承認、サンプルサイズ、分析モデル。
+- ブロックサイズ、割付比、seed、割付隠蔽、収集時に凍結するモデル・temperature・候補数の最終値、サンプルサイズ、分析モデル。
 - `research-context` の非方向主仮説と `measures` のpredicted direction要求の整合。
 - 題名の `Reconstruction` と参加者向けの「reconstructionを禁じる」説明の整合。
 - 倫理審査の機関名・連絡先・提出日、参加者収集開始条件の具体的手続き。

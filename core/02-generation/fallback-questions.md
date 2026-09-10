@@ -24,7 +24,7 @@ A fixed string also cannot judge whether the participant recalled. It should onl
 
 A canned question is the only point in the session that ignores everything the participant said. Observed live, a fallback landed mid-conversation about a park bench and asked a fully generic question.
 
-Two things worth doing: try a **repair** pass before reaching the ladder at all (see [`question-strategy.md`](question-strategy.md)), and consider a light template that carries the last answer's subject into the fallback text. Any such text must still pass validation.
+Two things worth doing: try a **repair** pass before reaching the ladder at all (see [the integrated specification](../../docs/SPEC.md)), and consider a light template that carries the last answer's subject into the fallback text. Any such text must still pass validation.
 
 ## Japanese (default)
 
