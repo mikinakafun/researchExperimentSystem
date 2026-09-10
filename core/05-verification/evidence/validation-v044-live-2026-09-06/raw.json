@@ -1,0 +1,3876 @@
+{
+  "generatedAt": "2026-09-06T10:45:52.934Z",
+  "base": "http://localhost:3000",
+  "scenarios": [
+    {
+      "id": "specific-recall",
+      "fragment": "先月の日曜日、友人と公園を歩いた。",
+      "mode": "specific"
+    },
+    {
+      "id": "partial-recall",
+      "fragment": "先週、駅前の店で家族と昼食を買った。",
+      "mode": "partial"
+    },
+    {
+      "id": "continuous-nonrecall",
+      "fragment": "先週、用事で外出した。",
+      "mode": "none"
+    }
+  ],
+  "records": [
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "standard",
+      "turn": 1,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:42:40.184Z",
+      "completedAt": "2026-09-06T10:42:41.411Z",
+      "elapsedMs": 1226,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その公園で友人とどんな会話をしましたか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "action_relation",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_036c07e8f9809c9a016a9d43a0ae2487d0b00abf76e532bd74",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "standard",
+      "turn": 2,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:42:41.414Z",
+      "completedAt": "2026-09-06T10:42:43.922Z",
+      "elapsedMs": 2508,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "その公園で友人とどんな会話をしましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "turn": 2,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "grounded_detail",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0057460e033ee568016a9d43a2ce6887d0aa5f124c58228a26",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 2,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その時、ベンチに座っている間に周りの景色や雰囲気について何か思い出せることはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "grounded_detail",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "standard",
+      "turn": 3,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:42:43.923Z",
+      "completedAt": "2026-09-06T10:42:44.975Z",
+      "elapsedMs": 1052,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "その公園で友人とどんな会話をしましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その公園での友人との歩きながらの出来事で、何か特別なことを感じた瞬間はありましたか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0146e03bdec6124a016a9d43a4209087d0bc72695b246b2628",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "standard",
+      "turn": 4,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:42:44.975Z",
+      "completedAt": "2026-09-06T10:42:46.166Z",
+      "elapsedMs": 1191,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "その公園で友人とどんな会話をしましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園での友人との歩きながらの出来事で、何か特別なことを感じた瞬間はありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "turn": 4,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その公園で、売店のお茶を買ったときのことをもう少し詳しく教えてもらえますか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "grounded_detail",
+          "targetEvidenceId": "answer-1",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_03a6eb9385f608ea016a9d43a52bb087d0b90f0e66f2899e13",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "standard",
+      "turn": 5,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:42:46.167Z",
+      "completedAt": "2026-09-06T10:42:49.546Z",
+      "elapsedMs": 3379,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "その公園で友人とどんな会話をしましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園での友人との歩きながらの出来事で、何か特別なことを感じた瞬間はありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園で、売店のお茶を買ったときのことをもう少し詳しく教えてもらえますか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "turn": 5,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その出来事の中で、何をしていたか覚えていますか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": null,
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "fallback",
+        "requestId": null,
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "fallback",
+        "attempts": 3,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その公園でのベンチに座っているとき、周りの景色や雰囲気について何か覚えていることはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "answer-4",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 2,
+              "flags": [
+                "standard_sensory_contamination",
+                "standard_emotion_focus"
+              ],
+              "question": "その公園でのベンチに座ったとき、周りの景色や雰囲気はどんな感じでしたか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "grounded_detail",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 3,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "公園を歩いているときに、周りの景色や雰囲気について何か気づいたことはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "standard",
+      "turn": 6,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:42:49.548Z",
+      "completedAt": "2026-09-06T10:42:56.201Z",
+      "elapsedMs": 6653,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "その公園で友人とどんな会話をしましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園での友人との歩きながらの出来事で、何か特別なことを感じた瞬間はありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園で、売店のお茶を買ったときのことをもう少し詳しく教えてもらえますか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その出来事の中で、何をしていたか覚えていますか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "turn": 6,
+        "language": "ja"
+      },
+      "response": {
+        "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+        "metadata": {
+          "conditionFocus": "neutral",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": null,
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": true
+        },
+        "language": "ja",
+        "model": "fallback",
+        "requestId": null,
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "fallback",
+        "attempts": 3,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その公園で友人と過ごしているとき、周りの景色や雰囲気について何か印象に残っていることはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 2,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その公園でのベンチに座っているとき、周りの景色や雰囲気について何か覚えていることはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "grounded_detail",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 3,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その公園で休んでいたとき、周りの景色や雰囲気について何か感じたことはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "grounded_detail",
+                "targetEvidenceId": "answer-5",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "narrative",
+      "scenario": "specific-recall",
+      "condition": "standard",
+      "turn": null,
+      "requestedAt": "2026-09-06T10:42:56.202Z",
+      "completedAt": "2026-09-06T10:42:58.441Z",
+      "elapsedMs": 2239,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "answers": [
+          {
+            "question": "その公園で友人とどんな会話をしましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園での友人とのやり取りの中で、特に印象に残っていることは何ですか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園での友人との歩きながらの出来事で、何か特別なことを感じた瞬間はありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園で、売店のお茶を買ったときのことをもう少し詳しく教えてもらえますか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その出来事の中で、何をしていたか覚えていますか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "language": "ja"
+      },
+      "response": {
+        "narrative": "先月の日曜日、友人と公園を歩いていると、心地よい風が吹き抜けていきました。途中で売店に立ち寄り、冷たいお茶を買ったのを覚えています。その後、池の近くのベンチに座り、穏やかな水面を眺めながら友人と楽しい会話に花を咲かせました。笑い合う中で、時折聞こえる鳥のさえずりが、私たちの会話をさらに魅力的にしていました。その瞬間、日常の喧騒を忘れ、心からリラックスできたのを感じました。友人と一緒に過ごすこの時間が、何よりも特別で大切に思えました。",
+        "language": "ja",
+        "sentences": [
+          {
+            "text": "先月の日曜日、友人と公園を歩いていると、心地よい風が吹き抜けていきました。",
+            "sourceIds": [
+              "fragment"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "途中で売店に立ち寄り、冷たいお茶を買ったのを覚えています。",
+            "sourceIds": [
+              "answer-1"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "その後、池の近くのベンチに座り、穏やかな水面を眺めながら友人と楽しい会話に花を咲かせました。",
+            "sourceIds": [
+              "answer-2"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "笑い合う中で、時折聞こえる鳥のさえずりが、私たちの会話をさらに魅力的にしていました。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "その瞬間、日常の喧騒を忘れ、心からリラックスできたのを感じました。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "友人と一緒に過ごすこの時間が、何よりも特別で大切に思えました。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          }
+        ],
+        "model": "gpt-4o-mini-2024-07-18",
+        "source": "generated",
+        "requestId": "resp_04aa6537d6f5cb5d016a9d43b0679c87d0b0126aa966464f90",
+        "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "visual",
+      "turn": 1,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:42:58.442Z",
+      "completedAt": "2026-09-06T10:42:59.894Z",
+      "elapsedMs": 1452,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その公園の中で、特に目を引いた色や形の花はありましたか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0aaf61b5bc1e7e21016a9d43b2a3a087d09ad34604ce1f8cd9",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "visual",
+      "turn": 2,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:42:59.895Z",
+      "completedAt": "2026-09-06T10:43:01.117Z",
+      "elapsedMs": 1222,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "その公園の中で、特に目を引いた色や形の花はありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "turn": 2,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その公園の池の周りには、どんな植物や木がありましたか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0a462736b9ef938f016a9d43b41ae087d0a428e3312478fadd",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "visual",
+      "turn": 3,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:43:01.118Z",
+      "completedAt": "2026-09-06T10:43:01.947Z",
+      "elapsedMs": 829,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "その公園の中で、特に目を引いた色や形の花はありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の池の周りには、どんな植物や木がありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その公園の売店はどのような外観をしていましたか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "grounded_detail",
+          "targetEvidenceId": "answer-1",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_01dac91f059f1b8a016a9d43b5506487d0bdba53abfc992809",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "visual",
+      "turn": 4,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:43:01.949Z",
+      "completedAt": "2026-09-06T10:43:03.016Z",
+      "elapsedMs": 1067,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "その公園の中で、特に目を引いた色や形の花はありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の池の周りには、どんな植物や木がありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の売店はどのような外観をしていましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "turn": 4,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その公園の池の水の色はどのようでしたか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_04ffb9e2c803fbcb016a9d43b6287887d0bd6976e838de3b07",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "visual",
+      "turn": 5,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:43:03.017Z",
+      "completedAt": "2026-09-06T10:43:04.289Z",
+      "elapsedMs": 1272,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "その公園の中で、特に目を引いた色や形の花はありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の池の周りには、どんな植物や木がありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の売店はどのような外観をしていましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の池の水の色はどのようでしたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "turn": 5,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その公園のベンチの色や形はどのようでしたか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "answer-1",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_08ddd582069a17fc016a9d43b74fa087d0a23e5dd62a2bd0c4",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "visual",
+      "turn": 6,
+      "selectedAnswer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。",
+      "requestedAt": "2026-09-06T10:43:04.290Z",
+      "completedAt": "2026-09-06T10:43:05.624Z",
+      "elapsedMs": 1334,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "その公園の中で、特に目を引いた色や形の花はありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の池の周りには、どんな植物や木がありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の売店はどのような外観をしていましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の池の水の色はどのようでしたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園のベンチの色や形はどのようでしたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "turn": 6,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その公園で見かけた他の人々の服装や特徴について、何か覚えていることはありますか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0d8577d3fb4076bd016a9d43b87c6487d093363f0dcc42e880",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "narrative",
+      "scenario": "specific-recall",
+      "condition": "visual",
+      "turn": null,
+      "requestedAt": "2026-09-06T10:43:05.626Z",
+      "completedAt": "2026-09-06T10:43:07.617Z",
+      "elapsedMs": 1991,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "answers": [
+          {
+            "question": "その公園の中で、特に目を引いた色や形の花はありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の池の周りには、どんな植物や木がありましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の売店はどのような外観をしていましたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園の池の水の色はどのようでしたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園のベンチの色や形はどのようでしたか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          },
+          {
+            "question": "その公園で見かけた他の人々の服装や特徴について、何か覚えていることはありますか？",
+            "answer": "日曜の午後、友人と公園を歩き、途中で売店のお茶を買って池の近くのベンチで休みました。"
+          }
+        ],
+        "language": "ja"
+      },
+      "response": {
+        "narrative": "先月の日曜日、友人と公園を散歩しながら、温かい日差しを感じていました。途中、売店で冷たいお茶を買い、池の近くのベンチに腰を下ろしました。池の水面は陽の光を反射してキラキラと輝いており、周囲には色とりどりの花が咲き誇っていました。私たちは、穏やかな風に吹かれながら、時折鴨が泳ぐ姿を眺めて笑い合いました。周りにいた人々も、リラックスした様子で、誰もが穏やかな午後のひとときを楽しんでいるようでした。",
+        "language": "ja",
+        "sentences": [
+          {
+            "text": "先月の日曜日、友人と公園を散歩しながら、温かい日差しを感じていました。",
+            "sourceIds": [
+              "fragment"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "途中、売店で冷たいお茶を買い、池の近くのベンチに腰を下ろしました。",
+            "sourceIds": [
+              "answer-1"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "池の水面は陽の光を反射してキラキラと輝いており、周囲には色とりどりの花が咲き誇っていました。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "私たちは、穏やかな風に吹かれながら、時折鴨が泳ぐ姿を眺めて笑い合いました。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "周りにいた人々も、リラックスした様子で、誰もが穏やかな午後のひとときを楽しんでいるようでした。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          }
+        ],
+        "model": "gpt-4o-mini-2024-07-18",
+        "source": "generated",
+        "requestId": "resp_0b3da2bfe08cd68f016a9d43b9d33087d083d62a0c35e275c8",
+        "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "odor",
+      "turn": 1,
+      "selectedAnswer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。",
+      "requestedAt": "2026-09-06T10:43:07.617Z",
+      "completedAt": "2026-09-06T10:43:08.795Z",
+      "elapsedMs": 1178,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_03d1e8bbf40891e3016a9d43bbd83087d08988aab7da063cf4",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "odor",
+      "turn": 2,
+      "selectedAnswer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。",
+      "requestedAt": "2026-09-06T10:43:08.797Z",
+      "completedAt": "2026-09-06T10:43:10.034Z",
+      "elapsedMs": 1237,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          }
+        ],
+        "turn": 2,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その焼きとうもろこしの匂いについて、どんな印象を持ちましたか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "grounded_detail",
+          "targetEvidenceId": "answer-1",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_07d92a5c98d25bde016a9d43bd030087d097913e18db1ebd3f",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "odor",
+      "turn": 3,
+      "selectedAnswer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。",
+      "requestedAt": "2026-09-06T10:43:10.035Z",
+      "completedAt": "2026-09-06T10:43:11.096Z",
+      "elapsedMs": 1061,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "その焼きとうもろこしの匂いについて、どんな印象を持ちましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "response": {
+        "question": "公園で感じた芝生の青い匂いについて、どのような場面でその匂いを特に強く感じましたか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "grounded_detail",
+          "targetEvidenceId": "answer-1",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0b3c27d6f5aaebae016a9d43be3fdc87d0bfef3a8df4f5bafd",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "odor",
+      "turn": 4,
+      "selectedAnswer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。",
+      "requestedAt": "2026-09-06T10:43:11.097Z",
+      "completedAt": "2026-09-06T10:43:12.256Z",
+      "elapsedMs": 1159,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "その焼きとうもろこしの匂いについて、どんな印象を持ちましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "公園で感じた芝生の青い匂いについて、どのような場面でその匂いを特に強く感じましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          }
+        ],
+        "turn": 4,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その芝生の青い匂いを感じたとき、他にどんな匂いが周りにありましたか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "answer-1",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_08b64dce42b01e32016a9d43bf4bc087d085807581030ea68f",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "odor",
+      "turn": 5,
+      "selectedAnswer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。",
+      "requestedAt": "2026-09-06T10:43:12.258Z",
+      "completedAt": "2026-09-06T10:43:13.439Z",
+      "elapsedMs": 1181,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "その焼きとうもろこしの匂いについて、どんな印象を持ちましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "公園で感じた芝生の青い匂いについて、どのような場面でその匂いを特に強く感じましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "その芝生の青い匂いを感じたとき、他にどんな匂いが周りにありましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          }
+        ],
+        "turn": 5,
+        "language": "ja"
+      },
+      "response": {
+        "question": "公園で感じた匂いの中で、他に思い出せる匂いはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_04d8069be553872e016a9d43c0792087d09e962cd3d875df4a",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "specific-recall",
+      "condition": "odor",
+      "turn": 6,
+      "selectedAnswer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。",
+      "requestedAt": "2026-09-06T10:43:13.440Z",
+      "completedAt": "2026-09-06T10:43:15.274Z",
+      "elapsedMs": 1834,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "history": [
+          {
+            "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "その焼きとうもろこしの匂いについて、どんな印象を持ちましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "公園で感じた芝生の青い匂いについて、どのような場面でその匂いを特に強く感じましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "その芝生の青い匂いを感じたとき、他にどんな匂いが周りにありましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "公園で感じた匂いの中で、他に思い出せる匂いはありますか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          }
+        ],
+        "turn": 6,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その焼きとうもろこしの匂いを感じたとき、どんなことを思い出しましたか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "grounded_detail",
+          "targetEvidenceId": "answer-1",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_069779d72b1eb31c016a9d43c1ac3c87d093a5a95bd1b73f81",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "narrative",
+      "scenario": "specific-recall",
+      "condition": "odor",
+      "turn": null,
+      "requestedAt": "2026-09-06T10:43:15.278Z",
+      "completedAt": "2026-09-06T10:43:19.121Z",
+      "elapsedMs": 3843,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "fragment": "先月の日曜日、友人と公園を歩いた。",
+        "answers": [
+          {
+            "question": "公園を歩いているときに、何か特別な匂いを感じたことはありますか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "その焼きとうもろこしの匂いについて、どんな印象を持ちましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "公園で感じた芝生の青い匂いについて、どのような場面でその匂いを特に強く感じましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "その芝生の青い匂いを感じたとき、他にどんな匂いが周りにありましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "公園で感じた匂いの中で、他に思い出せる匂いはありますか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          },
+          {
+            "question": "その焼きとうもろこしの匂いを感じたとき、どんなことを思い出しましたか？",
+            "answer": "刈ったばかりの芝生の青い匂いと、売店近くの焼きとうもろこしの香ばしい匂いがしました。"
+          }
+        ],
+        "language": "ja"
+      },
+      "response": {
+        "narrative": "先月の日曜日、友人と公園を歩いていると、刈ったばかりの芝生の青い匂いが漂ってきた。その瞬間、私は心がすっと軽くなったような気がした。さらに、売店近くから香ばしい焼きとうもろこしの匂いが漂い、思わず笑顔がこぼれた。友人もその匂いに気づき、私たちはお互いに目を合わせて、無言のうちに同じ思いを抱いていることを感じた。その日は、ただの散歩が特別な思い出に変わっていくような、不思議な感覚に包まれていた。",
+        "language": "ja",
+        "sentences": [
+          {
+            "text": "先月の日曜日、友人と公園を歩いていると、刈ったばかりの芝生の青い匂いが漂ってきた。",
+            "sourceIds": [
+              "fragment"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "その瞬間、私は心がすっと軽くなったような気がした。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "さらに、売店近くから香ばしい焼きとうもろこしの匂いが漂い、思わず笑顔がこぼれた。",
+            "sourceIds": [
+              "answer-1"
+            ],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "友人もその匂いに気づき、私たちはお互いに目を合わせて、無言のうちに同じ思いを抱いていることを感じた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "その日は、ただの散歩が特別な思い出に変わっていくような、不思議な感覚に包まれていた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          }
+        ],
+        "model": "gpt-4o-mini-2024-07-18",
+        "source": "generated",
+        "requestId": "resp_026139757ea8f89b016a9d43c378f887d082847d1d0f79ef18",
+        "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "standard",
+      "turn": 1,
+      "selectedAnswer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:19.121Z",
+      "completedAt": "2026-09-06T10:43:20.457Z",
+      "elapsedMs": 1336,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その昼食を買った時に、どんな食べ物を選んだか覚えていますか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_055fc14de3ea46f7016a9d43c7534c87d088be85d35f799650",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "standard",
+      "turn": 2,
+      "selectedAnswer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:20.459Z",
+      "completedAt": "2026-09-06T10:43:21.515Z",
+      "elapsedMs": 1056,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その昼食を買った時に、どんな食べ物を選んだか覚えていますか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          }
+        ],
+        "turn": 2,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その時、家族とどんな会話をしたか思い出せますか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "action_relation",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0541b70e27f4007c016a9d43c8b07087d0a58fcdcaede4ceff",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "standard",
+      "turn": 3,
+      "selectedAnswer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:21.518Z",
+      "completedAt": "2026-09-06T10:43:22.501Z",
+      "elapsedMs": 983,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その昼食を買った時に、どんな食べ物を選んだか覚えていますか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          },
+          {
+            "question": "その時、家族とどんな会話をしたか思い出せますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その昼食を買った後、どのように過ごしましたか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0e40b10e342c2fb7016a9d43c9b79c87d09bb07f5b14316864",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "standard",
+      "turn": 4,
+      "selectedAnswer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:22.503Z",
+      "completedAt": "2026-09-06T10:43:25.831Z",
+      "elapsedMs": 3328,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その昼食を買った時に、どんな食べ物を選んだか覚えていますか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          },
+          {
+            "question": "その時、家族とどんな会話をしたか思い出せますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その昼食を買った後、どのように過ごしましたか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          }
+        ],
+        "turn": 4,
+        "language": "ja"
+      },
+      "response": {
+        "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+        "metadata": {
+          "conditionFocus": "neutral",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": null,
+          "nonRecallTransition": true,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "fallback",
+        "requestId": null,
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "fallback",
+        "attempts": 3,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その昼食を買った時の家族の反応や雰囲気について、何か思い出せることはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 2,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その駅前の店での昼食を買った時、店の雰囲気や周囲の様子はどのようでしたか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 3,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その昼食を買った時、どのような雰囲気だったか覚えていますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "standard",
+      "turn": 5,
+      "selectedAnswer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:25.833Z",
+      "completedAt": "2026-09-06T10:43:29.993Z",
+      "elapsedMs": 4160,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その昼食を買った時に、どんな食べ物を選んだか覚えていますか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          },
+          {
+            "question": "その時、家族とどんな会話をしたか思い出せますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その昼食を買った後、どのように過ごしましたか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          }
+        ],
+        "turn": 5,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その時にしていたことを、ほかに覚えていますか？",
+        "metadata": {
+          "conditionFocus": "neutral",
+          "turnFunction": "grounded_detail",
+          "targetEvidenceId": null,
+          "nonRecallTransition": true,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "fallback",
+        "requestId": null,
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "fallback",
+        "attempts": 3,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その昼食を買った時、店の雰囲気や人の様子について何か覚えていることはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 2,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その昼食を買った時、駅前の店の雰囲気や周りの様子を思い出せますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 3,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その昼食を買った時、店の雰囲気や周りの様子について何か覚えていますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "standard",
+      "turn": 6,
+      "selectedAnswer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:29.995Z",
+      "completedAt": "2026-09-06T10:43:33.248Z",
+      "elapsedMs": 3253,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その昼食を買った時に、どんな食べ物を選んだか覚えていますか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          },
+          {
+            "question": "その時、家族とどんな会話をしたか思い出せますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その昼食を買った後、どのように過ごしましたか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その時にしていたことを、ほかに覚えていますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          }
+        ],
+        "turn": 6,
+        "language": "ja"
+      },
+      "response": {
+        "question": "同じ出来事の別の時点で、何をしていたか覚えていますか？",
+        "metadata": {
+          "conditionFocus": "neutral",
+          "turnFunction": "temporal_anchor",
+          "targetEvidenceId": null,
+          "nonRecallTransition": true,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "fallback",
+        "requestId": null,
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "fallback",
+        "attempts": 3,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その駅前の店で、どんな雰囲気だったか覚えていますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 2,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その昼食を買った時の天気や雰囲気について、何か思い出せることはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 3,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その昼食を買った時、店の雰囲気や周りの様子について何か覚えていますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "narrative",
+      "scenario": "partial-recall",
+      "condition": "standard",
+      "turn": null,
+      "requestedAt": "2026-09-06T10:43:33.249Z",
+      "completedAt": "2026-09-06T10:43:35.089Z",
+      "elapsedMs": 1840,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "answers": [
+          {
+            "question": "その昼食を買った時に、どんな食べ物を選んだか覚えていますか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          },
+          {
+            "question": "その時、家族とどんな会話をしたか思い出せますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その昼食を買った後、どのように過ごしましたか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その時にしていたことを、ほかに覚えていますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "同じ出来事の別の時点で、何をしていたか覚えていますか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          }
+        ],
+        "language": "ja"
+      },
+      "response": {
+        "narrative": "先週、駅前の店で家族と昼食を買ったことが、ふと心に浮かんだ。その時、何を選んだのかは思い出せないけれど、家族の笑い声が耳に残っている。昼食を買った後、私たちは公園に向かい、一緒に温かい日差しを浴びながら過ごした。公園では、子供たちが遊ぶ姿を見ながら、家族の絆を感じていた。あの日の何気ない瞬間が、今でも心に温かく残っている。",
+        "language": "ja",
+        "sentences": [
+          {
+            "text": "先週、駅前の店で家族と昼食を買ったことが、ふと心に浮かんだ。",
+            "sourceIds": [
+              "fragment"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "その時、何を選んだのかは思い出せないけれど、家族の笑い声が耳に残っている。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "昼食を買った後、私たちは公園に向かい、一緒に温かい日差しを浴びながら過ごした。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "公園では、子供たちが遊ぶ姿を見ながら、家族の絆を感じていた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "あの日の何気ない瞬間が、今でも心に温かく残っている。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          }
+        ],
+        "model": "gpt-4o-mini-2024-07-18",
+        "source": "generated",
+        "requestId": "resp_08aa69f4d1ba77af016a9d43d571c887d08ec510c43999d720",
+        "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "visual",
+      "turn": 1,
+      "selectedAnswer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:35.089Z",
+      "completedAt": "2026-09-06T10:43:36.189Z",
+      "elapsedMs": 1100,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その店の外観について、どのような特徴がありましたか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0f0694a68bc0fce4016a9d43d74a9487d0843fea658059300b",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "visual",
+      "turn": 2,
+      "selectedAnswer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:36.190Z",
+      "completedAt": "2026-09-06T10:43:37.468Z",
+      "elapsedMs": 1278,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その店の外観について、どのような特徴がありましたか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          }
+        ],
+        "turn": 2,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その店の中の様子や配置について、何か思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0984e7a403062e24016a9d43d8796487d0b515ba89dc861d40",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "visual",
+      "turn": 3,
+      "selectedAnswer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:37.474Z",
+      "completedAt": "2026-09-06T10:43:38.901Z",
+      "elapsedMs": 1428,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その店の外観について、どのような特徴がありましたか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店の中の様子や配置について、何か思い出せることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その店で購入した昼食のメニューについて、何か覚えていることはありますか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_025728b55aea5b03016a9d43d9ab8c87d094f86247ad167ca9",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "visual",
+      "turn": 4,
+      "selectedAnswer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:38.904Z",
+      "completedAt": "2026-09-06T10:43:40.131Z",
+      "elapsedMs": 1227,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その店の外観について、どのような特徴がありましたか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店の中の様子や配置について、何か思い出せることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店で購入した昼食のメニューについて、何か覚えていることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          }
+        ],
+        "turn": 4,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その店の周りにあった他の店舗や施設について、何か思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0f0e63fa753cab63016a9d43db1c3c87d0a617c788942d9562",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "visual",
+      "turn": 5,
+      "selectedAnswer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:40.133Z",
+      "completedAt": "2026-09-06T10:43:41.464Z",
+      "elapsedMs": 1331,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その店の外観について、どのような特徴がありましたか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店の中の様子や配置について、何か思い出せることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店で購入した昼食のメニューについて、何か覚えていることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店の周りにあった他の店舗や施設について、何か思い出せることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          }
+        ],
+        "turn": 5,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その昼食を買った際、どのような色の袋や容器に入っていましたか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_03843b12d2a1ecb3016a9d43dc565c87d097386b1fa30a243f",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "visual",
+      "turn": 6,
+      "selectedAnswer": "店の前に人が並んでいたことは少し覚えていますが、ほかの視覚情報は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:41.468Z",
+      "completedAt": "2026-09-06T10:43:43.434Z",
+      "elapsedMs": 1966,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その店の外観について、どのような特徴がありましたか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店の中の様子や配置について、何か思い出せることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店で購入した昼食のメニューについて、何か覚えていることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店の周りにあった他の店舗や施設について、何か思い出せることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その昼食を買った際、どのような色の袋や容器に入っていましたか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          }
+        ],
+        "turn": 6,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その駅前の店の周辺には、どのような景色や建物が見えましたか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0cb1a4f4825371a0016a9d43ddc36487d0881012a8be19674e",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "narrative",
+      "scenario": "partial-recall",
+      "condition": "visual",
+      "turn": null,
+      "requestedAt": "2026-09-06T10:43:43.438Z",
+      "completedAt": "2026-09-06T10:43:45.662Z",
+      "elapsedMs": 2224,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "answers": [
+          {
+            "question": "その店の外観について、どのような特徴がありましたか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店の中の様子や配置について、何か思い出せることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店で購入した昼食のメニューについて、何か覚えていることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その店の周りにあった他の店舗や施設について、何か思い出せることはありますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その昼食を買った際、どのような色の袋や容器に入っていましたか？",
+            "answer": "家族と駅前の店で昼食を買ったことは覚えていますが、具体的な品物や順番は思い出せません。"
+          },
+          {
+            "question": "その駅前の店の周辺には、どのような景色や建物が見えましたか？",
+            "answer": "店の前に人が並んでいたことは少し覚えていますが、ほかの視覚情報は思い出せません。"
+          }
+        ],
+        "language": "ja"
+      },
+      "response": {
+        "narrative": "先週、家族と一緒に駅前の店で昼食を買ったことを、ふと懐かしく思い出す。その店は賑やかな通りに面していて、外にはいつも人が並んでいた。記憶の中では、私たちが選んだ食事の内容は思い出せないが、温かい笑顔を交わしながらのひとときは心に残っている。袋から漂う香ばしい匂いが、家族との楽しい時間をより一層引き立てていた。その瞬間、周囲の喧騒も心地よく感じられ、ただ一緒にいることが何よりの幸せだった。",
+        "language": "ja",
+        "sentences": [
+          {
+            "text": "先週、家族と一緒に駅前の店で昼食を買ったことを、ふと懐かしく思い出す。",
+            "sourceIds": [
+              "fragment"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "その店は賑やかな通りに面していて、外にはいつも人が並んでいた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "記憶の中では、私たちが選んだ食事の内容は思い出せないが、温かい笑顔を交わしながらのひとときは心に残っている。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "袋から漂う香ばしい匂いが、家族との楽しい時間をより一層引き立てていた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "その瞬間、周囲の喧騒も心地よく感じられ、ただ一緒にいることが何よりの幸せだった。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          }
+        ],
+        "model": "gpt-4o-mini-2024-07-18",
+        "source": "generated",
+        "requestId": "resp_0b50b42e4e52e266016a9d43dfbb2087d092b7da862db4e013",
+        "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "odor",
+      "turn": 1,
+      "selectedAnswer": "匂いについては思い出せません。",
+      "requestedAt": "2026-09-06T10:43:45.663Z",
+      "completedAt": "2026-09-06T10:43:46.891Z",
+      "elapsedMs": 1228,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その昼食を買ったお店の匂いについて、何か覚えていることはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_07d09e881dc818b4016a9d43e1e31087d089da69c3a6fc16b8",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "odor",
+      "turn": 2,
+      "selectedAnswer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。",
+      "requestedAt": "2026-09-06T10:43:46.894Z",
+      "completedAt": "2026-09-06T10:43:50.066Z",
+      "elapsedMs": 3172,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その昼食を買ったお店の匂いについて、何か覚えていることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          }
+        ],
+        "turn": 2,
+        "language": "ja"
+      },
+      "response": {
+        "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+        "metadata": {
+          "conditionFocus": "neutral",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": null,
+          "nonRecallTransition": true,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "fallback",
+        "requestId": null,
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "fallback",
+        "attempts": 3,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "focused_question_with_transition"
+              ],
+              "question": "その昼食を食べるときに、周りの匂いについて何か感じたことはありますか？",
+              "metadata": {
+                "conditionFocus": "odor",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": true
+              }
+            },
+            {
+              "attempt": 2,
+              "flags": [
+                "focused_question_with_transition"
+              ],
+              "question": "その駅前の店での昼食以外に、何か特別な匂いを感じたことはありますか？",
+              "metadata": {
+                "conditionFocus": "odor",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": null,
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": true
+              }
+            },
+            {
+              "attempt": 3,
+              "flags": [
+                "focused_question_with_transition"
+              ],
+              "question": "その昼食を買ったお店の料理の匂いについて、何か思い出せることはありますか？",
+              "metadata": {
+                "conditionFocus": "odor",
+                "turnFunction": "unresolved_attribute",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "odor",
+      "turn": 3,
+      "selectedAnswer": "匂いについては思い出せません。",
+      "requestedAt": "2026-09-06T10:43:50.069Z",
+      "completedAt": "2026-09-06T10:43:51.354Z",
+      "elapsedMs": 1285,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その昼食を買ったお店の匂いについて、何か覚えていることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その駅前の店で、昼食を買ったときに感じた周りの匂いについて、何か思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_058262517a352b6b016a9d43e64f7c87d0955c19f4f8eaad10",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "odor",
+      "turn": 4,
+      "selectedAnswer": "匂いについては思い出せません。",
+      "requestedAt": "2026-09-06T10:43:51.356Z",
+      "completedAt": "2026-09-06T10:43:52.418Z",
+      "elapsedMs": 1062,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その昼食を買ったお店の匂いについて、何か覚えていることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その駅前の店で、昼食を買ったときに感じた周りの匂いについて、何か思い出せることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          }
+        ],
+        "turn": 4,
+        "language": "ja"
+      },
+      "response": {
+        "question": "昼食を買ったときに、他の場所やシーンで感じた匂いについて、何か思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": null,
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0e8003dedf28aa69016a9d43e78efc87d0a0fb9829c469c74e",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "odor",
+      "turn": 5,
+      "selectedAnswer": "匂いについては思い出せません。",
+      "requestedAt": "2026-09-06T10:43:52.420Z",
+      "completedAt": "2026-09-06T10:43:53.866Z",
+      "elapsedMs": 1446,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その昼食を買ったお店の匂いについて、何か覚えていることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その駅前の店で、昼食を買ったときに感じた周りの匂いについて、何か思い出せることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "昼食を買ったときに、他の場所やシーンで感じた匂いについて、何か思い出せることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          }
+        ],
+        "turn": 5,
+        "language": "ja"
+      },
+      "response": {
+        "question": "駅前の店で昼食を買ったときに、周囲にあったかもしれない匂いについて、何か感じたことはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0547d58efe66af69016a9d43e8ad2887d09b4d517debf08e9e",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "partial-recall",
+      "condition": "odor",
+      "turn": 6,
+      "selectedAnswer": "匂いについては思い出せません。",
+      "requestedAt": "2026-09-06T10:43:53.871Z",
+      "completedAt": "2026-09-06T10:43:55.062Z",
+      "elapsedMs": 1191,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "history": [
+          {
+            "question": "その昼食を買ったお店の匂いについて、何か覚えていることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その駅前の店で、昼食を買ったときに感じた周りの匂いについて、何か思い出せることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "昼食を買ったときに、他の場所やシーンで感じた匂いについて、何か思い出せることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "駅前の店で昼食を買ったときに、周囲にあったかもしれない匂いについて、何か感じたことはありますか？",
+            "answer": "匂いについては思い出せません。"
+          }
+        ],
+        "turn": 6,
+        "language": "ja"
+      },
+      "response": {
+        "question": "駅前での昼食を買ったときに、その店の外や周囲で感じた匂いについて、何か思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_08325d3722b00130016a9d43ea128487d0856148bba8613b4f",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "narrative",
+      "scenario": "partial-recall",
+      "condition": "odor",
+      "turn": null,
+      "requestedAt": "2026-09-06T10:43:55.064Z",
+      "completedAt": "2026-09-06T10:43:58.553Z",
+      "elapsedMs": 3489,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "fragment": "先週、駅前の店で家族と昼食を買った。",
+        "answers": [
+          {
+            "question": "その昼食を買ったお店の匂いについて、何か覚えていることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "その出来事については、家族と駅前の店で昼食を買ったことだけ覚えています。ほかの詳細は思い出せません。"
+          },
+          {
+            "question": "その駅前の店で、昼食を買ったときに感じた周りの匂いについて、何か思い出せることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "昼食を買ったときに、他の場所やシーンで感じた匂いについて、何か思い出せることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "駅前の店で昼食を買ったときに、周囲にあったかもしれない匂いについて、何か感じたことはありますか？",
+            "answer": "匂いについては思い出せません。"
+          },
+          {
+            "question": "駅前での昼食を買ったときに、その店の外や周囲で感じた匂いについて、何か思い出せることはありますか？",
+            "answer": "匂いについては思い出せません。"
+          }
+        ],
+        "language": "ja"
+      },
+      "response": {
+        "narrative": "先週、駅前の店で家族と昼食を買った時、賑やかな街の雰囲気が心に残っている。その時、目の前を行き交う人々と、子どもたちの笑い声が耳に響いていた。食事をしながら、家族との会話が温かく、何気ない瞬間に幸せを感じた。ただ、周囲の匂いについては全く思い出せず、何とも言えない気持ちが残った。それでも、あの日の家族との時間は、心の奥に深く刻まれている。",
+        "language": "ja",
+        "sentences": [
+          {
+            "text": "先週、駅前の店で家族と昼食を買った時、賑やかな街の雰囲気が心に残っている。",
+            "sourceIds": [
+              "fragment"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "その時、目の前を行き交う人々と、子どもたちの笑い声が耳に響いていた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "食事をしながら、家族との会話が温かく、何気ない瞬間に幸せを感じた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "ただ、周囲の匂いについては全く思い出せず、何とも言えない気持ちが残った。",
+            "sourceIds": [
+              "answer-1",
+              "answer-2",
+              "answer-3",
+              "answer-4",
+              "answer-5",
+              "answer-6"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "それでも、あの日の家族との時間は、心の奥に深く刻まれている。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          }
+        ],
+        "model": "gpt-4o-mini-2024-07-18",
+        "source": "generated",
+        "requestId": "resp_07bc351280cfc265016a9d43eb41ec87d09639601167c0c0d6",
+        "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 1,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:43:58.553Z",
+      "completedAt": "2026-09-06T10:43:59.664Z",
+      "elapsedMs": 1111,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その外出の時、一緒にいた人は誰でしたか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "action_relation",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0924119b0c08115a016a9d43eec21087d0a21d11d42f642f15",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 1,
+      "selectedAnswer": null,
+      "requestedAt": "2026-09-06T10:44:34.588Z",
+      "completedAt": "2026-09-06T10:44:34.627Z",
+      "elapsedMs": 39,
+      "status": 400,
+      "ok": false,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "error": "Invalid follow-up request."
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "visual",
+      "turn": 1,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:34.629Z",
+      "completedAt": "2026-09-06T10:44:36.119Z",
+      "elapsedMs": 1490,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、用事で外出した。",
+        "history": [],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出した際に見たものの中で、特に印象に残っている景色や物はありましたか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_08d675209ec49235016a9d4413258c87d0a7afa1f1803a6426",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "visual",
+      "turn": 2,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:36.121Z",
+      "completedAt": "2026-09-06T10:44:37.384Z",
+      "elapsedMs": 1263,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "外出した際に見たものの中で、特に印象に残っている景色や物はありましたか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 2,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出した時に見た建物や人々について、何か思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0108906356bb1729016a9d4414588087d0aea8df0e3e2f1a60",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "visual",
+      "turn": 3,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:37.386Z",
+      "completedAt": "2026-09-06T10:44:38.541Z",
+      "elapsedMs": 1155,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "外出した際に見たものの中で、特に印象に残っている景色や物はありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出した時に見た建物や人々について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出中に見かけた物の色や形について、何か思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_01871a767c5bcc65016a9d4415951087d0a6b389df620f6905",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "visual",
+      "turn": 4,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:38.543Z",
+      "completedAt": "2026-09-06T10:44:39.817Z",
+      "elapsedMs": 1274,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "外出した際に見たものの中で、特に印象に残っている景色や物はありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出した時に見た建物や人々について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に見かけた物の色や形について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 4,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出中に見たものの中で、特に目を引いたものの配置や数について何か思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0e95f0c09a865fec016a9d4416bd7887d09fb465aa2d32ef9a",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "visual",
+      "turn": 5,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:39.819Z",
+      "completedAt": "2026-09-06T10:44:40.956Z",
+      "elapsedMs": 1137,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "外出した際に見たものの中で、特に印象に残っている景色や物はありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出した時に見た建物や人々について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に見かけた物の色や形について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に見たものの中で、特に目を引いたものの配置や数について何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 5,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出した際に、周囲の明るさや光の加減について何か覚えていることはありますか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0d4269aecedd86a0016a9d441805a887d08224ec0038f68cb1",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "visual",
+      "turn": 6,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:40.957Z",
+      "completedAt": "2026-09-06T10:44:42.108Z",
+      "elapsedMs": 1151,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "visual",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "外出した際に見たものの中で、特に印象に残っている景色や物はありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出した時に見た建物や人々について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に見かけた物の色や形について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に見たものの中で、特に目を引いたものの配置や数について何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出した際に、周囲の明るさや光の加減について何か覚えていることはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 6,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出した際に、周りの景色の中で特に気になった色について何か覚えていることはありますか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_000833fc9846ab59016a9d441926ec87d0a5dbfe4b738e5d70",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "narrative",
+      "scenario": "continuous-nonrecall",
+      "condition": "visual",
+      "turn": null,
+      "requestedAt": "2026-09-06T10:44:42.110Z",
+      "completedAt": "2026-09-06T10:44:45.976Z",
+      "elapsedMs": 3866,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "fragment": "先週、用事で外出した。",
+        "answers": [
+          {
+            "question": "外出した際に見たものの中で、特に印象に残っている景色や物はありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出した時に見た建物や人々について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に見かけた物の色や形について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に見たものの中で、特に目を引いたものの配置や数について何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出した際に、周囲の明るさや光の加減について何か覚えていることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出した際に、周りの景色の中で特に気になった色について何か覚えていることはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "language": "ja"
+      },
+      "response": {
+        "narrative": "先週、用事で外出したとき、目の前には新しい街並みが広がっていた。ただ、具体的に何を見たかは思い出せないままだ。記憶の隅に残るのは、街の明るさと賑わいだけだ。人々の楽しそうな笑顔や、通りを行き交う車の音が耳に残っている。その瞬間の空気感は、たしかに心に刻まれている気がする。それでも、詳細が掴めないもどかしさがある。次回こそは、もっと注意深く周りを見てみようと思っている。何か特別なものを見逃さないように。",
+        "language": "ja",
+        "sentences": [
+          {
+            "text": "先週、用事で外出したとき、目の前には新しい街並みが広がっていた。",
+            "sourceIds": [
+              "fragment"
+            ],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "ただ、具体的に何を見たかは思い出せないままだ。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "記憶の隅に残るのは、街の明るさと賑わいだけだ。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "人々の楽しそうな笑顔や、通りを行き交う車の音が耳に残っている。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "その瞬間の空気感は、たしかに心に刻まれている気がする。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "それでも、詳細が掴めないもどかしさがある。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "次回こそは、もっと注意深く周りを見てみようと思っている。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "何か特別なものを見逃さないように。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          }
+        ],
+        "model": "gpt-4o-mini-2024-07-18",
+        "source": "generated",
+        "requestId": "resp_0e15908b7c929ab8016a9d441a4f1c87d0b9bd075dbcaf4517",
+        "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "odor",
+      "turn": 1,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:45.976Z",
+      "completedAt": "2026-09-06T10:44:47.736Z",
+      "elapsedMs": 1760,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、用事で外出した。",
+        "history": [],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出中に、何か特別な匂いを感じたことはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_02249eb34bce5bd4016a9d441e469087d0b8f74f818de132b4",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "odor",
+      "turn": 2,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:47.737Z",
+      "completedAt": "2026-09-06T10:44:48.736Z",
+      "elapsedMs": 999,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "外出中に、何か特別な匂いを感じたことはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 2,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出中に、周囲の人々から香水や食べ物の匂いを感じることはありましたか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0d08de564d2625db016a9d441fedc887d0be0e83a2dfebeebb",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "odor",
+      "turn": 3,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:48.738Z",
+      "completedAt": "2026-09-06T10:44:49.976Z",
+      "elapsedMs": 1238,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "外出中に、何か特別な匂いを感じたことはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、周囲の人々から香水や食べ物の匂いを感じることはありましたか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出中に何か特定の場所で感じた匂いについて、思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0a183e98f3eb9a17016a9d4420eec887d09005a5feaf6b467f",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "odor",
+      "turn": 4,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:49.979Z",
+      "completedAt": "2026-09-06T10:44:53.582Z",
+      "elapsedMs": 3603,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "外出中に、何か特別な匂いを感じたことはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、周囲の人々から香水や食べ物の匂いを感じることはありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に何か特定の場所で感じた匂いについて、思い出せることはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 4,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出中に、特に印象に残った匂いを感じたことはありませんか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": null,
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_04f51c65784d6119016a9d4424eac487d0a54d411277173051",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 3,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "invalid_target_evidence_id"
+              ],
+              "question": "外出中に、どんな匂いが気になったか思い出せることはありますか？",
+              "metadata": {
+                "conditionFocus": "odor",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "null",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 2,
+              "flags": [
+                "invalid_target_evidence_id"
+              ],
+              "question": "先週の外出中に、何か印象的な匂いを感じたことはありますか？",
+              "metadata": {
+                "conditionFocus": "odor",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "null",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "odor",
+      "turn": 5,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:53.584Z",
+      "completedAt": "2026-09-06T10:44:54.692Z",
+      "elapsedMs": 1108,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "外出中に、何か特別な匂いを感じたことはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、周囲の人々から香水や食べ物の匂いを感じることはありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に何か特定の場所で感じた匂いについて、思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、特に印象に残った匂いを感じたことはありませんか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 5,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出中に、何か匂いを思い出せる場所や状況はありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": null,
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_05477920e5052f5b016a9d4425c8f487d09a0f25155564c72f",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "odor",
+      "turn": 6,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:44:54.694Z",
+      "completedAt": "2026-09-06T10:44:55.678Z",
+      "elapsedMs": 984,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "odor",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "外出中に、何か特別な匂いを感じたことはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、周囲の人々から香水や食べ物の匂いを感じることはありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に何か特定の場所で感じた匂いについて、思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、特に印象に残った匂いを感じたことはありませんか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、何か匂いを思い出せる場所や状況はありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 6,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出中に、何か匂いを感じた瞬間について、思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_085e96b3c8b2b840016a9d4426e4c887d0921cfc0ba3069be4",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "narrative",
+      "scenario": "continuous-nonrecall",
+      "condition": "odor",
+      "turn": null,
+      "requestedAt": "2026-09-06T10:44:55.679Z",
+      "completedAt": "2026-09-06T10:44:57.942Z",
+      "elapsedMs": 2263,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "fragment": "先週、用事で外出した。",
+        "answers": [
+          {
+            "question": "外出中に、何か特別な匂いを感じたことはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、周囲の人々から香水や食べ物の匂いを感じることはありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に何か特定の場所で感じた匂いについて、思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、特に印象に残った匂いを感じたことはありませんか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、何か匂いを思い出せる場所や状況はありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出中に、何か匂いを感じた瞬間について、思い出せることはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "language": "ja"
+      },
+      "response": {
+        "narrative": "先週、用事で外出した際、ふと立ち寄った公園の中で、花の香りが漂ってきた。その瞬間、心が少し軽くなり、周囲の風景が色鮮やかに感じられた。特別な匂いは思い出せないけれど、あの場所の雰囲気は今でも心に残っている。人々が忙しそうに行き交う中、ただその香りに包まれていた。ふと、あの時の静かな瞬間が、どこか大切な記憶として心に留まる。",
+        "language": "ja",
+        "sentences": [
+          {
+            "text": "先週、用事で外出した際、ふと立ち寄った公園の中で、花の香りが漂ってきた。",
+            "sourceIds": [
+              "fragment"
+            ],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "その瞬間、心が少し軽くなり、周囲の風景が色鮮やかに感じられた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "特別な匂いは思い出せないけれど、あの場所の雰囲気は今でも心に残っている。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "人々が忙しそうに行き交う中、ただその香りに包まれていた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "ふと、あの時の静かな瞬間が、どこか大切な記憶として心に留まる。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          }
+        ],
+        "model": "gpt-4o-mini-2024-07-18",
+        "source": "generated",
+        "requestId": "resp_081dc29f21e7e04b016a9d4427e06c87d08c591ee9b9f5a041",
+        "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 1,
+      "selectedAnswer": null,
+      "requestedAt": "2026-09-06T10:45:28.252Z",
+      "completedAt": "2026-09-06T10:45:28.295Z",
+      "elapsedMs": 42,
+      "status": 400,
+      "ok": false,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 1,
+        "language": "ja"
+      },
+      "response": {
+        "error": "Invalid follow-up request."
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 2,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:45:39.178Z",
+      "completedAt": "2026-09-06T10:45:40.972Z",
+      "elapsedMs": 1793,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 2,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その外出で訪れた場所について、何か覚えていることはありますか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_017ff106d565abfd016a9d4453aaac87d0bd047bc02be87091",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 3,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:45:40.974Z",
+      "completedAt": "2026-09-06T10:45:41.987Z",
+      "elapsedMs": 1013,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出で訪れた場所について、何か覚えていることはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その外出の時、何か特別な出来事や印象に残ったことはありましたか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_000666fcd81a66c3016a9d44552ba087d0914716ba306dd535",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 4,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:45:41.990Z",
+      "completedAt": "2026-09-06T10:45:44.082Z",
+      "elapsedMs": 2092,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出で訪れた場所について、何か覚えていることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、何か特別な出来事や印象に残ったことはありましたか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 4,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出の際、どんな服装をしていたか思い出せますか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0611b8ea3dbfa48b016a9d44574ba087d0b046586ae7b0692d",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 2,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "focused_question_with_transition",
+                "standard_emotion_focus"
+              ],
+              "question": "その外出の時、どのような気持ちでしたか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 5,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:45:44.084Z",
+      "completedAt": "2026-09-06T10:45:48.032Z",
+      "elapsedMs": 3948,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出で訪れた場所について、何か覚えていることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、何か特別な出来事や印象に残ったことはありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出の際、どんな服装をしていたか思い出せますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 5,
+        "language": "ja"
+      },
+      "response": {
+        "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+        "metadata": {
+          "conditionFocus": "neutral",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": null,
+          "nonRecallTransition": true,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "fallback",
+        "requestId": null,
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "fallback",
+        "attempts": 3,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "standard_emotion_focus"
+              ],
+              "question": "その外出の際に、どんな気持ちで外に出ましたか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 2,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その外出中に、周囲の雰囲気や感じたことについて何か覚えていることはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 3,
+              "flags": [
+                "standard_emotion_focus"
+              ],
+              "question": "その外出の時、どんな気持ちで出かけましたか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 6,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:45:48.037Z",
+      "completedAt": "2026-09-06T10:45:49.171Z",
+      "elapsedMs": 1134,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出で訪れた場所について、何か覚えていることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、何か特別な出来事や印象に残ったことはありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出の際、どんな服装をしていたか思い出せますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 6,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その外出の前に、何か準備をしていたことはありますか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0e7902a2fe6ed831016a9d445c3b9487d08829bc9446eb037f",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "narrative",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": null,
+      "requestedAt": "2026-09-06T10:45:49.172Z",
+      "completedAt": "2026-09-06T10:45:52.933Z",
+      "elapsedMs": 3761,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "fragment": "先週、用事で外出した。",
+        "answers": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出で訪れた場所について、何か覚えていることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、何か特別な出来事や印象に残ったことはありましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出の際、どんな服装をしていたか思い出せますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の前に、何か準備をしていたことはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "language": "ja"
+      },
+      "response": {
+        "narrative": "先週、用事で外出したことは覚えているが、その時のことはほとんど思い出せない。まるで時間が止まってしまったかのように、記憶の片隅にその瞬間が残っている。ただ、外の空気が心地よく、ふわりとした風に包まれていたことだけは確かだ。人々のざわめきや、遠くで聞こえる笑い声が、どこか懐かしい気持ちを呼び起こした。その日は、穏やかな日差しの中で、何か素敵なことがあったような気がしている。思い出せないながらも、心に残る温かい感情が、私を包んでいるのだ。",
+        "language": "ja",
+        "sentences": [
+          {
+            "text": "先週、用事で外出したことは覚えているが、その時のことはほとんど思い出せない。",
+            "sourceIds": [
+              "fragment"
+            ],
+            "containsCreativeAddition": false
+          },
+          {
+            "text": "まるで時間が止まってしまったかのように、記憶の片隅にその瞬間が残っている。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "ただ、外の空気が心地よく、ふわりとした風に包まれていたことだけは確かだ。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "人々のざわめきや、遠くで聞こえる笑い声が、どこか懐かしい気持ちを呼び起こした。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "その日は、穏やかな日差しの中で、何か素敵なことがあったような気がしている。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "思い出せないながらも、心に残る温かい感情が、私を包んでいるのだ。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          }
+        ],
+        "model": "gpt-4o-mini-2024-07-18",
+        "source": "generated",
+        "requestId": "resp_03466f225f66239a016a9d445d5fcc87d09387c0b9445f8a75",
+        "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    }
+  ],
+  "failures": [
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 1,
+      "status": 400,
+      "response": {
+        "error": "Invalid follow-up request."
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 1,
+      "status": 400,
+      "response": {
+        "error": "Invalid follow-up request."
+      }
+    }
+  ]
+}

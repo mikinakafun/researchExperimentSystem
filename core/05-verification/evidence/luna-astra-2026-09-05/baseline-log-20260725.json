@@ -1,0 +1,2028 @@
+[
+  {
+    "sessionId": "batch-20260725-prompt-eval-standard-park-walk",
+    "personaId": "park-walk",
+    "condition": "standard",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その公園に行く前、どんな準備や計画をしていましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "公園を歩いているとき、友人とはどんな会話をしていましたか？",
+        "answer": "友人が転職を考えているという話を聞きました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その後、友人はどのように反応しましたか？",
+        "answer": "友人は転職を考えていることについて話し、少し心配になりましたが、最終的には気分が晴れました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "友人が転職について話しているとき、具体的にどんなことを心配していましたか？",
+        "answer": "具体的には思い出せませんが、友人の将来について少し心配になったことは覚えています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "その後、公園を出た後はどのように過ごしましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "公園を出た後、友人との別れ際にどんなやり取りがありましたか？",
+        "answer": "帰り際に「また来月歩こう」と約束しました。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          }
+        ]
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:22:53.888Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-standard-school-festival",
+    "personaId": "school-festival",
+    "condition": "standard",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その文化祭の展示準備を始めたとき、どんな状況でしたか？",
+        "answer": "展示準備を始めたとき、クラスの友人たちと一緒に教室で飾り付けをしていました。段ボールの壁を立てたり、モールを吊るしたりして、焦りながらも作業を進めていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "友人たちとの作業中、どんな会話が交わされていましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "作業が進む中で、何か特別な出来事や出来事の後の反応はありましたか？",
+        "answer": "特別な出来事は特にありませんでしたが、作業が終わった後に班のみんなと達成感を共有しました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "達成感を共有したとき、どのような言葉が交わされましたか？",
+        "answer": "具体的な言葉は思い出せませんが、みんなで笑い合いながら「いい感じだね」と言ったと思います。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_emotion_focus"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 5,
+        "question": "作業が終わった後、次にどのようなことをしましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "展示準備が終わった後、どのようにその文化祭を迎えましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:23:16.118Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-standard-rainy-station",
+    "personaId": "rainy-station",
+    "condition": "standard",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その雨の日、駅での待ち時間はどのような状況でしたか？",
+        "answer": "駅での待ち時間は、急な雨に濡れた人々と一緒に、混雑したホームの屋根の下で過ごしました。雨音を聞きながら、少し苛立っていた気持ちが落ち着いていきました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その時、一緒にいた人々とのやり取りはどのようなものでしたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その後、電車が到着した時の状況はどのようでしたか？",
+        "answer": "電車は混んでいて、窓が曇っていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "電車が到着した時、どのようにして乗り込んだか覚えていますか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 5,
+        "question": "その後、電車に乗り込んだ後の状況はどのようでしたか？",
+        "answer": "電車は混んでいて、窓が曇っていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "電車に乗った後、どのように過ごしていたか覚えていますか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 2,
+    "savedAt": "2026-07-24T22:23:37.478Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-standard-shopping-street",
+    "personaId": "shopping-street",
+    "condition": "standard",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その出来事が始まった時、何が起きていましたか？",
+        "answer": "土曜の昼に、母と弟と三人で商店街へ行きました。",
+        "source": "fallback",
+        "attempts": 3,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          },
+          {
+            "attempt": 2,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          },
+          {
+            "attempt": 3,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 2,
+        "question": "商店街で昼食を買う際、どのような食べ物を選びましたか？",
+        "answer": "唐揚げ弁当を三つ選びました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "唐揚げ弁当を選んだ後、どのようにして昼食を受け取りましたか？",
+        "answer": "店主の「はい、お待たせ」と言う声の後、弁当を受け取りました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "店主が「はい、お待たせ」と言った後、どのように感じましたか？",
+        "answer": "少し待たされていたので、やっと自分たちの番が来たという安心感がありました。昼食が楽しみでした。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination",
+              "standard_emotion_focus"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 5,
+        "question": "弁当を受け取った後、どのように昼食を食べ始めましたか？",
+        "answer": "家に帰ってから、みんなでテーブルに座り、弁当を開けて食べ始めました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "昼食を食べ終えた後、どのようにその時間を締めくくりましたか？",
+        "answer": "昼食を食べ終えた後は、特に何かをして締めくくった記憶はありません。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:23:55.400Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-standard-library-study",
+    "personaId": "library-study",
+    "condition": "standard",
+    "odorMemory": false,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その時、図書館に行く前にどのような準備をしましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 2,
+        "question": "図書館で勉強している時、誰かと話をしましたか？",
+        "answer": "いいえ、誰とも話しませんでした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その後、図書館での勉強中に何か特別な出来事がありましたか？",
+        "answer": "特別な出来事はありませんでした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "図書館で勉強している時、どのような資料を使っていましたか？",
+        "answer": "問題集を使って勉強していました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "図書館での勉強が終わる時、どのようにその時間を締めくくりましたか？",
+        "answer": "閉館の放送を聞いて帰りました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "図書館を出た後、どのようにその日のことを振り返りましたか？",
+        "answer": "その日は集中して勉強できたことに満足感を覚えましたが、隣の学生が気になって少し焦ったことも思い出しました。全体的に良い時間を過ごしたと思います。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:24:12.465Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-standard-morning-market",
+    "personaId": "morning-market",
+    "condition": "standard",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その市場に行く前の朝、どのような準備をしていましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その場面で、あなたは何をしていましたか？",
+        "answer": "市場を見て回り、干物を一枚買い、コーヒーを飲んでいました。",
+        "source": "fallback",
+        "attempts": 3,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          },
+          {
+            "attempt": 2,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          },
+          {
+            "attempt": 3,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 3,
+        "question": "その市場を見て回った後、どのようなことが起きましたか？",
+        "answer": "市場を見て回った後、魚の干物を買い、屋台でコーヒーを飲んでから宿へ戻りました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "市場を見て回っているとき、どのようなものが印象に残りましたか？",
+        "answer": "氷の上に並ぶ魚の銀色や、山積みのトマト、店先の裸電球が印象に残りました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "市場を見て回った後、宿へ戻るまでの道中で何がありましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "宿へ戻った後、どのように過ごしましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:24:28.187Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-standard-riverside-walk",
+    "personaId": "riverside-walk",
+    "condition": "standard",
+    "odorMemory": false,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "散歩を始めた時の川の様子や周囲の状況について教えていただけますか？",
+        "answer": "散歩を始めた時、川の水面は夕日で橙色に染まっていました。周囲では対岸のマンションの明かりや、ランニングする人たちの姿が見えました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "散歩中に周囲の人たちと何かやり取りをしましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その後、散歩を続ける中で何か特別な出来事がありましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "散歩を始めた時、夕日が川面にどのように反射していましたか？",
+        "answer": "夕日で橙色になった水面が印象的でした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "散歩の終わりにはどのように川を離れましたか？",
+        "answer": "暗くなる前に帰宅しました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "散歩の終わりに感じたことや思ったことはありましたか？",
+        "answer": "橋の上でしばらく水面を眺めているうちに、仕事の考え事に区切りがついた気がしました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:24:48.043Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-standard-birthday-cake",
+    "personaId": "birthday-cake",
+    "condition": "standard",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その時、自宅のどの場所でケーキを受け取ったか覚えていますか？",
+        "answer": "玄関でケーキを受け取りました。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 2,
+        "question": "ケーキを受け取った時、誰が一緒にいましたか？",
+        "answer": "家族三人が一緒にいました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "ケーキを受け取った後、どのように家族と過ごしましたか？",
+        "answer": "夕食を食べた後、ろうそくを吹き消して、家族三人でケーキを分けて食べました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "ろうそくを吹き消した時の家族の反応を覚えていますか？",
+        "answer": "分かりません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "ケーキを分けて食べた後、どのようにその時間が終わりましたか？",
+        "answer": "ケーキを食べた後、特に何かをした記憶はありません。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "ケーキを食べた後、どのようにその場を後にしたか覚えていますか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:25:13.737Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-standard-museum-painting",
+    "personaId": "museum-painting",
+    "condition": "standard",
+    "odorMemory": false,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その絵を見始めたとき、周りにはどんな状況がありましたか？",
+        "answer": "館内は静かで、他の客の足音と空調の音だけが聞こえていました。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 2,
+        "question": "その絵を見ている間、他の客とはどのようなやり取りがありましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その後、あなたはどのようにその絵を見続けましたか？",
+        "answer": "ベンチに座ってもう一度眺めました。",
+        "source": "generated",
+        "attempts": 3,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          },
+          {
+            "attempt": 2,
+            "flags": [
+              "question_count"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 4,
+        "question": "ベンチに座っているとき、絵を見ながらどのように感じていましたか？",
+        "answer": "絵を見ながら静かな満足感を感じていました。",
+        "source": "generated",
+        "attempts": 3,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_emotion_focus"
+            ]
+          },
+          {
+            "attempt": 2,
+            "flags": [
+              "standard_emotion_focus"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 5,
+        "question": "その絵を見終えた後、どのようにその場を離れましたか？",
+        "answer": "絵の前でしばらく立った後、ベンチに座ってもう一度眺めてから、ミュージアムショップに向かいました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "その絵を見終えた後、どのように感じていましたか？",
+        "answer": "絵の前では時間を忘れ、帰り道も静かな満足感が続いていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:25:35.891Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-standard-seaside-bicycle",
+    "personaId": "seaside-bicycle",
+    "condition": "standard",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その日の夕方、自転車で海辺に行く前にどんなことをしていましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 3,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_emotion_focus"
+            ]
+          },
+          {
+            "attempt": 2,
+            "flags": [
+              "standard_emotion_focus"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 2,
+        "question": "自転車で海辺に行く際、誰かと一緒に行動していましたか？",
+        "answer": "一人で行動していました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "海辺に着いた後、どのようなことをしましたか？",
+        "answer": "堤防に自転車を停めて、日が沈むまで座っていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "堤防に自転車を停めた後、どのように座っていましたか？",
+        "answer": "堤防に座って夕日を見ていました。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 5,
+        "question": "夕日を見ている間、どのようにその時間を過ごしていましたか？",
+        "answer": "夕日を見ている間は静かで満ち足りた気分でした。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "standard_sensory_contamination"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 6,
+        "question": "夕日を見終わった後、どのようにその時間を終えましたか？",
+        "answer": "夕日を見終わった後、暗くなり始めてからライトを点けて帰りました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:25:55.492Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-non-odor-park-walk",
+    "personaId": "park-walk",
+    "condition": "non-odor",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "公園で見たものの中で、特に印象に残ったものはありますか？",
+        "answer": "白い小型犬が特に印象に残っています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その白い小型犬の毛の色や質感について、もう少し詳しく教えていただけますか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "non_odor_turn_focus"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 3,
+        "question": "公園で聞こえた音や声の中で、何か記憶に残っているものはありますか？",
+        "answer": "子どもたちのはしゃぐ声と、遠くで吹奏楽の練習の音が聞こえました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "その子どもたちのはしゃぐ声は、どのような感情を感じさせましたか？",
+        "answer": "子どもたちのはしゃぐ声を聞いて、楽しさや明るい気持ちを感じました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "公園で感じた触覚や温度について、何か思い出せることはありますか？",
+        "answer": "ベンチの木の座面が日で温かかったことを覚えています。歩き終わる頃にはふくらはぎが少し張っていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "ベンチの木の座面の温かさは、どのような感覚をもたらしましたか？",
+        "answer": "ベンチの木の座面が日で温かかったので、心地よい安心感を感じました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:26:13.503Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-non-odor-school-festival",
+    "personaId": "school-festival",
+    "condition": "non-odor",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "高校の文化祭の展示準備で、何か見えたものを覚えていますか？",
+        "answer": "色画用紙の輪飾りや、窓に貼った青いセロハンを覚えています。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "non_odor_turn_focus"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 2,
+        "question": "色画用紙の輪飾りの色や形について、もう少し詳しく教えていただけますか？",
+        "answer": "色画用紙の輪飾りは、いくつかの色が使われていて、丸い形をしていました。具体的な色は思い出せませんが、明るい色合いだったと思います。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "文化祭の準備中に、何か音や声を覚えていますか？",
+        "answer": "隣のクラスの合唱練習の音と、ガムテープを引き剥がす音を覚えています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "隣のクラスの合唱練習の音は、どのようなメロディーや声の印象でしたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "文化祭の準備中に感じた触覚や温度について、何か覚えていることはありますか？",
+        "answer": "ガムテープで指先がべたついたことを覚えています。夕方には腕がだるく感じました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "ガムテープで指先がべたついた時の感触について、もう少し詳しく教えていただけますか？",
+        "answer": "ガムテープで指先がべたついた時は、粘着部分が皮膚にくっついて、指が少し重たく感じました。剥がす時にはべたつきが不快でしたが、作業中は気にせず続けていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:26:32.012Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-non-odor-rainy-station",
+    "personaId": "rainy-station",
+    "condition": "non-odor",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その時、駅で何か見えたものを思い出せますか？",
+        "answer": "濡れて黒く光るホームの床や、傘の水滴、遅延を知らせる電光掲示板の赤い文字が見えました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "電光掲示板の赤い文字は、どのような内容だったか思い出せますか？",
+        "answer": "分かりません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その時、駅で聞こえた音や声について何か思い出せますか？",
+        "answer": "屋根を打つ雨音と、遅延を詫びるアナウンスが繰り返し流れていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "屋根を打つ雨音は、どのようなリズムや強さでしたか？",
+        "answer": "雨音は一定のリズムで、時折強くなったり弱くなったりしていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "その時、身体に感じた温度や湿度について思い出せますか？",
+        "answer": "肩と靴が濡れて冷たく、体が少し震えました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "肩が濡れて冷たく感じた時、どのような気持ちになりましたか？",
+        "answer": "肩が濡れて冷たく感じた時、最初は苛立ちを覚えましたが、待っているうちに雨音で気持ちが落ち着いてきました。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "non_odor_turn_focus"
+            ]
+          }
+        ]
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:26:50.200Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-non-odor-shopping-street",
+    "personaId": "shopping-street",
+    "condition": "non-odor",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "商店街で見たものの中で、何か印象に残っているものはありますか？",
+        "answer": "惣菜店のガラスケースに並ぶ揚げ物が印象に残っています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その揚げ物はどのような色や形をしていましたか？",
+        "answer": "揚げ物は黄金色で、鶏の唐揚げの形をしていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その時に聞こえた音や声について、何か覚えていることはありますか？",
+        "answer": "店主の「はい、お待たせ」という声と、店内ラジオの音がしていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "店主の声はどのようなトーンや感情を感じましたか？",
+        "answer": "店主の声は明るくて親しみやすいトーンでした。待っている間、少し安心感を感じました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "その時の触覚や温度について、何か覚えていることはありますか？",
+        "answer": "弁当の袋が手に温かかったです。人混みで少し歩きにくかったことも覚えています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "弁当の袋の温かさはどのように感じましたか？具体的な感覚を教えてください。",
+        "answer": "弁当の袋は手に持ったときに、ほかほかとした温かさが伝わってきて、心地よい感触でした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:27:04.270Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-non-odor-library-study",
+    "personaId": "library-study",
+    "condition": "non-odor",
+    "odorMemory": false,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "図書館での勉強中に、何か見えたものを覚えていますか？",
+        "answer": "長机に並ぶ緑色のスタンドライトや、高い書架、窓際の席から見えた駐輪場を覚えています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "緑色のスタンドライトの形やデザインについて、何か覚えていますか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "図書館での勉強中に、何か音や声を覚えていますか？",
+        "answer": "ページをめくる音と空調の低い音、閉館を知らせる放送を覚えています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "ページをめくる音は、どのような感じだったか思い出せますか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 3,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "multiple_modalities"
+            ]
+          },
+          {
+            "attempt": 2,
+            "flags": [
+              "multiple_modalities"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 5,
+        "question": "図書館での勉強中に、何か触覚や温度について感じたことを覚えていますか？",
+        "answer": "椅子が固く、長く座っていると腰が重くなりました。また、空調の冷たい風を感じていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "同じ場面で、体に感じたことをほかに覚えていますか？",
+        "answer": "特に体が疲れたことや、椅子が固くて腰が重くなったことを覚えています。",
+        "source": "fallback",
+        "attempts": 3,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "multiple_modalities"
+            ]
+          },
+          {
+            "attempt": 2,
+            "flags": [
+              "multiple_modalities"
+            ]
+          },
+          {
+            "attempt": 3,
+            "flags": [
+              "multiple_modalities"
+            ]
+          }
+        ]
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:27:22.168Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-non-odor-morning-market",
+    "personaId": "morning-market",
+    "condition": "non-odor",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "市場で見たものの中で、特に印象に残っているものはありますか？",
+        "answer": "氷の上に並ぶ銀色の魚が特に印象に残っています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その銀色の魚はどのような形や大きさでしたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "市場で聞こえた音や声について、何か思い出せることはありますか？",
+        "answer": "店主たちの呼び込みの声や、発泡スチロールの箱を引きずる音が聞こえていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "店主たちの呼び込みの声は、どのようなトーンやリズムでしたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "市場の朝に感じた温度や触覚について、何か思い出せることはありますか？",
+        "answer": "朝の空気が冷たく、コーヒーの紙カップが手に温かかったことを覚えています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "コーヒーの紙カップの温かさは、どのように感じましたか？",
+        "answer": "コーヒーの紙カップが手に温かくて、心地よかったです。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:27:40.853Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-non-odor-riverside-walk",
+    "personaId": "riverside-walk",
+    "condition": "non-odor",
+    "odorMemory": false,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "川沿いを散歩しているときに、何か特別な景色や光景を覚えていますか？",
+        "answer": "夕日で橙色になった水面や、対岸のマンションの明かりが印象的でした。ランニングする人たちも見かけました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "夕日が当たった水面の色合いについて、どのように感じましたか？",
+        "answer": "夕日で橙色になった水面がとても美しく感じました。心が和む瞬間でした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "散歩中に何か音や声を覚えていますか？",
+        "answer": "川の流れる音と、遠くの電車の踏切の音が聞こえました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "川の流れる音について、どのような印象を持ちましたか？",
+        "answer": "川の流れる音は心地よく、リラックスできる印象を持ちました。自然の音に包まれる感覚がありました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "散歩中に感じた触覚や温度について、何か覚えていることはありますか？",
+        "answer": "夕方の風が首元に涼しくて、革靴のかかとが少し痛かったことを覚えています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "革靴のかかとが痛かったとき、どのような感覚がありましたか？",
+        "answer": "革靴のかかとが少し痛かったので、歩くたびにその部分が押されるような感覚がありました。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "non_odor_turn_focus"
+            ]
+          }
+        ]
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:27:57.815Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-non-odor-birthday-cake",
+    "personaId": "birthday-cake",
+    "condition": "non-odor",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "誕生日のケーキを受け取ったとき、何か特別に見えたものはありますか？",
+        "answer": "箱にかかった金色のリボンや、イチゴの赤が特別に見えました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "金色のリボンはどのような質感でしたか？",
+        "answer": "金色のリボンの質感は滑らかで、しっかりとした手触りでした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "誕生日のケーキを受け取ったとき、何か音や声を覚えていますか？",
+        "answer": "玄関のチャイムの音と、家族が歌うバースデーソングを覚えています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "玄関のチャイムの音はどのような感じでしたか？",
+        "answer": "玄関のチャイムの音は、特に印象に残るような明るい音でした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "誕生日のケーキを受け取ったとき、どんな温度や身体感覚を覚えていますか？",
+        "answer": "箱が思ったより重くて、冷蔵庫から出したばかりで底が冷たかったです。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "箱の底が冷たかったとき、どのような感触が手に残りましたか？",
+        "answer": "箱の底が冷たくて、ひんやりとした感触が手に残りました。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "non_odor_turn_focus"
+            ]
+          }
+        ]
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:28:14.111Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-non-odor-museum-painting",
+    "personaId": "museum-painting",
+    "condition": "non-odor",
+    "odorMemory": false,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その絵を見たとき、何か特別な印象や記憶に残っているものはありますか？",
+        "answer": "その絵の前では時間を忘れ、静かな満足感が続きました。特に、湖の青と額縁の金色が印象に残っています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "湖の青について、どのような色合いや雰囲気を感じましたか？",
+        "answer": "湖の青はとても深く、静かな雰囲気を醸し出していました。心が安らぐような色合いでした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その絵を見ているとき、何か音や声を思い出しますか？",
+        "answer": "館内は静かで、他の客の足音と空調の音だけが聞こえました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "その足音はどのようなリズムや音の大きさでしたか？",
+        "answer": "足音は静かで、時折響く感じでした。リズムは不規則で、他の客が動くたびに少しずつ変わっていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "その絵を見ているとき、何か触覚や温度を感じましたか？",
+        "answer": "館内は少し肌寒く、長く立って足の裏が痛くなりました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "足の裏が痛くなったとき、どのような感覚や思いが浮かびましたか？",
+        "answer": "足の裏が痛くなったとき、少し不快に感じましたが、絵に集中していたため、その感覚はあまり気になりませんでした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:28:30.653Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-non-odor-seaside-bicycle",
+    "personaId": "seaside-bicycle",
+    "condition": "non-odor",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その時に見えたものを思い出せますか？",
+        "answer": "水平線に沈む橙色の太陽や、堤防の白いコンクリート、遠くの貨物船が見えました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その橙色の太陽の光は、どのように海に反射していましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その時に聞こえた音や声を思い出せますか？",
+        "answer": "波が防波堤に当たる音と、カモメの鳴き声が聞こえていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "波の音はどのように聞こえましたか？具体的な印象を教えてください。",
+        "answer": "波が防波堤に当たる音は、リズミカルで心地よく、静かな夕方の雰囲気を引き立てていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "その時の海の水の温度や感触を思い出せますか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "その時に感じた風の冷たさや心地よさについて、何か思い出せますか？",
+        "answer": "向かい風で腕に力が要ったので、少し冷たさを感じましたが、心地よさもありました。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "multiple_modalities"
+            ]
+          }
+        ]
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:28:48.534Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-odor-based-park-walk",
+    "personaId": "park-walk",
+    "condition": "odor-based",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その出来事に関連する匂いを思い出せますか？",
+        "answer": "刈ったばかりの芝生の青い匂いと、売店の近くで焼きとうもろこしの香ばしい匂いを思い出せます。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "刈ったばかりの芝生の匂いは、どのような質感でしたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その匂いに気づいたとき、どのような感情が湧きましたか？",
+        "answer": "焼きとうもろこしの香ばしい匂いに気づいたとき、懐かしさと食欲が湧いてきました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "焼きとうもろこしの匂いに気づいたとき、何をしていましたか？",
+        "answer": "売店の近くにいた時です。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "焼きとうもろこしの香ばしい匂いを感じたとき、どのような反応をしましたか？",
+        "answer": "焼きとうもろこしの香ばしい匂いを感じたとき、食べたい気持ちが高まりました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "焼きとうもろこしの香ばしい匂いに気づいた後、どのような行動を取りましたか？",
+        "answer": "焼きとうもろこしの香ばしい匂いを感じた後、売店でお茶を買いました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:29:07.883Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-odor-based-school-festival",
+    "personaId": "school-festival",
+    "condition": "odor-based",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その時、特に記憶に残っている匂いはありますか？",
+        "answer": "ペンキのつんとした匂いと、段ボールの乾いた匂いが特に記憶に残っています。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "ペンキの匂いはどのような質感でしたか？",
+        "answer": "ペンキの匂いはつんとした感じがしました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "ペンキの匂いを感じた時、どのような感情が湧きましたか？",
+        "answer": "ペンキの匂いを感じた時は、少し緊張しながらも作業に集中していました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "ペンキの匂いに気づいた時、具体的にどのような作業をしていましたか？",
+        "answer": "ペンキの匂いに気づいた時は、段ボールの壁を立てる作業をしていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "段ボールの壁を立てる作業をしている時、どのくらいの強さでペンキの匂いを感じましたか？",
+        "answer": "ペンキの匂いはつんとした強さで感じました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "ペンキの匂いに気づいた後、どのように作業を進めましたか？",
+        "answer": "ペンキの匂いを感じながら、班のみんなと協力して飾り付けを進めました。焦りながらも、最後に仕上がりを確認しました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:29:27.269Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-odor-based-rainy-station",
+    "personaId": "rainy-station",
+    "condition": "odor-based",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その時の匂いを思い出すことはできますか？",
+        "answer": "はい、雨に濡れたアスファルトの匂いと、湿った服の匂いがしました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その匂いはどのくらい強く感じましたか？",
+        "answer": "匂いはそこまで強くは感じませんでしたが、雨に濡れたアスファルトの匂いと湿った服の匂いが少し混ざっていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その匂いに気づいた時、どのような感情が湧きましたか？",
+        "answer": "雨に濡れたアスファルトの匂いを感じた時、少し安心感が湧きました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "その匂いに気づいた時、何をしていましたか？",
+        "answer": "ホームで電車を待っている時でした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "その匂いが混ざっていると感じた時、どのように思いましたか？",
+        "answer": "雨に濡れたアスファルトの匂いと湿った服の匂いが混ざって、少し懐かしい気持ちになりました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "その時、匂いに気づいた後に何か行動を起こしましたか？",
+        "answer": "特に行動を起こしたわけではありません。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:29:43.042Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-odor-based-shopping-street",
+    "personaId": "shopping-street",
+    "condition": "odor-based",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その出来事に関連して、特に匂いを思い出すことはできますか？",
+        "answer": "はい、揚げ油の香ばしい匂いが店先に漂っていました。また、八百屋の前ではみかんの皮の匂いもしました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "揚げ油の香ばしい匂いは、どのくらい強く感じましたか？",
+        "answer": "揚げ油の香ばしい匂いは、店先で強く漂っていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その匂いに気づいた時、どんな感情が湧きましたか？",
+        "answer": "揚げ油の香ばしい匂いを感じた時、昼食が楽しみでワクワクしました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "その匂いに気づいた時、何をしていましたか？",
+        "answer": "惣菜店の前で行列に並んでいる時に、揚げ油の香ばしい匂いに気づきました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "揚げ油の香ばしい匂いに気づいた時、どのような変化を感じましたか？",
+        "answer": "揚げ油の香ばしい匂いを感じたとき、食欲がそそられて昼食が楽しみになりました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "その匂いに気づいた後、どのように行動しましたか？",
+        "answer": "揚げ油の香ばしい匂いに気づいた後、惣菜店で唐揚げ弁当を買うことを楽しみにして待ちました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:29:59.310Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-odor-based-library-study",
+    "personaId": "library-study",
+    "condition": "odor-based",
+    "odorMemory": false,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その時、特に印象に残っている匂いはありましたか？",
+        "answer": "匂いは思い出せません。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "図書館での勉強中、どのような行動をしていましたか？",
+        "answer": "図書館でノートをまとめ、途中で自販機で休憩を取りました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その後、何が起きましたか？",
+        "answer": "思い出せません",
+        "source": "fallback",
+        "attempts": 3,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "odor_no_recall_focus"
+            ]
+          },
+          {
+            "attempt": 2,
+            "flags": [
+              "odor_no_recall_focus"
+            ]
+          },
+          {
+            "attempt": 3,
+            "flags": [
+              "odor_no_recall_focus"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 4,
+        "question": "自販機で休憩を取った時、どのような飲み物を選びましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "その後、勉強はどのように終わりましたか？",
+        "answer": "勉強はノートが進むにつれて落ち着き、閉館の放送を聞いて帰りました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "勉強を終えた後、何か特別な感情がありましたか？",
+        "answer": "特別な感情はなかったですが、ノートが進むにつれて落ち着いた気持ちになりました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:30:18.126Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-odor-based-morning-market",
+    "personaId": "morning-market",
+    "condition": "odor-based",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その時の匂いについて、何か思い出せることはありますか？",
+        "answer": "魚と潮の匂いが市場全体に漂っていました。また、屋台の前ではコーヒーの深い香りがしました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その匂いの強さについて、どのように感じましたか？",
+        "answer": "魚と潮の匂いが市場全体に漂っていて、朝の空気と相まってとても印象的でした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その匂いに気づいた時、どんな感情が湧きましたか？",
+        "answer": "魚と潮の匂いに気づいた時、懐かしさと高揚感が湧いてきました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "その匂いに気づいた時、何をしていましたか？",
+        "answer": "魚と潮の匂いが漂う市場を見て回っていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "その時の魚と潮の匂いは、どのように変化していきましたか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "その時、匂いに気づいた後にどのような行動を取りましたか？",
+        "answer": "コーヒーの深い香りに誘われて、屋台でコーヒーを飲みました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:30:33.127Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-odor-based-riverside-walk",
+    "personaId": "riverside-walk",
+    "condition": "odor-based",
+    "odorMemory": false,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その散歩中に、どんな匂いを思い出せますか？",
+        "answer": "匂いは思い出せません。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その散歩中に、どんなことをしながら歩いていましたか？",
+        "answer": "仕事のことを考えながら歩いていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その後、何が起きましたか？",
+        "answer": "思い出せません",
+        "source": "fallback",
+        "attempts": 3,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "odor_no_recall_focus"
+            ]
+          },
+          {
+            "attempt": 2,
+            "flags": [
+              "odor_no_recall_focus"
+            ]
+          },
+          {
+            "attempt": 3,
+            "flags": [
+              "odor_no_recall_focus"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 4,
+        "question": "仕事のことを考えているとき、どのような気持ちでしたか？",
+        "answer": "仕事のことを考えているときは少し考え込んでいましたが、橋の上で景色を眺めるうちに区切りがついた気がしました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "その散歩がどのように終わったか、思い出せることはありますか？",
+        "answer": "帰宅する前に暗くなる前に家に着いたと思います。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "その散歩中に、どのように帰宅したか思い出せますか？",
+        "answer": "思い出せません",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:30:54.300Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-odor-based-birthday-cake",
+    "personaId": "birthday-cake",
+    "condition": "odor-based",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その時の匂いを思い出すことはできますか？",
+        "answer": "箱を開けた瞬間に生クリームの甘い匂いがしました。また、ろうそくを消した後には煙の匂いが少し残っていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "生クリームの甘い匂いは、どのくらい強く感じましたか？",
+        "answer": "生クリームの甘い匂いは、箱を開けた瞬間に強く感じました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その匂いを感じた時、どんな感情が湧いてきましたか？",
+        "answer": "生クリームの甘い匂いを感じた時、嬉しい気持ちが湧いてきました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "その匂いに気づいた時、何をしていましたか？",
+        "answer": "箱を開けた瞬間に生クリームの甘い匂いに気づいていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "生クリームの甘い匂いを感じた時、どのような具体的な場面でしたか？",
+        "answer": "箱を開けた瞬間に、生クリームの甘い匂いが広がりました。ケーキを受け取って、家族と一緒に楽しみにしていた時でした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "その匂いを感じた後、どのように行動しましたか？",
+        "answer": "箱を開けてケーキの匂いを楽しんだ後、家族と一緒に夕食を食べました。食事の後、ろうそくを吹き消してケーキを分けて食べました。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "odor_focus_missing"
+            ]
+          }
+        ]
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:31:11.278Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-odor-based-museum-painting",
+    "personaId": "museum-painting",
+    "condition": "odor-based",
+    "odorMemory": false,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その絵を見ているときに、何か匂いを思い出せますか？",
+        "answer": "匂いは思い出せません。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その絵を見ているとき、どんな気持ちでしたか？",
+        "answer": "絵の前では時間を忘れ、静かな満足感がありました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "その後、何が起きましたか？",
+        "answer": "思い出せません",
+        "source": "fallback",
+        "attempts": 3,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "odor_no_recall_focus"
+            ]
+          },
+          {
+            "attempt": 2,
+            "flags": [
+              "odor_no_recall_focus"
+            ]
+          },
+          {
+            "attempt": 3,
+            "flags": [
+              "odor_no_recall_focus"
+            ]
+          }
+        ]
+      },
+      {
+        "turn": 4,
+        "question": "その絵を見ているとき、どのくらいの時間を感じていましたか？",
+        "answer": "十五分ほど立っていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "その絵を見終わった後、どのようにその場を離れましたか？",
+        "answer": "絵の前で時間を忘れた後、静かにベンチを立ち上がり、館内を出て帰りました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "その絵を見終わった後、どのような気持ちでしたか？",
+        "answer": "絵の前では時間を忘れ、帰り道も静かな満足感が続きました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:31:28.716Z"
+  },
+  {
+    "sessionId": "batch-20260725-prompt-eval-odor-based-seaside-bicycle",
+    "personaId": "seaside-bicycle",
+    "condition": "odor-based",
+    "odorMemory": true,
+    "turns": [
+      {
+        "turn": 1,
+        "question": "その時、特に印象に残っている匂いはありましたか？",
+        "answer": "潮の匂いが強く、堤防では乾いた海藻の匂いも混ざっていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 2,
+        "question": "その潮の匂いの強さについて、どのように感じましたか？",
+        "answer": "潮の匂いはとても強く、海辺にいることを実感させてくれるものでした。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 3,
+        "question": "潮の匂いに気づいた時、どのような身体反応がありましたか？",
+        "answer": "潮の匂いを感じた時、心が落ち着き、リラックスした感覚がありました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 4,
+        "question": "潮の匂いに気づいた時、何をしていましたか？",
+        "answer": "堤防に座って夕日を見ていました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 5,
+        "question": "堤防に座っている時、潮の匂いをどのように感じましたか？",
+        "answer": "潮の匂いが強く、乾いた海藻の匂いも混ざって心地よく感じました。",
+        "source": "generated",
+        "attempts": 1,
+        "rejections": []
+      },
+      {
+        "turn": 6,
+        "question": "堤防に座っている時、潮の匂いに気づいた後、どのように行動しましたか？",
+        "answer": "夕日を見ながら静かに過ごしました。",
+        "source": "generated",
+        "attempts": 2,
+        "rejections": [
+          {
+            "attempt": 1,
+            "flags": [
+              "odor_focus_missing"
+            ]
+          }
+        ]
+      }
+    ],
+    "narrativeAttempts": 1,
+    "savedAt": "2026-07-24T22:31:44.688Z"
+  }
+]

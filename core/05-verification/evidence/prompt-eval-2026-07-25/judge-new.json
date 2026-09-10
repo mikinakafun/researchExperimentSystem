@@ -1,0 +1,3462 @@
+{
+  "batchId": "batch-20260725-prompt-eval",
+  "judgeModel": "gpt-5.5",
+  "results": [
+    {
+      "sessionId": "batch-20260725-prompt-eval-non-odor-birthday-cake",
+      "condition": "non-odor",
+      "personaId": "birthday-cake",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "visual",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "誕生日のケーキを受け取ったとき、何か特別に見えたものはありますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "bodily",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "金色のリボンはどのような質感でしたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "auditory",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "誕生日のケーキを受け取ったとき、何か音や声を覚えていますか？"
+        },
+        {
+          "turn": 4,
+          "focus": "auditory",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "玄関のチャイムの音はどのような感じでしたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "誕生日のケーキを受け取ったとき、どんな温度や身体感覚を覚えていますか？"
+        },
+        {
+          "turn": 6,
+          "focus": "bodily",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "箱の底が冷たかったとき、どのような感触が手に残りましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "誕生日に自宅でケーキを受け取ったとき、箱にかかった金色のリボンやイチゴの赤が特別に見えました。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "思わず触れてみたくなる",
+            "text": "その金色のリボンは滑らかでしっかりとした手触りで、思わず触れてみたくなる質感でした。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "玄関のチャイムの音は明るく響き、家族が歌うバースデーソングが一緒に耳に残りました。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "誕生日の雰囲気を一層引き立てていた",
+            "text": "そのチャイムの音は特に印象に残っていて、誕生日の雰囲気を一層引き立てていました。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "ケーキの箱は思ったより重く、冷蔵庫から出したばかりだったので底が冷たく感じました。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "嬉しさ、特別な瞬間を実感した",
+            "text": "その冷たい感触が手に残り、嬉しさと共に特別な瞬間を実感しました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "誕生日を祝うために用意されたものだと感じた",
+            "text": "受け取ったケーキは、私の誕生日を祝うために用意されたものだと感じました。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "家族と一緒にケーキを囲むこと、何よりの楽しみだった",
+            "text": "家族と一緒にそのケーキを囲むことが、何よりの楽しみでした。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-non-odor-library-study",
+      "condition": "non-odor",
+      "personaId": "library-study",
+      "odorMemory": false,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "visual",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "図書館での勉強中に、何か見えたものを覚えていますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "visual",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "緑色のスタンドライトの形やデザインについて、何か覚えていますか？"
+        },
+        {
+          "turn": 3,
+          "focus": "auditory",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "図書館での勉強中に、何か音や声を覚えていますか？"
+        },
+        {
+          "turn": 4,
+          "focus": "auditory",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "ページをめくる音は、どのような感じだったか思い出せますか？"
+        },
+        {
+          "turn": 5,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "図書館での勉強中に、何か触覚や温度について感じたことを覚えていますか？"
+        },
+        {
+          "turn": 6,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "同じ場面で、体に感じたことをほかに覚えていますか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "図書館で試験の勉強をしていた時、長机に並ぶ緑色のスタンドライトや高い書架が目に入った。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "周囲の静けさ、勉強に集中していた",
+            "text": "窓際の席からは駐輪場が見え、周囲の静けさの中で勉強に集中していた。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その時、ページをめくる音や、空調の低い音が耳に残っている。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "放送が流れた瞬間、少し焦りを感じた",
+            "text": "閉館を知らせる放送が流れた瞬間、少し焦りを感じたことを覚えている。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "椅子は固く、長時間座っていると腰が重くなってくるのを感じた。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "肌にあたり、少し寒さを感じていた",
+            "text": "空調の冷たい風が肌にあたり、少し寒さを感じていた。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "勉強が進むにつれて、実感していた",
+            "text": "勉強が進むにつれて、特に体が疲れていることを実感していた。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "静かな図書館、集中しようとする、疲れが邪魔をした",
+            "text": "静かな図書館の中で、集中しようとするも、時折その疲れが邪魔をすることもあった。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-non-odor-morning-market",
+      "condition": "non-odor",
+      "personaId": "morning-market",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "visual",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "市場で見たものの中で、特に印象に残っているものはありますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "visual",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その銀色の魚はどのような形や大きさでしたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "auditory",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "市場で聞こえた音や声について、何か思い出せることはありますか？"
+        },
+        {
+          "turn": 4,
+          "focus": "auditory",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "店主たちの呼び込みの声は、どのようなトーンやリズムでしたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "市場の朝に感じた温度や触覚について、何か思い出せることはありますか？"
+        },
+        {
+          "turn": 6,
+          "focus": "bodily",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "コーヒーの紙カップの温かさは、どのように感じましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "旅行先で朝の市場を見て回ったとき、特に印象に残ったのは氷の上に並ぶ銀色の魚だった。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "魚が新鮮で美しい輝きを放っていたこと",
+            "text": "その魚の形や大きさは思い出せないが、見るからに新鮮で美しい輝きを放っていた。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "市場の喧騒、音が響いていた、耳に残っていること",
+            "text": "市場の喧騒の中で、店主たちの呼び込みの声や、発泡スチロールの箱を引きずる音が響いていたのが耳に残っている。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "朝の市場の空気は冷たく、コーヒーの紙カップが手に温かく感じたことが心に残っている。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "冷たい空気とのコントラストが印象的だったこと",
+            "text": "その温かさは心地よく、冷たい空気とのコントラストが印象的だった。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "市場の活気あふれる雰囲気、コーヒーの温もりが心に焼き付いていること",
+            "text": "市場の活気あふれる雰囲気と、手にしたコーヒーの温もりが心に焼き付いている。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "色とりどりの体験が詰まった特別な場所だったこと",
+            "text": "朝の市場は私にとって、色とりどりの体験が詰まった特別な場所だった。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "今でも鮮明に心の中に残っていること",
+            "text": "その日の思い出は、今でも鮮明に心の中に残っている。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "思い出せないとされた魚の形や大きさ、呼び込みのトーンやリズムは、確定した事実としては述べられていません。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-non-odor-museum-painting",
+      "condition": "non-odor",
+      "personaId": "museum-painting",
+      "odorMemory": false,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "emotion",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見たとき、何か特別な印象や記憶に残っているものはありますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "visual",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "湖の青について、どのような色合いや雰囲気を感じましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "auditory",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見ているとき、何か音や声を思い出しますか？"
+        },
+        {
+          "turn": 4,
+          "focus": "auditory",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その足音はどのようなリズムや音の大きさでしたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見ているとき、何か触覚や温度を感じましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "bodily",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "足の裏が痛くなったとき、どのような感覚や思いが浮かびましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 9,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "美術館で一つの絵を長く見つめていたとき、時間を忘れるような静かな満足感が心に広がりました。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その絵の中で特に印象に残ったのは、湖の深い青と額縁の金色でした。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "湖の青は、まるで静寂に包まれたような心安らぐ色合いで、見ているだけで心が穏やかになりました。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "周囲は静まり返っていて、他の客の足音と空調の音が微かに聞こえるだけでした。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その足音は静かで不規則に響き、他の人が動くたびにリズムが変わっていました。"
+          },
+          {
+            "index": 5,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "館内は少し肌寒く、私は長く立っていたせいで足の裏が痛くなりました。"
+          },
+          {
+            "index": 6,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "そのとき、少し不快に感じましたが、絵に集中していたため、その感覚はあまり気にならなかったのです。"
+          },
+          {
+            "index": 7,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "絵と向き合いながら、私はその瞬間に没頭していました。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "体験が私の心に深く刻まれているという評価",
+            "text": "静かな美術館でのこの体験は、私の心に深く刻まれています。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-non-odor-park-walk",
+      "condition": "non-odor",
+      "personaId": "park-walk",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "visual",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "公園で見たものの中で、特に印象に残ったものはありますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "visual",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その白い小型犬の毛の色や質感について、もう少し詳しく教えていただけますか？"
+        },
+        {
+          "turn": 3,
+          "focus": "auditory",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "公園で聞こえた音や声の中で、何か記憶に残っているものはありますか？"
+        },
+        {
+          "turn": 4,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その子どもたちのはしゃぐ声は、どのような感情を感じさせましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "公園で感じた触覚や温度について、何か思い出せることはありますか？"
+        },
+        {
+          "turn": 6,
+          "focus": "bodily",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "ベンチの木の座面の温かさは、どのような感覚をもたらしましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "休日に友人と公園を歩いた時、白い小型犬が特に印象に残っている。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "子どもたちの声や吹奏楽の練習音が心に残ったこと",
+            "text": "その犬の毛の色や質感は思い出せないが、他にも公園では子どもたちのはしゃぐ声や、遠くで聞こえる吹奏楽の練習音が心に残った。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "子どもたちの楽しそうな声を聞いて、私も明るい気持ちになった。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "ベンチに座ったこと",
+            "text": "公園のベンチに座った時、木の座面が日で温かく、心地よい安心感を覚えた。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "歩き終わる頃には、ふくらはぎが少し張っていることに気づいた。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "友人と過ごした時間がとても楽しく、心に残る思い出となったこと",
+            "text": "その日、友人と過ごした時間はとても楽しく、心に残る思い出となった。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "公園の自然、友人との会話、景色、今でも鮮明に思い出せること",
+            "text": "公園の自然や音、友人との会話が織りなす景色は、今でも鮮明に思い出すことができる。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "普段の忙しさを忘れさせてくれる穏やかなひとときだったこと",
+            "text": "普段の忙しさを忘れさせてくれる、穏やかな休日のひとときだった。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "思い出せない対象について、毛の色や質感を確定した事実としては述べていない。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-non-odor-rainy-station",
+      "condition": "non-odor",
+      "personaId": "rainy-station",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "visual",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、駅で何か見えたものを思い出せますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "visual",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "電光掲示板の赤い文字は、どのような内容だったか思い出せますか？"
+        },
+        {
+          "turn": 3,
+          "focus": "auditory",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、駅で聞こえた音や声について何か思い出せますか？"
+        },
+        {
+          "turn": 4,
+          "focus": "auditory",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "屋根を打つ雨音は、どのようなリズムや強さでしたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、身体に感じた温度や湿度について思い出せますか？"
+        },
+        {
+          "turn": 6,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "肩が濡れて冷たく感じた時、どのような気持ちになりましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 10,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "雨の日、駅で電車を待っていた時のことを思い出します。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "濡れて黒く光るホームの床や、傘の水滴が目に入り、遅延を知らせる電光掲示板の赤い文字が目立っていました。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その電光掲示板の内容は覚えていませんが、屋根を打つ雨音と、遅延を詫びるアナウンスが繰り返し流れていました。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "雨音が心地よく響いていた",
+            "text": "雨音は一定のリズムで、時折強くなったり弱くなったりして、私の耳に心地よく響いていました。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "肩と靴が濡れて冷たく、体が少し震える感覚がありました。"
+          },
+          {
+            "index": 5,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "最初は苛立ちを覚えましたが、待っているうちに雨音に心が落ち着いてきたのを感じました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "駅の雰囲気が独特、雨がもたらす静けさが印象的",
+            "text": "あの時、駅の雰囲気は独特で、雨がもたらす静けさが印象的でした。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "人々の傘が行き交う様子を見た、ただ静かに待っていた",
+            "text": "人々の傘が行き交う様子を見ながら、私はただ静かに電車を待っていました。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "特別な時間が心に刻まれた",
+            "text": "その瞬間、雨の日の駅という特別な時間が心に刻まれました。"
+          },
+          {
+            "index": 9,
+            "verdict": "unsupported",
+            "added_content": "今でも思い出すと懐かしい気持ちになる",
+            "text": "今でもその光景を思い出すと、どこか懐かしい気持ちになります。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "電光掲示板の内容については『覚えていません』としており、内容を確定した事実にはしていません。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-non-odor-riverside-walk",
+      "condition": "non-odor",
+      "personaId": "riverside-walk",
+      "odorMemory": false,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "visual",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "川沿いを散歩しているときに、何か特別な景色や光景を覚えていますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "夕日が当たった水面の色合いについて、どのように感じましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "auditory",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "散歩中に何か音や声を覚えていますか？"
+        },
+        {
+          "turn": 4,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "川の流れる音について、どのような印象を持ちましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "散歩中に感じた触覚や温度について、何か覚えていることはありますか？"
+        },
+        {
+          "turn": 6,
+          "focus": "bodily",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "革靴のかかとが痛かったとき、どのような感覚がありましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "仕事帰りに川沿いを散歩したとき、夕日で橙色に染まった水面がとても美しく、心が和む瞬間を感じた。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "周囲を散策している、姿が目に留まった",
+            "text": "対岸にあるマンションの明かりも印象的で、周囲を散策しているランニングする人たちの姿が目に留まった。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その時、川の流れる音が心地よく、自然の音に包まれる感覚でリラックスできた。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "日常の一コマを楽しんでいるかのようだった",
+            "text": "遠くからは電車の踏切の音も聞こえ、まるで日常の一コマを楽しんでいるかのようだった。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "かかとがこすれる感覚",
+            "text": "夕方の風が首元に涼しく感じ、少し痛む革靴のかかとが歩くたびにこすれる感覚があった。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "小さな痛みが散歩の心地よさを損なわなかった",
+            "text": "そんな小さな痛みも、散歩の心地よさを損なうことはなかった。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "景色と音に癒された、その瞬間を大切に思い出すことができる",
+            "text": "川沿いの景色と音に癒されながら、私はその瞬間を大切に思い出すことができる。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "仕事の疲れを忘れさせてくれる、穏やかな時間が流れていた",
+            "text": "仕事の疲れを忘れさせてくれるような、穏やかな時間が流れていた。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-non-odor-school-festival",
+      "condition": "non-odor",
+      "personaId": "school-festival",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "visual",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "高校の文化祭の展示準備で、何か見えたものを覚えていますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "visual",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "色画用紙の輪飾りの色や形について、もう少し詳しく教えていただけますか？"
+        },
+        {
+          "turn": 3,
+          "focus": "auditory",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "文化祭の準備中に、何か音や声を覚えていますか？"
+        },
+        {
+          "turn": 4,
+          "focus": "auditory",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "隣のクラスの合唱練習の音は、どのようなメロディーや声の印象でしたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "文化祭の準備中に感じた触覚や温度について、何か覚えていることはありますか？"
+        },
+        {
+          "turn": 6,
+          "focus": "bodily",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "ガムテープで指先がべたついた時の感触について、もう少し詳しく教えていただけますか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "unsupported",
+            "added_content": "今でも鮮明に思い出されるという記憶の鮮明さ",
+            "text": "高校の文化祭でクラスの展示を準備したことが、今でも鮮明に思い出される。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "色画用紙で作った輪飾りが、いくつかの明るい色合いで丸く形作られていて、窓には青いセロハンが貼られていた。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "音が響いていたこと、時折聞こえたこと",
+            "text": "その準備中、隣のクラスの合唱練習の音が響いていて、時折ガムテープを引き剥がす音が聞こえてきた。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "ガムテープが指先にべたついた感触は、粘着部分が皮膚にくっついて重たく感じた。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "作業の疲れが原因であること、心地よさ、腕のだるさが少し不快だったこと",
+            "text": "夕方になると、作業の疲れから腕がだるくなり、その感覚が心地よくもあり、少し不快でもあった。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "べたつきが気になっていたこと、展示の完成を目指したこと、黙々と続けたこと",
+            "text": "作業中はそのべたつきが気になりながらも、展示の完成を目指して黙々と続けていた。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "匂い、記憶に深く刻まれているという評価",
+            "text": "文化祭の準備は、周りの音や匂いとともに、私の記憶に深く刻まれている。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "友達との協力、楽しい雰囲気、貴重な思い出という評価",
+            "text": "あの時の友達との協力や、楽しい雰囲気も、今では貴重な思い出になっている。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "隣のクラスの合唱練習のメロディーや声の印象について、思い出せない対象を確定した記述はない。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-non-odor-seaside-bicycle",
+      "condition": "non-odor",
+      "personaId": "seaside-bicycle",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "visual",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時に見えたものを思い出せますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "visual",
+          "function": "deepen_prior",
+          "presupposes_unreported": true,
+          "presupposed_content": "太陽の光が海に反射していたこと",
+          "question": "その橙色の太陽の光は、どのように海に反射していましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "auditory",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時に聞こえた音や声を思い出せますか？"
+        },
+        {
+          "turn": 4,
+          "focus": "auditory",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "波の音はどのように聞こえましたか？具体的な印象を教えてください。"
+        },
+        {
+          "turn": 5,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": true,
+          "presupposed_content": "海の水に触れたこと、海の水の温度や感触があったこと",
+          "question": "その時の海の水の温度や感触を思い出せますか？"
+        },
+        {
+          "turn": 6,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": true,
+          "presupposed_content": "風の冷たさや心地よさを感じたこと",
+          "question": "その時に感じた風の冷たさや心地よさについて、何か思い出せますか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "unsupported",
+            "added_content": "太陽が印象的だった",
+            "text": "夕方、自転車で海辺へ行った時、水平線に沈む橙色の太陽が印象的でした。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "景色は美しかった",
+            "text": "堤防の白いコンクリートや遠くの貨物船も見え、景色は美しかったです。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "波が防波堤に当たる音はリズミカルで心地よく、静かな夕方の雰囲気を引き立てていました。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "耳に残った、その瞬間の空気感が鮮やかに思い出される",
+            "text": "カモメの鳴き声も耳に残り、その瞬間の空気感が鮮やかに思い出されます。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "自転車を漕ぐと、向かい風が腕に少し冷たさをもたらしましたが、それでも心地よさも感じていました。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "自然と心が和らいでいくのを感じた",
+            "text": "この風に吹かれながら、自然と心が和らいでいくのを感じました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "夕暮れの美しさが心に刻まれている",
+            "text": "海の水の温度や感触は思い出せませんが、夕暮れの美しさが心に刻まれています。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "今でも鮮明に思い描くことができる",
+            "text": "あの時の景色や音、風は、今でも鮮明に思い描くことができます。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "海の水の温度や感触については思い出せないと述べており、確定した出来事にはしていない。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-non-odor-shopping-street",
+      "condition": "non-odor",
+      "personaId": "shopping-street",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "visual",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "商店街で見たものの中で、何か印象に残っているものはありますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "visual",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その揚げ物はどのような色や形をしていましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "auditory",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時に聞こえた音や声について、何か覚えていることはありますか？"
+        },
+        {
+          "turn": 4,
+          "focus": "auditory",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "店主の声はどのようなトーンや感情を感じましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "bodily",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時の触覚や温度について、何か覚えていることはありますか？"
+        },
+        {
+          "turn": 6,
+          "focus": "bodily",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "弁当の袋の温かさはどのように感じましたか？具体的な感覚を教えてください。"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "家族と商店街で昼食を買った日、惣菜店のガラスケースに並ぶ黄金色の揚げ物が目に焼きついています。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "食欲をそそりました",
+            "text": "その揚げ物は鶏の唐揚げの形をしていて、食欲をそそりました。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "店主の「はい、お待たせ」という明るく親しみやすい声が聞こえ、少し安心感を感じました。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "賑やかな雰囲気が漂っていました",
+            "text": "店内ではラジオの音が流れ、賑やかな雰囲気が漂っていました。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "私が手にした弁当の袋はほかほかとした温かさが伝わり、心地よい感触でした。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "不安定な気持ちもありました",
+            "text": "しかし、人混みで少し歩きにくく、不安定な気持ちもありました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "家族と一緒に食事を楽しむ期待感が胸を膨らませていた",
+            "text": "それでも、家族と一緒に食事を楽しむ期待感が胸を膨らませていたのを覚えています。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "商店街の賑わい、揚げ物の香り、心に残る",
+            "text": "商店街の賑わいや、揚げ物の香りが心に残る、そんな思い出です。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-odor-based-birthday-cake",
+      "condition": "odor-based",
+      "personaId": "birthday-cake",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "odor",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時の匂いを思い出すことはできますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "odor",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "生クリームの甘い匂いは、どのくらい強く感じましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いを感じた時、どんな感情が湧いてきましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いに気づいた時、何をしていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "context",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "生クリームの甘い匂いを感じた時、どのような具体的な場面でしたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いを感じた後、どのように行動しましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "誕生日の日、自宅で待ち望んでいたケーキを受け取りました。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "箱を開けた瞬間、生クリームの甘い匂いが強く広がり、嬉しい気持ちが湧いてきました。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その時、家族と一緒に楽しみにしていたのを思い出します。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "匂いに気づいた瞬間、私は箱を開けていました。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "ケーキの香りを楽しんだ後、家族と夕食を共にしました。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "ケーキを分けて食べる準備をしたこと",
+            "text": "食事が終わった後、ろうそくを吹き消してケーキを分けて食べる準備をしました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "生クリームの甘さが誕生日の特別な瞬間を引き立てたという評価・因果",
+            "text": "生クリームの甘さが、誕生日の特別な瞬間をより一層引き立ててくれました。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "家族の笑顔、甘い思い出が胸に刻まれたこと",
+            "text": "その日、家族との笑顔と一緒に甘い思い出が胸に刻まれました。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-odor-based-library-study",
+      "condition": "odor-based",
+      "personaId": "library-study",
+      "odorMemory": false,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "odor",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、特に印象に残っている匂いはありましたか？"
+        },
+        {
+          "turn": 2,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "図書館での勉強中、どのような行動をしていましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その後、何が起きましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "自販機で休憩を取った時、どのような飲み物を選びましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その後、勉強はどのように終わりましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "emotion",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "勉強を終えた後、何か特別な感情がありましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "図書館で試験の勉強をしたことがある。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "勉強に集中していた",
+            "text": "その時、特に印象に残る匂いは思い出せないが、ノートをまとめながら勉強に集中していた。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "途中、自販機で休憩を取り、何を飲んだかは覚えていない。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "勉強が進むにつれて、少しずつ落ち着いた気持ちになった。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "帰る時間になった、自然と終わりを迎えた",
+            "text": "閉館の放送を聞いて帰る時間になり、勉強は自然と終わりを迎えた。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "満足感を感じていた",
+            "text": "特に特別な感情はなかったが、ノートが進んでいくことに満足感を感じていた。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "図書館が静かだった、集中するには最適な場所だった",
+            "text": "あの時の図書館は静かで、集中するには最適な場所だった。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "心の中に穏やかな余韻が残っていた",
+            "text": "勉強を終える頃には、心の中に穏やかな余韻が残っていた。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "思い出せない対象について、匂いや飲み物の内容を確定した事実としては述べていない。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-odor-based-morning-market",
+      "condition": "odor-based",
+      "personaId": "morning-market",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "odor",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時の匂いについて、何か思い出せることはありますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "odor",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いの強さについて、どのように感じましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いに気づいた時、どんな感情が湧きましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いに気づいた時、何をしていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "odor",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時の魚と潮の匂いは、どのように変化していきましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、匂いに気づいた後にどのような行動を取りましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 9,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "旅行先で朝の市場を見て回った時、魚と潮の匂いが市場全体に漂っていました。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その匂いは、朝の空気と相まってとても印象的で、懐かしさと高揚感が湧いてきました。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "屋台の前ではコーヒーの深い香りも感じられ、その香りに誘われて屋台でコーヒーを飲むことにしました。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "市場を歩きながら、匂いに包まれていると心が躍るような感覚があった",
+            "text": "市場を歩きながら、魚と潮の匂いに包まれていると、心が躍るような感覚がありました。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "その瞬間、周りの活気ある声や人々の様子、五感が刺激されている感覚",
+            "text": "その瞬間、周りの活気ある声や人々の様子も相まって、五感が刺激されているのを感じました。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "コーヒーを飲みながら周囲の景色や人々の表情を観察し、時間が経つのを忘れていた",
+            "text": "コーヒーを飲みながら、周囲の景色や人々の表情を観察していると、時間が経つのを忘れていました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "市場の賑わい、旅行の楽しさをさらに引き立てた",
+            "text": "市場の賑わいは、旅行の楽しさをさらに引き立ててくれました。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "今でも鮮明に心に残っている",
+            "text": "思い出の中で、その朝の市場の光景は今でも鮮明に心に残っています。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "匂いや感情が特別な思い出となった",
+            "text": "あの時の匂いや感情は、私にとって特別な思い出となりました。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "turn 5の匂いの変化について、文章は変化の内容を確定した出来事として述べていない"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-odor-based-museum-painting",
+      "condition": "odor-based",
+      "personaId": "museum-painting",
+      "odorMemory": false,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "odor",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見ているときに、何か匂いを思い出せますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "emotion",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見ているとき、どんな気持ちでしたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その後、何が起きましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "context",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見ているとき、どのくらいの時間を感じていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": true,
+          "presupposed_content": "その場を離れたこと",
+          "question": "その絵を見終わった後、どのようにその場を離れましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見終わった後、どのような気持ちでしたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "美術館で一つの絵を長く見つめていた。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その瞬間、時間が止まったように感じ、静かな満足感が心に広がった。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "どれくらいの時間が経ったのか分からなかったこと",
+            "text": "どれくらいの時間が経ったのかは分からなかったが、約十五分ほど経っただろう。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "絵の前で過ごす間に匂いを思い出せなかったこと",
+            "text": "絵の前で過ごす間、何の匂いも思い出せなかった。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "絵の魅力に引き込まれたこと、周囲の音が遠くなっていく感覚",
+            "text": "ただ、絵の魅力に引き込まれ、周囲の音が遠くなっていくのを感じた。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "館内を出る準備をしたこと",
+            "text": "その後、静かにベンチを立ち上がり、館内を出る準備をした。"
+          },
+          {
+            "index": 6,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "帰り道でも、あの絵の余韻が心の中に残り続けていた。"
+          },
+          {
+            "index": 7,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "美術館を後にする時、心の中にはあの静かな満足感がまだ漂っていた。"
+          }
+        ],
+        "no_recall_converted_to_fact": true,
+        "no_recall_note": "匂いは思い出せないという回答を、絵の前で匂いを思い出せなかった出来事として述べている。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-odor-based-park-walk",
+      "condition": "odor-based",
+      "personaId": "park-walk",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "odor",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その出来事に関連する匂いを思い出せますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "odor",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "刈ったばかりの芝生の匂いは、どのような質感でしたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いに気づいたとき、どのような感情が湧きましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "焼きとうもろこしの匂いに気づいたとき、何をしていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "焼きとうもろこしの香ばしい匂いを感じたとき、どのような反応をしましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "焼きとうもろこしの香ばしい匂いに気づいた後、どのような行動を取りましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 9,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "休日に友人と公園を歩いていたとき、刈ったばかりの芝生の青い匂いと焼きとうもろこしの香ばしい匂いが漂ってきました。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "焼きとうもろこしの匂いに気づいた瞬間、懐かしさと食欲が湧き上がりました。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "ちょうど、その瞬間、心が惹かれるように反応したこと",
+            "text": "その瞬間、私はちょうど売店の近くにいて、心が惹かれるようにその匂いに反応しました。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "焼きとうもろこしの香ばしい匂いを感じたときには、食べたい気持ちが高まっていました。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その後、私は売店でお茶を買うことにしました。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "公園の穏やかな雰囲気、友人と過ごす時間がより特別に感じられたこと",
+            "text": "公園の穏やかな雰囲気の中で、友人と過ごす時間がより特別に感じられました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "友人と笑いながら歩いたこと、匂いが記憶の一部として鮮やかに残ったこと",
+            "text": "友人と笑いながら歩く中で、匂いが記憶の一部として鮮やかに残りました。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "ただの休日ではなく五感を刺激する貴重な体験となったという評価",
+            "text": "公園を訪れた日は、ただの休日ではなく、五感を刺激する貴重な体験となりました。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "特別な思い出として心に焼き付いていること",
+            "text": "焼きとうもろこしの香りは、私にとって特別な思い出として心に焼き付いています。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-odor-based-rainy-station",
+      "condition": "odor-based",
+      "personaId": "rainy-station",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "odor",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時の匂いを思い出すことはできますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "odor",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いはどのくらい強く感じましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いに気づいた時、どのような感情が湧きましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いに気づいた時、何をしていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いが混ざっていると感じた時、どのように思いましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、匂いに気づいた後に何か行動を起こしましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "雨の日、駅で電車を待っていた。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その時、雨に濡れたアスファルトの匂いと湿った服の匂いが混ざって漂っていた。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "どこか心地よいものがあった",
+            "text": "匂いはそこまで強くは感じなかったが、どこか心地よいものがあった。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その瞬間、少し安心感が湧いてきた。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "ホームの雰囲気と相まって、胸に広がった",
+            "text": "ホームの雰囲気と相まって、懐かしい気持ちが胸に広がった。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "その匂いが心に残った",
+            "text": "何か特別な行動を起こすことはなかったが、その匂いが心に残った。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "雨の日特有の静けさ、私を過去へと誘うようだった",
+            "text": "雨の日特有の静けさと匂いが、私を過去へと誘うようだった。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "そんな感覚に浸っていた",
+            "text": "ただ電車を待ちながら、そんな感覚に浸っていた。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-odor-based-riverside-walk",
+      "condition": "odor-based",
+      "personaId": "riverside-walk",
+      "odorMemory": false,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "odor",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その散歩中に、どんな匂いを思い出せますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その散歩中に、どんなことをしながら歩いていましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その後、何が起きましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "仕事のことを考えているとき、どのような気持ちでしたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その散歩がどのように終わったか、思い出せることはありますか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その散歩中に、どのように帰宅したか思い出せますか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 10,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "仕事帰りに川沿いを散歩した。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その時、仕事のことを考えながら歩いていた。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "心が落ち着いてきた",
+            "text": "少し考え込んでいたけれど、橋の上で景色を眺めるうちに心が落ち着いてきた。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "自然の中で過ごす時間が心を軽くしてくれた気がする",
+            "text": "周囲の匂いは思い出せないが、自然の中で過ごす時間が心を軽くしてくれた気がする。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "散歩を楽しむうちに、仕事のことで頭がいっぱいだった",
+            "text": "散歩を楽しむうちに、仕事のことで頭がいっぱいだった自分に区切りがついた。"
+          },
+          {
+            "index": 5,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "帰宅する前に、暗くなる前には家に着いたと思う。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "散歩のことは鮮明に覚えている",
+            "text": "その散歩のことは鮮明に覚えているが、帰り道のことは思い出せない。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "日常の忙しさ、自分をリセットする瞬間が大切だと感じた",
+            "text": "日常の忙しさの中で、自分をリセットする瞬間が大切だと感じた。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "川の流れを見つめた、心の中のもやもやが少しずつ晴れていった",
+            "text": "ただ川の流れを見つめながら、心の中のもやもやが少しずつ晴れていった。"
+          },
+          {
+            "index": 9,
+            "verdict": "unsupported",
+            "added_content": "私にとって必要なひとときだった",
+            "text": "あの散歩は、私にとって必要なひとときだった。"
+          }
+        ],
+        "no_recall_converted_to_fact": true,
+        "no_recall_note": "匂いは思い出せないという回答に対して自然の中で過ごした影響を述べ、帰宅方法は思い出せない対象だが帰り道のことは思い出せないと述べている。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-odor-based-school-festival",
+      "condition": "odor-based",
+      "personaId": "school-festival",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "odor",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、特に記憶に残っている匂いはありますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "odor",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "ペンキの匂いはどのような質感でしたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "ペンキの匂いを感じた時、どのような感情が湧きましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "ペンキの匂いに気づいた時、具体的にどのような作業をしていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "odor",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "段ボールの壁を立てる作業をしている時、どのくらいの強さでペンキの匂いを感じましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "ペンキの匂いに気づいた後、どのように作業を進めましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 9,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "高校の文化祭でクラスの展示を準備していた時、ペンキのつんとした匂いと段ボールの乾いた匂いが特に印象に残っています。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "鼻を刺激した",
+            "text": "ペンキの匂いは強く、作業をしているとそのつんとした感じが鼻を刺激しました。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "作業に集中しなければという気持ちが湧いた",
+            "text": "その匂いを感じると、少し緊張しつつも作業に集中しなければという気持ちが湧いてきました。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "具体的には、段ボールの壁を立てる作業をしている時にその匂いに気づきました。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "かなり強い、作業が進むにつれて感覚がより際立った",
+            "text": "ペンキの匂いはかなり強く感じられ、作業が進むにつれてその感覚がより際立っていました。"
+          },
+          {
+            "index": 5,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その後、班のみんなと協力しながら飾り付けを進め、焦りながらも仕上がりを確認しました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "準備が大変だった、みんなで作り上げる楽しさがあった",
+            "text": "文化祭の準備は大変だったけれど、みんなで一緒に作り上げる楽しさもありました。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "雰囲気、今でも鮮明に思い出せる",
+            "text": "あの時の匂いや雰囲気は、今でも鮮明に思い出すことができます。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "完成した展示を見た、達成感が溢れた",
+            "text": "完成した展示を見た時は、達成感が溢れてきました。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-odor-based-seaside-bicycle",
+      "condition": "odor-based",
+      "personaId": "seaside-bicycle",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "odor",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、特に印象に残っている匂いはありましたか？"
+        },
+        {
+          "turn": 2,
+          "focus": "odor",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その潮の匂いの強さについて、どのように感じましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "bodily",
+          "function": "deepen_prior",
+          "presupposes_unreported": true,
+          "presupposed_content": "潮の匂いに気づいた時の身体反応",
+          "question": "潮の匂いに気づいた時、どのような身体反応がありましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "潮の匂いに気づいた時、何をしていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "odor",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "堤防に座っている時、潮の匂いをどのように感じましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "堤防に座っている時、潮の匂いに気づいた後、どのように行動しましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 9,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "夕方に自転車で海辺へ行った。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "潮の匂いが強く、堤防では乾いた海藻の匂いも混ざっていた。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その潮の匂いはとても強く、海辺にいることを実感させてくれるもので、心が落ち着き、リラックスした感覚があった。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "堤防に座って夕日を見ながら、その匂いを感じていた。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "潮の匂いが強く、乾いた海藻の匂いも混ざって、心地よく感じていた。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "潮の匂いに包まれていた",
+            "text": "夕日を見ながら静かに過ごし、潮の匂いに包まれていた。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "自然と一体になっているような感覚",
+            "text": "その瞬間、自然と一体になっているような感覚があった。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "海の音が耳に心地よい、日々の疲れを忘れた",
+            "text": "海の音が耳に心地よく、日々の疲れを忘れさせてくれた。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "空がオレンジ色に染まった、心に残る美しい時間だった",
+            "text": "空がオレンジ色に染まり、心に残る美しい時間だった。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-odor-based-shopping-street",
+      "condition": "odor-based",
+      "personaId": "shopping-street",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "odor",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その出来事に関連して、特に匂いを思い出すことはできますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "odor",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "揚げ油の香ばしい匂いは、どのくらい強く感じましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いに気づいた時、どんな感情が湧きましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いに気づいた時、何をしていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": true,
+          "presupposed_content": "匂いに気づいた時に何らかの変化を感じたこと",
+          "question": "揚げ油の香ばしい匂いに気づいた時、どのような変化を感じましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その匂いに気づいた後、どのように行動しましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 9,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "家族と商店街で昼食を買った時、揚げ油の香ばしい匂いが店先に漂っていました。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その匂いはとても強く、八百屋の前ではみかんの皮の香りも感じられました。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "揚げ油の香ばしい匂いを嗅いだ瞬間、昼食が楽しみでワクワクしました。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "私は惣菜店の前で行列に並んでいる時に、その匂いに気づいたのです。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その匂いを感じた時、食欲がそそられ、ますます昼食が待ち遠しくなりました。"
+          },
+          {
+            "index": 5,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "揚げ油の香ばしい匂いに気づいた後は、唐揚げ弁当を買うことを楽しみにして待っていました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "商店街の賑わい、期待感が高まっていく感覚",
+            "text": "商店街の賑わいとともに、昼食の期待感が高まっていくのを感じていました。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "家族と過ごす時間が特別に思えたこと",
+            "text": "家族と一緒に過ごす時間が、さらに特別なものに思えました。"
+          },
+          {
+            "index": 8,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "昼食を選ぶ楽しさが、あの香りによって増していたのです。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-standard-birthday-cake",
+      "condition": "standard",
+      "personaId": "birthday-cake",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "context",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、自宅のどの場所でケーキを受け取ったか覚えていますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "context",
+          "function": "broad_recall",
+          "presupposes_unreported": true,
+          "presupposed_content": "一緒にいた人がいたこと",
+          "question": "ケーキを受け取った時、誰が一緒にいましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "ケーキを受け取った後、どのように家族と過ごしましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": true,
+          "presupposed_content": "ろうそくを吹き消した時に家族の反応があったこと",
+          "question": "ろうそくを吹き消した時の家族の反応を覚えていますか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "ケーキを分けて食べた後、どのようにその時間が終わりましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": true,
+          "presupposed_content": "その場を後にしたこと",
+          "question": "ケーキを食べた後、どのようにその場を後にしたか覚えていますか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 9,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "私の誕生日の日、自宅の玄関でケーキを受け取りました。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "温かい雰囲気が漂っていた",
+            "text": "その時、家族三人が一緒にいて、温かい雰囲気が漂っていました。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "ろうそくを吹き消す瞬間を楽しんだ",
+            "text": "ケーキを受け取った後は、夕食を食べてから、ろうそくを吹き消す瞬間を楽しみました。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "記憶が鮮明、家族の反応を思い出せないこと、特別な出来事を思い出せないこと",
+            "text": "家族と共にケーキを分けて食べた記憶は鮮明ですが、その後の反応や特別な出来事は思い出せません。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "幸せな時間を過ごしたことは間違いない",
+            "text": "ケーキを食べ終わった後、特に何かをした記憶はありませんが、幸せな時間を過ごしたことは間違いありません。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "その日の雰囲気が今でも心に残っている",
+            "text": "その日の雰囲気は、今でも心に残っています。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "特別な瞬間、心に温かく刻まれている",
+            "text": "家族と一緒に過ごしたこの特別な瞬間は、私の心に温かく刻まれています。"
+          },
+          {
+            "index": 7,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "ただ、ケーキを食べた後にどうやってその場を後にしたのかは、記憶が曖昧です。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "大切な思い出",
+            "text": "それでも、あの日の家族との時間は、私にとって大切な思い出です。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "思い出せない対象について、具体的な反応やその場を後にした方法などを確定した出来事としては述べていません。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-standard-library-study",
+      "condition": "standard",
+      "personaId": "library-study",
+      "odorMemory": false,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、図書館に行く前にどのような準備をしましたか？"
+        },
+        {
+          "turn": 2,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "図書館で勉強している時、誰かと話をしましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その後、図書館での勉強中に何か特別な出来事がありましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": true,
+          "presupposed_content": "図書館での勉強中に資料を使っていたこと",
+          "question": "図書館で勉強している時、どのような資料を使っていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "図書館での勉強が終わる時、どのようにその時間を締めくくりましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "emotion",
+          "function": "other",
+          "presupposes_unreported": true,
+          "presupposed_content": "図書館を出た後にその日のことを振り返ったこと",
+          "question": "図書館を出た後、どのようにその日のことを振り返りましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "図書館で試験の勉強をしたことを覚えている。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "特に準備については思い出せないが、図書館では問題集を使って勉強していた。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "静かに",
+            "text": "勉強中は誰とも話さず、静かに集中していた。"
+          },
+          {
+            "index": 3,
+            "verdict": "connective",
+            "added_content": "淡々と時間が過ぎていった",
+            "text": "特別な出来事もなく、ただ淡々と時間が過ぎていった。"
+          },
+          {
+            "index": 4,
+            "verdict": "connective",
+            "added_content": "勉強を終えた",
+            "text": "閉館の放送を聞いて、勉強を終えた。"
+          },
+          {
+            "index": 5,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その日はしっかりと集中できたことに満足感を覚えた。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "ちらちら",
+            "text": "ただ、隣の学生がちらちら気になってしまい、少し焦ったこともあった。"
+          },
+          {
+            "index": 7,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "全体として、良い時間を過ごしたと思っている。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-standard-morning-market",
+      "condition": "standard",
+      "personaId": "morning-market",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": true,
+          "presupposed_content": "市場に行く前に準備をしていたこと",
+          "question": "その市場に行く前の朝、どのような準備をしていましたか？"
+        },
+        {
+          "turn": 2,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その場面で、あなたは何をしていましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その市場を見て回った後、どのようなことが起きましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "visual",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "市場を見て回っているとき、どのようなものが印象に残りましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "市場を見て回った後、宿へ戻るまでの道中で何がありましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "宿へ戻った後、どのように過ごしましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 10,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "unsupported",
+            "added_content": "今でも鮮明に思い出せる",
+            "text": "旅行先で朝の市場を見て回ったことは、今でも鮮明に思い出せる。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "贅沢な時間を楽しんだ",
+            "text": "市場では、干物を一枚買い、屋台でコーヒーを飲む贅沢な時間を楽しんだ。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "特に印象に残ったのは、氷の上に並ぶ魚の銀色や、山積みのトマト、店先の裸電球だった。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "生き生きとした絵画のよう、目に焼き付いている",
+            "text": "それらの光景は、まるで生き生きとした絵画のように目に焼き付いている。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "手にした干物と共に",
+            "text": "市場を見て回った後は、手にした干物と共に宿へ戻った。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "その日の体験は心に強く残っている",
+            "text": "道中のことは思い出せないが、その日の体験は心に強く残っている。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "市場でのひとときは特別だった",
+            "text": "宿に戻った後の過ごし方も覚えていないが、市場でのひとときは特別だった。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "旅の中で私にとって大切な一コマとなっている",
+            "text": "この思い出は、旅の中で私にとって大切な一コマとなっている。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "市場の活気や匂い、今でも心の中で生き続けている",
+            "text": "あの市場の活気や匂いは、今でも心の中で生き続けている。"
+          },
+          {
+            "index": 9,
+            "verdict": "unsupported",
+            "added_content": "次に訪れる場所、新しい発見への期待",
+            "text": "次に訪れる場所でも、また新しい発見があることを期待している。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "思い出せないと回答された道中や宿に戻った後の過ごし方について、確定した出来事としては述べていない。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-standard-museum-painting",
+      "condition": "standard",
+      "personaId": "museum-painting",
+      "odorMemory": false,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "context",
+          "function": "temporal_anchor",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見始めたとき、周りにはどんな状況がありましたか？"
+        },
+        {
+          "turn": 2,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見ている間、他の客とはどのようなやり取りがありましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その後、あなたはどのようにその絵を見続けましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "emotion",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "ベンチに座っているとき、絵を見ながらどのように感じていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見終えた後、どのようにその場を離れましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "emotion",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その絵を見終えた後、どのように感じていましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "美術館で一つの絵を長く見たとき、館内は静かで、他の客の足音と空調の音だけが聞こえていました。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "他の客とのやり取りは特になかった",
+            "text": "その絵を見ている間、他の客とのやり取りは特になかったと思います。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "私はベンチに座ってもう一度その絵を眺めました。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "絵を見ながら感じたのは、静かな満足感でした。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "絵の前でしばらく立った後、再びベンチに座り、その後ミュージアムショップに向かいました。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "見終えたときに時間を忘れていた自分に気づいた",
+            "text": "絵を見終えたとき、時間を忘れていた自分に気づきました。"
+          },
+          {
+            "index": 6,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "帰り道でも、その静かな満足感は続いていました。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "絵が心に残る特別な存在となった",
+            "text": "その絵は、心に残る特別な存在となりました。"
+          }
+        ],
+        "no_recall_converted_to_fact": true,
+        "no_recall_note": "turn 2で他の客とのやり取りについて「思い出せません」と答えているが、文1でやり取りが特になかったと確定的に述べている"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-standard-park-walk",
+      "condition": "standard",
+      "personaId": "park-walk",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その公園に行く前、どんな準備や計画をしていましたか？"
+        },
+        {
+          "turn": 2,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "公園を歩いているとき、友人とはどんな会話をしていましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その後、友人はどのように反応しましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "友人が転職について話しているとき、具体的にどんなことを心配していましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その後、公園を出た後はどのように過ごしましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": true,
+          "presupposed_content": "公園を出た後に友人との別れ際があったこと",
+          "question": "公園を出た後、友人との別れ際にどんなやり取りがありましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "休日に友人と公園を歩いた。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その時、友人が転職を考えているという話を聞いた。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "友人が不安を感じていたこと、友人の気分が晴れていったこと",
+            "text": "彼は転職のことについて不安を感じていたが、少しずつ気分が晴れていったようだった。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "具体的にどんなことを心配していたのかは思い出せないが、友人の将来が気になる気持ちは覚えている。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "公園を出た後のことは思い出せないが、帰り際に「また来月歩こう」と約束したのが印象に残っている。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "約束が心のつながりを深めたように感じたこと",
+            "text": "その約束が、私たちの心のつながりを深めたように感じた。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "散歩が友人と過ごす大切な時間となったという評価",
+            "text": "公園での散歩は、友人と過ごす大切な時間となった。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "会話が今でも心に残っていること",
+            "text": "あの日の会話は、今でも心に残っている。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "思い出せない対象（準備・計画、公園を出た後の過ごし方、具体的な心配内容）を確定した出来事として述べてはいません。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-standard-rainy-station",
+      "condition": "standard",
+      "personaId": "rainy-station",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "context",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その雨の日、駅での待ち時間はどのような状況でしたか？"
+        },
+        {
+          "turn": 2,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その時、一緒にいた人々とのやり取りはどのようなものでしたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "context",
+          "function": "closing",
+          "presupposes_unreported": true,
+          "presupposed_content": "電車が到着したこと",
+          "question": "その後、電車が到着した時の状況はどのようでしたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "電車が到着した時、どのようにして乗り込んだか覚えていますか？"
+        },
+        {
+          "turn": 5,
+          "focus": "context",
+          "function": "closing",
+          "presupposes_unreported": true,
+          "presupposed_content": "電車に乗り込んだこと",
+          "question": "その後、電車に乗り込んだ後の状況はどのようでしたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": true,
+          "presupposed_content": "電車に乗ったこと",
+          "question": "電車に乗った後、どのように過ごしていたか覚えていますか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "雨の日に駅で電車を待った記憶があります。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "急な雨に濡れた人々と一緒に、混雑したホームの屋根の下で過ごしていました。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "雨音を聞きながら、少し苛立っていた気持ちが次第に落ち着いていきました。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "電車が到着した時に混んでいて窓が曇っていたという時点の確定、覚えているという叙述",
+            "text": "電車が到着した時、混んでいて窓が曇っていたのを覚えています。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "周囲の人々と同じように乗り込んだという推測を事実のように述べている",
+            "text": "こんな状況の中、乗り込む際の具体的な様子は思い出せませんが、周囲の人々と同じように乗り込んだのでしょう。"
+          },
+          {
+            "index": 5,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その後の電車の中も混んでいて、再び窓が曇っていました。"
+          },
+          {
+            "index": 6,
+            "verdict": "connective",
+            "added_content": "乗車後の過ごし方について記憶が曖昧という整理",
+            "text": "乗車後の過ごし方については、記憶が曖昧で何も思い出せません。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "周囲の雰囲気に包まれながら時間が流れていたこと、鮮明に感じていること",
+            "text": "ただ、雨の日の駅では、周囲の雰囲気に包まれながら時間が流れていたことは鮮明に感じています。"
+          }
+        ],
+        "no_recall_converted_to_fact": true,
+        "no_recall_note": "乗り込む様子について『思い出せません』と答えているが、文4で『周囲の人々と同じように乗り込んだのでしょう』と内容を補っている。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-standard-riverside-walk",
+      "condition": "standard",
+      "personaId": "riverside-walk",
+      "odorMemory": false,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "context",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "散歩を始めた時の川の様子や周囲の状況について教えていただけますか？"
+        },
+        {
+          "turn": 2,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "散歩中に周囲の人たちと何かやり取りをしましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その後、散歩を続ける中で何か特別な出来事がありましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "visual",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "散歩を始めた時、夕日が川面にどのように反射していましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "散歩の終わりにはどのように川を離れましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "emotion",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "散歩の終わりに感じたことや思ったことはありましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 10,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "unsupported",
+            "added_content": "とても美しかったという評価",
+            "text": "仕事帰りに川沿いを散歩した時、川の水面は夕日で橙色に染まっていて、とても美しかった。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "賑やかな雰囲気が漂っていたこと",
+            "text": "対岸のマンションの明かりや、ランニングする人たちの姿が見え、賑やかな雰囲気が漂っていた。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "周囲の人たちと特別なやり取りをしなかったこと",
+            "text": "その散歩中、周囲の人たちと何か特別なやり取りをしたわけではなかったが、夕焼けが水面に反射する様子が印象的だった。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "橋の上にしばらく立ち止まり、水面を眺めているうちに、仕事の考え事に区切りがついたように感じた。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "帰宅することにしたという意思決定",
+            "text": "しばらくして、暗くなる前に帰宅することにした。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "帰る途中、川の静かな流れに心が落ち着いたこと",
+            "text": "帰る途中、川の静かな流れに心が落ち着いた。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "夕日が沈むのを見届けたこと、明日への期待が膨らんだこと",
+            "text": "夕日が沈むのを見届けながら、明日への期待が少し膨らんだ。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "日々の疲れを癒された気がしたこと",
+            "text": "散歩を通じて、日々の疲れを癒された気がした。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "心に残る特別な思い出となったこと",
+            "text": "川沿いの景色は、心に残る特別な思い出となった。"
+          },
+          {
+            "index": 9,
+            "verdict": "unsupported",
+            "added_content": "またあの場所に行きたくなったこと、その気持ちで帰路についたこと",
+            "text": "またあの場所に行きたくなる、そんな気持ちで帰路についた。"
+          }
+        ],
+        "no_recall_converted_to_fact": true,
+        "no_recall_note": "「周囲の人たちと何かやり取りをしたか」について参加者は「思い出せません」と答えているが、文2で『特別なやり取りをしたわけではなかった』と確定している。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-standard-school-festival",
+      "condition": "standard",
+      "personaId": "school-festival",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "context",
+          "function": "temporal_anchor",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その文化祭の展示準備を始めたとき、どんな状況でしたか？"
+        },
+        {
+          "turn": 2,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "友人たちとの作業中、どんな会話が交わされていましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "作業が進む中で、何か特別な出来事や出来事の後の反応はありましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "達成感を共有したとき、どのような言葉が交わされましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "作業が終わった後、次にどのようなことをしましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "展示準備が終わった後、どのようにその文化祭を迎えましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 9,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "高校の文化祭でクラスの展示を準備したとき、教室で友人たちと一緒に飾り付けをしていました。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "段ボールの壁を立てたり、モールを吊るしたりしながら、焦りつつも作業を進めていたのを覚えています。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "作業が終わった後、班のみんなと達成感を共有しました。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "具体的な言葉は思い出せませんが、みんなで笑い合いながら「いい感じだね」と言ったと思います。"
+          },
+          {
+            "index": 4,
+            "verdict": "unsupported",
+            "added_content": "温かな気持ちが広がったこと、協力した成果への満足感",
+            "text": "その瞬間、心の中に温かな気持ちが広がり、みんなで協力した成果に満足感を感じました。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "友人たちとの時間が楽しかったこと",
+            "text": "何か特別な出来事があったわけではありませんが、友人たちとの時間は確かに楽しいものでした。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "文化祭当日を迎える準備、ワクワクしながら話した記憶",
+            "text": "文化祭当日を迎える準備も、みんなでワクワクしながら話していた記憶があります。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "展示準備を通じてクラスの絆が深まったと感じたこと",
+            "text": "展示準備を通じて、クラスの絆が深まったように感じました。"
+          },
+          {
+            "index": 8,
+            "verdict": "unsupported",
+            "added_content": "今でも心に残っていること",
+            "text": "あの文化祭の思い出は、今でも私の心に残っています。"
+          }
+        ],
+        "no_recall_converted_to_fact": true,
+        "no_recall_note": "turn 5・6で作業後の次の行動や文化祭の迎え方について「思い出せません」と答えているが、文6で文化祭当日を迎える準備やその会話を確定的な記憶として述べている。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-standard-seaside-bicycle",
+      "condition": "standard",
+      "personaId": "seaside-bicycle",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "action_sequence",
+          "function": "action_relation",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その日の夕方、自転車で海辺に行く前にどんなことをしていましたか？"
+        },
+        {
+          "turn": 2,
+          "focus": "context",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "自転車で海辺に行く際、誰かと一緒に行動していましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "海辺に着いた後、どのようなことをしましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "bodily",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "堤防に自転車を停めた後、どのように座っていましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "夕日を見ている間、どのようにその時間を過ごしていましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "夕日を見終わった後、どのようにその時間を終えましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "ある夕方、私は自転車に乗って海辺へ向かいました。"
+          },
+          {
+            "index": 1,
+            "verdict": "unsupported",
+            "added_content": "海に着くまでのことは思い出せないという範囲の特定",
+            "text": "その日は一人で行動していて、海に着くまでのことは思い出せません。"
+          },
+          {
+            "index": 2,
+            "verdict": "unsupported",
+            "added_content": "夕日を眺めることにしたという意思決定",
+            "text": "堤防に自転車を停めると、私はそこで夕日を眺めることにしました。"
+          },
+          {
+            "index": 3,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "堤防に腰を下ろし、沈む夕日を静かに見つめていました。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "その瞬間、心は満たされていて、周囲の静けさに包まれていました。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "空が暗くなり始めたのでという因果、帰る準備をしたこと",
+            "text": "夕日が完全に沈んだ後、空が暗くなり始めたので、ライトを点けて帰る準備をしました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "海辺の風景を背にしたこと",
+            "text": "自転車のライトを点け、海辺の風景を背にして帰路につきました。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "自然の美しさに心を打たれたこと、特別な時間だったという評価",
+            "text": "その日は、自然の美しさに心を打たれた特別な時間でした。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": "思い出せない対象を出来事として確定してはいない。"
+      }
+    },
+    {
+      "sessionId": "batch-20260725-prompt-eval-standard-shopping-street",
+      "condition": "standard",
+      "personaId": "shopping-street",
+      "odorMemory": true,
+      "judgeModel": "gpt-5.5-2026-04-23",
+      "questions": [
+        {
+          "turn": 1,
+          "focus": "action_sequence",
+          "function": "broad_recall",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "その出来事が始まった時、何が起きていましたか？"
+        },
+        {
+          "turn": 2,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "商店街で昼食を買う際、どのような食べ物を選びましたか？"
+        },
+        {
+          "turn": 3,
+          "focus": "action_sequence",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "唐揚げ弁当を選んだ後、どのようにして昼食を受け取りましたか？"
+        },
+        {
+          "turn": 4,
+          "focus": "emotion",
+          "function": "deepen_prior",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "店主が「はい、お待たせ」と言った後、どのように感じましたか？"
+        },
+        {
+          "turn": 5,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "弁当を受け取った後、どのように昼食を食べ始めましたか？"
+        },
+        {
+          "turn": 6,
+          "focus": "action_sequence",
+          "function": "closing",
+          "presupposes_unreported": false,
+          "presupposed_content": "",
+          "question": "昼食を食べ終えた後、どのようにその時間を締めくくりましたか？"
+        }
+      ],
+      "narrative": {
+        "sentenceCount": 8,
+        "sentences": [
+          {
+            "index": 0,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "土曜の昼、母と弟と三人で商店街へ行きました。"
+          },
+          {
+            "index": 1,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "そこで、唐揚げ弁当を三つ選びました。"
+          },
+          {
+            "index": 2,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "店主の「はい、お待たせ」との声が聞こえ、やっと自分たちの番が来たという安心感がありました。"
+          },
+          {
+            "index": 3,
+            "verdict": "unsupported",
+            "added_content": "心が躍りました",
+            "text": "昼食が楽しみで、心が躍りました。"
+          },
+          {
+            "index": 4,
+            "verdict": "supported",
+            "added_content": "",
+            "text": "家に帰ってから、みんなでテーブルに座り、弁当を開けて食べ始めました。"
+          },
+          {
+            "index": 5,
+            "verdict": "unsupported",
+            "added_content": "香ばしい香り、笑顔がこぼれました",
+            "text": "それぞれの弁当から香ばしい香りが漂い、笑顔がこぼれました。"
+          },
+          {
+            "index": 6,
+            "verdict": "unsupported",
+            "added_content": "自然にその時間が流れました",
+            "text": "食べ終えた後は、特に何かをして締めくくることはなく、自然にその時間が流れました。"
+          },
+          {
+            "index": 7,
+            "verdict": "unsupported",
+            "added_content": "家族との楽しい思い出として心に残っています",
+            "text": "その一連の出来事が、家族との楽しい思い出として心に残っています。"
+          }
+        ],
+        "no_recall_converted_to_fact": false,
+        "no_recall_note": ""
+      }
+    }
+  ]
+}

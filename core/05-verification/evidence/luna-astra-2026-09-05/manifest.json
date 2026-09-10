@@ -1,0 +1,29 @@
+{
+  "batchId": "luna-astra-20260905",
+  "language": "ja",
+  "modelConfigured": "gpt-4o-mini",
+  "serverPort": 3001,
+  "conditions": [
+    "standard",
+    "visual",
+    "odor"
+  ],
+  "plannedSessions": 30,
+  "uniqueSavedSessions": 30,
+  "rawApiResponseLines": 462,
+  "routeResponseLines": 264,
+  "simulatedAnswerResponseLines": 198,
+  "sessionLogLines": 33,
+  "saveResponseLines": 33,
+  "duplicateSaveResponses": 3,
+  "duplicateSessionIds": [
+    "luna-astra-20260905-visual-park-walk",
+    "luna-astra-20260905-visual-school-festival",
+    "luna-astra-20260905-visual-rainy-station"
+  ],
+  "artifactCsvRows": 30,
+  "rawResponses": "api-responses.jsonl",
+  "sessionLogs": "persona-batch-log.jsonl",
+  "csv": "results-v0.4.3-bilingual-schema-v2.csv",
+  "note": "Analysis cohort is first successful save per sessionId; duplicate runs remain in raw logs and are excluded."
+}

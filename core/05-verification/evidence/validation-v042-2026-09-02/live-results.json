@@ -1,0 +1,210 @@
+{
+  "summary": {
+    "at": "2026-09-02T09:29:53.341Z",
+    "generated": 6,
+    "fallback": 0,
+    "attempts": 6,
+    "completed": 6,
+    "errors": []
+  },
+  "rows": [
+    {
+      "request": {
+        "condition": "standard",
+        "fragment": "先週の日曜日、友人と公園を歩き、花壇のそばのベンチで休んだ。",
+        "history": [],
+        "turn": 1
+      },
+      "status": 200,
+      "response": {
+        "question": "その公園での友人とのやり取りについて、もう少し詳しく教えてもらえますか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0d96f4f599a7d217016a97ec8ed69487d0b854b1a9620c1d52",
+        "promptVersion": "prompt-catalog-v0.4.2-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "request": {
+        "condition": "standard",
+        "fragment": "先週の日曜日、友人と公園を歩き、花壇のそばのベンチで休んだ。",
+        "history": [
+          {
+            "question": "その公園での友人とのやり取りについて、もう少し詳しく教えてもらえますか？",
+            "answer": "友人と公園を歩いた後、花壇のそばのベンチに座って休みました。",
+            "metadata": {
+              "conditionFocus": "standard",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            }
+          }
+        ],
+        "turn": 2
+      },
+      "status": 200,
+      "response": {
+        "question": "そのベンチに座っているとき、友人とどんな話をしましたか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "grounded_detail",
+          "targetEvidenceId": "answer-1",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_02c86926a5962318016a97ec9022ac87d0ae0b0afc23ece2af",
+        "promptVersion": "prompt-catalog-v0.4.2-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "request": {
+        "condition": "visual",
+        "fragment": "先週の日曜日、友人と公園を歩き、花壇のそばのベンチで休んだ。",
+        "history": [],
+        "turn": 1
+      },
+      "status": 200,
+      "response": {
+        "question": "公園で見た花や植物について、どんなものが思い出せますか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_08dd67254d04aec6016a97ec8eed7487d0b04cd3e5dd0f3156",
+        "promptVersion": "prompt-catalog-v0.4.2-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "request": {
+        "condition": "visual",
+        "fragment": "先週の日曜日、友人と公園を歩き、花壇のそばのベンチで休んだ。",
+        "history": [
+          {
+            "question": "公園で見た花や植物について、どんなものが思い出せますか？",
+            "answer": "赤い花と白いベンチです。",
+            "metadata": {
+              "conditionFocus": "visual",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            }
+          }
+        ],
+        "turn": 2
+      },
+      "status": 200,
+      "response": {
+        "question": "赤い花について、どのような形や大きさでしたか？",
+        "metadata": {
+          "conditionFocus": "visual",
+          "turnFunction": "grounded_detail",
+          "targetEvidenceId": "answer-1",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0f62e8eccc4fa9aa016a97ec903e2487d0ab3da64d0e320797",
+        "promptVersion": "prompt-catalog-v0.4.2-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "request": {
+        "condition": "odor",
+        "fragment": "先週の日曜日、友人と公園を歩き、花壇のそばのベンチで休んだ。",
+        "history": [],
+        "turn": 1
+      },
+      "status": 200,
+      "response": {
+        "question": "その公園で感じた香りについて、何か思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_054bd9796e0e3c18016a97ec8ecd5887d088cb5ce2c576e86f",
+        "promptVersion": "prompt-catalog-v0.4.2-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "request": {
+        "condition": "odor",
+        "fragment": "先週の日曜日、友人と公園を歩き、花壇のそばのベンチで休んだ。",
+        "history": [
+          {
+            "question": "その公園で感じた香りについて、何か思い出せることはありますか？",
+            "answer": "花壇のそばで甘い花の香りを覚えています。",
+            "metadata": {
+              "conditionFocus": "odor",
+              "turnFunction": "broad_recall",
+              "targetEvidenceId": "fragment",
+              "nonRecallTransition": false,
+              "insufficientEvidenceTransition": false
+            }
+          }
+        ],
+        "turn": 2
+      },
+      "status": 200,
+      "response": {
+        "question": "その甘い花の香りについて、どのような印象を持っていますか？",
+        "metadata": {
+          "conditionFocus": "odor",
+          "turnFunction": "grounded_detail",
+          "targetEvidenceId": "answer-1",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0466c5cf7ed47491016a97ec8fed8087d0b6953caed1eaacf4",
+        "promptVersion": "prompt-catalog-v0.4.2-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    }
+  ]
+}

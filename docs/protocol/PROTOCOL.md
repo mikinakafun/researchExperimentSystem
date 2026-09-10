@@ -1,6 +1,6 @@
 # PROTOCOL.md は退役しました（2026-09-07）
 
-パイロット実験の仕様は [`core/DESIGN.ja.md`](../../core/DESIGN.ja.md)（英語版 [`core/DESIGN.md`](../../core/DESIGN.md)）に一本化しました。各要件の根拠は [`core/00-decisions/decisions.md`](../../core/00-decisions/decisions.md) のDEC番号で示します。
+パイロット実験の仕様は [`core/DESIGN.ja.md`](../../core/DESIGN.ja.md)（英語版 [`core/DESIGN.md`](../../core/DESIGN.md)）に一本化しました。本書に出てくるDEC番号は2026-09-08に削除した決定記録のもので、`git log -p --follow -- core/00-decisions/` で引けます。
 
 本書v0.4.0-draftが集約していた内容の行き先:
 

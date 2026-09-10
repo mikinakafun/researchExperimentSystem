@@ -1,6 +1,6 @@
 # Observed Behavior — Evidence Appendix
 
-**This records the behaviour of the previous three-condition implementation.** It is kept because the decisions in [`DESIGN.md`](../DESIGN.md) rest on it — retiring `standard`, replacing sequential retry with parallel candidates, distrusting the narrative annotations, fixing the duplicate check. It is evidence, not a specification. Nothing here describes the system you are building.
+**This records the behaviour of the previous three-condition implementation.** The index of every run on record, with the configuration behind the numbers, is [`evidence/README.md`](evidence/README.md). It is kept because the decisions in `DESIGN.md` rest on it — retiring `standard`, replacing sequential retry with parallel candidates, distrusting the narrative annotations, fixing the duplicate check. It is evidence, not a specification. Nothing here describes the system you are building.
 
 Produced by driving the running app against the real OpenAI API on **2026-09-07 03:15-03:17 UTC**: four full 6-turn conversations (24 question calls), two narrative calls, five malformed-request probes.
 
@@ -106,9 +106,29 @@ The sky gradient, the early evening, and "our perfect day" appear in no answer. 
 
 All rejected before any provider call, with a single opaque message per route.
 
+## The 2026-09-06 run: what visual and odor do when they fail
+
+The 24-turn run above used one fragment and saw no visual or odor rejection. The larger run the day before — [`evidence/validation-v044-live-2026-09-06/`](evidence/validation-v044-live-2026-09-06/report.md), three synthetic scenarios × three conditions × six turns, 54 questions — is where the two remaining non-`standard` failure modes appear. Both are about the **shape** of the metadata, not about condition vocabulary:
+
+| Where | What the model did | Flag | Outcome |
+|---|---|---|---|
+| odor · partial-recall scenario · turn 2 | returned an in-condition question (`conditionFocus: odor`) with a transition flag set, three attempts in a row | `focused_question_with_transition` ×3 | fixed fallback — the only visual/odor fallback in the run (1/36) |
+| odor · persistent non-recall · turn 4 | returned the **string** `"null"` as `targetEvidenceId` twice; the strict schema (`anyOf: string | null`) accepts a string | `invalid_target_evidence_id` ×2 | accepted on attempt 3 |
+
+Rejections in that run by flag: `standard_sensory_contamination` 17, `standard_emotion_focus` 4, `focused_question_with_transition` 4, `invalid_target_evidence_id` 2. The retry feedback did not change the odor model's metadata choice across the three attempts, the same pattern as the `standard` contamination loop above.
+
+The same report also records behaviour that passes validation and is not a fallback:
+
+- After 「匂いについては思い出せません。」 the odor arm went neutral at turn 2, then **returned to smell at turn 3 and kept asking about smell through turn 6** while the participant kept answering non-recall. The visual arm under persistent non-recall likewise asked about buildings, colours and light for five turns without going neutral.
+- In `standard`, a question about clothing (外見) and one inviting 「特別なことを感じた瞬間」 passed the lexical check.
+- A fixed fallback at turn 5 re-asked 「何をしていたか」 after the participant had already described the actions — the ladder avoids repeating a question, not repeating known information.
+- The narrative under persistent non-recall wrote 「外の空気が心地よく…ことだけは確かだ」 with every answer being 「思い出せません」 — invention is permitted, but this presents it as certain recall.
+
+Across all stored runs, `odor_source_inference` fired 0 times (the rule was narrowed anyway), `odor_condition_contamination` 186 times, `standard_sensory_contamination` 225 times.
+
 ## What this evidence established
 
-Each of these became a decision in [`DESIGN.md`](../DESIGN.md). This section records the inference; the spec records the outcome.
+Each of these became a decision in `DESIGN.md`. This section records the inference; the spec records the outcome.
 
 1. **The validator earns its place.** It is the only thing separating the conditions, and it caught 6 real violations in 24 turns. → kept as the core mechanism (§4).
 2. **`standard` could not be generated reliably.** 2 of 6 turns canned, all 6 rejections, zero recovery — while `visual` and `odor` had zero rejections in 18 turns. → **the arm was retired** (§2), not repaired. A baseline arm, if ever wanted again, is defined as *unguided* rather than by exclusion.
@@ -116,7 +136,7 @@ Each of these became a decision in [`DESIGN.md`](../DESIGN.md). This section rec
 4. **Exact-match duplicate detection is not enough by turn 5.** → near-duplicate detection required (§4).
 5. **`turnFunction` was inert** — never enforced, never read, 3 of 6 values never emitted. → **dropped from the contract** (§5).
 6. **`sourceIds` and `containsCreativeAddition` are unreliable self-reports.** → kept as a variable to study, never as provenance (§6).
-7. **Generation health is invisible from the participant screens.** The `standard` failure showed up only in the generation records. → the synthetic harness became standing practice, re-run on every prompt-design change ([`evaluation-harness.md`](evaluation-harness.md)) — though **not** a gate in front of human collection (DEC-044) — and fallback and neutral-transition counts became reported quantities ([`measures.md`](../03-measurement/measures.md)).
+7. **Generation health is invisible from the participant screens.** The `standard` failure showed up only in the generation records. → the synthetic harness became standing practice, re-run on every prompt-design change ([`evaluation-harness.md`](evaluation-harness.md)) — though **not** a gate in front of human collection — and fallback and neutral-transition counts became reported quantities (`measures.md`).
 
 ---
 

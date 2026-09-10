@@ -7,7 +7,7 @@
 | Group | Fields |
 |---|---|
 | identity | session id (stable, unique), record type (`participant` \| `synthetic`) |
-| assignment | condition, language, allocation-log entry (block, position within block, seed reference — DEC-003) |
+| assignment | condition, language, allocation-log entry (block, position within block, seed reference) |
 | input | initial fragment |
 | questions | 6 texts, 6 metadata objects, 6 generation records |
 | answers | 6 texts |
@@ -15,7 +15,7 @@
 | ratings | 12 outcome + 6 check, by stable item id |
 | provenance | saved-at, schema version, protocol version, **prompt version** |
 
-`synthetic` records come from the harness ([`evaluation-harness.md`](../05-verification/evaluation-harness.md)) and may omit ratings entirely — but not partially. **Always filter on record type before analysing.** One storage path for both keeps the harness exercising the real code; the type field keeps them separable.
+`synthetic` records come from the harness (`evaluation-harness.md`) and may omit ratings entirely — but not partially. **Always filter on record type before analysing.** One storage path for both keeps the harness exercising the real code; the type field keeps them separable.
 
 ## Consistency gates at save time
 
@@ -23,7 +23,7 @@ Validate on the receiving side, not only in the client. These are not type check
 
 1. **Arrays are exactly the turn count.** Six questions, six answers, six metadata, six generation records.
 2. **Prompt version matches the current one exactly.** A prompt change makes older results unwritable rather than silently mixed into one file.
-3. **Narrative annotations re-pass their structural rules** ([`validation-rules.md`](../02-generation/validation-rules.md)).
+3. **Narrative annotations re-pass their structural rules** (`validation-rules.md`).
 4. **Joining the annotated sentences reproduces the displayed text.** The rated text must be reconstructible from what was stored; a rated narrative can never drift from its annotations.
 5. **Every generation record is internally consistent** and within the candidate budget.
 6. **The narrative record is not a fallback** — there is no narrative fallback, so such a record is by definition corrupt.
@@ -57,7 +57,7 @@ A byte-identical re-submit under the same session id is a success that wrote not
 
 Fragment input is capped at 100 characters with a warning against identifiers, but there is **no automated PII scrubbing**. Free text is identifiable — handle the store accordingly. The model API key is server-side only; provider calls opt out of retention.
 
-## Retention and deletion (DEC-020)
+## Retention and deletion
 
 - **Retention:** research data underlying a published result is kept for **ten years from final publication**; an unpublished pilot's data for ten years from the end-of-study report. A longer period required by institutional rules, law, contract or the consent text takes precedence.
 - **What is kept**, access-restricted: the primary store, exports, fragments, questions and answers, narratives, ratings and checks, allocation log, consent and withdrawal records, generation records, protocol version, retention deadline and deletion status. No direct identifiers are collected.

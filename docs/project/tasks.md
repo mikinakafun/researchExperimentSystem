@@ -1,5 +1,7 @@
-# tasks.md は core/00-decisions/ へ移動しました（2026-09-07）
+# tasks.md は GitHub Projects へ移行しました
 
-未了作業の一覧は [`core/00-decisions/tasks.md`](../../core/00-decisions/tasks.md) にあります。運営系・システム系を分けず、作業一覧はそこ一つだけを更新します。
+未了作業は **https://github.com/users/mikinakafun/projects/3** にあります。
+
+2026-09-07に`core/00-decisions/tasks.md`へ移し、2026-09-08にGitHub Projectsへ移して`core/00-decisions/`ごと削除しました。移行前の一覧は git で引けます（`git log -p --follow -- core/00-decisions/tasks.md`）。
 
 このファイルは既存リンクを切らないために残しています。追記しないでください。

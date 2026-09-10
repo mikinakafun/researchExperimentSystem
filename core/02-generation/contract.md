@@ -60,7 +60,7 @@ Attached to every generated artifact and **persisted with the result**. This is 
 **Rejections that must exist:**
 
 - malformed or incomplete payload;
-- **destination mismatch** — the consented destination disagrees with the server's current setting. Refuse; never redirect. See [`recording-and-storage.md`](../04-storage/recording-and-storage.md);
+- **destination mismatch** — the consented destination disagrees with the server's current setting. Refuse; never redirect. See `recording-and-storage.md`;
 - **id conflict** — same session id, different content.
 
 A byte-identical re-submit under the same id is an idempotent success, not an error.
@@ -98,5 +98,5 @@ POST /api/save-result
 
 Two known defects in this instance, both fixed by the requirements above:
 
-- `turnFunction` is carried but never enforced or read — **dropped** in the rebuild ([`DESIGN.md`](../DESIGN.md) §5).
+- `turnFunction` is carried but never enforced or read — **dropped** in the rebuild (`DESIGN.md` §5).
 - Every request-validation failure collapses into one opaque string, so a caller cannot tell a bad `turn` from a mismatched history length without re-deriving the rule. Say which field failed.

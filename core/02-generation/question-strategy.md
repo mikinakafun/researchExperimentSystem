@@ -8,7 +8,7 @@ One session = **one initial fragment + exactly 6 generated questions + 6 answers
 
 Six is the fixed turn count and it propagates everywhere — the recorded arrays, the narrative input, the evidence id space. Make it one constant.
 
-Condition (`visual` | `odor`) is assigned **after** a valid fragment is submitted, by block randomisation stratified by language with an allocation log (DEC-003 — block size, ratio and seed still open, TASK-016), and is never shown to the participant before debriefing.
+Condition (`visual` | `odor`) is assigned **after** a valid fragment is submitted, by block randomisation stratified by language with an allocation log , and is never shown to the participant before debriefing.
 
 ## What the generator gets each turn
 
@@ -41,7 +41,7 @@ One question, plus:
 
 Constrain the output shape at the model call (a strict JSON schema, or your equivalent) **and** re-check it after. The schema stops malformed output; the validator stops well-formed output that breaks the experiment.
 
-`turnFunction` is **not** part of this contract. See [`DESIGN.md`](../DESIGN.md) §5 for why it was dropped.
+`turnFunction` is **not** part of this contract. See `DESIGN.md` §5 for why it was dropped.
 
 ## The decision procedure
 
@@ -63,7 +63,7 @@ Two legal reasons, and they must be recorded separately:
 
 A neutral question points at no evidence. An in-condition question carries no transition. Never both reasons at once.
 
-**Every neutral transition is a partial reduction of the manipulation** — with two conditions, neutral questions are the only place event-structure content enters. Count them per session and report them. See [`DESIGN.md`](../DESIGN.md) §2.
+**Every neutral transition is a partial reduction of the manipulation** — with two conditions, neutral questions are the only place event-structure content enters. Count them per session and report them. See `DESIGN.md` §2.
 
 ## Non-recall is a hint, not a verdict
 
@@ -81,7 +81,7 @@ A bounded budget per turn, then a fixed fallback. The session length never chang
 
 Before falling back, try one **repair**: hand back the rejected candidate and the offending span with a minimal-edit instruction at temperature 0. This preserves the candidate's reference to participant material, which a canned fallback loses entirely.
 
-Persist every rejected candidate — attempt, flags, question text, metadata. This is research data (§4 of [`DESIGN.md`](../DESIGN.md)), and it must survive into analysis.
+Persist every rejected candidate — attempt, flags, question text, metadata. This is research data (§4 of `DESIGN.md`), and it must survive into analysis.
 
 Record **why** a fallback was reached, in a field of its own. "No material left" and "generation could not clear the validator" are different events; the current implementation conflates them by reusing the transition reason.
 

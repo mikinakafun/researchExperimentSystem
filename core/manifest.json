@@ -8,7 +8,8 @@
     "method": "source read of the previous implementation plus a live end-to-end API run",
     "liveRun": "2026-09-07T03:15-03:17Z, 24 question calls + 2 narrative calls + 5 malformed-request probes",
     "model": "gpt-4o-mini-2024-07-18",
-    "rawEvidence": "05-verification/evidence/live-run-2026-09-07.json"
+    "rawEvidence": "05-verification/evidence/live-run-2026-09-07.json",
+    "otherRuns": "05-verification/evidence/README.md"
   },
   "entryPoint": {
     "orientation": "README.md",
@@ -19,58 +20,50 @@
     "spec": {
       "en": "DESIGN.md",
       "ja": "DESIGN.ja.md"
-    },
-    "decisions": "00-decisions/README.md"
+    }
   },
   "designDecisions": [
     {
       "id": "two-conditions",
       "decision": "Conditions are visual and odor. The standard (event-structure) arm is retired.",
       "why": "Zero weight in the primary comparison; defined purely by exclusion; produced 6/6 of all observed validation rejections and fell back on 2 of 6 turns while visual and odor had zero rejections across 18 turns.",
-      "where": "DESIGN.md#2",
-      "decisionRecord": "DEC-041"
+      "where": "DESIGN.md#2"
     },
     {
       "id": "validator-is-load-bearing",
       "decision": "Prompt proposes, deterministic validator disposes, guaranteed fallback keeps session length fixed at 6 turns.",
       "why": "A study whose manipulation silently leaks produces nothing; a condition-dependent dropout is worse than a non-uniform stimulus.",
-      "where": "DESIGN.md#4",
-      "decisionRecord": "DEC-030, DEC-035"
+      "where": "DESIGN.md#4"
     },
     {
       "id": "rejections-are-data",
       "decision": "Rejected candidates and fallback reasons are persisted with the result and carried into analysis.",
       "why": "Rejection and fallback rate per condition measures whether a condition can be sustained; the standard arm failed silently until generation records were examined.",
-      "where": "DESIGN.md#4",
-      "decisionRecord": "DEC-048"
+      "where": "DESIGN.md#4"
     },
     {
       "id": "parallel-candidates",
       "decision": "Draw candidates in parallel and use the validator to select; add a repair pass before falling back.",
       "why": "Sequential retry with flag-name feedback recovered 0 of 6 observed failures.",
-      "where": "DESIGN.md#4",
-      "decisionRecord": "DEC-045"
+      "where": "DESIGN.md#4"
     },
     {
       "id": "turnfunction-dropped",
       "decision": "The six-value turnFunction field is removed.",
       "why": "Never enforced against the turn number, never read, and only 3 of its 6 values were ever emitted across 24 live turns.",
-      "where": "DESIGN.md#5",
-      "decisionRecord": "DEC-046"
+      "where": "DESIGN.md#5"
     },
     {
       "id": "mc-event-reclassified",
       "decision": "MC-EVENT is a dilution diagnostic, not a manipulation check.",
       "why": "With standard retired, event-structure content enters only via neutral transitions; MC-EVENT now measures that leakage.",
-      "where": "measures.md",
-      "decisionRecord": "DEC-047"
+      "where": "measures.md"
     },
     {
       "id": "harness-runs-continuously-not-a-gate",
       "decision": "The synthetic harness is re-run on every prompt-design change, in parallel with human piloting. It is explicitly not a gate: no pre-registered threshold blocks an arm.",
       "why": "Re-evaluation is standing practice, so per-change approval tasks add nothing, and passing a machine check is not a precondition for human piloting. Fallback, rejection and neutral-transition counts are still measured and reported descriptively — not gating is not the same as not measuring.",
-      "where": "05-verification/evaluation-harness.md",
-      "decisionRecord": "DEC-044"
+      "where": "05-verification/evaluation-harness.md"
     }
   ],
   "inherited": [
@@ -97,19 +90,6 @@
       "translations": {
         "ja": "overview.ja.html"
       }
-    },
-    {
-      "id": "decisions",
-      "path": "00-decisions/decisions.md",
-      "purpose": "Every active decision constraining the system: status, domain, approval, open task, the core module it lands in, current wording, one-line source. Archive and frozen provenance alongside.",
-      "directory": "00-decisions",
-      "index": "00-decisions/README.md"
-    },
-    {
-      "id": "tasks",
-      "path": "00-decisions/tasks.md",
-      "purpose": "Open work, one list, with the decisions each item depends on",
-      "directory": "00-decisions"
     },
     {
       "id": "research-context",
@@ -189,16 +169,60 @@
     {
       "id": "evidence",
       "path": "05-verification/evidence/",
-      "purpose": "Raw request/response log of that run plus the probe script to reproduce it",
+      "purpose": "Every run on record with the configuration behind it: 2026-07-25 prompt evaluation, v0.4.2/v0.4.3 validations, 2026-09-05 Luna/Astra batch, 2026-09-06 three-scenario live validation, 2026-09-07 live probe. Index in evidence/README.md",
       "evidence": true,
       "directory": "05-verification"
+    },
+    {
+      "id": "initial-recall-trigger",
+      "path": "03-measurement/initial-recall-trigger.md",
+      "purpose": "The shared recall trigger wording (v0.1.2), JA/EN, with the non-recall and abort handling — a preserved instrument",
+      "directory": "03-measurement",
+      "preservedAsset": true
+    },
+    {
+      "id": "manipulation-check-spec",
+      "path": "03-measurement/manipulation-check.md",
+      "purpose": "Manipulation check and diagnostic item specification with the evidence classification; machine form in manipulation-check.yaml. Item roles and contrast were re-cut by (sync pending, TASK-023)",
+      "directory": "03-measurement"
+    },
+    {
+      "id": "consent-form-draft",
+      "path": "04-storage/consent-form-ja.md",
+      "purpose": "Participant consent text draft v0.2.0: API transmission, retention, withdrawal. Contact and institutional details still blank",
+      "directory": "04-storage"
+    },
+    {
+      "id": "supabase-notes",
+      "path": "04-storage/supabase.md",
+      "purpose": "Record of the cloud-database connection check on the previous implementation: schema, RLS, idempotent re-submit, export — reference, not a requirement",
+      "directory": "04-storage"
+    },
+    {
+      "id": "prompt-catalog",
+      "path": "02-generation/prompts/catalog/",
+      "purpose": "Design rationale per prompt version, v0.4.1 to v0.4.4: what each version changed and why",
+      "directory": "02-generation"
+    },
+    {
+      "id": "personas",
+      "path": "05-verification/personas.mjs",
+      "purpose": "The ten synthetic personas (fragment + seven-section ground truth, 3 without odor memory) used by the harness and by the batches on record",
+      "directory": "05-verification",
+      "preservedAsset": true
+    },
+    {
+      "id": "agent-instructions",
+      "path": "AGENTS.template.md",
+      "purpose": "Agent working instructions for a project built from this directory: project context, the no-subagent working policy, research and data boundaries, and the verification chain. Copy to the new project root as AGENTS.md.",
+      "readFirst": true
     }
   ],
   "prompts": {
     "path": "02-generation/prompts/",
     "notes": "02-generation/prompts/README.md",
     "preservedAsset": true,
-    "warning": "Preserved verbatim from the three-condition implementation. Remove the [condition-standard] guidance section and every mention of turnFunction when rebuilding.",
+    "warning": "Preserved from the three-condition implementation with one edit: the [condition-standard] guidance section was deleted on 2026-09-07. Guidance is spliced one section at a time, so that deletion cannot change a visual or odor prompt. Still outstanding: turnFunction is retired from the contract but is still named in follow-up.ja.txt / follow-up.en.txt, and that text is in the body of every rendered prompt — removing it changes the prompt and has not been measured (TASK-023).",
     "question": {
       "version": "prompt-catalog-v0.4.4-mock-draft",
       "template": {
@@ -220,11 +244,23 @@
         "normal-transition",
         "non-recall-transition"
       ],
-      "retiredSections": [
-        "condition-standard"
-      ],
       "temperature": 0.55,
-      "onExhaustion": "fixed fallback question, session continues"
+      "onExhaustion": "fixed fallback question, session continues",
+      "removedSections": [
+        {
+          "section": "condition-standard",
+          "removedOn": "2026-09-07",
+          "effectOnRenderedPrompt": "none for visual and odor — sections are spliced individually",
+          "textPreservedIn": "02-generation/prompts/catalog/PROMPT_CATALOG_V0.4.1_DRAFT.md"
+        }
+      ],
+      "pendingRemoval": [
+        {
+          "what": "turnFunction wording in the follow-up template body",
+          "effectOnRenderedPrompt": "changes the prompt for both conditions; unmeasured",
+          "task": "TASK-023"
+        }
+      ]
     },
     "narrative": {
       "version": "prompt-catalog-v0.4.3-mock-draft",
@@ -275,7 +311,7 @@
       "SUPABASE_URL",
       "SUPABASE_SECRET_KEY"
     ],
-    "assignment": "block randomisation stratified by language, with an allocation log (DEC-003); block size, ratio, seed and concealment open (TASK-016)"
+    "assignment": "block randomisation stratified by language, with an allocation log; block size, ratio, seed and concealment open (TASK-016)"
   },
   "doNotTrust": [
     {
@@ -291,8 +327,12 @@
       "why": "describes the question, not whether the participant recalled"
     },
     {
-      "path": "docs/protocol/PROTOCOL.md (retired), docs/prompts/PROMPT_CATALOG_*.md, experiment/conditions.yaml, README.md and AGENTS.md project-context lines",
-      "why": "describe superseded designs (three conditions, fixed questions, approval gates); this directory supersedes them. docs/project/decisions-active.md is not superseded: it holds the project-management decisions that are deliberately kept outside core/."
+      "path": "docs/protocol/PROTOCOL.md (retired), docs/prompts/PROMPT_CATALOG_*.md, experiment/conditions.yaml, README.md project-context lines",
+      "why": "describe superseded designs (three conditions, fixed questions, approval gates); this directory supersedes them. docs/project/decisions-active.md is not superseded: it holds the project-management decisions that are deliberately kept outside core/. The repository root AGENTS.md was realigned to this directory on 2026-09-07 and is no longer on this list; it is the instantiation of AGENTS.template.md."
+    },
+    {
+      "path": "02-generation/prompts/catalog/PROMPT_CATALOG_V0.4.1_DRAFT.md",
+      "why": "historical catalogue describing the three-condition design; the current prompt text is prompts/*.txt"
     }
   ],
   "commands": {
@@ -306,12 +346,12 @@
   "selfContained": true,
   "notIncludedByDesign": [
     {
-      "what": "UI copy (welcome, consent, recall, debrief)",
-      "why": "the builder writes it; DESIGN.md §3 states what each screen must convey. Consent and debrief wording is ethically load-bearing."
+      "what": "welcome, question, narrative and debrief screen copy",
+      "why": "the builder writes it; DESIGN.md §3 states what each screen must convey"
     },
     {
-      "what": "persona fixtures",
-      "why": "evaluation-harness.md specifies what a persona must contain; write them from the spec"
+      "what": "English recall trigger and consent form",
+      "why": "Japanese is the source. Generate the English from it when an English session is needed — meaning-matched, not literal, ids unchanged — and give it the same review (README.md)"
     },
     {
       "what": "regular expressions as code",
@@ -323,19 +363,11 @@
     }
   ],
   "directories": {
-    "00-decisions": "What was decided, why, where it lands in this spec, and what is still open?",
     "01-research": "Why does this exist, and what may we claim?",
     "02-generation": "How is each question and the story produced, and what makes one unacceptable?",
     "03-measurement": "What is asked of the participant, and how is it analysed?",
     "04-storage": "What is kept, where, and under what consent?",
     "05-verification": "How do we know it works before recruiting anyone?"
   },
-  "decisionRecords": {
-    "index": "00-decisions/README.md",
-    "active": "00-decisions/decisions.md",
-    "tasks": "00-decisions/tasks.md",
-    "archive": "00-decisions/decisions-archive.md",
-    "provenance": "00-decisions/provenance.md",
-    "note": "Complete log of every decision that constrains this system (DEC-001 onward), each with a 反映先 naming the module it lands in. designDecisions above are only the entries that most recently changed the design. Project-management decisions (schedule, approvals, key revocation, ethics-review process) live outside this directory in docs/project/decisions-active.md."
-  }
+  "decisionHistory": "Decision records were deleted on 2026-09-08. The spec is the source of truth: what is true now is stated in the present tense here, and git holds when and why it changed. Boundaries that still constrain the work are rules in 01-research/research-context.md and 03-measurement/measures.md. DEC-xxx ids survive only in frozen reports; read them with: git log -p --follow -- core/00-decisions/"
 }

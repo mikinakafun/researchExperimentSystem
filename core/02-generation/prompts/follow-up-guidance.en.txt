@@ -1,6 +1,3 @@
-[condition-standard]
-Focus on actions, people, interactions, and event order. Do not ask about vision, sound, odor, touch, temperature, bodily sensations, atmosphere, or emotion.
-
 [condition-visual]
 Focus on visual targets and details. Do not ask about odor, sound, touch, temperature, bodily sensations, or emotion. Do not assume an unreported color, shape, number, brightness, or arrangement.
 

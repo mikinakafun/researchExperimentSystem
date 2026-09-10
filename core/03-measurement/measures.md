@@ -81,6 +81,7 @@ Two groups, so the primary test is a straight between-group comparison — no co
 - `DQ-*` and `MC-EVENT` are diagnostics, not outcomes.
 - `DQ-UNSAID` is a per-condition diagnostic only — never for exclusion, regeneration, or as a covariate. Creative additions are a permitted property of the narrative, so a high score is **not** a quality failure.
 - **Do not adjust outcomes for fallback count.** It is a consequence of the assigned condition, so covariate adjustment would absorb part of the effect. Report it; do not control for it.
+- **The primary outcome is fixed before data collection and never changed after seeing results.** Measuring four axes does not make any of them substitutable for 記憶様感: treating a secondary axis as confirmatory after the fact is four tests reported as one. A secondary axis that looks strong is an exploratory finding, and is reported as such.
 
 ## Reference materials during rating
 
@@ -90,6 +91,6 @@ At both rating steps the participant must be able to re-read the narrative; at t
 
 A fallback question is a different stimulus from a generated one, and a neutral question is a partial withdrawal of the manipulation. A session whose questions were half canned did not receive the condition at full strength.
 
-Nothing blocks collection on this. The synthetic harness runs continuously but is deliberately **not** a gate ([`DESIGN.md`](../DESIGN.md) §9), which makes the reporting obligation stronger rather than weaker: a condition can reach participants while its fallback rate is high, so that rate has to appear in the results rather than in a pre-flight check nobody sees. The retired `standard` arm is the worked example — 2 of 6 turns canned, and it failed silently until the generation records were examined.
+Nothing blocks collection on this. The synthetic harness runs continuously but is deliberately **not** a gate (`DESIGN.md` §9), which makes the reporting obligation stronger rather than weaker: a condition can reach participants while its fallback rate is high, so that rate has to appear in the results rather than in a pre-flight check nobody sees. The retired `standard` arm is the worked example — 2 of 6 turns canned, and it failed silently until the generation records were examined.
 
 Carry the per-session generation source, fallback count, and neutral-transition count into the analysis dataset, not just into a log.

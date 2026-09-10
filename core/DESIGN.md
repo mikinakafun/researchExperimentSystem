@@ -4,7 +4,7 @@
 
 Two things are inherited verbatim because they were settled and work: **the two storage modes with their consent lock** (§8) and **the operating commands** (§9).
 
-Every requirement below traces to a numbered decision in [`00-decisions/decisions.md`](00-decisions/decisions.md); each section lists its records. When this text and a decision disagree, the decision wins and this text is what gets fixed.
+This text is the specification. It states what is true now; git holds when and why it changed. `DEC-xxx` ids in older reports refer to decision records deleted on 2026-09-08 — read them with `git log -p --follow -- core/00-decisions/`.
 
 Concrete assets that must not be re-derived from scratch — prompt text, rating items, validator rules, fallback questions — are preserved in the linked modules (§11). Use them.
 
@@ -15,8 +15,6 @@ Concrete assets that must not be re-derived from scratch — prompt text, rating
 ---
 
 ## 1. What is being measured
-
-*Decision records: DEC-001, 002, 004, 005, 011, 024.*
 
 A **between-subjects experiment on question focus in AI-assisted autobiographical recall.**
 
@@ -33,16 +31,14 @@ The generated story is not a reconstruction of the participant's memory. Every s
 
 ## 2. Two conditions
 
-*Decision records: DEC-002, 003, 033, 041, 049.*
-
 | Condition | Points attention at | Must not ask about |
 |---|---|---|
 | `visual` | visual objects and details | odor, sound, touch, temperature, body, emotion |
 | `odor` | odor and its qualities, including what it was an odor of | vision, sound, touch, temperature, body, emotion, **explaining or guessing at a cause** |
 
-Assignment is made **after** a valid fragment is submitted, by **block randomisation stratified by session language**, and every assignment is written to an allocation log (DEC-003). Block size, allocation ratio, seed handling and concealment are still open (TASK-016); plain `Math.random()` is not the final mechanism. The condition name is never shown until debriefing.
+Assignment is made **after** a valid fragment is submitted, by **block randomisation stratified by session language**, and every assignment is written to an allocation log. Block size, allocation ratio, seed handling and concealment are still open (TASK-016); plain `Math.random()` is not the final mechanism. The condition name is never shown until debriefing.
 
-`odor` carries one prohibition `visual` does not: the question may not ask the participant to explain a cause or to guess at a source they cannot recall. It may ask what a remembered smell was a smell of. Olfactory perception is object-based — the source label is the percept rather than an inference about it, and in Japanese there is little other vocabulary for describing a smell — so forbidding that would leave `odor` unable to ask for object identity while `visual` asks for it freely, an asymmetry inside the only contrast this design has. See DEC-049 in [`00-decisions/decisions.md`](00-decisions/decisions.md).
+`odor` carries one prohibition `visual` does not: the question may not ask the participant to explain a cause or to guess at a source they cannot recall. It may ask what a remembered smell was a smell of. Olfactory perception is object-based — the source label is the percept rather than an inference about it, and in Japanese there is little other vocabulary for describing a smell — so forbidding that would leave `odor` unable to ask for object identity while `visual` asks for it freely, an asymmetry inside the only contrast this design has.
 
 ### Why `standard` was removed
 
@@ -64,21 +60,21 @@ When nothing remains askable inside the condition, the system moves to a **neutr
 
 ## 3. Participant flow
 
-*Decision records: DEC-007, 015, 016, 019.*
-
 Nine stages. Order is fixed; presentation is yours.
 
 | Stage | Requirement |
 |---|---|
 | welcome | State that questions and story come from a live model API. State that the assigned condition is hidden. |
 | consent | Name the data destination in plain language — model API **and** local file *or* cloud database. Explicit affirmative action required. |
-| recall | A shared trigger in every condition: one specific event from **at least a week ago**, with no emotional valence and no sense named (DEC-007, DEC-015). One sentence, **≤100 characters**, warn against personal identifiers. "I can't remember" is always available; on it the participant may switch to a different event **once**, after which the session ends. |
+| recall | A shared trigger in every condition: one specific event from **at least a week ago**, with no emotional valence and no sense named . One sentence, **≤100 characters**, warn against personal identifiers. "I can't remember" is always available; on it the participant may switch to a different event **once**, after which the session ends. |
 | questions | **Condition assigned here.** 6 turns, one question at a time, answer required. Language locks here. |
 | narrative | Show the story with a standing notice that it may contain content the participant never reported. |
 | evaluation | 12 outcome items, 7-point, **no default selection**. |
 | check | 2 manipulation checks + 4 diagnostics (§7). Must come after all outcome ratings. |
 | debrief | Reveal both conditions and the exact storage destination, then save. |
 | done | Terminal. |
+
+The **recall trigger** and the **consent form** already exist as preserved assets — [`03-measurement/initial-recall-trigger.md`](03-measurement/initial-recall-trigger.md) and [`04-storage/consent-form-ja.md`](04-storage/consent-form-ja.md). Reuse that wording rather than drafting your own; the consent form is inside the scope of ethics review. The remaining screens are yours to write. Both assets are Japanese, and Japanese is the source: **generate the English versions from them when an English session is needed**, meaning-matched rather than literal, ids unchanged.
 
 The participant must be able to abort after consent from any stage. An aborted session is never saved.
 
@@ -87,8 +83,6 @@ Language (`ja` / `en`) is selectable before questions begin and **frozen once th
 ---
 
 ## 4. The core mechanism
-
-*Decision records: DEC-030, 035, 045, 048.*
 
 This is the one architectural decision that is **not** free, because the study's validity rests on it:
 
@@ -114,8 +108,6 @@ These are not optional polish; each addresses a measured defect.
 ---
 
 ## 5. Question generation
-
-*Decision records: DEC-029, 030, 039, 043, 046.*
 
 **Six turns.** One question per turn, generated with full knowledge of everything said so far.
 
@@ -157,8 +149,6 @@ After the candidate budget is exhausted, return a **fixed, pre-validated questio
 
 ## 6. Narrative generation
 
-*Decision records: DEC-005, 034, 036.*
-
 One call, after all six answers. Input: the fragment and the six question/answer pairs. Full specification — including the language-dependent sentence joining rule, the sentence-counting rules, and the prohibition on treating question presuppositions as participant-stated fact — is in [`narrative-generation.md`](02-generation/narrative-generation.md).
 
 **Invention is permitted and expected.** The story may add scenes, sensations, emotions, dialogue, and an ending. It is bounded by:
@@ -178,8 +168,6 @@ The rated text must be reconstructible from the stored annotations — join the 
 ---
 
 ## 7. Measurement
-
-*Decision records: DEC-006, 010, 011, 014, 047.*
 
 All items are 7-point, no default selection, required. IDs are stable across languages. Full wording in both languages is in [`measures.md`](03-measurement/measures.md) — **use it verbatim; do not re-translate.**
 
@@ -209,8 +197,6 @@ All items are 7-point, no default selection, required. IDs are stable across lan
 
 ## 8. Recording and storage — inherited
 
-*Decision records: DEC-020, 037, 038.*
-
 Two modes, chosen by configuration, behind one save interface:
 
 - **Local file** — single-process append, for local piloting.
@@ -226,13 +212,11 @@ Also inherited:
 
 What must be recorded per session, and the current column layout as a reference, are in [`recording-and-storage.md`](04-storage/recording-and-storage.md).
 
-Retention, anonymisation, withdrawal and deletion follow DEC-020: ten years from final publication (or from the end of an unpublished pilot), withdrawal by session id before anonymisation, a destruction procedure that covers backups and exports, and a deletion record kept afterwards. The rules are set out in the same module.
+Retention, anonymisation, withdrawal and deletion: ten years from final publication (or from the end of an unpublished pilot), withdrawal by session id before anonymisation, a destruction procedure that covers backups and exports, and a deletion record kept afterwards. The rules are set out in the same module.
 
 ---
 
 ## 9. Operating it — inherited
-
-*Decision records: DEC-044.*
 
 ```bash
 npm run dev                              # local server
@@ -264,7 +248,6 @@ Each stands alone.
 | Directory | Module | Contents |
 |---|---|---|
 | — | [`overview.html`](overview.html) · [`overview.ja.html`](overview.ja.html) | The whole system on one page, visually — same content in both languages |
-| `00-decisions/` | [`README.md`](00-decisions/README.md) · [`decisions.md`](00-decisions/decisions.md) · [`tasks.md`](00-decisions/tasks.md) | Every decision that constrains this system, each naming the module it lands in; the open work |
 | `01-research/` | [`research-context.md`](01-research/research-context.md) | The research question, background, what is and is not claimed |
 | `02-generation/` | [`question-strategy.md`](02-generation/question-strategy.md) | Turn structure, generator input, decision procedure, neutral transitions, candidate budget |
 | | [`narrative-generation.md`](02-generation/narrative-generation.md) | The story step in full: joining rule, sentence rules, annotations and why they are untrusted |
@@ -277,4 +260,5 @@ Each stands alone.
 | `05-verification/` | [`evaluation-harness.md`](05-verification/evaluation-harness.md) | Synthetic persona batch, its metrics, and when to re-run it |
 | | [`observed-behavior.md`](05-verification/observed-behavior.md) | Evidence appendix — the live run behind the decisions above |
 | | [`evidence/`](05-verification/evidence/) | Raw request/response log and the probe script to reproduce it |
+| — | [`AGENTS.template.md`](AGENTS.template.md) | Agent working instructions for a project built from this directory — copy to the new project root as `AGENTS.md` |
 | — | [`manifest.json`](manifest.json) | Machine-readable index |

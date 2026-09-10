@@ -43,7 +43,7 @@ Four concerns define the current shape:
 3. The measurable quantity is not whether the narrative reproduced the event, but how far the participant finds it *memory-like*, *concrete*, and *emotional*.
 4. To attribute a difference to question focus, everything else — number of questions, specificity, response burden, leading-ness — must be held as comparable as possible across conditions.
 
-Point 4 is the direct origin of the [validator](../02-generation/validation-rules.md), the fixed 6-turn length, and the [guaranteed fallback](../02-generation/fallback-questions.md). They are not engineering hygiene; they are what makes the comparison mean anything.
+Point 4 is the direct origin of the `validator`, the fixed 6-turn length, and the `guaranteed fallback`. They are not engineering hygiene; they are what makes the comparison mean anything.
 
 ## Purpose and contribution
 
@@ -68,10 +68,10 @@ The narrative **includes model invention**, this is disclosed to participants in
 
 | | |
 |---|---|
-| Working title | *How Questioning Strategies Shape Autobiographical Narrative Reconstruction* (DEC-024; an LLM-narrative variant is a candidate) |
+| Working title | *How Questioning Strategies Shape Autobiographical Narrative Reconstruction* (an LLM-narrative variant is a candidate) |
 | Design | Between-subjects; **one condition per participant** |
 | Manipulation | Question wording only; **no odor stimulus** |
-| Conditions | Visual, Odor (an event-structure arm was retired — [`DESIGN.md`](../DESIGN.md) §2) |
+| Conditions | Visual, Odor (an event-structure arm was retired — `DESIGN.md` §2) |
 | Primary outcome | 記憶様感 / perceived memory-likeness |
 | Secondary outcomes | 情景構成感, 叙述鮮明性, 感情再体験感 |
 | Primary hypothesis | Memory-likeness differs between question conditions (**non-directional**) |
@@ -86,7 +86,7 @@ Spontaneous out-of-condition detail from a participant is **accepted but never p
 
 This is a **pilot instrument, not an approved protocol.**
 
-**Ethics review will be carried out** for the undergraduate study (DEC-042, reversing an earlier decision not to). The review body, forms, required documents, duration and submission timing are all still undetermined. Consent wording, storage and anonymisation, retention and deletion, and participant recruitment all fall inside its scope, and anything the review requires changed has to come back into these documents. **The start of participant data collection depends on the review outcome** — that dependency is a schedule constraint, not a formality.
+**Ethics review will be carried out** for the undergraduate study (reversing an earlier decision not to). The review body, forms, required documents, duration and submission timing are all still undetermined. Consent wording, storage and anonymisation, retention and deletion, and participant recruitment all fall inside its scope, and anything the review requires changed has to come back into these documents. **The start of participant data collection depends on the review outcome** — that dependency is a schedule constraint, not a formality.
 
 **Parameters are not being fixed in advance.** Turn count, model, temperature, candidate count, item set and sample size are pilot values that get re-tuned each time the output is calibrated; the values actually used are what goes into the paper. Nothing here is waiting on an approval to become official. What stays required is that every value and prompt version is recorded on every result, kept operable from one place, and that a version mismatch is refused at save time. The caution that follows: once collection starts, changing a parameter makes condition differences inseparable from generation-setting differences, so freeze the values then and treat later changes as a separate collection. When that freeze happens is not yet decided.
 
@@ -94,6 +94,4 @@ Consent, API-disclosure, and personal-information provisions must be finalised b
 
 Diagnostic quantities that must be recorded and **reported as results of the manipulation, never used as exclusion criteria**: per-condition non-recall rate, substantive answer count, answer length, and (added from live evidence) fallback and neutral-transition counts.
 
-## Out of scope
 
-A follow-on concept exists — gas sensors estimating real-world odor state, driving an interactive olfactory installation with generated visuals and audio. **None of it is part of this system**, and its research question, sensors, training data, labels, and evaluation are all undetermined. Do not design for it.

@@ -1,5 +1,11 @@
-# decisions-archive.md は core/00-decisions/ へ移動しました（2026-09-07）
+# decisions-archive.md は廃止しました（2026-09-08）
 
-上書き・却下された決定と、書き換え前の旧本文は [`core/00-decisions/decisions-archive.md`](../../core/00-decisions/decisions-archive.md) にあります。引用原文は [`core/00-decisions/provenance.md`](../../core/00-decisions/provenance.md)、全IDの索引は [`core/00-decisions/README.md`](../../core/00-decisions/README.md)。
+上書き・却下された決定の旧本文と引用原文（`provenance.md`）は削除しました。git が保持しています。
+
+```bash
+git show $(git log --diff-filter=D --format=%H -1 -- core/00-decisions/decisions-archive.md)^:core/00-decisions/decisions-archive.md
+```
+
+いま効いている境界は規則として仕様内にあります（[`core/01-research/research-context.md`](../../core/01-research/research-context.md)、[`core/03-measurement/measures.md`](../../core/03-measurement/measures.md)）。現在の仕様は[`core/DESIGN.md`](../../core/DESIGN.md)と`core/`の各モジュールが正本。
 
 このファイルは既存リンクを切らないために残しています。追記しないでください。

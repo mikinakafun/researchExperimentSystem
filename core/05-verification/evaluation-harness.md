@@ -13,7 +13,7 @@ npm run run:persona-batch                # execute (needs the dev server + a liv
 
 **10 personas × 2 conditions = 20 sessions × 6 turns = 120 question calls + 20 narratives.**
 
-Each persona carries a one-sentence `fragment` (matching the recall-step input) and a `groundTruth` memory that must contain all seven sections:
+The ten personas are [`personas.mjs`](personas.mjs) in this directory — a preserved asset; the 2026-07-25 and 2026-09-05 batches ran on them. Each persona carries a one-sentence `fragment` (matching the recall-step input) and a `groundTruth` memory that must contain all seven sections:
 
 ```
 【出来事の流れ】【視覚】【聴覚】【触覚・身体】【匂い】【感情】【覚えていないこと】
@@ -56,11 +56,11 @@ Plus a per-session warning when a **narrative contains odor wording while no ans
 
 ## Companion
 
-A batch-diff tool compares two runs, for judging whether a prompt revision actually helped. Keep that capability — it is how a change to the validator or the guidance gets evaluated instead of argued about. Any archived runs from the previous implementation are historical records of older prompt versions and three-condition designs; they are not current behaviour.
+A batch-diff tool compares two runs, for judging whether a prompt revision actually helped. Keep that capability — it is how a change to the validator or the guidance gets evaluated instead of argued about. The runs from the previous implementation, with the configuration that produced each, are in [`evidence/`](evidence/README.md); they are records of older prompt versions and of the three-condition design, and the numbers in them are the reference points the decisions cite.
 
 ---
 
-## When to run it, and what it is not (DEC-044)
+## When to run it, and what it is not
 
 **Run this every time the prompt design changes** — question-selection guidance, condition guidance, validator rules, candidate strategy. It is standing practice, not a milestone: changing how questions are chosen and not re-running it means the next result describes a system that no longer exists.
 
