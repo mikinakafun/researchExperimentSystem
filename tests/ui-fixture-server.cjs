@@ -35,7 +35,7 @@ http.createServer(async (req, res) => {
       if (req.url === '/api/follow-up') {
         // Deterministic error path, with no provider call.
         if (body.fragment === 'offline-error') return json(res, 503, { error: 'OPENAI_API_KEY is not configured on the server.' });
-        return json(res, 200, { ...fallbackQuestion(body), language: body.language, promptVersion: PROMPT_CONFIG.version, source: 'fallback', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['offline_fixture'] })) } });
+        return json(res, 200, { ...fallbackQuestion(body), language: body.language, promptVersion: PROMPT_CONFIG.followUpVersion, source: 'fallback', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['offline_fixture'] })) } });
       }
       if (req.url === '/api/narrative') {
         const sentences = (body.language === 'en'

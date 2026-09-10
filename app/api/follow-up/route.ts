@@ -73,7 +73,7 @@ export async function POST(request: Request) {
         const { candidate, schemaFlags } = parseCandidate(parsed);
         const flags = [...schemaFlags, ...validateQuestion({ ...candidate, condition, turn, fragment, history, language })];
         if (flags.length === 0) {
-          return Response.json({ ...candidate, language, model: result.model, requestId: result.id, promptVersion: PROMPT_CONFIG.version, source: "generated", attempts: attempt, diagnostics: { rejections: rejectionLog } });
+          return Response.json({ ...candidate, language, model: result.model, requestId: result.id, promptVersion: PROMPT_CONFIG.followUpVersion, source: "generated", attempts: attempt, diagnostics: { rejections: rejectionLog } });
         }
         rejectionLog.push({ attempt, flags, question: candidate.question, metadata: candidate.metadata });
         console.warn("[follow-up validation]", JSON.stringify({ condition, turn, attempt, flags }));
@@ -88,7 +88,7 @@ export async function POST(request: Request) {
     }
 
     const candidate = fallbackQuestion({ condition, turn, fragment, history, language });
-    return Response.json({ ...candidate, language, model: "fallback", requestId: null, promptVersion: PROMPT_CONFIG.version, source: "fallback", attempts: PROMPT_CONFIG.maxFollowUpAttempts, diagnostics: { rejections: rejectionLog } });
+    return Response.json({ ...candidate, language, model: "fallback", requestId: null, promptVersion: PROMPT_CONFIG.followUpVersion, source: "fallback", attempts: PROMPT_CONFIG.maxFollowUpAttempts, diagnostics: { rejections: rejectionLog } });
   } catch (error) {
     return jsonError(error);
   }

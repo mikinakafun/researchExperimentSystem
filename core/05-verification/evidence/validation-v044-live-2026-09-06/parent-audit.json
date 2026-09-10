@@ -1,0 +1,54 @@
+{
+  "rawSha256": "f52fc9192e85cf4e3e7088bf693503a7966756a9c468b16252c532ff0c13acaf",
+  "reviewedAt": "2026-09-06T10:48:24.072Z",
+  "questionCount": 54,
+  "narrativeCount": 9,
+  "uniqueQuestionKeys": 54,
+  "byCondition": {
+    "standard": {
+      "presented": 18,
+      "fallback": 6,
+      "retryIncludingFallback": 8,
+      "generatedNeutral": 0,
+      "attempts": 32
+    },
+    "visual": {
+      "presented": 18,
+      "fallback": 0,
+      "retryIncludingFallback": 0,
+      "generatedNeutral": 0,
+      "attempts": 18
+    },
+    "odor": {
+      "presented": 18,
+      "fallback": 1,
+      "retryIncludingFallback": 2,
+      "generatedNeutral": 0,
+      "attempts": 22
+    }
+  },
+  "rejectionFlagOccurrences": {
+    "standard_sensory_contamination": 17,
+    "standard_emotion_focus": 4,
+    "focused_question_with_transition": 4,
+    "invalid_target_evidence_id": 2
+  },
+  "narrativeAttempts": 9,
+  "localFailures": [
+    {
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 1,
+      "status": 400,
+      "historyLength": 1
+    },
+    {
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 1,
+      "status": 400,
+      "historyLength": 1
+    }
+  ],
+  "consistencyErrors": []
+}

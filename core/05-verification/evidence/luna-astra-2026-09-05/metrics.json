@@ -1,0 +1,933 @@
+{
+  "current": {
+    "standard": {
+      "sessions": 10,
+      "means": {
+        "question_chars": 33.8,
+        "answer_chars": 136,
+        "narrative_chars": 173.8,
+        "question_odor_turns": 0,
+        "answer_odor_turns": 0.1,
+        "narrative_odor": 0.1,
+        "no_recall_turns": 3.2,
+        "fallback_turns": 0.7,
+        "retried_turns": 1.9,
+        "question_attempts": 9.1,
+        "narrative_sentences": 4.6,
+        "creative_sentences": 2.5,
+        "creative_fraction": 0.52,
+        "neutral_turns": 0.5
+      },
+      "totals": {
+        "answer_chars": 1360,
+        "narrative_chars": 1738,
+        "question_odor_turns": 0,
+        "answer_odor_turns": 1,
+        "narrative_odor": 1,
+        "no_recall_turns": 32,
+        "fallback_turns": 7,
+        "retried_turns": 19,
+        "question_attempts": 91,
+        "narrative_sentences": 46,
+        "creative_sentences": 25,
+        "neutral_turns": 5
+      },
+      "question_unique": 58
+    },
+    "visual": {
+      "sessions": 10,
+      "means": {
+        "question_chars": 38.833333333333336,
+        "answer_chars": 123.3,
+        "narrative_chars": 203.3,
+        "question_odor_turns": 0,
+        "answer_odor_turns": 0,
+        "narrative_odor": 0.1,
+        "no_recall_turns": 3.9,
+        "fallback_turns": 0,
+        "retried_turns": 0.1,
+        "question_attempts": 6.1,
+        "narrative_sentences": 5.3,
+        "creative_sentences": 3.5,
+        "creative_fraction": 0.6521428571428571,
+        "neutral_turns": 0
+      },
+      "totals": {
+        "answer_chars": 1233,
+        "narrative_chars": 2033,
+        "question_odor_turns": 0,
+        "answer_odor_turns": 0,
+        "narrative_odor": 1,
+        "no_recall_turns": 39,
+        "fallback_turns": 0,
+        "retried_turns": 1,
+        "question_attempts": 61,
+        "narrative_sentences": 53,
+        "creative_sentences": 35,
+        "neutral_turns": 0
+      },
+      "question_unique": 60
+    },
+    "odor": {
+      "sessions": 10,
+      "means": {
+        "question_chars": 37.016666666666666,
+        "answer_chars": 137.1,
+        "narrative_chars": 178.2,
+        "question_odor_turns": 5.5,
+        "answer_odor_turns": 3.5,
+        "narrative_odor": 1,
+        "no_recall_turns": 3.2,
+        "fallback_turns": 0.7,
+        "retried_turns": 1.6,
+        "question_attempts": 8.6,
+        "narrative_sentences": 4.7,
+        "creative_sentences": 2.6,
+        "creative_fraction": 0.5533333333333333,
+        "neutral_turns": 0.3
+      },
+      "totals": {
+        "answer_chars": 1371,
+        "narrative_chars": 1782,
+        "question_odor_turns": 55,
+        "answer_odor_turns": 35,
+        "narrative_odor": 10,
+        "no_recall_turns": 32,
+        "fallback_turns": 7,
+        "retried_turns": 16,
+        "question_attempts": 86,
+        "narrative_sentences": 47,
+        "creative_sentences": 26,
+        "neutral_turns": 3
+      },
+      "question_unique": 56
+    }
+  },
+  "historical": {
+    "standard": {
+      "sessions": 10,
+      "means": {
+        "question_chars": 27.46666666666667,
+        "answer_chars": 143.9,
+        "narrative_chars": 273.6,
+        "question_odor_turns": 0,
+        "answer_odor_turns": 0,
+        "narrative_odor": 0.2,
+        "no_recall_turns": 2.2,
+        "fallback_turns": 0.2,
+        "retried_turns": 1.4,
+        "question_attempts": 7.9,
+        "narrative_sentences": 8.6,
+        "creative_sentences": null,
+        "creative_fraction": null,
+        "neutral_turns": 0
+      },
+      "totals": {
+        "answer_chars": 1439,
+        "narrative_chars": 2736,
+        "question_odor_turns": 0,
+        "answer_odor_turns": 0,
+        "narrative_odor": 2,
+        "no_recall_turns": 22,
+        "fallback_turns": 2,
+        "retried_turns": 14,
+        "question_attempts": 79,
+        "narrative_sentences": 86,
+        "creative_sentences": null,
+        "neutral_turns": 0
+      },
+      "question_unique": 60
+    },
+    "visual": {
+      "sessions": 10,
+      "means": {
+        "question_chars": 28.849999999999998,
+        "answer_chars": 194.5,
+        "narrative_chars": 306.5,
+        "question_odor_turns": 0,
+        "answer_odor_turns": 0,
+        "narrative_odor": 0.2,
+        "no_recall_turns": 1,
+        "fallback_turns": 0.1,
+        "retried_turns": 0.8,
+        "question_attempts": 7,
+        "narrative_sentences": 8.3,
+        "creative_sentences": null,
+        "creative_fraction": null,
+        "neutral_turns": 0
+      },
+      "totals": {
+        "answer_chars": 1945,
+        "narrative_chars": 3065,
+        "question_odor_turns": 0,
+        "answer_odor_turns": 0,
+        "narrative_odor": 2,
+        "no_recall_turns": 10,
+        "fallback_turns": 1,
+        "retried_turns": 8,
+        "question_attempts": 70,
+        "narrative_sentences": 83,
+        "creative_sentences": null,
+        "neutral_turns": 0
+      },
+      "question_unique": 60
+    },
+    "odor": {
+      "sessions": 10,
+      "means": {
+        "question_chars": 25.316666666666666,
+        "answer_chars": 174.6,
+        "narrative_chars": 280.1,
+        "question_odor_turns": 4.5,
+        "answer_odor_turns": 3.8,
+        "narrative_odor": 1,
+        "no_recall_turns": 1,
+        "fallback_turns": 0.3,
+        "retried_turns": 0.5,
+        "question_attempts": 6.8,
+        "narrative_sentences": 8.7,
+        "creative_sentences": null,
+        "creative_fraction": null,
+        "neutral_turns": 0
+      },
+      "totals": {
+        "answer_chars": 1746,
+        "narrative_chars": 2801,
+        "question_odor_turns": 45,
+        "answer_odor_turns": 38,
+        "narrative_odor": 10,
+        "no_recall_turns": 10,
+        "fallback_turns": 3,
+        "retried_turns": 5,
+        "question_attempts": 68,
+        "narrative_sentences": 87,
+        "creative_sentences": null,
+        "neutral_turns": 0
+      },
+      "question_unique": 52
+    }
+  },
+  "condition_contrasts": {
+    "odor_minus_visual": {
+      "narrative_chars": {
+        "n": 10,
+        "mean_difference": -25.1,
+        "median_difference": -30.0,
+        "positive": 3,
+        "negative": 7,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": -45,
+          "library-study": -15,
+          "morning-market": -1,
+          "museum-painting": -62,
+          "park-walk": 45,
+          "rainy-station": -93,
+          "riverside-walk": -51,
+          "school-festival": 7,
+          "seaside-bicycle": -54,
+          "shopping-street": 18
+        }
+      },
+      "answer_chars": {
+        "n": 10,
+        "mean_difference": 13.8,
+        "median_difference": 11.0,
+        "positive": 5,
+        "negative": 5,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": 26,
+          "library-study": -23,
+          "morning-market": -26,
+          "museum-painting": -4,
+          "park-walk": 43,
+          "rainy-station": 85,
+          "riverside-walk": -65,
+          "school-festival": 134,
+          "seaside-bicycle": -106,
+          "shopping-street": 74
+        }
+      },
+      "no_recall_turns": {
+        "n": 10,
+        "mean_difference": -0.7,
+        "median_difference": 0.5,
+        "positive": 5,
+        "negative": 4,
+        "ties": 1,
+        "differences": {
+          "birthday-cake": -4,
+          "library-study": 1,
+          "morning-market": 0,
+          "museum-painting": 1,
+          "park-walk": 1,
+          "rainy-station": -3,
+          "riverside-walk": 1,
+          "school-festival": -3,
+          "seaside-bicycle": 1,
+          "shopping-street": -2
+        }
+      },
+      "question_odor_turns": {
+        "n": 10,
+        "mean_difference": 5.5,
+        "median_difference": 6.0,
+        "positive": 10,
+        "negative": 0,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": 6,
+          "library-study": 6,
+          "morning-market": 6,
+          "museum-painting": 6,
+          "park-walk": 5,
+          "rainy-station": 6,
+          "riverside-walk": 4,
+          "school-festival": 6,
+          "seaside-bicycle": 5,
+          "shopping-street": 5
+        }
+      },
+      "narrative_odor": {
+        "n": 10,
+        "mean_difference": 0.9,
+        "median_difference": 1.0,
+        "positive": 9,
+        "negative": 0,
+        "ties": 1,
+        "differences": {
+          "birthday-cake": 0,
+          "library-study": 1,
+          "morning-market": 1,
+          "museum-painting": 1,
+          "park-walk": 1,
+          "rainy-station": 1,
+          "riverside-walk": 1,
+          "school-festival": 1,
+          "seaside-bicycle": 1,
+          "shopping-street": 1
+        }
+      },
+      "creative_fraction": {
+        "n": 10,
+        "mean_difference": -0.0988095238095238,
+        "median_difference": -0.036904761904761885,
+        "positive": 2,
+        "negative": 6,
+        "ties": 2,
+        "differences": {
+          "birthday-cake": -0.6,
+          "library-study": -0.023809523809523725,
+          "morning-market": 0.35,
+          "museum-painting": 0.0,
+          "park-walk": 0.20000000000000007,
+          "rainy-station": -0.2142857142857143,
+          "riverside-walk": 0.0,
+          "school-festival": -0.09999999999999998,
+          "seaside-bicycle": -0.050000000000000044,
+          "shopping-street": -0.55
+        }
+      }
+    },
+    "odor_minus_standard": {
+      "narrative_chars": {
+        "n": 10,
+        "mean_difference": 4.4,
+        "median_difference": -17.5,
+        "positive": 4,
+        "negative": 6,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": -26,
+          "library-study": 58,
+          "morning-market": 86,
+          "museum-painting": -43,
+          "park-walk": -12,
+          "rainy-station": -30,
+          "riverside-walk": -64,
+          "school-festival": -23,
+          "seaside-bicycle": 44,
+          "shopping-street": 54
+        }
+      },
+      "answer_chars": {
+        "n": 10,
+        "mean_difference": 1.1,
+        "median_difference": 17.0,
+        "positive": 8,
+        "negative": 2,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": 3,
+          "library-study": -132,
+          "morning-market": 33,
+          "museum-painting": -60,
+          "park-walk": 39,
+          "rainy-station": 54,
+          "riverside-walk": 23,
+          "school-festival": 11,
+          "seaside-bicycle": 3,
+          "shopping-street": 37
+        }
+      },
+      "no_recall_turns": {
+        "n": 10,
+        "mean_difference": 0,
+        "median_difference": -0.5,
+        "positive": 3,
+        "negative": 5,
+        "ties": 2,
+        "differences": {
+          "birthday-cake": -2,
+          "library-study": 3,
+          "morning-market": -2,
+          "museum-painting": 4,
+          "park-walk": 0,
+          "rainy-station": -2,
+          "riverside-walk": 0,
+          "school-festival": -1,
+          "seaside-bicycle": -1,
+          "shopping-street": 1
+        }
+      },
+      "question_odor_turns": {
+        "n": 10,
+        "mean_difference": 5.5,
+        "median_difference": 6.0,
+        "positive": 10,
+        "negative": 0,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": 6,
+          "library-study": 6,
+          "morning-market": 6,
+          "museum-painting": 6,
+          "park-walk": 5,
+          "rainy-station": 6,
+          "riverside-walk": 4,
+          "school-festival": 6,
+          "seaside-bicycle": 5,
+          "shopping-street": 5
+        }
+      },
+      "narrative_odor": {
+        "n": 10,
+        "mean_difference": 0.9,
+        "median_difference": 1.0,
+        "positive": 9,
+        "negative": 0,
+        "ties": 1,
+        "differences": {
+          "birthday-cake": 0,
+          "library-study": 1,
+          "morning-market": 1,
+          "museum-painting": 1,
+          "park-walk": 1,
+          "rainy-station": 1,
+          "riverside-walk": 1,
+          "school-festival": 1,
+          "seaside-bicycle": 1,
+          "shopping-street": 1
+        }
+      },
+      "creative_fraction": {
+        "n": 10,
+        "mean_difference": 0.03333333333333334,
+        "median_difference": 0.15,
+        "positive": 7,
+        "negative": 2,
+        "ties": 1,
+        "differences": {
+          "birthday-cake": -0.6,
+          "library-study": 0.2333333333333334,
+          "morning-market": 0.25,
+          "museum-painting": 0.20000000000000007,
+          "park-walk": 0.0,
+          "rainy-station": 0.09999999999999998,
+          "riverside-walk": -0.4,
+          "school-festival": 0.09999999999999998,
+          "seaside-bicycle": 0.25,
+          "shopping-street": 0.2
+        }
+      }
+    },
+    "visual_minus_standard": {
+      "narrative_chars": {
+        "n": 10,
+        "mean_difference": 29.5,
+        "median_difference": 27.5,
+        "positive": 7,
+        "negative": 3,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": 19,
+          "library-study": 73,
+          "morning-market": 87,
+          "museum-painting": 19,
+          "park-walk": -57,
+          "rainy-station": 63,
+          "riverside-walk": -13,
+          "school-festival": -30,
+          "seaside-bicycle": 98,
+          "shopping-street": 36
+        }
+      },
+      "answer_chars": {
+        "n": 10,
+        "mean_difference": -12.7,
+        "median_difference": -27.0,
+        "positive": 3,
+        "negative": 7,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": -23,
+          "library-study": -109,
+          "morning-market": 59,
+          "museum-painting": -56,
+          "park-walk": -4,
+          "rainy-station": -31,
+          "riverside-walk": 88,
+          "school-festival": -123,
+          "seaside-bicycle": 109,
+          "shopping-street": -37
+        }
+      },
+      "no_recall_turns": {
+        "n": 10,
+        "mean_difference": 0.7,
+        "median_difference": 1.5,
+        "positive": 6,
+        "negative": 4,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": 2,
+          "library-study": 2,
+          "morning-market": -2,
+          "museum-painting": 3,
+          "park-walk": -1,
+          "rainy-station": 1,
+          "riverside-walk": -1,
+          "school-festival": 2,
+          "seaside-bicycle": -2,
+          "shopping-street": 3
+        }
+      },
+      "question_odor_turns": {
+        "n": 10,
+        "mean_difference": 0,
+        "median_difference": 0.0,
+        "positive": 0,
+        "negative": 0,
+        "ties": 10,
+        "differences": {
+          "birthday-cake": 0,
+          "library-study": 0,
+          "morning-market": 0,
+          "museum-painting": 0,
+          "park-walk": 0,
+          "rainy-station": 0,
+          "riverside-walk": 0,
+          "school-festival": 0,
+          "seaside-bicycle": 0,
+          "shopping-street": 0
+        }
+      },
+      "narrative_odor": {
+        "n": 10,
+        "mean_difference": 0,
+        "median_difference": 0.0,
+        "positive": 0,
+        "negative": 0,
+        "ties": 10,
+        "differences": {
+          "birthday-cake": 0,
+          "library-study": 0,
+          "morning-market": 0,
+          "museum-painting": 0,
+          "park-walk": 0,
+          "rainy-station": 0,
+          "riverside-walk": 0,
+          "school-festival": 0,
+          "seaside-bicycle": 0,
+          "shopping-street": 0
+        }
+      },
+      "creative_fraction": {
+        "n": 10,
+        "mean_difference": 0.13214285714285715,
+        "median_difference": 0.2,
+        "positive": 6,
+        "negative": 3,
+        "ties": 1,
+        "differences": {
+          "birthday-cake": 0.0,
+          "library-study": 0.2571428571428571,
+          "morning-market": -0.09999999999999998,
+          "museum-painting": 0.20000000000000007,
+          "park-walk": -0.20000000000000007,
+          "rainy-station": 0.3142857142857143,
+          "riverside-walk": -0.4,
+          "school-festival": 0.19999999999999996,
+          "seaside-bicycle": 0.30000000000000004,
+          "shopping-street": 0.75
+        }
+      }
+    }
+  },
+  "historical_changes": {
+    "standard": {
+      "narrative_chars": {
+        "n": 10,
+        "mean_difference": -99.8,
+        "median_difference": -103.5,
+        "positive": 0,
+        "negative": 10,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": -128,
+          "library-study": -24,
+          "morning-market": -218,
+          "museum-painting": -34,
+          "park-walk": -38,
+          "rainy-station": -78,
+          "riverside-walk": -120,
+          "school-festival": -151,
+          "seaside-bicycle": -120,
+          "shopping-street": -87
+        }
+      },
+      "answer_chars": {
+        "n": 10,
+        "mean_difference": -7.9,
+        "median_difference": -20.5,
+        "positive": 3,
+        "negative": 6,
+        "ties": 1,
+        "differences": {
+          "birthday-cake": 11,
+          "library-study": 56,
+          "morning-market": -28,
+          "museum-painting": -27,
+          "park-walk": -42,
+          "rainy-station": 33,
+          "riverside-walk": -14,
+          "school-festival": 0,
+          "seaside-bicycle": -37,
+          "shopping-street": -31
+        }
+      },
+      "no_recall_turns": {
+        "n": 10,
+        "mean_difference": 1,
+        "median_difference": 1.0,
+        "positive": 6,
+        "negative": 1,
+        "ties": 3,
+        "differences": {
+          "birthday-cake": 0,
+          "library-study": 2,
+          "morning-market": 1,
+          "museum-painting": 1,
+          "park-walk": 1,
+          "rainy-station": 0,
+          "riverside-walk": 3,
+          "school-festival": -1,
+          "seaside-bicycle": 3,
+          "shopping-street": 0
+        }
+      },
+      "question_odor_turns": {
+        "n": 10,
+        "mean_difference": 0,
+        "median_difference": 0.0,
+        "positive": 0,
+        "negative": 0,
+        "ties": 10,
+        "differences": {
+          "birthday-cake": 0,
+          "library-study": 0,
+          "morning-market": 0,
+          "museum-painting": 0,
+          "park-walk": 0,
+          "rainy-station": 0,
+          "riverside-walk": 0,
+          "school-festival": 0,
+          "seaside-bicycle": 0,
+          "shopping-street": 0
+        }
+      },
+      "narrative_odor": {
+        "n": 10,
+        "mean_difference": -0.1,
+        "median_difference": 0.0,
+        "positive": 1,
+        "negative": 2,
+        "ties": 7,
+        "differences": {
+          "birthday-cake": 1,
+          "library-study": 0,
+          "morning-market": -1,
+          "museum-painting": 0,
+          "park-walk": 0,
+          "rainy-station": 0,
+          "riverside-walk": 0,
+          "school-festival": 0,
+          "seaside-bicycle": 0,
+          "shopping-street": -1
+        }
+      },
+      "creative_fraction": {
+        "n": 0,
+        "mean_difference": null,
+        "median_difference": null,
+        "positive": 0,
+        "negative": 0,
+        "ties": 0,
+        "differences": {}
+      },
+      "changed_texts": {
+        "narratives": 10,
+        "questions": 60,
+        "answers": 53
+      }
+    },
+    "visual": {
+      "narrative_chars": {
+        "n": 10,
+        "mean_difference": -103.2,
+        "median_difference": -108.5,
+        "positive": 0,
+        "negative": 10,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": -101,
+          "library-study": -12,
+          "morning-market": -114,
+          "museum-painting": -110,
+          "park-walk": -144,
+          "rainy-station": -107,
+          "riverside-walk": -111,
+          "school-festival": -168,
+          "seaside-bicycle": -68,
+          "shopping-street": -97
+        }
+      },
+      "answer_chars": {
+        "n": 10,
+        "mean_difference": -71.2,
+        "median_difference": -76.0,
+        "positive": 2,
+        "negative": 8,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": -88,
+          "library-study": -77,
+          "morning-market": 19,
+          "museum-painting": -177,
+          "park-walk": -75,
+          "rainy-station": -51,
+          "riverside-walk": -10,
+          "school-festival": -185,
+          "seaside-bicycle": 24,
+          "shopping-street": -92
+        }
+      },
+      "no_recall_turns": {
+        "n": 10,
+        "mean_difference": 2.9,
+        "median_difference": 3.0,
+        "positive": 8,
+        "negative": 0,
+        "ties": 2,
+        "differences": {
+          "birthday-cake": 5,
+          "library-study": 3,
+          "morning-market": 0,
+          "museum-painting": 5,
+          "park-walk": 2,
+          "rainy-station": 3,
+          "riverside-walk": 4,
+          "school-festival": 3,
+          "seaside-bicycle": 0,
+          "shopping-street": 4
+        }
+      },
+      "question_odor_turns": {
+        "n": 10,
+        "mean_difference": 0,
+        "median_difference": 0.0,
+        "positive": 0,
+        "negative": 0,
+        "ties": 10,
+        "differences": {
+          "birthday-cake": 0,
+          "library-study": 0,
+          "morning-market": 0,
+          "museum-painting": 0,
+          "park-walk": 0,
+          "rainy-station": 0,
+          "riverside-walk": 0,
+          "school-festival": 0,
+          "seaside-bicycle": 0,
+          "shopping-street": 0
+        }
+      },
+      "narrative_odor": {
+        "n": 10,
+        "mean_difference": -0.1,
+        "median_difference": 0.0,
+        "positive": 1,
+        "negative": 2,
+        "ties": 7,
+        "differences": {
+          "birthday-cake": 1,
+          "library-study": 0,
+          "morning-market": 0,
+          "museum-painting": 0,
+          "park-walk": 0,
+          "rainy-station": 0,
+          "riverside-walk": 0,
+          "school-festival": -1,
+          "seaside-bicycle": 0,
+          "shopping-street": -1
+        }
+      },
+      "creative_fraction": {
+        "n": 0,
+        "mean_difference": null,
+        "median_difference": null,
+        "positive": 0,
+        "negative": 0,
+        "ties": 0,
+        "differences": {}
+      },
+      "changed_texts": {
+        "narratives": 10,
+        "questions": 60,
+        "answers": 58
+      }
+    },
+    "odor": {
+      "narrative_chars": {
+        "n": 10,
+        "mean_difference": -101.9,
+        "median_difference": -97.0,
+        "positive": 0,
+        "negative": 10,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": -82,
+          "library-study": -1,
+          "morning-market": -158,
+          "museum-painting": -67,
+          "park-walk": -151,
+          "rainy-station": -44,
+          "riverside-walk": -137,
+          "school-festival": -185,
+          "seaside-bicycle": -91,
+          "shopping-street": -103
+        }
+      },
+      "answer_chars": {
+        "n": 10,
+        "mean_difference": -37.5,
+        "median_difference": -37.5,
+        "positive": 2,
+        "negative": 7,
+        "ties": 1,
+        "differences": {
+          "birthday-cake": -140,
+          "library-study": -59,
+          "morning-market": -39,
+          "museum-painting": -53,
+          "park-walk": -32,
+          "rainy-station": 23,
+          "riverside-walk": 40,
+          "school-festival": 0,
+          "seaside-bicycle": -79,
+          "shopping-street": -36
+        }
+      },
+      "no_recall_turns": {
+        "n": 10,
+        "mean_difference": 2.2,
+        "median_difference": 2.0,
+        "positive": 10,
+        "negative": 0,
+        "ties": 0,
+        "differences": {
+          "birthday-cake": 1,
+          "library-study": 3,
+          "morning-market": 1,
+          "museum-painting": 4,
+          "park-walk": 3,
+          "rainy-station": 1,
+          "riverside-walk": 2,
+          "school-festival": 2,
+          "seaside-bicycle": 3,
+          "shopping-street": 2
+        }
+      },
+      "question_odor_turns": {
+        "n": 10,
+        "mean_difference": 1,
+        "median_difference": 0.0,
+        "positive": 3,
+        "negative": 3,
+        "ties": 4,
+        "differences": {
+          "birthday-cake": 0,
+          "library-study": 5,
+          "morning-market": 0,
+          "museum-painting": 5,
+          "park-walk": -1,
+          "rainy-station": 0,
+          "riverside-walk": 3,
+          "school-festival": 0,
+          "seaside-bicycle": -1,
+          "shopping-street": -1
+        }
+      },
+      "narrative_odor": {
+        "n": 10,
+        "mean_difference": 0,
+        "median_difference": 0.0,
+        "positive": 0,
+        "negative": 0,
+        "ties": 10,
+        "differences": {
+          "birthday-cake": 0,
+          "library-study": 0,
+          "morning-market": 0,
+          "museum-painting": 0,
+          "park-walk": 0,
+          "rainy-station": 0,
+          "riverside-walk": 0,
+          "school-festival": 0,
+          "seaside-bicycle": 0,
+          "shopping-street": 0
+        }
+      },
+      "creative_fraction": {
+        "n": 0,
+        "mean_difference": null,
+        "median_difference": null,
+        "positive": 0,
+        "negative": 0,
+        "ties": 0,
+        "differences": {}
+      },
+      "changed_texts": {
+        "narratives": 10,
+        "questions": 60,
+        "answers": 55
+      }
+    }
+  },
+  "input_sha256": {
+    "current-normalized.json": "e14527e98b3ad018c3e48bd0bda9593c22d18fa953a88a550bff22506fc96cad",
+    "baseline-20260725.json": "4cdf3297e475bd69ca2da3f4373141bfc00b9542592fc7842d02a84103132684",
+    "baseline-log-20260725.json": "c77f6ea90991069667d1740aa6faefc77e9f1562227d5a8821395cd47de436e8"
+  }
+}

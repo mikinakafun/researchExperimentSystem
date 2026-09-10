@@ -90,6 +90,7 @@ test('English non-recall and word boundaries do not confuse ordinary words with 
     ['standard', 'What did you do again?'],
     ['standard', 'What happened when you arrived?'],
     ['odor', 'What do you remember about the odor?'],
+    ['odor', 'What do you remember that smell being a smell of?'],
   ]) {
     const input = { language: 'en', condition, turn: 1, fragment, history: [] };
     assert.deepEqual(validateQuestion({ ...input, ...fallbackQuestion(input), question }), []);
@@ -99,7 +100,7 @@ test('English non-recall and word boundaries do not confuse ordinary words with 
     ['standard', 'How did you feel?', 'standard_emotion_focus'],
     ['visual', 'What smell do you remember?', 'visual_odor_contamination'],
     ['odor', 'What sound did you hear?', 'odor_condition_contamination'],
-    ['odor', 'Which flower did it come from?', 'odor_source_inference'],
+    ['odor', 'Can you guess what caused that smell?', 'odor_source_inference'],
     ['visual', 'What did the AI ask?', 'study_disclosure'],
     ['visual', '何が見えましたか？', 'output_language_mismatch'],
   ]) {

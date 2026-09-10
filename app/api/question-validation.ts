@@ -28,7 +28,10 @@ const bodilyPattern = /(?:触|感触|手触り|温度|湿度|熱|温か|暖か|�
 const emotionPattern = /(?:気持ち|考え|感情|気分|どう感じ|どのように感じ|どんな(?:ことを)?感じ|\b(?:emotions?|moods?|feelings?|thoughts?)\b|\bhow\b.*\b(?:feel|felt)\b)/iu;
 const sensoryPattern = new RegExp(`${visualPattern.source}|${auditoryPattern.source}|${bodilyPattern.source}|${odorPattern.source}|雰囲気|空気|味|食感|表情|\\b(?:atmosphere|air|taste|flavou?rs?|expressions?)\\b`, "iu");
 const noRecallPattern = /(?:思い出せ(?:ません|ない|なかった)|覚えてい(?:ません|ない)|記憶(?:が|は)(?:ありません|ない)|分かりません|分からない|わかりません|わからない|覚えがありません|\bno\s+(?:memory|recall|odou?r|smell)\b|\b(?:do(?:\s+not|n['’]t)|did(?:\s+not|n['’]t)|cannot|can\s+not|can['’]t|could(?:\s+not|n['’]t))\s+(?:remember|recall|know)\b)/iu;
-const sourceInferencePattern = /(?:どこから|何から|(?:どの(?:ような)?|どんな)(?:花|植物|食べ物|物|もの)から|発生源|原因|なぜ|どうして|推測|想像|\b(?:what caused|where\b.*\bfrom|guess|infer|imagine|why|source|cause)\b|\b(?:which|what)\b.*\b(?:flower|food|plant|object)\b.*\bfrom\b)/iu;
+// DEC-049: olfactory perception is object-based, so naming what an odor was an
+// odor of reports the percept rather than inferring it. Only explicit requests
+// to reason about a cause remain violations.
+const sourceInferencePattern = /(?:原因|なぜ|どうして|推測|想像|\b(?:why|guess|infer|imagine|causes?|caused)\b)/iu;
 
 export function saysNoRecall(text: string) {
   return noRecallPattern.test(text);

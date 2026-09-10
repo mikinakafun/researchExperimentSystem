@@ -1,0 +1,33 @@
+{
+  "csv_matches_first_successful_api_saves": 30,
+  "unique_sessions": 30,
+  "questions": 180,
+  "narratives": 30,
+  "model": "gpt-4o-mini-2024-07-18",
+  "all_recorded_http_statuses_200": true,
+  "recorded_response_events": 462,
+  "recorded_save_requests": 33,
+  "excluded_duplicate_sessions": 3,
+  "actual_openai_attempts_including_duplicates": 490,
+  "canonical_openai_attempts": 449,
+  "failed_attempt_payloads_available": false,
+  "start_utc": "2026-09-05T00:36:55.183Z",
+  "last_response_utc": "2026-09-05T00:42:44.477Z",
+  "unchanged_app_prompt_persona_sha256": {
+    "app/api/follow-up/route.ts": "c89f2bbde005d23bd6ac76f8f7f249ba1540be192cbf6db68a7db9e1e36d9a4d",
+    "app/api/narrative/route.ts": "80819ede188685df7b7297169d2fe13037ad914b0016022ce7e3036c3e0be0c5",
+    "app/api/prompt-config.ts": "13ababdd7ccf8ebe678cb6f1cac50cafcbfa0b65a89cbefb32de92ec3113b7dc",
+    "app/api/question-validation.ts": "ff4cf8df1e722ac165742afb2c5fbd48d274c9784cc15e8ccec08a2c9bfed948",
+    "app/api/openai.ts": "3a04f22eee1dc3e9673802a1d67a29386f221578b7e4c550506d68dc8aa048e8",
+    "scripts/personas.mjs": "f5ca1208d5e4bd36d6da17ee0ff4818953b07d95e81ef20f7cd1a075cac5f269",
+    "prompts/v0.4.2-mock-draft/follow-up.ja.txt": "fbd2c55683a6db562addf6000ece0428c475c995ad864a5c74655ca3210f0123",
+    "prompts/v0.4.2-mock-draft/follow-up-guidance.ja.txt": "91d6c8f90e96461182ef03825f573b4ed102ecb03d70472bb08e8d7761eca573",
+    "prompts/v0.4.3-mock-draft/narrative.ja.txt": "ac06051b3a8be810a2875b45e3fe6bd36525c8816e4699e60367458dc0fb462e"
+  },
+  "artifact_sha256": {
+    "api-responses.jsonl": "b94a1e633fda319453a2ba32b24bafb8ac98efb79b59b546a199d03bff17ebdf",
+    "results-v0.4.3-bilingual-schema-v2.csv": "954487a2d50a0ff113a8b02b50b02868135fc57484bf77e5a17a476ce6119210",
+    "current-normalized.json": "e14527e98b3ad018c3e48bd0bda9593c22d18fa953a88a550bff22506fc96cad",
+    "baseline-20260725.json": "4cdf3297e475bd69ca2da3f4373141bfc00b9542592fc7842d02a84103132684"
+  }
+}

@@ -1,0 +1,401 @@
+{
+  "generatedAt": "2026-09-06T10:46:47.484Z",
+  "recovery": [
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 2,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:46:36.041Z",
+      "completedAt": "2026-09-06T10:46:37.495Z",
+      "elapsedMs": 1454,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 2,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その外出の時、どんな場所に行きましたか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0218451901d15320016a9d448c4e0487d088fc9c476acb5125",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 3,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:46:37.497Z",
+      "completedAt": "2026-09-06T10:46:38.613Z",
+      "elapsedMs": 1116,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、どんな場所に行きましたか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 3,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その外出の時、どんな服装をしていましたか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_02425870875308f4016a9d448db6f487d0bdfe7626c432a01b",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 4,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:46:38.614Z",
+      "completedAt": "2026-09-06T10:46:39.655Z",
+      "elapsedMs": 1041,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、どんな場所に行きましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、どんな服装をしていましたか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 4,
+        "language": "ja"
+      },
+      "response": {
+        "question": "その外出の時、何か特別な出来事や出来事の中でのやり取りを思い出せますか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_07f24d75f10763dc016a9d448edab087d090b2d2ede94c3d6a",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 5,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:46:39.655Z",
+      "completedAt": "2026-09-06T10:46:40.577Z",
+      "elapsedMs": 922,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、どんな場所に行きましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、どんな服装をしていましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、何か特別な出来事や出来事の中でのやり取りを思い出せますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 5,
+        "language": "ja"
+      },
+      "response": {
+        "question": "外出した時の天気について、何か思い出せることはありますか？",
+        "metadata": {
+          "conditionFocus": "standard",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": "fragment",
+          "nonRecallTransition": false,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "gpt-4o-mini-2024-07-18",
+        "requestId": "resp_0229648f94e08c05016a9d448fda1c87d0a1ec882b957f07e7",
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "generated",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    },
+    {
+      "kind": "follow-up",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": 6,
+      "selectedAnswer": "思い出せません。",
+      "requestedAt": "2026-09-06T10:46:40.579Z",
+      "completedAt": "2026-09-06T10:46:45.005Z",
+      "elapsedMs": 4426,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "condition": "standard",
+        "fragment": "先週、用事で外出した。",
+        "history": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、どんな場所に行きましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、どんな服装をしていましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、何か特別な出来事や出来事の中でのやり取りを思い出せますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出した時の天気について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "turn": 6,
+        "language": "ja"
+      },
+      "response": {
+        "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+        "metadata": {
+          "conditionFocus": "neutral",
+          "turnFunction": "broad_recall",
+          "targetEvidenceId": null,
+          "nonRecallTransition": true,
+          "insufficientEvidenceTransition": false
+        },
+        "language": "ja",
+        "model": "fallback",
+        "requestId": null,
+        "promptVersion": "prompt-catalog-v0.4.4-mock-draft",
+        "source": "fallback",
+        "attempts": 3,
+        "diagnostics": {
+          "rejections": [
+            {
+              "attempt": 1,
+              "flags": [
+                "focused_question_with_transition"
+              ],
+              "question": "その外出の時、何か感じたことや思ったことはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": true
+              }
+            },
+            {
+              "attempt": 2,
+              "flags": [
+                "standard_emotion_focus"
+              ],
+              "question": "その外出の時、何か感じたことや気持ちについて思い出せることはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            },
+            {
+              "attempt": 3,
+              "flags": [
+                "standard_sensory_contamination"
+              ],
+              "question": "その外出の時、周囲の雰囲気について何か覚えていることはありますか？",
+              "metadata": {
+                "conditionFocus": "standard",
+                "turnFunction": "broad_recall",
+                "targetEvidenceId": "fragment",
+                "nonRecallTransition": false,
+                "insufficientEvidenceTransition": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "narrative",
+      "scenario": "continuous-nonrecall",
+      "condition": "standard",
+      "turn": null,
+      "selectedAnswer": null,
+      "requestedAt": "2026-09-06T10:46:45.007Z",
+      "completedAt": "2026-09-06T10:46:47.484Z",
+      "elapsedMs": 2477,
+      "status": 200,
+      "ok": true,
+      "request": {
+        "fragment": "先週、用事で外出した。",
+        "answers": [
+          {
+            "question": "その外出の時、一緒にいた人は誰でしたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、どんな場所に行きましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、どんな服装をしていましたか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "その外出の時、何か特別な出来事や出来事の中でのやり取りを思い出せますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "外出した時の天気について、何か思い出せることはありますか？",
+            "answer": "思い出せません。"
+          },
+          {
+            "question": "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
+            "answer": "思い出せません。"
+          }
+        ],
+        "language": "ja"
+      },
+      "response": {
+        "narrative": "先週、用事で外出した時、街の賑わいに包まれていたのを思い出す。その日は青空が広がり、心地よい風が吹いていた。人々の笑い声や、子供たちの遊ぶ声が耳に心地よく響いていた。何か特別な出来事は思い出せないけれど、その瞬間の雰囲気は鮮明に感じられる。あの時、私は新しい何かを始めようとしていたのかもしれない。その外出が私にとっての新たなスタートになったような気がする。その記憶が曖昧でも、少しずつ自分を取り戻していることを感じる。外の世界に出ることの大切さを再認識した日だった。",
+        "language": "ja",
+        "sentences": [
+          {
+            "text": "先週、用事で外出した時、街の賑わいに包まれていたのを思い出す。",
+            "sourceIds": [
+              "fragment"
+            ],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "その日は青空が広がり、心地よい風が吹いていた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "人々の笑い声や、子供たちの遊ぶ声が耳に心地よく響いていた。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "何か特別な出来事は思い出せないけれど、その瞬間の雰囲気は鮮明に感じられる。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "あの時、私は新しい何かを始めようとしていたのかもしれない。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "その外出が私にとっての新たなスタートになったような気がする。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "その記憶が曖昧でも、少しずつ自分を取り戻していることを感じる。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          },
+          {
+            "text": "外の世界に出ることの大切さを再認識した日だった。",
+            "sourceIds": [],
+            "containsCreativeAddition": true
+          }
+        ],
+        "model": "gpt-4o-mini-2024-07-18",
+        "source": "generated",
+        "requestId": "resp_0bc3f7e991744e5f016a9d4495357c87d081ea79718b427b9e",
+        "promptVersion": "prompt-catalog-v0.4.3-mock-draft",
+        "attempts": 1,
+        "diagnostics": {
+          "rejections": []
+        }
+      }
+    }
+  ]
+}

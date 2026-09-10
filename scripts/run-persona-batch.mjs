@@ -1,6 +1,6 @@
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
-import { personas } from "./personas.mjs";
+import { personas } from "../core/05-verification/personas.mjs";
 
 const BASE_URL = process.env.MOCK_BASE_URL || "http://127.0.0.1:3000";
 const CONDITIONS = ["standard", "visual", "odor"];
