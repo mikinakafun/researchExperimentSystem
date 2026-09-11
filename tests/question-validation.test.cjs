@@ -266,7 +266,7 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   assert.equal(body.source, 'generated');
   assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
   assert.equal(body.question, valid.question);
-  assert.equal(calls, 1);
+  assert.equal(calls, 3);
 
   output = { ...output, question: 'どんな匂いでしたか？' };
   calls = 0;
@@ -274,7 +274,7 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   body = await response.json();
   assert.equal(body.source, 'fallback');
   assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
-  assert.equal(calls, 3);
+  assert.equal(calls, 3 + 1);
   assert.equal(body.diagnostics.rejections[0].question, output.question);
   assert.equal(body.diagnostics.rejections[0].metadata.conditionFocus, 'visual');
 
@@ -284,4 +284,21 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   assert.equal(body.source, 'fallback');
   assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
   assert.ok(body.diagnostics.rejections[0].flags.includes('invalid_transition_reason'));
+});
+
+test('provider connection failure is an error, never a successful fallback', async (t) => {
+  const originalKey = process.env.OPENAI_API_KEY;
+  process.env.OPENAI_API_KEY = 'offline-test';
+  t.after(() => { if (originalKey === undefined) delete process.env.OPENAI_API_KEY; else process.env.OPENAI_API_KEY = originalKey; });
+  t.mock.method(global, 'fetch', async () => { throw new Error('DNS details must not escape'); });
+  const response = await POST(new Request('http://localhost/api/follow-up', { method: 'POST', body: JSON.stringify({ condition: 'odor', turn: 1, fragment: '公園にいた。', history: [] }) }));
+  assert.equal(response.status, 503);
+  assert.equal((await response.json()).source, undefined);
+});
+
+test('safe Japanese compounds are ignored for contamination in every condition', () => {
+  for (const condition of ['visual', 'odor']) for (const word of ['色々', '全体', '観光', '形式', '空気']) {
+    assert.deepEqual(validateQuestion(input(`${word}について覚えていることはありますか？`, { condition })), []);
+  }
+  assert.ok(validateQuestion(input('空気の匂いについて覚えていますか？', { condition: 'visual' })).includes('visual_odor_contamination'));
 });

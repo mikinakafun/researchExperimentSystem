@@ -17,15 +17,25 @@ export type ConversationTurn = {
 };
 
 export const PROMPT_CONFIG = {
+  schemaVersion: "3",
   version: "prompt-catalog-v0.4.3-mock-draft",
   followUpVersion: "prompt-catalog-v0.4.4-mock-draft",
   followUpTurns: 6,
   followUpTemperature: 0.55,
-  maxFollowUpAttempts: 3,
+  followUpCandidateCount: 3,
+  followUpRepairCount: 1,
+  maxFollowUpAttempts: 4,
   narrativeMaxSentences: 10,
   narrativeTemperature: 0.75,
   maxNarrativeAttempts: 3,
 } as const;
+
+export type GenerationSettings = {
+  temperature: number;
+  candidateCount: number;
+  repairCount: number;
+  maxAttempts: number;
+};
 
 export function buildFollowUpInstructions(
   condition: PromptCondition,

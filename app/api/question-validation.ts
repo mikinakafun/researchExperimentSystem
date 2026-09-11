@@ -56,7 +56,8 @@ function questionSimilarity(left: string, right: string) {
   return overlap / (ag.size + bg.size - overlap);
 }
 
-function matchesOutsideSafeCompounds(pattern: RegExp, text: string, compounds: string[]) {
+const safeCompounds = ["色々", "全体", "観光", "形式", "空気"];
+function matchesOutsideSafeCompounds(pattern: RegExp, text: string, compounds = safeCompounds) {
   const stripped = compounds.reduce((value, compound) => value.replaceAll(compound, ""), text);
   return pattern.test(stripped);
 }
@@ -98,17 +99,16 @@ export function validateQuestion(input: QuestionValidationInput): string[] {
 
   // These patterns detect explicit cross-condition wording only. Missing a
   // keyword is not a violation; semantic condition fidelity needs evaluation.
-  if (input.metadata.conditionFocus === "neutral") {
-    if (matchesOutsideSafeCompounds(sensoryPattern, question, ["色々", "全体", "観光", "形式", "空気"]) || emotionPattern.test(question)) flags.push("neutral_focus_contamination");
-  }
+  const contamination = matchesOutsideSafeCompounds(sensoryPattern, question) || emotionPattern.test(question);
+  if (input.metadata.conditionFocus === "neutral" && contamination) flags.push("neutral_focus_contamination");
 
   if (input.condition === "visual" && input.metadata.conditionFocus !== "neutral") {
-    if (odorPattern.test(question)) flags.push("visual_odor_contamination");
-    if (auditoryPattern.test(question) || bodilyPattern.test(question) || emotionPattern.test(question)) flags.push("visual_condition_contamination");
+    if (matchesOutsideSafeCompounds(odorPattern, question)) flags.push("visual_odor_contamination");
+    if (matchesOutsideSafeCompounds(auditoryPattern, question) || matchesOutsideSafeCompounds(bodilyPattern, question) || emotionPattern.test(question)) flags.push("visual_condition_contamination");
   }
 
   if (input.condition === "odor" && input.metadata.conditionFocus !== "neutral") {
-    if (visualPattern.test(question) || auditoryPattern.test(question) || bodilyPattern.test(question) || emotionPattern.test(question)) flags.push("odor_condition_contamination");
+    if (matchesOutsideSafeCompounds(visualPattern, question) || matchesOutsideSafeCompounds(auditoryPattern, question) || matchesOutsideSafeCompounds(bodilyPattern, question) || emotionPattern.test(question)) flags.push("odor_condition_contamination");
     if (sourceInferencePattern.test(question)) flags.push("odor_source_inference");
   }
 

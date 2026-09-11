@@ -5,7 +5,7 @@ test('persona batch generation metadata preserves settings required by save-resu
   const { generationMetadata } = await import('../scripts/persona-batch-utils.mjs');
   const payload = {
     model: 'offline-model', requestId: 'offline-response', promptVersion: 'prompt-v1', source: 'generated', attempts: 2,
-    settings: { temperature: 0.55, candidateCount: 1, maxAttempts: 3 },
+    settings: { temperature: 0.55, candidateCount: 3, repairCount: 1, maxAttempts: 4 },
     diagnostics: { rejections: [{ attempt: 1, flags: ['condition_mismatch'] }] },
     question: '採用される質問？',
   };

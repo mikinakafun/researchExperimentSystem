@@ -22,6 +22,10 @@ export class OpenAIRequestError extends Error {
   }
 }
 
+export class InvalidModelOutputError extends Error {
+  constructor(message: string) { super(message); this.name = "InvalidModelOutputError"; }
+}
+
 export function configuredModel() {
   return process.env.OPENAI_MODEL?.trim() || DEFAULT_MODEL;
 }
@@ -129,17 +133,21 @@ export async function createResponse(input: {
       throw new OpenAIRequestError("OpenAI API returned no text output.");
     }
 
+    if (!payload?.id || !payload.model) {
+      throw new InvalidModelOutputError("Provider response omitted required diagnostics.");
+    }
     return {
-      id: payload?.id ?? null,
-      model: payload?.model ?? configuredModel(),
+      id: payload.id,
+      model: payload.model,
       text,
     };
   } catch (error) {
     if (error instanceof OpenAIRequestError) throw error;
+    if (error instanceof InvalidModelOutputError) throw error;
     if (error instanceof Error && error.name === "AbortError") {
       throw new OpenAIRequestError("OpenAI API request timed out.", 504);
     }
-    throw new OpenAIRequestError("Could not reach the OpenAI API.");
+    throw new OpenAIRequestError("Could not reach the OpenAI API.", 503);
   } finally {
     clearTimeout(timeout);
   }
@@ -160,6 +168,6 @@ export function parseJsonObject(text: string) {
   try {
     return JSON.parse(cleaned) as Record<string, unknown>;
   } catch {
-    throw new OpenAIRequestError("OpenAI API returned invalid JSON.");
+    throw new InvalidModelOutputError("OpenAI API returned invalid JSON.");
   }
 }
