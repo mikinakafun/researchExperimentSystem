@@ -70,7 +70,7 @@ export function readGenerationMetadata(value: unknown): GenerationMetadata | nul
   const rejections: GenerationRejection[] = [];
   for (const item of value.diagnostics.rejections) {
     if (!isObject(item) || typeof item.attempt !== "number" ||
-        !Number.isInteger(item.attempt) || item.attempt < 1 ||
+        !Number.isInteger(item.attempt) || item.attempt !== rejections.length + 1 ||
         (item.stage !== "candidate" && item.stage !== "repair") ||
         (item.candidateIndex !== undefined && (typeof item.candidateIndex !== "number" || !Number.isInteger(item.candidateIndex) || item.candidateIndex < 0)) ||
         !Array.isArray(item.flags) || !item.flags.length || !item.flags.every(isNonEmptyString) ||

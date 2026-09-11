@@ -289,6 +289,32 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   assert.ok(body.diagnostics.rejections[0].flags.includes('invalid_transition_reason'));
 });
 
+test('candidate parse rejections retain the provider model and request ID', async (t) => {
+  const originalKey = process.env.OPENAI_API_KEY;
+  process.env.OPENAI_API_KEY = 'offline-test';
+  t.after(() => { if (originalKey === undefined) delete process.env.OPENAI_API_KEY; else process.env.OPENAI_API_KEY = originalKey; });
+  let calls = 0;
+  t.mock.method(global, 'fetch', async () => {
+    calls += 1;
+    const response = calls <= 3
+      ? { id: `candidate-${calls}`, model: `provider-model-${calls}`, text: '{not-json' }
+      : { id: 'repair-1', model: 'provider-repair', text: JSON.stringify({ question: '公園で覚えているものを教えてください。', conditionFocus: 'visual', targetEvidenceId: null }) };
+    return Response.json({ id: response.id, model: response.model, output: [{ content: [{ type: 'output_text', text: response.text }] }] });
+  });
+  const response = await POST(new Request('http://localhost/api/follow-up', {
+    method: 'POST', body: JSON.stringify({ condition: 'visual', turn: 1, fragment: '友人と公園を歩いた。', history: [] }),
+  }));
+  const body = await response.json();
+  assert.equal(response.status, 200);
+  assert.equal(body.source, 'generated');
+  assert.equal(body.attempts, 4);
+  assert.deepEqual(body.diagnostics.rejections.map(({ model, requestId }) => ({ model, requestId })), [
+    { model: 'provider-model-1', requestId: 'candidate-1' },
+    { model: 'provider-model-2', requestId: 'candidate-2' },
+    { model: 'provider-model-3', requestId: 'candidate-3' },
+  ]);
+});
+
 test('provider connection failure is an error, never a successful fallback', async (t) => {
   const originalKey = process.env.OPENAI_API_KEY;
   process.env.OPENAI_API_KEY = 'offline-test';
