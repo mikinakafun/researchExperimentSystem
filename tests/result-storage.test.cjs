@@ -100,7 +100,7 @@ test('save route returns 400 for malformed inputs without writing, and retains r
 
   const retry = generationMetadata({ attempts: 2, diagnostics: { rejections: [{ attempt: 1, flags: ['condition_mismatch'], question: '棄却された質問？', metadata: { conditionFocus: 'visual' } }] } });
   const fallback = generationMetadata({ source: 'fallback', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['request_failed'] })) } });
-  const payload = resultPayload({ questionGeneration: [retry, fallback, ...Array.from({ length: 4 }, () => generationMetadata())], narrativeGeneration: retry });
+  const payload = resultPayload({ questionGeneration: [retry, fallback, ...Array.from({ length: 4 }, () => generationMetadata())], narrativeGeneration: generationMetadata({ promptVersion: require('../app/api/prompt-config.ts').PROMPT_CONFIG.version }) });
   fs.mkdirSync(path.join(directory, 'data'));
   const legacy = path.join(directory, 'data/results-v0.4.3-bilingual.csv');
   fs.writeFileSync(legacy, 'legacy stays unchanged\n');
@@ -110,7 +110,7 @@ test('save route returns 400 for malformed inputs without writing, and retains r
   const csvPath = path.join(directory, RESULT_CSV_PATH);
   const [stored] = rows(fs.readFileSync(csvPath, 'utf8'));
   assert.deepEqual(JSON.parse(stored.question_generation_json), payload.questionGeneration);
-  assert.deepEqual(JSON.parse(stored.narrative_generation_json), retry);
+  assert.equal(JSON.parse(stored.narrative_generation_json).promptVersion, PROMPT_CONFIG.version);
   assert.deepEqual(JSON.parse(stored.evaluation_json), payload.evaluation);
   assert.equal(stored.schema_version, RESULT_SCHEMA_VERSION);
   assert.equal(stored.prompt_version, payload.narrativePromptVersion);

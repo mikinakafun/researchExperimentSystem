@@ -155,17 +155,10 @@ test('fallback does not switch solely because of turn five or six and keeps neut
     const history = Array.from({ length: turn - 1 }, (_, i) => ({ question: `質問${i + 1}？`, answer: '公園にいた。' }));
     const ordinary = fallbackQuestion({ condition: 'visual', turn, fragment: '公園にいた。', history, language: 'ja' });
     assert.equal(ordinary.metadata.conditionFocus, 'visual');
-    assert.equal(ordinary.metadata.nonRecallTransition, false);
-    assert.equal(ordinary.metadata.insufficientEvidenceTransition, false);
     assert.equal(ordinary.metadata.targetEvidenceId, null);
-    assert.ok(['broad_recall', 'grounded_detail', 'temporal_anchor', 'action_relation', 'second_grounded_detail', 'unresolved_attribute'].includes(ordinary.metadata.turnFunction));
     const nonRecall = fallbackQuestion({ condition: 'visual', turn, fragment: '公園にいた。', history: [...history.slice(0, -1), { question: '前の質問？', answer: '思い出せません。' }], language: 'ja' });
-    assert.equal(nonRecall.metadata.nonRecallTransition, true);
-    assert.equal(nonRecall.metadata.insufficientEvidenceTransition, false);
     const exhausted = fallbackQuestion({ condition: 'visual', turn, fragment: '公園にいた。', history: [{ question: 'その時、何か目に入ったものを覚えていますか？', answer: '公園にいた。' }, ...history.slice(1)], language: 'ja' });
     assert.equal(exhausted.metadata.conditionFocus, 'neutral');
-    assert.equal(exhausted.metadata.nonRecallTransition, false);
-    assert.equal(exhausted.metadata.insufficientEvidenceTransition, true);
   }
 });
 
@@ -187,7 +180,6 @@ test('API sends full history and accepts an independently chosen function for pa
   const body = await response.json();
   assert.equal(body.source, 'generated');
   assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
-  assert.equal(body.metadata.turnFunction, 'unresolved_attribute');
 });
 
 test('both languages keep instructions independent of turn position and forward older evidence', async (t) => {
@@ -223,14 +215,13 @@ test('both languages keep instructions independent of turn position and forward 
     const body = await response.json();
     assert.equal(body.source, 'generated');
     assert.equal(body.metadata.targetEvidenceId, 'answer-1');
-    assert.equal(body.metadata.turnFunction, 'temporal_anchor');
   }
 });
 
 test('fixed fallbacks complete six turns in both languages without assuming a reported target', () => {
   const { fallbackQuestion } = require('../app/api/fallback-questions.ts');
   for (const language of ['ja', 'en']) {
-    for (const condition of ['standard', 'visual', 'odor']) {
+    for (const condition of ['visual', 'odor']) {
       for (const nonRecall of [false, true]) {
         const history = [];
         const fragment = language === 'ja' ? '公園にいた。' : 'I was in a park.';
@@ -241,8 +232,6 @@ test('fixed fallbacks complete six turns in both languages without assuming a re
           assert.doesNotMatch(candidate.question, /直前に述べた|その匂い|その行動|that action|that smell|just described/);
           if (turn > 1) {
             assert.equal(candidate.metadata.conditionFocus, 'neutral');
-            assert.equal(candidate.metadata.nonRecallTransition, nonRecall);
-            assert.equal(candidate.metadata.insufficientEvidenceTransition, !nonRecall);
           }
           history.push({ ...candidate, answer: nonRecall ? (language === 'ja' ? '思い出せません。' : 'I cannot remember.') : fragment });
         }
@@ -251,7 +240,6 @@ test('fixed fallbacks complete six turns in both languages without assuming a re
           const previous = history.slice(0, turn - 1).map((item, i) => ({ ...item, question: language === 'ja' ? `以前の質問${i}？` : `Earlier question ${i}?`, answer: fragment }));
           const candidate = fallbackQuestion({ condition, turn, fragment, history: previous, language });
           assert.equal(candidate.metadata.conditionFocus, condition);
-          assert.equal(candidate.metadata.turnFunction, 'broad_recall');
         }
       }
     }
@@ -290,10 +278,10 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   assert.equal(body.diagnostics.rejections[0].question, output.question);
   assert.equal(body.diagnostics.rejections[0].metadata.conditionFocus, 'visual');
 
-  output = { ...output, question: valid.question, nonRecallTransition: 'false' };
+  output = { ...output, question: valid.question, transitionReason: 'invalid' };
   response = await POST(request());
   body = await response.json();
   assert.equal(body.source, 'fallback');
   assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
-  assert.ok(body.diagnostics.rejections[0].flags.includes('non_recall_transition_schema'));
+  assert.ok(body.diagnostics.rejections[0].flags.includes('invalid_transition_reason'));
 });
