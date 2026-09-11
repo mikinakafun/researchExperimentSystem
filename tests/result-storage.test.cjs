@@ -14,6 +14,7 @@ const { parseResultData } = require('../lib/result-validation.ts');
 const { readGenerationMetadata } = require('../lib/generation.ts');
 const { createCsvResultStore } = require('../lib/server/csv-result-store.ts');
 const { RESULT_CSV_FILENAME, RESULT_CSV_PATH, RESULT_PROTOCOL_VERSION, RESULT_SCHEMA_VERSION } = require('../lib/result-storage.ts');
+const { PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
 
 const request = (body) => new Request('http://localhost/api/save-result', { method: 'POST', body: JSON.stringify(body) });
 function temporaryDirectory(t) {
