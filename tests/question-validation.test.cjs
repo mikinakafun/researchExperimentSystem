@@ -11,6 +11,7 @@ require.extensions['.ts'] = (module, filename) => {
 };
 const { validateQuestion } = require('../app/api/question-validation.ts');
 const { POST } = require('../app/api/follow-up/route.ts');
+const { readGenerationMetadata } = require('../lib/generation.ts');
 const { buildFollowUpInstructions, PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
 
 function input(question, overrides = {}) {
@@ -267,6 +268,7 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
   assert.equal(body.question, valid.question);
   assert.equal(calls, 3);
+  assert.ok(readGenerationMetadata(body), 'a valid first candidate with later rejections must remain readable');
 
   output = { ...output, question: 'どんな匂いでしたか？' };
   calls = 0;
