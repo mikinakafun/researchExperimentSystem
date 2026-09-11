@@ -78,7 +78,7 @@ npm run run:persona-batch
 
 ## ローカル保存
 
-`RESULT_STORAGE` 未設定または `csv` では `data/results-v0.4.3-bilingual-schema-v2.csv` に追記します。現行CSVはbilingual schema v2で `language` 列を含み、旧CSVは移行・書換えしません。headerが期待値と異なるCSVへの追記は拒否します。完了セッションは一行のschema v2で、6質問・6回答・生成履歴・文章・評定・MC/DQを含みます。`data/*.csv` はGit管理外です。
+`RESULT_STORAGE` 未設定または `csv` では新規の `data/results-v0.4.4-bilingual-two-condition-schema-v3.csv` に追記します。旧schema v2のCSVは読み替え・追記・移行せず保持します。header/versionが期待値と異なるCSVへの追記は拒否します。完了セッションは一行のschema v3で、6質問・6回答・生成履歴・文章・評定・MC/DQを含みます。`data/*.csv` はGit管理外です。
 
 現行の `record_type` は `participant` と `batch_synthetic` です。participantは12評価項目と6 checksの完全な既定ID集合、および各値1〜7の整数を要求します。batch_syntheticはevaluationとchecksがともに空、またはともに全項目を含む場合だけ許容し、片方だけの部分入力は拒否します。
 
@@ -98,7 +98,7 @@ SUPABASE_URL=https://<project>.supabase.co
 SUPABASE_SECRET_KEY=<server-only-secret>
 ```
 
-1. リポジトリ上の [`supabase/migrations/202609030001_experiment_results.sql`](supabase/migrations/202609030001_experiment_results.sql) は二条件（`visual` / `odor`）のmigrationです。既存DBへの適用状態と、既存DBへ適用する場合の移行方法は未確認です。実環境での適用は、その状態と手順を確認してから行ってください。既存テーブルを削除して再作成しません。
+1. [`202609030001_experiment_results.sql`](supabase/migrations/202609030001_experiment_results.sql) は履歴として旧三条件/schema v2を作成し、[`202609110001_experiment_results_v3.sql`](supabase/migrations/202609110001_experiment_results_v3.sql) を続けて適用してv3の二条件を追加します。既存v2行は保持し、既存テーブルを削除・再作成しません。実環境への適用状態は未確認です。
 2. `npm run check:supabase` を実行します。OpenAI APIは呼ばず、合成行の保存、同一内容の再送、異内容の競合、読み戻し、CSV出力を確認します。実行ごとに `batch_synthetic` の検証行が残ります。
 3. `npm run dev` を再起動し、画面の保存先表示がSupabaseになっていることを確認します。
 4. 収集停止中にexportします。既定はparticipantだけです。全行は `npm run export:supabase -- --record-type all`、合成行を指定ファイルへ新規出力する場合は `npm run export:supabase -- --record-type batch_synthetic --output data/synthetic-export.csv` を実行します。既存ファイルは上書きしません。

@@ -14,7 +14,7 @@
 | 割付 | 初期断片送信後、言語層別のサーバ側ブロック無作為化、割付ログ | クライアントの `Math.random()` | 未実装 |
 | 質問 | 条件内の6問、候補並列・決定的validator・修復・固定fallback | 現行runtime prompt、逐次最大3試行、固定fallback | 部分実装 |
 | メタデータ | `conditionFocus`、`targetEvidenceId`、中立遷移理由 | `conditionFocus`、`targetEvidenceId`、中立時の`transitionReason` | 部分実装 |
-| 保存 | 二条件値域、同意保存先lock、冪等性、整合性、保持・撤回・削除 | schema v2、CSV/Supabase、lock/冪等性は一部実装、二条件化と管理削除は未実装 | 部分実装 |
+| 保存 | 二条件値域、同意保存先lock、冪等性、整合性、保持・撤回・削除 | 新規保存はschema v3/二条件、CSV/Supabase、lock/冪等性を実装。管理削除は未実装 | 部分実装 |
 | UI | 条件秘匿、同意・中止・デブリーフ、生成文が復元ではないことの明示 | 現行mockとして一部実装 | 要確認・未実装あり |
 
 上の差分は未実装である。実装順序は §12 に固定する。
@@ -72,6 +72,7 @@
 | `conditionFocus` | `visual`、`odor`、または中立遷移時の`neutral`。割付条件と一致すること |
 | `targetEvidenceId` | 条件内質問では既知の証拠ID、中立ではnull |
 | `transitionReason` | 中立時に「非想起」または「条件内の材料枯渇」のちょうど一つ。条件内では持たない |
+| `fallbackReason` | generation recordの独立フィールド。`generation_rejected`、`non_recall`、`insufficient_evidence`を区別し、`transitionReason`と混同しない |
 | `question` | 1問、セッション言語、条件外誘導・研究開示・推測要求なし |
 
 `turnFunction` は要求仕様・現行runtime契約のいずれにも含めない。現行の質問metadataは`conditionFocus`、`targetEvidenceId`、必要時の`transitionReason`である。
@@ -108,7 +109,7 @@
 
 ## 8. 保存・整合性・プライバシー
 
-保存先はCSVまたはSupabaseの単一インターフェース背後に置く。schema v2の主なレコードは `session_id`、`record_type`、`saved_at`、schema/protocol/prompt version、condition、language、initial fragment、6質問・6回答、question metadata/generation、final narrative、narrative annotations/generation、evaluation、checksである。
+保存先はCSVまたはSupabaseの単一インターフェース背後に置く。旧schema v2の既存レコードは保持し、新規の二条件契約はschema v3として別CSV `results-v0.4.4-bilingual-two-condition-schema-v3.csv` に保存する。v3の主なレコードは `session_id`、`record_type`、`saved_at`、schema/protocol/prompt version、condition、language、initial fragment、6質問・6回答、question metadata/generation、final narrative、narrative annotations/generation、evaluation、checksである。
 
 - 同意時の保存先とサーバ設定が異なる場合は拒否し、自動fallbackしない。
 - session IDは安定させ、同一内容の再送は成功、同一IDで異なる内容は競合として拒否する。既存結果を更新しない。
@@ -140,9 +141,9 @@
 
 - 条件の型・入力・validator・fallback・結果schema・persona batchは`visual` / `odor`の二条件である。Standardは現行runtimeでは受け入れない。
 - 条件割付はクライアント側の `Math.random()` で、有効断片送信後のサーバ側ブロック割付・割付ログではない。
-- `app/api/follow-up/route.ts` は最大3回の逐次試行で、候補並列・repair段・候補本文と違反箇所のrepair入力は未実装。
+- `app/api/follow-up/route.ts` は設定境界から候補数・repair数・temperatureを読み、候補を並列生成し、候補本文と違反箇所をtemperature 0のrepairへ渡す。
 - `turnFunction` は現行契約から削除され、質問metadataは要求仕様の二条件契約に合わせている。
-- OpenAI呼出しにはtimeoutと `store:false` がある。質問は逐次最大3試行後に固定fallbackへ進み、物語は最大試行後にエラーとする。基盤失敗をfallbackにせず中断する経路、strict schema再検証、diagnostics必須化には要求との差分が残る。
+- OpenAI呼出しにはbounded timeoutと `store:false` がある。質問の内容棄却だけがrepair/fallback対象で、auth/quota/provider unavailable/timeout/接続失敗は安全なエラーで中断する。provider request IDと具体的modelを含むdiagnostics欠落は成功扱いしない。
 - narrative annotationは保存されるが、独立検証ではなくモデル自己申告である。
 - `lib/result.ts`、`lib/result-validation.ts`、Supabase migration、persona batchは二条件値域に対応している。サーバ側割付と割付ログは未実装で、UIはクライアント側の`Math.random()`を使う。
 - 保存先lock、CSV直列化、同一IDの競合拒否などは一部実装済みだが、要求される保持・撤回・削除の管理経路、認証・公開運用は未実装。リポジトリ上のSupabase migrationは二条件だが、既存DBへの適用状態と移行方法は未確認。
@@ -156,7 +157,7 @@
 - 質問prompt versionは `prompt-catalog-v0.4.4-mock-draft`、物語prompt versionは `prompt-catalog-v0.4.3-mock-draft`。既存結果の比較では質問generation record内のversionで区別する。
 - `attempts` は採用候補を含むAPI内試行数。`source=generated` は最後の試行を採用し、`source=fallback` は全試行棄却で、fallbackは `model=fallback`、`requestId=null`。現行保存形式には棄却ごとのmodel/request IDや画面再送前の失敗履歴がなく、要求との差分である。
 - API `language` は `ja` / `en`、未指定は互換性上 `ja`、その他は拒否。言語変更後の現行UIは同意画面へ戻り初期断片を保持し、質問開始後は固定する。JSON key/id/enum値は言語間で不変、100文字上限は両言語同じ。
-- 現行CSVはbilingual schema v2で `language` 列を含む。旧CSVは移行・書換えず、header mismatchへの追記は拒否する。
+- 旧CSVはbilingual schema v2として保持し、新規CSVはbilingual two-condition schema v3で `language` 列を含む。旧CSVへの追記はせず、header/version mismatchへの追記は拒否する。
 
 ## 11. スコープ外・未解決事項
 
