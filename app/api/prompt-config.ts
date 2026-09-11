@@ -1,37 +1,19 @@
 import { readPromptSection, renderPrompt } from "../../lib/prompt-files";
 import { DEFAULT_LANGUAGE, type Language } from "../../lib/language";
 
-export type PromptCondition = "standard" | "visual" | "odor";
+export type PromptCondition = "visual" | "odor";
 export type ConditionFocus = PromptCondition | "neutral";
-export type TurnFunction =
-  | "broad_recall"
-  | "grounded_detail"
-  | "temporal_anchor"
-  | "action_relation"
-  | "second_grounded_detail"
-  | "unresolved_attribute";
 
 export type QuestionMetadata = {
   conditionFocus: ConditionFocus;
-  turnFunction: TurnFunction;
   targetEvidenceId: string | null;
-  nonRecallTransition: boolean;
-  insufficientEvidenceTransition: boolean;
+  transitionReason?: "non_recall" | "insufficient_evidence";
 };
 
 export type ConversationTurn = {
   question: string;
   answer: string;
   metadata?: QuestionMetadata;
-};
-
-export const TURN_FUNCTIONS: Record<number, TurnFunction> = {
-  1: "broad_recall",
-  2: "grounded_detail",
-  3: "temporal_anchor",
-  4: "action_relation",
-  5: "second_grounded_detail",
-  6: "unresolved_attribute",
 };
 
 export const PROMPT_CONFIG = {

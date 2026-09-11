@@ -4,22 +4,18 @@ import { buildFollowUpInstructions, PROMPT_CONFIG, type ConversationTurn, type P
 import { hasNoRecallAtLatestTurn, validateQuestion, type QuestionCandidate } from "../question-validation";
 import { parseLanguage } from "../../../lib/language";
 
-const conditions = new Set<PromptCondition>(["standard", "visual", "odor"]);
+const conditions = new Set<PromptCondition>(["visual", "odor"]);
 
 function parseCandidate(parsed: Record<string, unknown>): { candidate: QuestionCandidate; schemaFlags: string[] } {
   const schemaFlags: string[] = [];
   if (typeof parsed.question !== "string") schemaFlags.push("question_schema");
   if (typeof parsed.conditionFocus !== "string") schemaFlags.push("condition_focus_schema");
-  if (typeof parsed.turnFunction !== "string") schemaFlags.push("turn_function_schema");
   if (parsed.targetEvidenceId !== null && typeof parsed.targetEvidenceId !== "string") schemaFlags.push("target_evidence_schema");
-  if (typeof parsed.nonRecallTransition !== "boolean") schemaFlags.push("non_recall_transition_schema");
-  if (typeof parsed.insufficientEvidenceTransition !== "boolean") schemaFlags.push("insufficient_evidence_transition_schema");
+  if (parsed.transitionReason !== undefined && typeof parsed.transitionReason !== "string") schemaFlags.push("transition_reason_schema");
   const metadata: QuestionMetadata = {
     conditionFocus: String(parsed.conditionFocus ?? "") as QuestionMetadata["conditionFocus"],
-    turnFunction: String(parsed.turnFunction ?? "") as QuestionMetadata["turnFunction"],
     targetEvidenceId: typeof parsed.targetEvidenceId === "string" ? parsed.targetEvidenceId : null,
-    nonRecallTransition: parsed.nonRecallTransition === true,
-    insufficientEvidenceTransition: parsed.insufficientEvidenceTransition === true,
+    ...(typeof parsed.transitionReason === "string" ? { transitionReason: parsed.transitionReason as QuestionMetadata["transitionReason"] } : {}),
   };
   return { candidate: { question: typeof parsed.question === "string" ? parsed.question.trim() : "", metadata }, schemaFlags };
 }
@@ -50,7 +46,7 @@ export async function POST(request: Request) {
     const fragment = body.fragment as string;
     const history = body.history as ConversationTurn[];
     let retryReason = "";
-    const rejectionLog: Array<{ attempt: number; flags: string[]; question?: string; metadata?: QuestionMetadata }> = [];
+    const rejectionLog: Array<{ attempt: number; flags: string[]; question?: string; metadata?: QuestionMetadata; model?: string; requestId?: string | null }> = [];
     for (let attempt = 1; attempt <= PROMPT_CONFIG.maxFollowUpAttempts; attempt += 1) {
       try {
         const result = await createResponse({
@@ -73,13 +69,13 @@ export async function POST(request: Request) {
         const { candidate, schemaFlags } = parseCandidate(parsed);
         const flags = [...schemaFlags, ...validateQuestion({ ...candidate, condition, turn, fragment, history, language })];
         if (flags.length === 0) {
-          return Response.json({ ...candidate, language, model: result.model, requestId: result.id, promptVersion: PROMPT_CONFIG.followUpVersion, source: "generated", attempts: attempt, diagnostics: { rejections: rejectionLog } });
+          return Response.json({ ...candidate, language, model: result.model, requestId: result.id, promptVersion: PROMPT_CONFIG.followUpVersion, source: "generated", attempts: attempt, settings: { temperature: PROMPT_CONFIG.followUpTemperature, candidateCount: 1, maxAttempts: PROMPT_CONFIG.maxFollowUpAttempts }, diagnostics: { rejections: rejectionLog } });
         }
-        rejectionLog.push({ attempt, flags, question: candidate.question, metadata: candidate.metadata });
+        rejectionLog.push({ attempt, flags, question: candidate.question, metadata: candidate.metadata, model: result.model, requestId: result.id });
         console.warn("[follow-up validation]", JSON.stringify({ condition, turn, attempt, flags }));
         retryReason = flags.join(", ");
       } catch (error) {
-        if (error instanceof OpenAIRequestError && [401, 403, 503].includes(error.status)) throw error;
+        if (error instanceof OpenAIRequestError && [401, 403, 429, 503, 504].includes(error.status)) throw error;
         const flag = error instanceof Error ? error.message : "invalid_output";
         rejectionLog.push({ attempt, flags: [flag] });
         console.warn("[follow-up validation]", JSON.stringify({ condition, turn, attempt, flags: [flag] }));
@@ -88,7 +84,7 @@ export async function POST(request: Request) {
     }
 
     const candidate = fallbackQuestion({ condition, turn, fragment, history, language });
-    return Response.json({ ...candidate, language, model: "fallback", requestId: null, promptVersion: PROMPT_CONFIG.followUpVersion, source: "fallback", attempts: PROMPT_CONFIG.maxFollowUpAttempts, diagnostics: { rejections: rejectionLog } });
+    return Response.json({ ...candidate, language, model: "fallback", requestId: null, promptVersion: PROMPT_CONFIG.followUpVersion, source: "fallback", attempts: PROMPT_CONFIG.maxFollowUpAttempts, settings: { temperature: PROMPT_CONFIG.followUpTemperature, candidateCount: 1, maxAttempts: PROMPT_CONFIG.maxFollowUpAttempts }, diagnostics: { rejections: rejectionLog } });
   } catch (error) {
     return jsonError(error);
   }

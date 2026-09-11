@@ -5,6 +5,8 @@ export type GenerationRejection = {
   flags: string[];
   question?: string;
   metadata?: Record<string, unknown>;
+  model?: string;
+  requestId?: string | null;
 };
 
 export type GenerationMetadata = {
@@ -13,6 +15,7 @@ export type GenerationMetadata = {
   promptVersion: string;
   source: "generated" | "fallback";
   attempts: number;
+  settings: { temperature: number; candidateCount: number; maxAttempts: number };
   diagnostics: { rejections: GenerationRejection[] };
 };
 
@@ -38,22 +41,28 @@ export function readGenerationMetadata(value: unknown): GenerationMetadata | nul
         !Number.isInteger(item.attempt) || item.attempt !== rejections.length + 1 ||
         !Array.isArray(item.flags) || !item.flags.length || !item.flags.every(isNonEmptyString) ||
         (item.question !== undefined && typeof item.question !== "string") ||
-        (item.metadata !== undefined && !isObject(item.metadata))) return null;
+      (item.metadata !== undefined && !isObject(item.metadata)) ||
+      (item.model !== undefined && !isNonEmptyString(item.model)) ||
+      (item.requestId !== undefined && item.requestId !== null && !isNonEmptyString(item.requestId))) return null;
     rejections.push({
       attempt: item.attempt,
       flags: [...item.flags],
       ...(item.question === undefined ? {} : { question: item.question }),
       ...(item.metadata === undefined ? {} : { metadata: { ...item.metadata } }),
+      ...(item.model === undefined ? {} : { model: item.model }),
+      ...(item.requestId === undefined ? {} : { requestId: item.requestId }),
     });
   }
   if (rejections.length !== value.attempts - (value.source === "generated" ? 1 : 0)) return null;
   if (value.source === "fallback" && (value.model !== "fallback" || value.requestId !== null)) return null;
+  if (!isObject(value.settings) || typeof value.settings.temperature !== "number" || typeof value.settings.candidateCount !== "number" || typeof value.settings.maxAttempts !== "number") return null;
   return {
     model: value.model,
     requestId: value.requestId,
     promptVersion: value.promptVersion,
     source: value.source,
     attempts: value.attempts,
+    settings: { temperature: value.settings.temperature, candidateCount: value.settings.candidateCount, maxAttempts: value.settings.maxAttempts },
     diagnostics: { rejections },
   };
 }

@@ -96,13 +96,11 @@ export async function createResponse(input: {
                     type: "object",
                     properties: {
                       question: { type: "string" },
-                      conditionFocus: { type: "string", enum: ["standard", "visual", "odor", "neutral"] },
-                      turnFunction: { type: "string", enum: ["broad_recall", "grounded_detail", "temporal_anchor", "action_relation", "second_grounded_detail", "unresolved_attribute"] },
+                      conditionFocus: { type: "string", enum: ["visual", "odor", "neutral"] },
                       targetEvidenceId: { anyOf: [{ type: "string" }, { type: "null" }] },
-                      nonRecallTransition: { type: "boolean" },
-                      insufficientEvidenceTransition: { type: "boolean" },
+                      transitionReason: { type: "string", enum: ["non_recall", "insufficient_evidence"] },
                     },
-                    required: ["question", "conditionFocus", "turnFunction", "targetEvidenceId", "nonRecallTransition", "insufficientEvidenceTransition"],
+                    required: ["question", "conditionFocus", "targetEvidenceId"],
                     additionalProperties: false,
                   },
                 },
@@ -118,7 +116,7 @@ export async function createResponse(input: {
       const providerMessage = payload?.error?.message?.trim();
       throw new OpenAIRequestError(
         providerMessage || `OpenAI API request failed with status ${response.status}.`,
-        response.status === 401 ? 502 : response.status,
+        response.status,
       );
     }
 
@@ -149,7 +147,11 @@ export async function createResponse(input: {
 
 export function jsonError(error: unknown) {
   const status = error instanceof OpenAIRequestError ? error.status : 500;
-  const message = error instanceof Error ? error.message : "Unexpected API error.";
+  const message = status === 401 || status === 403 ? "The generation service rejected authorization." :
+    status === 429 ? "The generation service quota is unavailable." :
+    status === 503 ? "The generation service is unavailable." :
+    status === 504 ? "The generation service timed out." :
+    "Generation failed.";
   return Response.json({ error: message }, { status });
 }
 

@@ -17,16 +17,27 @@ function isTurnText(value: unknown): value is string[] {
   return Array.isArray(value) && value.length === PROMPT_CONFIG.followUpTurns && value.every(isNonEmptyString);
 }
 
+function isQuestionMetadata(value: unknown, condition: "visual" | "odor", turn: number): value is Record<string, unknown> {
+  if (!isObject(value) || (value.conditionFocus !== condition && value.conditionFocus !== "neutral") ||
+      !(value.targetEvidenceId === null || isNonEmptyString(value.targetEvidenceId))) return false;
+  const validIds = new Set(["fragment", ...Array.from({ length: turn }, (_, index) => `answer-${index + 1}`)]);
+  if (value.targetEvidenceId !== null && !validIds.has(value.targetEvidenceId)) return false;
+  if (value.conditionFocus === "neutral") {
+    return value.targetEvidenceId === null && (value.transitionReason === "non_recall" || value.transitionReason === "insufficient_evidence");
+  }
+  return value.conditionFocus === condition && value.transitionReason === undefined;
+}
+
 export function parseResultData(body: unknown): ResultData | null {
   if (!isObject(body)) return null;
   const language = parseLanguage(body.language);
   const recordType = body.recordType === undefined ? "participant" : body.recordType;
   if (!language || (recordType !== "participant" && recordType !== "batch_synthetic") ||
-      (body.condition !== "standard" && body.condition !== "visual" && body.condition !== "odor") ||
-      !isNonEmptyString(body.sessionId) || body.sessionId.length > 200 || !isNonEmptyString(body.fragment) || !isNonEmptyString(body.finalResult) ||
+      (body.condition !== "visual" && body.condition !== "odor") ||
+      !isNonEmptyString(body.sessionId) || body.sessionId.length > 200 || !isNonEmptyString(body.fragment) || body.fragment.length > 100 || !isNonEmptyString(body.finalResult) ||
       !isTurnText(body.questions) || !isTurnText(body.answers) ||
       !Array.isArray(body.questionMetadata) || body.questionMetadata.length !== PROMPT_CONFIG.followUpTurns ||
-      !body.questionMetadata.every(isObject) ||
+      !body.questionMetadata.every((value, index) => isQuestionMetadata(value, body.condition as "visual" | "odor", index)) ||
       body.narrativePromptVersion !== PROMPT_CONFIG.version ||
       validateNarrativeSentences(body.narrativeSentences, PROMPT_CONFIG.followUpTurns, PROMPT_CONFIG.narrativeMaxSentences, language).length > 0 ||
       !isRatingMap(body.evaluation, evaluationItems.map((item) => item.id), recordType === "batch_synthetic") ||
@@ -38,7 +49,7 @@ export function parseResultData(body: unknown): ResultData | null {
   const questionGeneration = [];
   for (const value of body.questionGeneration) {
     const generation = readGenerationMetadata(value);
-    if (!generation || generation.attempts > PROMPT_CONFIG.maxFollowUpAttempts) return null;
+    if (!generation || generation.attempts > PROMPT_CONFIG.maxFollowUpAttempts || generation.promptVersion !== PROMPT_CONFIG.followUpVersion) return null;
     questionGeneration.push(generation);
   }
   const narrativeGeneration = readGenerationMetadata(body.narrativeGeneration);

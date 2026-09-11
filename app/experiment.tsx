@@ -11,13 +11,11 @@ import { readGenerationMetadata, type GenerationMetadata } from "../lib/generati
 import ReferenceMaterials from "./reference-materials";
 
 type Step = "welcome" | "consent" | "recall" | "questions" | "narrative" | "evaluation" | "check" | "debrief" | "done";
-type Condition = "standard" | "visual" | "odor";
+type Condition = "visual" | "odor";
 type QuestionMetadata = {
   conditionFocus: Condition | "neutral";
-  turnFunction: "broad_recall" | "grounded_detail" | "temporal_anchor" | "action_relation" | "second_grounded_detail" | "unresolved_attribute";
   targetEvidenceId: string | null;
-  nonRecallTransition: boolean;
-  insufficientEvidenceTransition: boolean;
+  transitionReason?: "non_recall" | "insufficient_evidence";
 };
 
 const workflowSteps: Exclude<Step, "done">[] = ["welcome", "consent", "recall", "questions", "narrative", "evaluation", "check", "debrief"];
@@ -57,13 +55,15 @@ async function callApi(path: string, body: Record<string, unknown>, language: La
   };
 }
 
-function randomCondition(): Condition {
-  return ["standard", "visual", "odor"][Math.floor(Math.random() * 3)] as Condition;
-}
-
 function createSessionId() {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") return crypto.randomUUID();
   return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
+// Server-side stratified block assignment is gated by TASK-016; this keeps
+// the current mock on the required two-condition surface until that decision.
+function randomCondition(): Condition {
+  return Math.random() < 0.5 ? "visual" : "odor";
 }
 
 export default function Experiment({ storageKind }: { storageKind: StorageKind }) {

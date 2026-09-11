@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     const fragment = body.fragment as string;
     const answers = body.answers as Array<{ question: string; answer: string }>;
     let retryReason = "";
-    const rejectionLog: Array<{ attempt: number; flags: string[] }> = [];
+    const rejectionLog: Array<{ attempt: number; flags: string[]; model?: string; requestId?: string | null }> = [];
     for (let attempt = 1; attempt <= PROMPT_CONFIG.maxNarrativeAttempts; attempt += 1) {
       try {
         const result = await createResponse({
@@ -56,6 +56,7 @@ export async function POST(request: Request) {
             requestId: result.id,
             promptVersion: PROMPT_CONFIG.version,
             attempts: attempt,
+            settings: { temperature: PROMPT_CONFIG.narrativeTemperature, candidateCount: 1, maxAttempts: PROMPT_CONFIG.maxNarrativeAttempts },
             diagnostics: { rejections: rejectionLog },
           });
         }
@@ -63,7 +64,7 @@ export async function POST(request: Request) {
         console.warn("[narrative validation]", JSON.stringify({ attempt, flags }));
         retryReason = flags.join(", ");
       } catch (error) {
-        if (error instanceof OpenAIRequestError && [401, 403, 503].includes(error.status)) throw error;
+        if (error instanceof OpenAIRequestError && [401, 403, 429, 503, 504].includes(error.status)) throw error;
         const flag = error instanceof Error ? error.message : "invalid_output";
         rejectionLog.push({ attempt, flags: [flag] });
         console.warn("[narrative validation]", JSON.stringify({ attempt, flags: [flag] }));

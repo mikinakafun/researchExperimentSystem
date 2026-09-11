@@ -5,7 +5,7 @@ import type { GenerationMetadata } from "./generation";
 export type ResultData = {
   sessionId: string;
   recordType: "participant" | "batch_synthetic";
-  condition: "standard" | "visual" | "odor";
+  condition: "visual" | "odor";
   language: Language;
   fragment: string;
   questions: string[];
