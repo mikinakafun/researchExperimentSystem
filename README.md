@@ -80,9 +80,9 @@ npm run run:persona-batch
 
 `RESULT_STORAGE` 未設定または `csv` では新規の `data/results-v0.4.4-bilingual-two-condition-schema-v3.csv` に追記します。旧schema v2のCSVは読み替え・追記・移行せず保持します。header/versionが期待値と異なるCSVへの追記は拒否します。完了セッションは一行のschema v3で、6質問・6回答・生成履歴・文章・評定・MC/DQを含みます。`data/*.csv` はGit管理外です。
 
-現行の `record_type` は `participant` と `batch_synthetic` です。participantは12評価項目と6 checksの完全な既定ID集合、および各値1〜7の整数を要求します。batch_syntheticはevaluationとchecksがともに空、またはともに全項目を含む場合だけ許容し、片方だけの部分入力は拒否します。
+現行の `record_type` は `participant` と `batch_synthetic` です。participantは12評価項目と6 checksの完全な既定ID集合、および各値1〜7の整数を要求します。batch_syntheticはevaluationとchecksがともに空、またはともに全項目を含む場合だけ許容し、片方だけの部分入力は拒否します。両record typeとも、各質問・物語のgeneration recordにmodel、request ID、prompt version、settings、attempts、rejectionsを保存し、fallback時はfallbackReasonも必須です。
 
-現行prompt versionは質問が `prompt-catalog-v0.4.4-mock-draft`、物語が `prompt-catalog-v0.4.3-mock-draft` です。既存結果を比較するときは、質問のgeneration record内にあるversionで区別します。`attempts` は採用候補を含むAPI内試行数で、`source=generated` は最後の試行を採用、`source=fallback` は全試行棄却を意味します。fallbackでは `model=fallback`、`requestId=null` です。現行保存形式は、各棄却候補のmodel/request IDや画面再送前に失敗したリクエスト履歴を保存しません。これは将来要求との差分です。
+現行prompt versionは質問が `prompt-catalog-v0.4.4-mock-draft`、物語が `prompt-catalog-v0.4.3-mock-draft` です。既存結果を比較するときは、質問のgeneration record内にあるversionで区別します。`attempts` は並列候補とrepairを含む、その生成API呼出しの全試行数です。`source=generated` は検証済み候補を採用、`source=fallback` は候補とrepairを全て棄却して固定質問へ置換したことを意味します。fallbackでは `model=fallback`、`requestId=null`、`fallbackReason`（`generation_rejected` / `non_recall` / `insufficient_evidence`）を保存します。`diagnostics.rejections` には候補またはrepairごとのstage、違反フラグ、候補情報、応答時のmodel/request IDを保存します。
 
 APIのlanguageは `ja` / `en` で、未指定は既存クライアント互換のため `ja`、その他の値は拒否します。言語を質問開始後に変更すると現行UIは同意画面へ戻り、初期断片を保持します。質問開始後は言語を固定します。JSON key、ID、enum値は言語間で不変で、100文字上限も両言語同じです。
 

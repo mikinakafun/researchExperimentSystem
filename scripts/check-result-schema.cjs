@@ -40,14 +40,17 @@ async function main() {
     ok(readFileSync('supabase/migrations/202609110001_experiment_results_v3.sql', 'utf8'));
     assert.equal(ok("select relrowsecurity from pg_class where oid='public.experiment_results'::regclass;"), 't');
     const legacy = { ...resultPayload({ sessionId: 'legacy-schema-fixture', recordType: 'batch_synthetic', condition: 'standard' }), savedAt: new Date().toISOString(), schemaVersion: '2', protocolVersion: RESULT_PROTOCOL_VERSION };
-    const record = { ...resultPayload({ sessionId: 'schema-fixture', recordType: 'batch_synthetic' }), savedAt: new Date().toISOString(), schemaVersion: RESULT_SCHEMA_VERSION, protocolVersion: RESULT_PROTOCOL_VERSION };
+    const legacyVisual = { ...resultPayload({ sessionId: 'legacy-schema-visual', recordType: 'batch_synthetic', condition: 'visual' }), savedAt: new Date().toISOString(), schemaVersion: '2', protocolVersion: RESULT_PROTOCOL_VERSION };
+    const record = { ...resultPayload({ sessionId: 'schema-fixture', recordType: 'batch_synthetic', condition: 'odor' }), savedAt: new Date().toISOString(), schemaVersion: RESULT_SCHEMA_VERSION, protocolVersion: RESULT_PROTOCOL_VERSION };
     const legacySerialized = JSON.stringify(legacy).replaceAll("'", "''");
     ok(`set role service_role; insert into public.experiment_results(session_id,payload) values ('legacy-schema-fixture','${legacySerialized}'::jsonb);`);
+    const legacyVisualSerialized = JSON.stringify(legacyVisual).replaceAll("'", "''");
+    ok(`set role service_role; insert into public.experiment_results(session_id,payload) values ('legacy-schema-visual','${legacyVisualSerialized}'::jsonb);`);
     const serialized = JSON.stringify(record).replaceAll("'", "''");
     const insert = `insert into public.experiment_results(session_id,payload) values ('schema-fixture','${serialized}'::jsonb);`;
     ok(`set role service_role; ${insert}`);
-    assert.equal(ok('set role service_role; select count(*) from public.experiment_results;').split('\n').at(-1), '2');
-    assert.match(ok("select record_type || ':' || schema_version from public.experiment_results order by session_id;"), /batch_synthetic:2\nbatch_synthetic:3/u);
+    assert.equal(ok('set role service_role; select count(*) from public.experiment_results;').split('\n').at(-1), '3');
+    assert.match(ok("select session_id || ':' || record_type || ':' || schema_version || ':' || condition from public.experiment_results order by session_id;"), /legacy-schema-fixture:batch_synthetic:2:standard\nlegacy-schema-visual:batch_synthetic:2:visual\nschema-fixture:batch_synthetic:3:odor/u);
     denied(`set role service_role; insert into public.experiment_results(session_id,payload) values ('bad-v3','${JSON.stringify({ ...record, sessionId: 'bad-v3', condition: 'standard' }).replaceAll("'", "''")}'::jsonb);`, /experiment_results_condition_by_schema/u);
     denied(`set role service_role; ${insert}`, /duplicate key/u);
     for (const role of ['anon', 'authenticated']) {

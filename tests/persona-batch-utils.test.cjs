@@ -18,4 +18,10 @@ test('persona batch generation metadata preserves settings required by save-resu
     settings: payload.settings,
     diagnostics: payload.diagnostics,
   });
+
+  const fallback = { ...payload, source: 'fallback', fallbackReason: 'generation_rejected', model: 'fallback', requestId: null };
+  assert.deepEqual(generationMetadata(fallback), {
+    model: 'fallback', requestId: null, promptVersion: payload.promptVersion, source: 'fallback',
+    fallbackReason: 'generation_rejected', attempts: payload.attempts, settings: payload.settings, diagnostics: payload.diagnostics,
+  });
 });

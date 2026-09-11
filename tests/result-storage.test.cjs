@@ -78,7 +78,12 @@ test('incomplete or inconsistent generation diagnostics cannot be silently saved
     null, {}, { ...good, model: '' }, { ...good, requestId: undefined }, { ...good, source: undefined },
     { ...good, promptVersion: '' }, { ...good, attempts: 0 }, { ...good, attempts: 1.5 },
     { ...good, diagnostics: undefined }, { ...good, attempts: 2 },
-    { ...good, source: 'fallback' },
+    { ...good, fallbackReason: 'generation_rejected' }, { ...good, fallbackReason: 'unknown' },
+    { ...good, settings: { ...good.settings, candidateCount: 0 } },
+    { ...good, settings: { ...good.settings, repairCount: 1.5 } },
+    { ...good, source: 'fallback' }, { ...good, source: 'fallback', model: 'fallback', requestId: null },
+    { ...good, source: 'fallback', model: 'fallback', requestId: null, fallbackReason: 'unknown' },
+    { ...good, source: 'generated', requestId: null },
   ]) assert.equal(readGenerationMetadata(bad), null);
   for (const overrides of [
     { questionGeneration: undefined }, { questionGeneration: [] }, { questionGeneration: Array(6).fill(null) },
@@ -100,8 +105,8 @@ test('save route returns 400 for malformed inputs without writing, and retains r
   assert.equal(fs.existsSync(path.join(directory, 'data')), false);
 
   const retry = generationMetadata({ attempts: 2, diagnostics: { rejections: [{ attempt: 1, stage: 'candidate', flags: ['condition_mismatch'], question: '棄却された質問？', metadata: { conditionFocus: 'visual' } }] } });
-  const fallback = generationMetadata({ source: 'fallback', model: 'fallback', requestId: null, attempts: 4, diagnostics: { rejections: [1, 2, 3, 4].map((attempt) => ({ attempt, stage: attempt === 4 ? 'repair' : 'candidate', flags: ['generation_rejected'] })) } });
-  const payload = resultPayload({ questionGeneration: [retry, fallback, ...Array.from({ length: 4 }, () => generationMetadata())], narrativeGeneration: generationMetadata({ promptVersion: require('../app/api/prompt-config.ts').PROMPT_CONFIG.version }) });
+  const fallback = generationMetadata({ source: 'fallback', fallbackReason: 'generation_rejected', model: 'fallback', requestId: null, attempts: 4, diagnostics: { rejections: [1, 2, 3, 4].map((attempt) => ({ attempt, stage: attempt === 4 ? 'repair' : 'candidate', flags: ['generation_rejected'] })) } });
+  const payload = resultPayload({ questionGeneration: [retry, fallback, ...Array.from({ length: 4 }, () => generationMetadata())] });
   fs.mkdirSync(path.join(directory, 'data'));
   const legacy = path.join(directory, 'data/results-v0.4.3-bilingual.csv');
   fs.writeFileSync(legacy, 'legacy stays unchanged\n');
@@ -119,6 +124,25 @@ test('save route returns 400 for malformed inputs without writing, and retains r
   const before = fs.readFileSync(csvPath, 'utf8');
   assert.equal((await (await save(request(payload))).json()).duplicate, true);
   assert.equal(fs.readFileSync(csvPath, 'utf8'), before);
+});
+
+test('save validator requires generation-kind settings and fallback diagnostics to agree', () => {
+  const narrativeSettings = { temperature: PROMPT_CONFIG.narrativeTemperature, candidateCount: 1, repairCount: 0, maxAttempts: PROMPT_CONFIG.maxNarrativeAttempts };
+  const narrative = generationMetadata({ promptVersion: PROMPT_CONFIG.version, settings: narrativeSettings });
+  assert.ok(parseResultData(resultPayload({ narrativeGeneration: narrative })));
+  assert.equal(parseResultData(resultPayload({
+    narrativeGeneration: generationMetadata({ promptVersion: PROMPT_CONFIG.version }),
+  })), null);
+
+  for (const settings of [
+    { temperature: 0.55, candidateCount: 1, repairCount: 0, maxAttempts: 3 },
+    { temperature: 0.75, candidateCount: 3, repairCount: 1, maxAttempts: 4 },
+    { temperature: 0.55, candidateCount: 3, repairCount: 1, maxAttempts: 3 },
+  ]) assert.equal(parseResultData(resultPayload({ questionGeneration: Array.from({ length: 6 }, () => generationMetadata({ settings })) })), null);
+
+  assert.equal(parseResultData(resultPayload({
+    questionGeneration: Array.from({ length: 6 }, () => generationMetadata({ source: 'fallback', model: 'fallback', requestId: null, attempts: 4, diagnostics: { rejections: [1, 2, 3, 4].map((attempt) => ({ attempt, stage: 'candidate', flags: ['rejected'] })) } })),
+  })), null);
 });
 
 test('local adapter serializes concurrent saves and recognizes IDs across multiline quoted content', async (t) => {

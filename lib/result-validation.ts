@@ -17,6 +17,16 @@ function isTurnText(value: unknown): value is string[] {
   return Array.isArray(value) && value.length === PROMPT_CONFIG.followUpTurns && value.every(isNonEmptyString);
 }
 
+function sameGenerationSettings(
+  actual: { temperature: number; candidateCount: number; repairCount: number; maxAttempts: number },
+  expected: { temperature: number; candidateCount: number; repairCount: number; maxAttempts: number },
+) {
+  return actual.temperature === expected.temperature &&
+    actual.candidateCount === expected.candidateCount &&
+    actual.repairCount === expected.repairCount &&
+    actual.maxAttempts === expected.maxAttempts;
+}
+
 function isQuestionMetadata(value: unknown, condition: "visual" | "odor", turn: number): value is Record<string, unknown> {
   if (!isObject(value) || (value.conditionFocus !== condition && value.conditionFocus !== "neutral") ||
       !(value.targetEvidenceId === null || isNonEmptyString(value.targetEvidenceId))) return false;
@@ -50,13 +60,26 @@ export function parseResultData(body: unknown): ResultData | null {
   const questionGeneration = [];
   for (const value of body.questionGeneration) {
     const generation = readGenerationMetadata(value);
-    if (!generation || generation.attempts > PROMPT_CONFIG.maxFollowUpAttempts || generation.promptVersion !== PROMPT_CONFIG.followUpVersion) return null;
+    if (!generation || generation.attempts > PROMPT_CONFIG.maxFollowUpAttempts ||
+        generation.promptVersion !== PROMPT_CONFIG.followUpVersion ||
+        !sameGenerationSettings(generation.settings, {
+          temperature: PROMPT_CONFIG.followUpTemperature,
+          candidateCount: PROMPT_CONFIG.followUpCandidateCount,
+          repairCount: PROMPT_CONFIG.followUpRepairCount,
+          maxAttempts: PROMPT_CONFIG.maxFollowUpAttempts,
+        })) return null;
     questionGeneration.push(generation);
   }
   const narrativeGeneration = readGenerationMetadata(body.narrativeGeneration);
   if (!narrativeGeneration || narrativeGeneration.source !== "generated" ||
       narrativeGeneration.attempts > PROMPT_CONFIG.maxNarrativeAttempts ||
-      narrativeGeneration.promptVersion !== body.narrativePromptVersion) return null;
+      narrativeGeneration.promptVersion !== body.narrativePromptVersion ||
+      !sameGenerationSettings(narrativeGeneration.settings, {
+        temperature: PROMPT_CONFIG.narrativeTemperature,
+        candidateCount: 1,
+        repairCount: 0,
+        maxAttempts: PROMPT_CONFIG.maxNarrativeAttempts,
+      })) return null;
 
   return {
     sessionId: body.sessionId, recordType, condition: body.condition, language,

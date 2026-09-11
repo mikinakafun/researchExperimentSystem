@@ -18,7 +18,11 @@ function resultPayload(overrides = {}) {
     questionMetadata: Array.from({ length: 6 }, () => ({ conditionFocus: 'visual', targetEvidenceId: null })),
     questionGeneration: Array.from({ length: 6 }, (_, index) => generationMetadata({ requestId: `offline-question-${index + 1}` })),
     finalResult: narrativeSentences[0].text, narrativeSentences,
-    narrativePromptVersion: PROMPT_CONFIG.version, narrativeGeneration: generationMetadata({ promptVersion: PROMPT_CONFIG.version }),
+    narrativePromptVersion: PROMPT_CONFIG.version,
+    narrativeGeneration: generationMetadata({
+      promptVersion: PROMPT_CONFIG.version,
+      settings: { temperature: PROMPT_CONFIG.narrativeTemperature, candidateCount: 1, repairCount: 0, maxAttempts: PROMPT_CONFIG.maxNarrativeAttempts },
+    }),
     evaluation: Object.fromEntries(evaluationItems.map(({ id }) => [id, 4])),
     checks: Object.fromEntries(checks.map(({ id }) => [id, 4])),
     ...overrides,

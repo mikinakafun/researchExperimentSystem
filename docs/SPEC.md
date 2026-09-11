@@ -12,7 +12,7 @@
 |---|---|---|---|
 | 条件 | `visual` / `odor` の二条件 | UI、API、結果validator、persona batchは`visual` / `odor`のみ | 部分実装 |
 | 割付 | 初期断片送信後、言語層別のサーバ側ブロック無作為化、割付ログ | クライアントの `Math.random()` | 未実装 |
-| 質問 | 条件内の6問、候補並列・決定的validator・修復・固定fallback | 現行runtime prompt、逐次最大3試行、固定fallback | 部分実装 |
+| 質問 | 条件内の6問、候補並列・決定的validator・修復・固定fallback | 現行runtime prompt、候補並列・repair・固定fallback | 部分実装 |
 | メタデータ | `conditionFocus`、`targetEvidenceId`、中立遷移理由 | `conditionFocus`、`targetEvidenceId`、中立時の`transitionReason` | 部分実装 |
 | 保存 | 二条件値域、同意保存先lock、冪等性、整合性、保持・撤回・削除 | 新規保存はschema v3/二条件、CSV/Supabase、lock/冪等性を実装。管理削除は未実装 | 部分実装 |
 | UI | 条件秘匿、同意・中止・デブリーフ、生成文が復元ではないことの明示 | 現行mockとして一部実装 | 要確認・未実装あり |
@@ -155,7 +155,8 @@
 
 - `record_type` は `participant` / `batch_synthetic`。participantは12評価項目と6 checksの完全ID集合および1〜7整数を必須とする。batch_syntheticはevaluationとchecksがともに空、またはともに完全集合の場合だけ許容し、片方だけの部分入力は拒否する。
 - 質問prompt versionは `prompt-catalog-v0.4.4-mock-draft`、物語prompt versionは `prompt-catalog-v0.4.3-mock-draft`。既存結果の比較では質問generation record内のversionで区別する。
-- `attempts` は採用候補を含むAPI内試行数。`source=generated` は最後の試行を採用し、`source=fallback` は全試行棄却で、fallbackは `model=fallback`、`requestId=null`。現行保存形式には棄却ごとのmodel/request IDや画面再送前の失敗履歴がなく、要求との差分である。
+- `attempts` はその生成API呼出しで実行した全試行数で、並列候補とrepairを含む。`source=generated` は候補またはrepairの検証済み出力を採用したこと、`source=fallback` は候補とrepairをすべて棄却して固定質問へ置換したことを示す。fallbackは `model=fallback`、`requestId=null`、`fallbackReason` は `generation_rejected` / `non_recall` / `insufficient_evidence` のいずれかを必須とする。
+- `diagnostics.rejections` は棄却候補または不採用候補ごとの `stage`、違反フラグ、候補本文・metadata（存在時）、providerのmodel/request ID（応答時）を保存する。画面再送前にAPI応答が返らなかった失敗は、その生成recordのattemptsには含めない。
 - API `language` は `ja` / `en`、未指定は互換性上 `ja`、その他は拒否。言語変更後の現行UIは同意画面へ戻り初期断片を保持し、質問開始後は固定する。JSON key/id/enum値は言語間で不変、100文字上限は両言語同じ。
 - 旧CSVはbilingual schema v2として保持し、新規CSVはbilingual two-condition schema v3で `language` 列を含む。旧CSVへの追記はせず、header/version mismatchへの追記は拒否する。
 

@@ -273,10 +273,13 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   response = await POST(request());
   body = await response.json();
   assert.equal(body.source, 'fallback');
+  assert.equal(body.fallbackReason, 'generation_rejected');
   assert.equal(body.promptVersion, PROMPT_CONFIG.followUpVersion);
   assert.equal(calls, 3 + 1);
   assert.equal(body.diagnostics.rejections[0].question, output.question);
   assert.equal(body.diagnostics.rejections[0].metadata.conditionFocus, 'visual');
+  assert.equal(body.diagnostics.rejections[0].model, 'offline-fixture');
+  assert.equal(body.diagnostics.rejections[0].requestId, 'offline-fixture');
 
   output = { ...output, question: valid.question, transitionReason: 'invalid' };
   response = await POST(request());

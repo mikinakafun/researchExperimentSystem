@@ -2,8 +2,10 @@
 -- two-condition contract in the same table.
 begin;
 
-alter table public.experiment_results drop constraint condition_check;
-alter table public.experiment_results drop constraint schema_version_check;
+-- The initial migration uses unnamed column CHECKs. PostgreSQL names those
+-- constraints after the table and column, not simply after the column.
+alter table public.experiment_results drop constraint experiment_results_condition_check;
+alter table public.experiment_results drop constraint experiment_results_schema_version_check;
 alter table public.experiment_results
   add constraint experiment_results_condition_by_schema check (
     (schema_version = '2' and condition in ('standard', 'visual', 'odor')) or
