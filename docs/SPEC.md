@@ -10,10 +10,10 @@
 
 | 項目 | 要求仕様 | 現行実装 | 判定 |
 |---|---|---|---|
-| 条件 | `visual` / `odor` の二条件 | `standard` / `visual` / `odor` の三条件 | 未実装 |
+| 条件 | `visual` / `odor` の二条件 | UI、API、結果validator、persona batchは`visual` / `odor`のみ | 部分実装 |
 | 割付 | 初期断片送信後、言語層別のサーバ側ブロック無作為化、割付ログ | クライアントの `Math.random()` | 未実装 |
 | 質問 | 条件内の6問、候補並列・決定的validator・修復・固定fallback | 現行runtime prompt、逐次最大3試行、固定fallback | 部分実装 |
-| メタデータ | `conditionFocus`、`targetEvidenceId`、中立遷移理由 | `turnFunction` を含む三条件契約 | 未実装 |
+| メタデータ | `conditionFocus`、`targetEvidenceId`、中立遷移理由 | `conditionFocus`、`targetEvidenceId`、中立時の`transitionReason` | 部分実装 |
 | 保存 | 二条件値域、同意保存先lock、冪等性、整合性、保持・撤回・削除 | schema v2、CSV/Supabase、lock/冪等性は一部実装、二条件化と管理削除は未実装 | 部分実装 |
 | UI | 条件秘匿、同意・中止・デブリーフ、生成文が復元ではないことの明示 | 現行mockとして一部実装 | 要確認・未実装あり |
 
@@ -33,7 +33,7 @@
 
 ## 3. 研究・運用上の不変条件
 
-- 条件はVisualとOdorの二条件。Standardは要求仕様上廃止済みだが、コードと一部保存スキーマには残る。
+- 条件はVisualとOdorの二条件。Standardは要求仕様上廃止済みで、現行のUI、API、結果validator、persona batchは受け付けない。
 - Visualは視覚的対象・詳細に焦点を置き、匂い・音・触覚・温度・身体・感情を尋ねない。
 - Odorは匂い、その質、覚えている匂いが何の匂いだったかを扱うが、視覚・音・触覚・温度・身体・感情、原因説明・発生源の推測を尋ねない。
 - 将来ベースライン条件が必要になっても、廃止したStandardを再利用しない。条件ガイダンスを与えない無誘導条件として改めて定義し、条件外への逸脱は検証失敗ではなく測定値とする。
@@ -74,7 +74,7 @@
 | `transitionReason` | 中立時に「非想起」または「条件内の材料枯渇」のちょうど一つ。条件内では持たない |
 | `question` | 1問、セッション言語、条件外誘導・研究開示・推測要求なし |
 
-`turnFunction` は要求仕様では廃止する。現行runtime promptとvalidatorが返すため、二条件化の際に保存・必須入力として固定しない。
+`turnFunction` は要求仕様・現行runtime契約のいずれにも含めない。現行の質問metadataは`conditionFocus`、`targetEvidenceId`、必要時の`transitionReason`である。
 
 ### 5.2 選択手順
 
@@ -119,7 +119,7 @@
 - 参加者認証、途中保存・再開、管理者の撤回・削除UI、公開運用は未実装であり、一般公開しない。
 - 保持は最終公表から10年（未公表pilotは終了から10年）。匿名化前はsession ID単位で撤回を受け付け、primary store、export、backupを含めて破棄し、破棄後は削除記録だけ残す。匿名化後の個別削除不能は同意文に明示する。
 
-SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`session_id`主キー、6件配列制約、`condition in ('visual','odor')` は [`../supabase/migrations/202609030001_experiment_results.sql`](../supabase/migrations/202609030001_experiment_results.sql) とREADMEの手順で検証する。現行migrationの三条件値域は未実装差分であり、この文書作業では変更しない。
+リポジトリ上のSupabase migrationは、SQL、RLS、匿名ロール拒否、service roleのみの権限、`session_id`主キー、6件配列制約、`condition in ('visual','odor')`を定義する。ただし、既存DBへの適用状態と移行方法は未確認である。migrationの適用確認はこの文書作業の範囲外であり、既存DBを削除・再作成しない。
 
 ## 9. 実行資産と証跡の扱い
 
@@ -138,15 +138,15 @@ SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`se
 
 要求仕様と現行アプリの差分は次のとおりである。
 
-- `app/experiment.tsx` と各API routeが `standard` を型・入力・validator・fallback・schemaで受け入れる。
+- 条件の型・入力・validator・fallback・結果schema・persona batchは`visual` / `odor`の二条件である。Standardは現行runtimeでは受け入れない。
 - 条件割付はクライアント側の `Math.random()` で、有効断片送信後のサーバ側ブロック割付・割付ログではない。
 - `app/api/follow-up/route.ts` は最大3回の逐次試行で、候補並列・repair段・候補本文と違反箇所のrepair入力は未実装。
-- `turnFunction` は現行契約に残るが、要求仕様では廃止する。
-- OpenAI呼出しにはtimeoutと `store:false` があるが、基盤失敗をfallbackにせず中断する経路、strict schema再検証、diagnostics必須化の境界を二条件仕様に合わせる必要がある。
+- `turnFunction` は現行契約から削除され、質問metadataは要求仕様の二条件契約に合わせている。
+- OpenAI呼出しにはtimeoutと `store:false` がある。質問は逐次最大3試行後に固定fallbackへ進み、物語は最大試行後にエラーとする。基盤失敗をfallbackにせず中断する経路、strict schema再検証、diagnostics必須化には要求との差分が残る。
 - narrative annotationは保存されるが、独立検証ではなくモデル自己申告である。
-- `lib/result.ts`、`lib/result-validation.ts`、Supabase migration、persona batchは三条件前提で、二条件値域とserver assignmentへ未対応。
-- 保存先lock、CSV直列化、同一IDの競合拒否などは一部実装済みだが、撤回・保持期限・管理削除・認証・公開運用は未実装。
-- オフラインfixtureとテストは存在するが、現行三条件の実装を二条件要求の証明として扱わない。
+- `lib/result.ts`、`lib/result-validation.ts`、Supabase migration、persona batchは二条件値域に対応している。サーバ側割付と割付ログは未実装で、UIはクライアント側の`Math.random()`を使う。
+- 保存先lock、CSV直列化、同一IDの競合拒否などは一部実装済みだが、要求される保持・撤回・削除の管理経路、認証・公開運用は未実装。リポジトリ上のSupabase migrationは二条件だが、既存DBへの適用状態と移行方法は未確認。
+- オフラインfixtureとテストは存在し、二条件のUI/API保存フローを確認できるが、要求されるサーバ側割付やその他の未実装要件の証明にはならない。
 
 ### 現行互換性契約
 
@@ -182,10 +182,10 @@ SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`se
 
 - 必要な仕様・制約・未実装差分が `docs/SPEC.md` にあり、セットアップ・操作・オフライン検証・保存先検証・課金を伴う任意操作が `README.md` にある。
 - READMEからSPECへ、AGENTSからREADME/SPECへ、残存する保存資産・証跡へそれぞれ正しく辿れる。
-- Visual/Odor要求、現行Standardを含む三条件、client割付、未実装を明示し、実装済みと誤認させない。
+- Visual/Odor要求、Standardを受け付けない現行二条件runtime、client割付、未実装を明示し、実装済みと誤認させない。
 - 指導教員approval gate不要、倫理審査・収集開始条件必要、研究上の未解決事項、非想起・DQ/MC-EVENT/fallbackの扱いを明示する。
 - 実行資産は §9 の正本に一本化し、別ディレクトリに比較用コピーや履歴表を維持しない。
 - 保存済みデータ、artifacts、凍結evidenceは保持する。
 - 削除済みの説明文書・履歴表・作業用文書への生きた参照がない。
 - 文書内リンク、対象ファイル参照、削除・整理対象への参照を検査する。
-- コードまたは実行資産の変更では `npm test`、`npm run typecheck`、`npm run build` を順番に実行する。
+- コードまたは実行資産の変更では `npm test`、`npm run typecheck`、`npm run build` を順番に実行する。UI fixtureはwelcomeからdebrief、save、doneまでのオフライン影響フローを確認し、persona batchは10 personas × 2条件のdry-runを確認する。

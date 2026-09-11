@@ -1,6 +1,6 @@
 # ResearchPilotSystem
 
-既存のNext.js実験システムに、二条件（Visual / Odor）の研究仕様を適用していくための研究用mockです。仕様・制約・未実装差分は [`docs/SPEC.md`](docs/SPEC.md)、このREADMEはセットアップ・操作・オフライン検証・保存先検証の正本です。現状は仕様に未達の三条件mockであり、参加者募集や実収集には使用できません。
+既存のNext.js実験システムに、二条件（Visual / Odor）の研究仕様を適用していくための研究用mockです。仕様・制約・未実装差分は [`docs/SPEC.md`](docs/SPEC.md)、このREADMEはセットアップ・操作・オフライン検証・保存先検証の正本です。現状は仕様に未達の二条件mockであり、参加者募集や実収集には使用できません。
 
 ## 前提と安全上の注意
 
@@ -68,7 +68,7 @@ node tests/ui-fixture-server.cjs
 npm run run:persona-batch -- --dry-run
 ```
 
-これはAPIを呼ばず、10 personasと予定セッションを検証します。プロンプト、validator、候補戦略を変更した場合は、仕様上の常時運用としてハーネスを再実行します。実APIバッチは次で、現行は10 personas × 3条件の30セッション相当です。基準約390 API calls（追質問180、模擬回答約180、物語30。再試行分は追加）を行い、課金と合成結果保存を伴う任意操作です。二条件化後は呼出し数が変わるため、この値を二条件の見積りとして扱いません。
+これはAPIを呼ばず、10 personasと予定セッションを検証します。プロンプト、validator、候補戦略を変更した場合は、仕様上の常時運用としてハーネスを再実行します。実APIバッチは次で、現行は10 personas × 2条件の20セッション相当です。基準約260 API calls（追質問120、模擬回答120、物語20。各処理の再試行分は追加）を行い、課金と合成結果保存を伴う任意操作です。
 
 ```bash
 npm run run:persona-batch
@@ -98,7 +98,7 @@ SUPABASE_URL=https://<project>.supabase.co
 SUPABASE_SECRET_KEY=<server-only-secret>
 ```
 
-1. Supabase SQL Editorで [`supabase/migrations/202609030001_experiment_results.sql`](supabase/migrations/202609030001_experiment_results.sql) を新規テーブルとして一度だけ実行します。既存テーブルを削除して再作成しません。
+1. リポジトリ上の [`supabase/migrations/202609030001_experiment_results.sql`](supabase/migrations/202609030001_experiment_results.sql) は二条件（`visual` / `odor`）のmigrationです。既存DBへの適用状態と、既存DBへ適用する場合の移行方法は未確認です。実環境での適用は、その状態と手順を確認してから行ってください。既存テーブルを削除して再作成しません。
 2. `npm run check:supabase` を実行します。OpenAI APIは呼ばず、合成行の保存、同一内容の再送、異内容の競合、読み戻し、CSV出力を確認します。実行ごとに `batch_synthetic` の検証行が残ります。
 3. `npm run dev` を再起動し、画面の保存先表示がSupabaseになっていることを確認します。
 4. 収集停止中にexportします。既定はparticipantだけです。全行は `npm run export:supabase -- --record-type all`、合成行を指定ファイルへ新規出力する場合は `npm run export:supabase -- --record-type batch_synthetic --output data/synthetic-export.csv` を実行します。既存ファイルは上書きしません。
