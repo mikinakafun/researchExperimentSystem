@@ -99,8 +99,8 @@ test('save route returns 400 for malformed inputs without writing, and retains r
   assert.equal((await save(new Request('http://localhost/api/save-result', { method: 'POST', body: '{' }))).status, 400);
   assert.equal(fs.existsSync(path.join(directory, 'data')), false);
 
-  const retry = generationMetadata({ attempts: 2, diagnostics: { rejections: [{ attempt: 1, flags: ['condition_mismatch'], question: '棄却された質問？', metadata: { conditionFocus: 'visual' } }] } });
-  const fallback = generationMetadata({ source: 'fallback', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['request_failed'] })) } });
+  const retry = generationMetadata({ attempts: 2, diagnostics: { rejections: [{ attempt: 1, stage: 'candidate', flags: ['condition_mismatch'], question: '棄却された質問？', metadata: { conditionFocus: 'visual' } }] } });
+  const fallback = generationMetadata({ source: 'fallback', model: 'fallback', requestId: null, attempts: 4, diagnostics: { rejections: [1, 2, 3, 4].map((attempt) => ({ attempt, stage: attempt === 4 ? 'repair' : 'candidate', flags: ['generation_rejected'] })) } });
   const payload = resultPayload({ questionGeneration: [retry, fallback, ...Array.from({ length: 4 }, () => generationMetadata())], narrativeGeneration: generationMetadata({ promptVersion: require('../app/api/prompt-config.ts').PROMPT_CONFIG.version }) });
   fs.mkdirSync(path.join(directory, 'data'));
   const legacy = path.join(directory, 'data/results-v0.4.3-bilingual.csv');

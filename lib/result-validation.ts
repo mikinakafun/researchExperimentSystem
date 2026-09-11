@@ -33,6 +33,7 @@ export function parseResultData(body: unknown): ResultData | null {
   const language = parseLanguage(body.language);
   const recordType = body.recordType === undefined ? "participant" : body.recordType;
   if (!language || (recordType !== "participant" && recordType !== "batch_synthetic") ||
+      (body.schemaVersion !== undefined && body.schemaVersion !== PROMPT_CONFIG.schemaVersion) ||
       (body.condition !== "visual" && body.condition !== "odor") ||
       !isNonEmptyString(body.sessionId) || body.sessionId.length > 200 || !isNonEmptyString(body.fragment) || body.fragment.length > 100 || !isNonEmptyString(body.finalResult) ||
       !isTurnText(body.questions) || !isTurnText(body.answers) ||

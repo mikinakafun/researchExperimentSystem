@@ -4,7 +4,7 @@ const { checks, evaluationItems } = require('../lib/survey.ts');
 function generationMetadata(overrides = {}) {
   return {
     model: 'offline-model', requestId: 'offline-response', promptVersion: PROMPT_CONFIG.followUpVersion,
-    source: 'generated', attempts: 1, settings: { temperature: 0.55, candidateCount: 1, maxAttempts: 3 }, diagnostics: { rejections: [] }, ...overrides,
+    source: 'generated', attempts: 1, settings: { temperature: 0.55, candidateCount: 3, repairCount: 1, maxAttempts: 4 }, diagnostics: { rejections: [] }, ...overrides,
   };
 }
 
