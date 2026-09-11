@@ -1,0 +1,21 @@
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+
+test('persona batch generation metadata preserves settings required by save-result', async () => {
+  const { generationMetadata } = await import('../scripts/persona-batch-utils.mjs');
+  const payload = {
+    model: 'offline-model', requestId: 'offline-response', promptVersion: 'prompt-v1', source: 'generated', attempts: 2,
+    settings: { temperature: 0.55, candidateCount: 1, maxAttempts: 3 },
+    diagnostics: { rejections: [{ attempt: 1, flags: ['condition_mismatch'] }] },
+    question: '採用される質問？',
+  };
+  assert.deepEqual(generationMetadata(payload), {
+    model: payload.model,
+    requestId: payload.requestId,
+    promptVersion: payload.promptVersion,
+    source: payload.source,
+    attempts: payload.attempts,
+    settings: payload.settings,
+    diagnostics: payload.diagnostics,
+  });
+});
