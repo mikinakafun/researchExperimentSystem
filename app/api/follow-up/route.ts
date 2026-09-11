@@ -1,25 +1,21 @@
-import { createResponse, jsonError, OpenAIRequestError, parseJsonObject } from "../openai";
+import { createResponse, jsonError, OpenAIRequestError, InvalidModelOutputError, parseJsonObject } from "../openai";
 import { fallbackQuestion } from "../fallback-questions";
 import { buildFollowUpInstructions, PROMPT_CONFIG, type ConversationTurn, type PromptCondition, type QuestionMetadata } from "../prompt-config";
 import { hasNoRecallAtLatestTurn, validateQuestion, type QuestionCandidate } from "../question-validation";
 import { parseLanguage } from "../../../lib/language";
 
-const conditions = new Set<PromptCondition>(["standard", "visual", "odor"]);
+const conditions = new Set<PromptCondition>(["visual", "odor"]);
 
 function parseCandidate(parsed: Record<string, unknown>): { candidate: QuestionCandidate; schemaFlags: string[] } {
   const schemaFlags: string[] = [];
   if (typeof parsed.question !== "string") schemaFlags.push("question_schema");
   if (typeof parsed.conditionFocus !== "string") schemaFlags.push("condition_focus_schema");
-  if (typeof parsed.turnFunction !== "string") schemaFlags.push("turn_function_schema");
   if (parsed.targetEvidenceId !== null && typeof parsed.targetEvidenceId !== "string") schemaFlags.push("target_evidence_schema");
-  if (typeof parsed.nonRecallTransition !== "boolean") schemaFlags.push("non_recall_transition_schema");
-  if (typeof parsed.insufficientEvidenceTransition !== "boolean") schemaFlags.push("insufficient_evidence_transition_schema");
+  if (parsed.transitionReason !== undefined && typeof parsed.transitionReason !== "string") schemaFlags.push("transition_reason_schema");
   const metadata: QuestionMetadata = {
     conditionFocus: String(parsed.conditionFocus ?? "") as QuestionMetadata["conditionFocus"],
-    turnFunction: String(parsed.turnFunction ?? "") as QuestionMetadata["turnFunction"],
     targetEvidenceId: typeof parsed.targetEvidenceId === "string" ? parsed.targetEvidenceId : null,
-    nonRecallTransition: parsed.nonRecallTransition === true,
-    insufficientEvidenceTransition: parsed.insufficientEvidenceTransition === true,
+    ...(typeof parsed.transitionReason === "string" ? { transitionReason: parsed.transitionReason as QuestionMetadata["transitionReason"] } : {}),
   };
   return { candidate: { question: typeof parsed.question === "string" ? parsed.question.trim() : "", metadata }, schemaFlags };
 }
@@ -49,46 +45,45 @@ export async function POST(request: Request) {
     const turn = body.turn as number;
     const fragment = body.fragment as string;
     const history = body.history as ConversationTurn[];
-    let retryReason = "";
-    const rejectionLog: Array<{ attempt: number; flags: string[]; question?: string; metadata?: QuestionMetadata }> = [];
-    for (let attempt = 1; attempt <= PROMPT_CONFIG.maxFollowUpAttempts; attempt += 1) {
+    const rejectionLog: Array<{ attempt: number; stage: "candidate" | "repair"; candidateIndex?: number; flags: string[]; question?: string; metadata?: QuestionMetadata; model?: string; requestId?: string | null }> = [];
+    const settings = { temperature: PROMPT_CONFIG.followUpTemperature, candidateCount: PROMPT_CONFIG.followUpCandidateCount, repairCount: PROMPT_CONFIG.followUpRepairCount, maxAttempts: PROMPT_CONFIG.maxFollowUpAttempts };
+    const baseInput = JSON.stringify({ language, turn, assignedCondition: condition, evidence: [{ id: "fragment", text: fragment }, ...history.map((item, index) => ({ id: `answer-${index + 1}`, text: item.answer }))], previousTurns: history, lastAnswerWasNonRecall: hasNoRecallAtLatestTurn(history) });
+    const instruction = buildFollowUpInstructions(condition, turn, hasNoRecallAtLatestTurn(history), undefined, language);
+    const results = await Promise.all(Array.from({ length: settings.candidateCount }, async (_, index) => {
+      let candidateResponse: Awaited<ReturnType<typeof createResponse>> | null = null;
       try {
-        const result = await createResponse({
-          temperature: PROMPT_CONFIG.followUpTemperature,
-          responseFormat: "follow-up",
-          instructions: buildFollowUpInstructions(condition, turn, hasNoRecallAtLatestTurn(history), retryReason, language),
-          input: JSON.stringify({
-            language,
-            turn,
-            assignedCondition: condition,
-            evidence: [
-              { id: "fragment", text: fragment },
-              ...history.map((item, index) => ({ id: `answer-${index + 1}`, text: item.answer })),
-            ],
-            previousTurns: history,
-            lastAnswerWasNonRecall: hasNoRecallAtLatestTurn(history),
-          }),
-        });
-        const parsed = parseJsonObject(result.text);
-        const { candidate, schemaFlags } = parseCandidate(parsed);
+        candidateResponse = await createResponse({ temperature: settings.temperature, responseFormat: "follow-up", instructions: instruction, input: baseInput });
+        const { candidate, schemaFlags } = parseCandidate(parseJsonObject(candidateResponse.text));
         const flags = [...schemaFlags, ...validateQuestion({ ...candidate, condition, turn, fragment, history, language })];
-        if (flags.length === 0) {
-          return Response.json({ ...candidate, language, model: result.model, requestId: result.id, promptVersion: PROMPT_CONFIG.followUpVersion, source: "generated", attempts: attempt, diagnostics: { rejections: rejectionLog } });
-        }
-        rejectionLog.push({ attempt, flags, question: candidate.question, metadata: candidate.metadata });
-        console.warn("[follow-up validation]", JSON.stringify({ condition, turn, attempt, flags }));
-        retryReason = flags.join(", ");
+        return { index, result: candidateResponse, candidate, flags };
       } catch (error) {
-        if (error instanceof OpenAIRequestError && [401, 403, 503].includes(error.status)) throw error;
+        if (error instanceof OpenAIRequestError) throw error;
         const flag = error instanceof Error ? error.message : "invalid_output";
-        rejectionLog.push({ attempt, flags: [flag] });
-        console.warn("[follow-up validation]", JSON.stringify({ condition, turn, attempt, flags: [flag] }));
-        retryReason = flag;
+        return { index, result: candidateResponse, candidate: { question: "", metadata: { conditionFocus: condition, targetEvidenceId: null } }, flags: [flag] };
       }
+    }));
+    const valid = results.find((item) => item.flags.length === 0);
+    for (const item of results) if (!valid || item.index !== valid.index) {
+      rejectionLog.push({ attempt: item.index + 1, stage: "candidate", candidateIndex: item.index, flags: item.flags.length ? item.flags : ["candidate_not_selected"], question: item.candidate.question, metadata: item.candidate.metadata, ...(item.result ? { model: item.result.model, requestId: item.result.id } : {}) });
     }
+    if (valid) return Response.json({ ...valid.candidate, language, model: valid.result!.model, requestId: valid.result!.id, promptVersion: PROMPT_CONFIG.followUpVersion, source: "generated", attempts: settings.candidateCount, settings, diagnostics: { rejections: rejectionLog } });
 
+    const repairTarget = results[0];
+    let repairResponse: Awaited<ReturnType<typeof createResponse>> | null = null;
+    try {
+      repairResponse = await createResponse({ temperature: 0, responseFormat: "follow-up", instructions: buildFollowUpInstructions(condition, turn, hasNoRecallAtLatestTurn(history), repairTarget.flags.join(", "), language), input: JSON.stringify({ ...JSON.parse(baseInput), rejectedCandidate: repairTarget.candidate, violations: repairTarget.flags }) });
+      const { candidate, schemaFlags } = parseCandidate(parseJsonObject(repairResponse.text));
+      const flags = [...schemaFlags, ...validateQuestion({ ...candidate, condition, turn, fragment, history, language })];
+      if (flags.length === 0) return Response.json({ ...candidate, language, model: repairResponse.model, requestId: repairResponse.id, promptVersion: PROMPT_CONFIG.followUpVersion, source: "generated", attempts: settings.candidateCount + 1, settings, diagnostics: { rejections: rejectionLog } });
+      rejectionLog.push({ attempt: settings.candidateCount + 1, stage: "repair", candidateIndex: 0, flags, question: candidate.question, metadata: candidate.metadata, model: repairResponse.model, requestId: repairResponse.id });
+    } catch (error) {
+      if (error instanceof OpenAIRequestError) throw error;
+      if (!(error instanceof InvalidModelOutputError)) throw error;
+      rejectionLog.push({ attempt: settings.candidateCount + 1, stage: "repair", candidateIndex: 0, flags: [error.message], ...(repairResponse ? { model: repairResponse.model, requestId: repairResponse.id } : {}) });
+    }
     const candidate = fallbackQuestion({ condition, turn, fragment, history, language });
-    return Response.json({ ...candidate, language, model: "fallback", requestId: null, promptVersion: PROMPT_CONFIG.followUpVersion, source: "fallback", attempts: PROMPT_CONFIG.maxFollowUpAttempts, diagnostics: { rejections: rejectionLog } });
+    const fallbackReason = hasNoRecallAtLatestTurn(history) ? "non_recall" : candidate.metadata.conditionFocus === "neutral" ? "insufficient_evidence" : "generation_rejected";
+    return Response.json({ ...candidate, language, model: "fallback", requestId: null, promptVersion: PROMPT_CONFIG.followUpVersion, source: "fallback", fallbackReason, attempts: settings.candidateCount + 1, settings, diagnostics: { rejections: rejectionLog } });
   } catch (error) {
     return jsonError(error);
   }

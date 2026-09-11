@@ -6,7 +6,7 @@ const columns = [
   "condition", "language", "initial_fragment",
   ...Array.from({ length: 6 }, (_, index) => `question_${index + 1}`),
   ...Array.from({ length: 6 }, (_, index) => `answer_${index + 1}`),
-  "question_metadata_json", "question_generation_json", "final_result", "narrative_annotations_json",
+  "question_metadata_json", "question_generation_json", "fallback_reason_json", "final_result", "narrative_annotations_json",
   "narrative_generation_json", "evaluation_json", "checks_json",
 ] as const;
 
@@ -24,7 +24,7 @@ export function resultCsvRow(record: ResultRecord) {
     record.sessionId, record.recordType, record.savedAt, record.schemaVersion, record.protocolVersion,
     record.narrativePromptVersion, record.condition, record.language, record.fragment,
     ...record.questions, ...record.answers, JSON.stringify(record.questionMetadata),
-    JSON.stringify(record.questionGeneration), record.finalResult, JSON.stringify(record.narrativeSentences),
+    JSON.stringify(record.questionGeneration), JSON.stringify(record.questionGeneration.map((item) => item.fallbackReason ?? null)), record.finalResult, JSON.stringify(record.narrativeSentences),
     JSON.stringify(record.narrativeGeneration), JSON.stringify(record.evaluation), JSON.stringify(record.checks),
   ].map(csvCell).join(",");
 }

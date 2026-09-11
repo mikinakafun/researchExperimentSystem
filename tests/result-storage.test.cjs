@@ -14,6 +14,7 @@ const { parseResultData } = require('../lib/result-validation.ts');
 const { readGenerationMetadata } = require('../lib/generation.ts');
 const { createCsvResultStore } = require('../lib/server/csv-result-store.ts');
 const { RESULT_CSV_FILENAME, RESULT_CSV_PATH, RESULT_PROTOCOL_VERSION, RESULT_SCHEMA_VERSION } = require('../lib/result-storage.ts');
+const { PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
 
 const request = (body) => new Request('http://localhost/api/save-result', { method: 'POST', body: JSON.stringify(body) });
 function temporaryDirectory(t) {
@@ -77,7 +78,14 @@ test('incomplete or inconsistent generation diagnostics cannot be silently saved
     null, {}, { ...good, model: '' }, { ...good, requestId: undefined }, { ...good, source: undefined },
     { ...good, promptVersion: '' }, { ...good, attempts: 0 }, { ...good, attempts: 1.5 },
     { ...good, diagnostics: undefined }, { ...good, attempts: 2 },
-    { ...good, source: 'fallback' },
+    { ...good, fallbackReason: 'generation_rejected' }, { ...good, fallbackReason: 'unknown' },
+    { ...good, settings: { ...good.settings, candidateCount: 0 } },
+    { ...good, settings: { ...good.settings, repairCount: 1.5 } },
+    { ...good, attempts: 2, diagnostics: { rejections: [{ attempt: 3, stage: 'candidate', flags: ['rejected'] }] } },
+    { ...good, attempts: 3, diagnostics: { rejections: [{ attempt: 1, stage: 'candidate', flags: ['rejected'] }, { attempt: 1, stage: 'candidate', flags: ['rejected'] }] } },
+    { ...good, source: 'fallback' }, { ...good, source: 'fallback', model: 'fallback', requestId: null },
+    { ...good, source: 'fallback', model: 'fallback', requestId: null, fallbackReason: 'unknown' },
+    { ...good, source: 'generated', requestId: null },
   ]) assert.equal(readGenerationMetadata(bad), null);
   for (const overrides of [
     { questionGeneration: undefined }, { questionGeneration: [] }, { questionGeneration: Array(6).fill(null) },
@@ -98,9 +106,9 @@ test('save route returns 400 for malformed inputs without writing, and retains r
   assert.equal((await save(new Request('http://localhost/api/save-result', { method: 'POST', body: '{' }))).status, 400);
   assert.equal(fs.existsSync(path.join(directory, 'data')), false);
 
-  const retry = generationMetadata({ attempts: 2, diagnostics: { rejections: [{ attempt: 1, flags: ['condition_mismatch'], question: '棄却された質問？', metadata: { conditionFocus: 'visual' } }] } });
-  const fallback = generationMetadata({ source: 'fallback', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['request_failed'] })) } });
-  const payload = resultPayload({ questionGeneration: [retry, fallback, ...Array.from({ length: 4 }, () => generationMetadata())], narrativeGeneration: retry });
+  const retry = generationMetadata({ attempts: 2, diagnostics: { rejections: [{ attempt: 1, stage: 'candidate', flags: ['condition_mismatch'], question: '棄却された質問？', metadata: { conditionFocus: 'visual' } }] } });
+  const fallback = generationMetadata({ source: 'fallback', fallbackReason: 'generation_rejected', model: 'fallback', requestId: null, attempts: 4, diagnostics: { rejections: [1, 2, 3, 4].map((attempt) => ({ attempt, stage: attempt === 4 ? 'repair' : 'candidate', flags: ['generation_rejected'] })) } });
+  const payload = resultPayload({ questionGeneration: [retry, fallback, ...Array.from({ length: 4 }, () => generationMetadata())] });
   fs.mkdirSync(path.join(directory, 'data'));
   const legacy = path.join(directory, 'data/results-v0.4.3-bilingual.csv');
   fs.writeFileSync(legacy, 'legacy stays unchanged\n');
@@ -110,7 +118,7 @@ test('save route returns 400 for malformed inputs without writing, and retains r
   const csvPath = path.join(directory, RESULT_CSV_PATH);
   const [stored] = rows(fs.readFileSync(csvPath, 'utf8'));
   assert.deepEqual(JSON.parse(stored.question_generation_json), payload.questionGeneration);
-  assert.deepEqual(JSON.parse(stored.narrative_generation_json), retry);
+  assert.equal(JSON.parse(stored.narrative_generation_json).promptVersion, PROMPT_CONFIG.version);
   assert.deepEqual(JSON.parse(stored.evaluation_json), payload.evaluation);
   assert.equal(stored.schema_version, RESULT_SCHEMA_VERSION);
   assert.equal(stored.prompt_version, payload.narrativePromptVersion);
@@ -118,6 +126,25 @@ test('save route returns 400 for malformed inputs without writing, and retains r
   const before = fs.readFileSync(csvPath, 'utf8');
   assert.equal((await (await save(request(payload))).json()).duplicate, true);
   assert.equal(fs.readFileSync(csvPath, 'utf8'), before);
+});
+
+test('save validator requires generation-kind settings and fallback diagnostics to agree', () => {
+  const narrativeSettings = { temperature: PROMPT_CONFIG.narrativeTemperature, candidateCount: 1, repairCount: 0, maxAttempts: PROMPT_CONFIG.maxNarrativeAttempts };
+  const narrative = generationMetadata({ promptVersion: PROMPT_CONFIG.version, settings: narrativeSettings });
+  assert.ok(parseResultData(resultPayload({ narrativeGeneration: narrative })));
+  assert.equal(parseResultData(resultPayload({
+    narrativeGeneration: generationMetadata({ promptVersion: PROMPT_CONFIG.version }),
+  })), null);
+
+  for (const settings of [
+    { temperature: 0.55, candidateCount: 1, repairCount: 0, maxAttempts: 3 },
+    { temperature: 0.75, candidateCount: 3, repairCount: 1, maxAttempts: 4 },
+    { temperature: 0.55, candidateCount: 3, repairCount: 1, maxAttempts: 3 },
+  ]) assert.equal(parseResultData(resultPayload({ questionGeneration: Array.from({ length: 6 }, () => generationMetadata({ settings })) })), null);
+
+  assert.equal(parseResultData(resultPayload({
+    questionGeneration: Array.from({ length: 6 }, () => generationMetadata({ source: 'fallback', model: 'fallback', requestId: null, attempts: 4, diagnostics: { rejections: [1, 2, 3, 4].map((attempt) => ({ attempt, stage: 'candidate', flags: ['rejected'] })) } })),
+  })), null);
 });
 
 test('local adapter serializes concurrent saves and recognizes IDs across multiline quoted content', async (t) => {

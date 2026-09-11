@@ -11,13 +11,11 @@ import { readGenerationMetadata, type GenerationMetadata } from "../lib/generati
 import ReferenceMaterials from "./reference-materials";
 
 type Step = "welcome" | "consent" | "recall" | "questions" | "narrative" | "evaluation" | "check" | "debrief" | "done";
-type Condition = "standard" | "visual" | "odor";
+type Condition = "visual" | "odor";
 type QuestionMetadata = {
   conditionFocus: Condition | "neutral";
-  turnFunction: "broad_recall" | "grounded_detail" | "temporal_anchor" | "action_relation" | "second_grounded_detail" | "unresolved_attribute";
   targetEvidenceId: string | null;
-  nonRecallTransition: boolean;
-  insufficientEvidenceTransition: boolean;
+  transitionReason?: "non_recall" | "insufficient_evidence";
 };
 
 const workflowSteps: Exclude<Step, "done">[] = ["welcome", "consent", "recall", "questions", "narrative", "evaluation", "check", "debrief"];
@@ -57,13 +55,15 @@ async function callApi(path: string, body: Record<string, unknown>, language: La
   };
 }
 
-function randomCondition(): Condition {
-  return ["standard", "visual", "odor"][Math.floor(Math.random() * 3)] as Condition;
-}
-
 function createSessionId() {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") return crypto.randomUUID();
   return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
+// Server-side stratified block assignment is gated by TASK-016; this keeps
+// the current mock on the required two-condition surface until that decision.
+function randomCondition(): Condition {
+  return Math.random() < 0.5 ? "visual" : "odor";
 }
 
 export default function Experiment({ storageKind }: { storageKind: StorageKind }) {
@@ -298,7 +298,7 @@ export default function Experiment({ storageKind }: { storageKind: StorageKind }
       {step === "narrative" && <><h1>{t("作成された文章")}</h1><p className="lead">{t("あなたの初期断片と回答を素材に、AIが創作した一人称の物語です。")}</p><div className="narrative">{narrative}</div><div className="callout">{t("回答にない描写や出来事が含まれることがあります。実際の記憶を復元した記録ではありません。")}</div><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")}>{t("ここで中止する")}</button><button className="primary" onClick={() => setStep("evaluation")}>{t("文章を評価する")}</button></div></>}
       {step === "evaluation" && <><h1>{t("文章についての評価")}</h1><p className="lead">{t("文章を読み、以下の各項目で1〜7のいずれかを選んでください。初期値はありません。")}</p><ReferenceMaterials language={language} key="evaluation" narrative={narrative} /><fieldset className="group"><legend>{t("文章について、各項目に回答してください")}</legend>{evaluationItems.map(({ id, text }) => <Rating language={language} key={id} id={id} text={t(text)} value={ratings[id]} onChange={setRating} />)}</fieldset><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")}>{t("ここで中止する")}</button><button className="primary" disabled={!allRatingsAnswered} onClick={() => setStep("check")}>{t("評価を確定して進む")}</button></div></>}
       {step === "check" && <><h1>{t("質問についての確認")}</h1><p className="lead">{t("質問がどこへ注意を向けたか、文章の品質について回答してください。")}</p><ReferenceMaterials language={language} key="check" narrative={narrative} questions={questionTexts} /><fieldset className="group"><legend>{t("質問と文章について、各項目に回答してください")}</legend>{checks.map((item) => <Rating language={language} key={item.id} id={item.id} text={t(item.text)} value={ratings[item.id]} lowLabel={t(item.low)} highLabel={t(item.high)} onChange={setRating} />)}</fieldset><div className="actions"><button className="danger-link" type="button" onClick={() => setStep("done")}>{t("ここで中止する")}</button><button className="primary" disabled={!allChecksAnswered} onClick={() => setStep("debrief")}>{t("確認を確定して進む")}</button></div></>}
-      {step === "debrief" && <><h1>{t("説明")}</h1><div className="copy"><p>{t("この検証では、質問の向け方が、AIの創作を含む物語の受け取られ方に与える影響を確認します。文章には回答にない描写や出来事が含まれることがあります。")}</p><p>{t("質問条件は、出来事の構造、視覚、匂いに関する注意のいずれかでした。条件名は回答終了まで表示していません。")}</p><p>{cloudStorage ? t("完了すると、初期断片、6つの質問と回答、生成文章、生成記録、条件、言語、評価結果をSupabaseのクラウドDBへ保存します。") : <>{t("完了すると、初期断片、6つの質問と回答、質問の分岐記録、生成文章と作成記録、条件、言語、評価結果がこのPCの次のファイルへ1行で追記されます。")} <code>{RESULT_CSV_PATH}</code></>}</p></div><button className="primary" onClick={saveResult} disabled={busy || saved}>{busy ? t("結果を保存中…") : t("保存して完了する")}</button></>}
+      {step === "debrief" && <><h1>{t("説明")}</h1><div className="copy"><p>{t("この検証では、質問の向け方が、AIの創作を含む物語の受け取られ方に与える影響を確認します。文章には回答にない描写や出来事が含まれることがあります。")}</p><p>{t("質問条件は、視覚または匂いに関する注意のいずれかでした。条件名は回答終了まで表示していません。")}</p><p>{cloudStorage ? t("完了すると、初期断片、6つの質問と回答、生成文章、生成記録、条件、言語、評価結果をSupabaseのクラウドDBへ保存します。") : <>{t("完了すると、初期断片、6つの質問と回答、質問の分岐記録、生成文章と作成記録、条件、言語、評価結果がこのPCの次のファイルへ1行で追記されます。")} <code>{RESULT_CSV_PATH}</code></>}</p></div><button className="primary" onClick={saveResult} disabled={busy || saved}>{busy ? t("結果を保存中…") : t("保存して完了する")}</button></>}
       {step === "done" && <div className="terminal"><div className="mark">✓</div><h1>{fragment ? t("ご協力ありがとうございました") : t("参加せずに終了しました")}</h1><p>{fragment ? (saved ? t(cloudStorage ? "結果をSupabaseへ保存しました。" : "結果をローカルCSVへ保存しました。") : t("保存せずに終了しました。")) : t("入力や条件割付を行わずに終了しました。")}</p><button className="secondary" onClick={reset}>{t("最初に戻る")}</button></div>}
     </section>
     <footer>{t("研究実施前の検証用 mock ／ 条件・尺度・保存方針は DRAFT です")}</footer>

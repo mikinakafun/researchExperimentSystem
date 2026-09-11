@@ -35,14 +35,14 @@ http.createServer(async (req, res) => {
       if (req.url === '/api/follow-up') {
         // Deterministic error path, with no provider call.
         if (body.fragment === 'offline-error') return json(res, 503, { error: 'OPENAI_API_KEY is not configured on the server.' });
-        return json(res, 200, { ...fallbackQuestion(body), language: body.language, promptVersion: PROMPT_CONFIG.followUpVersion, source: 'fallback', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['offline_fixture'] })) } });
+        return json(res, 200, { ...fallbackQuestion(body), language: body.language, promptVersion: PROMPT_CONFIG.followUpVersion, source: 'fallback', fallbackReason: 'insufficient_evidence', model: 'fallback', requestId: null, attempts: 4, settings: { temperature: 0.55, candidateCount: 3, repairCount: 1, maxAttempts: 4 }, diagnostics: { rejections: [1, 2, 3, 4].map((attempt) => ({ attempt, stage: attempt === 4 ? 'repair' : 'candidate', flags: ['offline_fixture'] })) } });
       }
       if (req.url === '/api/narrative') {
         const sentences = (body.language === 'en'
           ? ['I walked through the park with a friend.', 'We said goodbye and went home.']
           : ['友人と公園を歩いた。', '別れを告げて家に帰った。']
         ).map((text) => ({ text, sourceIds: ['fragment'], containsCreativeAddition: true }));
-        return json(res, 200, { language: body.language, narrative: joinNarrative(sentences, body.language), sentences, promptVersion: PROMPT_CONFIG.version, source: 'generated', model: 'offline-fixture', requestId: 'offline-narrative', attempts: 1, diagnostics: { rejections: [] } });
+        return json(res, 200, { language: body.language, narrative: joinNarrative(sentences, body.language), sentences, promptVersion: PROMPT_CONFIG.version, source: 'generated', model: 'offline-fixture', requestId: 'offline-narrative', attempts: 1, settings: { temperature: 0.75, candidateCount: 1, repairCount: 0, maxAttempts: 3 }, diagnostics: { rejections: [] } });
       }
       if (req.url === '/api/save-result') {
         if (!parseResultData(body)) return json(res, 400, { error: 'Invalid result payload.' });
