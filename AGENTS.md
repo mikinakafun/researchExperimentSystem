@@ -2,7 +2,7 @@
 
 ## Project context
 
-- This is a research mock for a two-condition (Visual / Odor) question-focus experiment. Standard is retired in the specification; the code is still three-condition until the corresponding implementation work lands.
+- This is a research mock for a two-condition (Visual / Odor) question-focus experiment. Standard is retired from the runtime question, result, and batch contracts; server-side blocked assignment is still not implemented.
 - Read `README.md` for current behavior and commands; read `docs/SPEC.md` for the integrated specification and implementation gaps.
 - **The specification is the source of truth.** `docs/SPEC.md` states the requirements and current gaps; git holds when and why they changed. There is no separate decision record that outranks it.
 - A boundary that still constrains the work is a rule stated in the present tense in `docs/SPEC.md`. Do not write it up as history; if a rejected option no longer constrains anything, it does not get recorded at all.
@@ -14,6 +14,7 @@
 ## Working policy
 
 - Do the work directly in this session. Do not delegate implementation to subagents; architecture, task decomposition, editing, review, integration, and final verification all stay in one place.
+- `wait_agent` を呼ぶたびに、`timeout_ms` には完了までの推定残り時間の2倍をミリ秒で明示する。ツール定義の最短・最大待機時間の範囲に収め、見積もれない場合は既定時間を明示する。通知で途中解除されるため、短い確認のために待機時間を縮めない。タイムアウト後は完了見込みを更新して同じ基準で待つ。
 - Before editing, decompose the task yourself: name the files you will touch, the specifications that constrain them, and the observable acceptance criteria.
 - Work in small, ordered steps and keep each step's change set reviewable. Prefer finishing and verifying one coherent change before starting the next.
 - Re-read your own diff against the requirements before reporting completion; do not rely on the fact that you wrote it.

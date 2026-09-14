@@ -291,6 +291,23 @@ test('API uses relaxed generated questions, records rejected candidates, and pre
   assert.ok(body.diagnostics.rejections[0].flags.includes('invalid_transition_reason'));
 });
 
+test('API can disable fallback and returns generation failure after candidate and repair rejection', async (t) => {
+  const originalEnv = { OPENAI_API_KEY: process.env.OPENAI_API_KEY, ALLOW_FALLBACK: process.env.ALLOW_FALLBACK };
+  process.env.OPENAI_API_KEY = 'offline-test';
+  process.env.ALLOW_FALLBACK = 'false';
+  t.after(() => {
+    for (const [key, value] of Object.entries(originalEnv)) {
+      if (value === undefined) delete process.env[key]; else process.env[key] = value;
+    }
+  });
+  t.mock.method(global, 'fetch', async () => Response.json({ id: 'offline-invalid', model: 'offline-fixture', output: [{ content: [{ type: 'output_text', text: JSON.stringify({ question: 'その花を覚えていますか？', conditionFocus: 'visual', targetEvidenceId: 'fragment', transitionReason: 'invalid' }) }] }] }));
+  const response = await POST(new Request('http://localhost/api/follow-up', {
+    method: 'POST', body: JSON.stringify({ condition: 'visual', turn: 1, fragment: '友人と公園を歩いた。', history: [] }),
+  }));
+  assert.equal(response.status, 502);
+  assert.deepEqual(await response.json(), { error: 'Generation failed.' });
+});
+
 test('candidate parse rejections retain the provider model and request ID', async (t) => {
   const originalKey = process.env.OPENAI_API_KEY;
   process.env.OPENAI_API_KEY = 'offline-test';

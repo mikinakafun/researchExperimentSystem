@@ -1,6 +1,6 @@
 import { createResponse, jsonError, OpenAIRequestError, InvalidModelOutputError, parseJsonObject } from "../openai";
 import { fallbackQuestion } from "../fallback-questions";
-import { buildFollowUpInstructions, PROMPT_CONFIG, type ConversationTurn, type PromptCondition, type QuestionMetadata } from "../prompt-config";
+import { allowFallback, buildFollowUpInstructions, PROMPT_CONFIG, type ConversationTurn, type PromptCondition, type QuestionMetadata } from "../prompt-config";
 import { hasNoRecallAtLatestTurn, validateQuestion, type QuestionCandidate } from "../question-validation";
 import { parseLanguage } from "../../../lib/language";
 
@@ -80,6 +80,9 @@ export async function POST(request: Request) {
       if (error instanceof OpenAIRequestError) throw error;
       if (!(error instanceof InvalidModelOutputError)) throw error;
       rejectionLog.push({ attempt: settings.candidateCount + 1, stage: "repair", candidateIndex: 0, flags: [error.message], ...(repairResponse ? { model: repairResponse.model, requestId: repairResponse.id } : {}) });
+    }
+    if (!allowFallback()) {
+      throw new OpenAIRequestError(`OpenAI returned no valid question after ${settings.maxAttempts} attempts.`);
     }
     const candidate = fallbackQuestion({ condition, turn, fragment, history, language });
     const fallbackReason = hasNoRecallAtLatestTurn(history) ? "non_recall" : candidate.metadata.conditionFocus === "neutral" ? "insufficient_evidence" : "generation_rejected";

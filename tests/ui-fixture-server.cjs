@@ -12,7 +12,7 @@ require.extensions['.ts'] = (module, filename) => {
   }).outputText, filename);
 };
 const { fallbackQuestion } = require('../app/api/fallback-questions.ts');
-const { PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
+const { allowFallback, PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
 const { isLanguage, joinNarrative } = require('../lib/language.ts');
 const { parseResultData } = require('../lib/result-validation.ts');
 const requests = [];
@@ -35,6 +35,7 @@ http.createServer(async (req, res) => {
       if (req.url === '/api/follow-up') {
         // Deterministic error path, with no provider call.
         if (body.fragment === 'offline-error') return json(res, 503, { error: 'OPENAI_API_KEY is not configured on the server.' });
+        if (!allowFallback()) return json(res, 502, { error: 'Generation failed.' });
         return json(res, 200, { ...fallbackQuestion(body), language: body.language, promptVersion: PROMPT_CONFIG.followUpVersion, source: 'fallback', fallbackReason: 'insufficient_evidence', model: 'fallback', requestId: null, attempts: 4, settings: { temperature: 0.55, candidateCount: 3, repairCount: 1, maxAttempts: 4 }, diagnostics: { rejections: [1, 2, 3, 4].map((attempt) => ({ attempt, stage: attempt === 4 ? 'repair' : 'candidate', flags: ['offline_fixture'] })) } });
       }
       if (req.url === '/api/narrative') {

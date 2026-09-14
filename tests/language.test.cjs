@@ -14,7 +14,7 @@ require.extensions['.ts'] = (module, filename) => {
 const { parseLanguage, joinNarrative, matchesOutputLanguage } = require('../lib/language.ts');
 const { englishMessages, translate } = require('../lib/ui-language.ts');
 const { RESULT_CSV_PATH } = require('../lib/result-storage.ts');
-const { buildFollowUpInstructions, buildNarrativeInstructions, PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
+const { allowFallback, buildFollowUpInstructions, buildNarrativeInstructions, PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
 const { fallbackQuestion } = require('../app/api/fallback-questions.ts');
 const { validateQuestion, saysNoRecall } = require('../app/api/question-validation.ts');
 const { validateNarrativeSentences } = require('../lib/narrative.ts');
@@ -44,6 +44,13 @@ test('language defaults, invalid input, and all UI translations are explicit', (
     assert.equal(translate('en', key), english);
     assert.ok(matchesOutputLanguage(english, 'en'), key);
   }
+});
+
+test('fallback can be explicitly disabled while remaining enabled by default', () => {
+  assert.equal(allowFallback({}), true);
+  assert.equal(allowFallback({ ALLOW_FALLBACK: 'true' }), true);
+  assert.equal(allowFallback({ ALLOW_FALLBACK: ' FALSE ' }), false);
+  assert.equal(allowFallback({ ALLOW_FALLBACK: '0' }), true);
 });
 
 test('all condition, turn, transition, and retry prompts render in the selected language', () => {

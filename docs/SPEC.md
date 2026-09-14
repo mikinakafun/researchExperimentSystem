@@ -89,6 +89,8 @@
 
 `auth`、quota、provider unavailable、timeoutなどAPI基盤の失敗はfallbackへ変換しない。bounded timeoutの後にセッションを中断し、参加者に安全な失敗を示す。API keyはサーバ側だけで読み、provider呼出しは保持をオプトアウトする。providerのerror本文や資格情報をclientへ返さない。diagnosticsが欠落した生成結果は受け付けない。attemptsは初回を含む連続試行数、棄却候補・理由・request IDを記録する。要求したmodel aliasだけでなく、providerが応答した具体的なmodel版を保存する。
 
+固定質問fallbackはサーバー環境変数`ALLOW_FALLBACK`で明示的に無効化でき、未設定または`true`では現行互換のため有効、`false`では候補とrepairの棄却後に生成エラーとする。
+
 ターン数、model、temperature、候補数、試行上限、prompt versionは一か所で管理し、各結果に実際の値を保存する。6ターンは現行pilot値であり、指導教員の承認待ちではない。参加者データ収集開始時に生成設定を凍結し、以後の変更は別の収集として扱う。
 
 実行時の正本は、プロンプトが [`../prompts/`](../prompts/)、fallbackが [`../app/api/fallback-questions.ts`](../app/api/fallback-questions.ts)、質問validatorが [`../app/api/question-validation.ts`](../app/api/question-validation.ts) である。要求仕様と現行実装の差は本書に記録し、別の複製資産を維持しない。
