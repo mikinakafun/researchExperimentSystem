@@ -9,7 +9,7 @@ create table public.experiment_results (
   record_type text generated always as (payload ->> 'recordType') stored not null
     check (record_type in ('participant', 'batch_synthetic')),
   condition text generated always as (payload ->> 'condition') stored not null
-    check (condition in ('standard', 'visual', 'odor')),
+    check (condition in ('visual', 'odor')),
   language text generated always as (payload ->> 'language') stored not null
     check (language in ('ja', 'en')),
   schema_version text generated always as (payload ->> 'schemaVersion') stored not null

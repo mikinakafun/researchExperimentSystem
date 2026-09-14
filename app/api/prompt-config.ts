@@ -30,6 +30,12 @@ export const PROMPT_CONFIG = {
   maxNarrativeAttempts: 3,
 } as const;
 
+// Fallback is enabled by default for compatibility with the existing pilot.
+// Only an explicit false value disables the fixed question fallback.
+export function allowFallback(env: NodeJS.ProcessEnv = process.env): boolean {
+  return env.ALLOW_FALLBACK?.trim().toLowerCase() !== "false";
+}
+
 export type GenerationSettings = {
   temperature: number;
   candidateCount: number;

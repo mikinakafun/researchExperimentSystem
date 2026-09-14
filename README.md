@@ -22,6 +22,8 @@ cp .env.example .env.local
 ```dotenv
 OPENAI_API_KEY=your_api_key_here
 OPENAI_MODEL=gpt-4o-mini
+# true enables fixed question fallback; false returns a generation error after retries
+ALLOW_FALLBACK=true
 # 既定値は csv。クラウド検証時だけ supabase
 RESULT_STORAGE=csv
 ```
@@ -83,6 +85,8 @@ npm run run:persona-batch
 現行の `record_type` は `participant` と `batch_synthetic` です。participantは12評価項目と6 checksの完全な既定ID集合、および各値1〜7の整数を要求します。batch_syntheticはevaluationとchecksがともに空、またはともに全項目を含む場合だけ許容し、片方だけの部分入力は拒否します。両record typeとも、各質問・物語のgeneration recordにmodel、request ID、prompt version、settings、attempts、rejectionsを保存し、fallback時はfallbackReasonも必須です。
 
 現行prompt versionは質問が `prompt-catalog-v0.4.4-mock-draft`、物語が `prompt-catalog-v0.4.3-mock-draft` です。既存結果を比較するときは、質問のgeneration record内にあるversionで区別します。`attempts` は並列候補とrepairを含む、その生成API呼出しの全試行数です。`source=generated` は検証済み候補を採用、`source=fallback` は候補とrepairを全て棄却して固定質問へ置換したことを意味します。fallbackでは `model=fallback`、`requestId=null`、`fallbackReason`（`generation_rejected` / `non_recall` / `insufficient_evidence`）を保存します。`diagnostics.rejections` には候補またはrepairごとのstage、違反フラグ、候補情報、応答時のmodel/request IDを保存します。
+
+質問fallbackはサーバー環境変数`ALLOW_FALLBACK`で切り替えられます。未設定または`true`では固定fallbackを使い、`false`では候補とrepairをすべて棄却した後に生成エラーとして終了します。
 
 APIのlanguageは `ja` / `en` で、未指定は既存クライアント互換のため `ja`、その他の値は拒否します。言語を質問開始後に変更すると現行UIは同意画面へ戻り、初期断片を保持します。質問開始後は言語を固定します。JSON key、ID、enum値は言語間で不変で、100文字上限も両言語同じです。
 
