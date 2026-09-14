@@ -35,6 +35,8 @@ npm run dev
 # http://localhost:3000
 ```
 
+開発者が条件割付、現在の設定、質問のmetadata、生成試行・棄却、fallback理由、物語生成記録を確認するときは、明示的に `http://localhost:3000/?developer=1` を開きます。開発者パネルは表示専用で、通常URLでは表示されず、API入力・質問文・保存結果には追加されません。実験参加者にはこのURLを案内しないでください。
+
 キー未設定時に自動でmockへフォールバックしません。Responses APIの疎通確認は次の一回だけです。
 
 ```bash
