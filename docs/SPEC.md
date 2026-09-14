@@ -10,14 +10,14 @@
 
 | 項目 | 要求仕様 | 現行実装 | 判定 |
 |---|---|---|---|
-| 条件 | `visual` / `odor` の二条件 | `visual` / `odor` の二条件 | 実装済み |
+| 条件 | `visual` / `odor` の二条件 | UI、API、結果validator、persona batchは`visual` / `odor`のみ | 部分実装 |
 | 割付 | 初期断片送信後、言語層別のサーバ側ブロック無作為化、割付ログ | クライアントの `Math.random()` | 未実装 |
-| 質問 | 条件内の6問、候補並列・決定的validator・修復・固定fallback | 決定的validator、近似重複、固定fallback、逐次最大3試行 | 部分実装 |
-| メタデータ | `conditionFocus`、`targetEvidenceId`、中立遷移理由 | 二条件、`transitionReason`、`turnFunction`を含まない契約 | 部分実装 |
-| 保存 | 二条件値域、同意保存先lock、冪等性、整合性、保持・撤回・削除 | schema v2、CSV/Supabase、lock/冪等性、二条件値域は一部実装、管理削除は未実装 | 部分実装 |
+| 質問 | 条件内の6問、候補並列・決定的validator・修復・固定fallback | 現行runtime prompt、候補並列・repair・固定fallback | 部分実装 |
+| メタデータ | `conditionFocus`、`targetEvidenceId`、中立遷移理由 | `conditionFocus`、`targetEvidenceId`、中立時の`transitionReason` | 部分実装 |
+| 保存 | 二条件値域、同意保存先lock、冪等性、整合性、保持・撤回・削除 | 新規保存はschema v3/二条件、CSV/Supabase、lock/冪等性を実装。管理削除は未実装 | 部分実装 |
 | UI | 条件秘匿、同意・中止・デブリーフ、生成文が復元ではないことの明示 | 現行mockとして一部実装 | 要確認・未実装あり |
 
-表中の「未実装」および「部分実装」が残る差分を、実装順序 §12 に従って扱う。
+上の差分は未実装である。実装順序は §12 に固定する。
 
 ## 2. 研究の問いと主張の境界
 
@@ -33,7 +33,7 @@
 
 ## 3. 研究・運用上の不変条件
 
-- 条件はVisualとOdorの二条件。Standardは要求仕様上廃止済みだが、コードと一部保存スキーマには残る。
+- 条件はVisualとOdorの二条件。Standardは要求仕様上廃止済みで、現行のUI、API、結果validator、persona batchは受け付けない。
 - Visualは視覚的対象・詳細に焦点を置き、匂い・音・触覚・温度・身体・感情を尋ねない。
 - Odorは匂い、その質、覚えている匂いが何の匂いだったかを扱うが、視覚・音・触覚・温度・身体・感情、原因説明・発生源の推測を尋ねない。
 - 将来ベースライン条件が必要になっても、廃止したStandardを再利用しない。条件ガイダンスを与えない無誘導条件として改めて定義し、条件外への逸脱は検証失敗ではなく測定値とする。
@@ -72,9 +72,10 @@
 | `conditionFocus` | `visual`、`odor`、または中立遷移時の`neutral`。割付条件と一致すること |
 | `targetEvidenceId` | 条件内質問では既知の証拠ID、中立ではnull |
 | `transitionReason` | 中立時に「非想起」または「条件内の材料枯渇」のちょうど一つ。条件内では持たない |
+| `fallbackReason` | generation recordの独立フィールド。`generation_rejected`、`non_recall`、`insufficient_evidence`を区別し、`transitionReason`と混同しない |
 | `question` | 1問、セッション言語、条件外誘導・研究開示・推測要求なし |
 
-`turnFunction` は要求仕様・現行契約ともに廃止する。中立遷移理由は質問metadataの`transitionReason`へ独立して記録し、条件内質問では`null`、中立質問では`non_recall`または`insufficient_evidence`の一つとする。generation recordの`fallbackReason`は質問metadataから独立し、生成棄却時は`generation_rejected`、中立fallback時は対応する遷移理由を記録する。
+`turnFunction` は要求仕様・現行runtime契約のいずれにも含めない。現行の質問metadataは`conditionFocus`、`targetEvidenceId`、必要時の`transitionReason`である。
 
 ### 5.2 選択手順
 
@@ -86,7 +87,9 @@
 
 候補は逐次再プロンプトだけに依存せず、1ターンあたり複数候補を並列に生成し選別する。棄却時は候補本文と違反箇所をrepair段へ渡し、temperature 0で最小修正を求め、strict schemaと同じvalidatorで再検証する。候補予算が尽きたら、条件質問→検証済み中立質問の固定ラダーへ進み、6問を必ず完走する。fallback理由（材料枯渇、非想起、生成棄却）は別フィールドに記録する。
 
-`auth`、quota、provider unavailable、timeoutなどAPI基盤の失敗はfallbackへ変換しない。bounded timeoutの後にセッションを中断し、参加者に安全な失敗を示す。API keyはサーバ側だけで読み、provider呼出しは保持をオプトアウトする。providerのerror本文や資格情報をclientへ返さない。diagnosticsが欠落した生成結果は受け付けない。attemptsは初回を含む連続試行数、棄却候補・理由・request IDを記録する。要求したmodel aliasだけでなく、providerが応答した具体的なmodel版を保存する。固定質問fallbackはサーバー環境変数`ALLOW_FALLBACK`で明示的に無効化でき、未設定または`true`では現行互換のため有効、`false`では候補予算後に生成エラーとする。
+`auth`、quota、provider unavailable、timeoutなどAPI基盤の失敗はfallbackへ変換しない。bounded timeoutの後にセッションを中断し、参加者に安全な失敗を示す。API keyはサーバ側だけで読み、provider呼出しは保持をオプトアウトする。providerのerror本文や資格情報をclientへ返さない。diagnosticsが欠落した生成結果は受け付けない。attemptsは初回を含む連続試行数、棄却候補・理由・request IDを記録する。要求したmodel aliasだけでなく、providerが応答した具体的なmodel版を保存する。
+
+固定質問fallbackはサーバー環境変数`ALLOW_FALLBACK`で明示的に無効化でき、未設定または`true`では現行互換のため有効、`false`では候補とrepairの棄却後に生成エラーとする。
 
 ターン数、model、temperature、候補数、試行上限、prompt versionは一か所で管理し、各結果に実際の値を保存する。6ターンは現行pilot値であり、指導教員の承認待ちではない。参加者データ収集開始時に生成設定を凍結し、以後の変更は別の収集として扱う。
 
@@ -108,7 +111,7 @@
 
 ## 8. 保存・整合性・プライバシー
 
-保存先はCSVまたはSupabaseの単一インターフェース背後に置く。schema v2の主なレコードは `session_id`、`record_type`、`saved_at`、schema/protocol/prompt version、condition、language、initial fragment、6質問・6回答、question metadata/generation、final narrative、narrative annotations/generation、evaluation、checksである。
+保存先はCSVまたはSupabaseの単一インターフェース背後に置く。旧schema v2の既存レコードは保持し、新規の二条件契約はschema v3として別CSV `results-v0.4.4-bilingual-two-condition-schema-v3.csv` に保存する。v3の主なレコードは `session_id`、`record_type`、`saved_at`、schema/protocol/prompt version、condition、language、initial fragment、6質問・6回答、question metadata/generation、final narrative、narrative annotations/generation、evaluation、checksである。
 
 - 同意時の保存先とサーバ設定が異なる場合は拒否し、自動fallbackしない。
 - session IDは安定させ、同一内容の再送は成功、同一IDで異なる内容は競合として拒否する。既存結果を更新しない。
@@ -119,7 +122,7 @@
 - 参加者認証、途中保存・再開、管理者の撤回・削除UI、公開運用は未実装であり、一般公開しない。
 - 保持は最終公表から10年（未公表pilotは終了から10年）。匿名化前はsession ID単位で撤回を受け付け、primary store、export、backupを含めて破棄し、破棄後は削除記録だけ残す。匿名化後の個別削除不能は同意文に明示する。
 
-SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`session_id`主キー、6件配列制約、`condition in ('visual','odor')` は [`../supabase/migrations/202609030001_experiment_results.sql`](../supabase/migrations/202609030001_experiment_results.sql) とREADMEの手順で検証する。
+リポジトリ上のSupabase migrationは、SQL、RLS、匿名ロール拒否、service roleのみの権限、`session_id`主キー、6件配列制約、`condition in ('visual','odor')`を定義する。ただし、既存DBへの適用状態と移行方法は未確認である。migrationの適用確認はこの文書作業の範囲外であり、既存DBを削除・再作成しない。
 
 ## 9. 実行資産と証跡の扱い
 
@@ -138,25 +141,26 @@ SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`se
 
 要求仕様と現行アプリの差分は次のとおりである。
 
-- `app/experiment.tsx`、各API route、validator、fallback、保存schema、persona batchはStandardを受け入れない二条件契約へ更新済みである。
+- 条件の型・入力・validator・fallback・結果schema・persona batchは`visual` / `odor`の二条件である。Standardは現行runtimeでは受け入れない。
 - 条件割付はクライアント側の `Math.random()` で、有効断片送信後のサーバ側ブロック割付・割付ログではない。
-- `app/api/follow-up/route.ts` は最大3回の逐次試行で、候補並列・repair段・候補本文と違反箇所のrepair入力は未実装。
-- `turnFunction` は契約から除去済みで、`transitionReason`と質問metadataの整合をAPI・保存時に再検証する。
-- OpenAI呼出しのtimeout、`store:false`、基盤失敗の中断、provider本文秘匿、strict schema、diagnostics必須化は現行実装にある。
+- `app/api/follow-up/route.ts` は設定境界から候補数・repair数・temperatureを読み、候補を並列生成し、候補本文と違反箇所をtemperature 0のrepairへ渡す。
+- `turnFunction` は現行契約から削除され、質問metadataは要求仕様の二条件契約に合わせている。
+- OpenAI呼出しにはbounded timeoutと `store:false` がある。質問の内容棄却だけがrepair/fallback対象で、auth/quota/provider unavailable/timeout/接続失敗は安全なエラーで中断する。provider request IDと具体的modelを含むdiagnostics欠落は成功扱いしない。
 - narrative annotationは保存されるが、独立検証ではなくモデル自己申告である。
-- `lib/result.ts`、`lib/result-validation.ts`、Supabase migration、persona batchは二条件値域へ対応済みだが、server assignmentは未対応である。
-- 保存先lock、CSV直列化、同一IDの競合拒否などは一部実装済みだが、撤回・保持期限・管理削除・認証・公開運用は未実装。
-- オフラインfixtureとテストは二条件契約を確認するが、server側ブロック割付や研究上の妥当性を証明しない。
+- `lib/result.ts`、`lib/result-validation.ts`、Supabase migration、persona batchは二条件値域に対応している。サーバ側割付と割付ログは未実装で、UIはクライアント側の`Math.random()`を使う。
+- 保存先lock、CSV直列化、同一IDの競合拒否などは一部実装済みだが、要求される保持・撤回・削除の管理経路、認証・公開運用は未実装。リポジトリ上のSupabase migrationは二条件だが、既存DBへの適用状態と移行方法は未確認。
+- オフラインfixtureとテストは存在し、二条件のUI/API保存フローを確認できるが、要求されるサーバ側割付やその他の未実装要件の証明にはならない。
 
 ### 現行互換性契約
 
 現行実装を扱う際に、仕様移行や既存結果比較で失ってはならない互換性情報は次のとおりである。
 
 - `record_type` は `participant` / `batch_synthetic`。participantは12評価項目と6 checksの完全ID集合および1〜7整数を必須とする。batch_syntheticはevaluationとchecksがともに空、またはともに完全集合の場合だけ許容し、片方だけの部分入力は拒否する。
-- 質問prompt versionは `prompt-catalog-v0.4.5-mock-draft`、物語prompt versionは `prompt-catalog-v0.4.3-mock-draft`。既存結果の比較では質問generation record内のversionで区別する。
-- `attempts` は採用候補を含むAPI内試行数。`source=generated` は最後の試行を採用し、`source=fallback` は全試行棄却で、fallbackは `model=fallback`、`requestId=null`。現行保存形式には棄却ごとのmodel/request IDや画面再送前の失敗履歴がなく、要求との差分である。
+- 質問prompt versionは `prompt-catalog-v0.4.4-mock-draft`、物語prompt versionは `prompt-catalog-v0.4.3-mock-draft`。既存結果の比較では質問generation record内のversionで区別する。
+- `attempts` はその生成API呼出しで実行した全試行数で、並列候補とrepairを含む。`source=generated` は候補またはrepairの検証済み出力を採用したこと、`source=fallback` は候補とrepairをすべて棄却して固定質問へ置換したことを示す。fallbackは `model=fallback`、`requestId=null`、`fallbackReason` は `generation_rejected` / `non_recall` / `insufficient_evidence` のいずれかを必須とする。
+- `diagnostics.rejections` は棄却候補または不採用候補ごとの `stage`、違反フラグ、候補本文・metadata（存在時）、providerのmodel/request ID（応答時）を保存する。画面再送前にAPI応答が返らなかった失敗は、その生成recordのattemptsには含めない。
 - API `language` は `ja` / `en`、未指定は互換性上 `ja`、その他は拒否。言語変更後の現行UIは同意画面へ戻り初期断片を保持し、質問開始後は固定する。JSON key/id/enum値は言語間で不変、100文字上限は両言語同じ。
-- 現行CSVはbilingual schema v2で `language` 列を含む。旧CSVは移行・書換えず、header mismatchへの追記は拒否する。
+- 旧CSVはbilingual schema v2として保持し、新規CSVはbilingual two-condition schema v3で `language` 列を含む。旧CSVへの追記はせず、header/version mismatchへの追記は拒否する。
 
 ## 11. スコープ外・未解決事項
 
@@ -164,8 +168,6 @@ SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`se
 
 - 実験条件、調査票の意味、生成規則、保存済みデータ、実験文言、runtime prompt本文。
 - ブロックサイズ、割付比、seed、割付隠蔽、収集時に凍結するモデル・temperature・候補数の最終値、サンプルサイズ、分析モデル。
-- server側ブロック割付は、上記のブロックサイズ・比率・seedに加えて、言語層別の割付台帳をどの保存先へどの整合性保証で記録するかが未指定である。これらを補わずに実装すると、割付比またはログの再現性を恣意的に決めるため、現行mockではclient `Math.random()`の未実装差分を明示している。
-- 候補並列・repairは、候補数、repair回数、候補ごとのrequest ID/modelの保存形式が未指定である。現行の逐次試行上限を候補並列へ読み替えず、決定的validator・近似重複・固定fallbackまでを先行している。
 - 非方向主仮説と操作チェックのpredicted direction要求の整合。
 - 題名の `Reconstruction` と参加者向けの「reconstructionを禁じる」説明の整合。
 - 倫理審査の機関名・連絡先・提出日、参加者収集開始条件の具体的手続き。
@@ -184,10 +186,10 @@ SupabaseのSQL、RLS、匿名ロール拒否、service roleのみの権限、`se
 
 - 必要な仕様・制約・未実装差分が `docs/SPEC.md` にあり、セットアップ・操作・オフライン検証・保存先検証・課金を伴う任意操作が `README.md` にある。
 - READMEからSPECへ、AGENTSからREADME/SPECへ、残存する保存資産・証跡へそれぞれ正しく辿れる。
-- Visual/Odor要求、Standardを除いた現行二条件、client割付、未実装を明示し、実装済みと誤認させない。
+- Visual/Odor要求、Standardを受け付けない現行二条件runtime、client割付、未実装を明示し、実装済みと誤認させない。
 - 指導教員approval gate不要、倫理審査・収集開始条件必要、研究上の未解決事項、非想起・DQ/MC-EVENT/fallbackの扱いを明示する。
 - 実行資産は §9 の正本に一本化し、別ディレクトリに比較用コピーや履歴表を維持しない。
 - 保存済みデータ、artifacts、凍結evidenceは保持する。
 - 削除済みの説明文書・履歴表・作業用文書への生きた参照がない。
 - 文書内リンク、対象ファイル参照、削除・整理対象への参照を検査する。
-- コードまたは実行資産の変更では `npm test`、`npm run typecheck`、`npm run build` を順番に実行する。
+- コードまたは実行資産の変更では `npm test`、`npm run typecheck`、`npm run build` を順番に実行する。UI fixtureはwelcomeからdebrief、save、doneまでのオフライン影響フローを確認し、persona batchは10 personas × 2条件のdry-runを確認する。

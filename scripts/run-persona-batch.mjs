@@ -1,6 +1,7 @@
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { personas } from "../core/05-verification/personas.mjs";
+import { generationMetadata } from "./persona-batch-utils.mjs";
 
 const BASE_URL = process.env.MOCK_BASE_URL || "http://127.0.0.1:3000";
 const CONDITIONS = ["visual", "odor"];
@@ -118,11 +119,6 @@ function validatePersonas() {
   });
   if (personas.filter((persona) => persona.odorMemory === false).length !== 3) errors.push("expected 3 odorMemory=false personas");
   if (errors.length) throw new Error(`Persona validation failed: ${errors.join(", ")}`);
-}
-
-function generationMetadata(payload) {
-  const { model, requestId, promptVersion, source, fallbackReason, attempts, diagnostics } = payload;
-  return { model, requestId, promptVersion, source, fallbackReason, attempts, diagnostics };
 }
 
 async function runSession(condition, persona) {

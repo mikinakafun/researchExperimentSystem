@@ -5,20 +5,6 @@ import { validateNarrativeSentences, type NarrativeSentence } from "./narrative"
 import { checks, evaluationItems } from "./survey";
 import type { ResultData } from "./result";
 
-function isQuestionMetadata(value: unknown, condition: ResultData["condition"], turn: number): boolean {
-  if (!isObject(value) ||
-      "turnFunction" in value || "nonRecallTransition" in value || "insufficientEvidenceTransition" in value ||
-      !["visual", "odor", "neutral"].includes(value.conditionFocus as string) ||
-      (value.targetEvidenceId !== null && typeof value.targetEvidenceId !== "string") ||
-      (value.transitionReason !== null && value.transitionReason !== "non_recall" && value.transitionReason !== "insufficient_evidence")) return false;
-  if (value.conditionFocus === "neutral") {
-    return value.targetEvidenceId === null && value.transitionReason !== null;
-  }
-  return value.conditionFocus === condition && typeof value.targetEvidenceId === "string" &&
-    ["fragment", ...Array.from({ length: Math.max(0, turn - 1) }, (_, index) => `answer-${index + 1}`)].includes(value.targetEvidenceId) &&
-    value.transitionReason === null;
-}
-
 function isRatingMap(value: unknown, ids: string[], allowEmpty: boolean): value is Record<string, number> {
   if (!isObject(value)) return false;
   const keys = Object.keys(value);
@@ -31,16 +17,38 @@ function isTurnText(value: unknown): value is string[] {
   return Array.isArray(value) && value.length === PROMPT_CONFIG.followUpTurns && value.every(isNonEmptyString);
 }
 
+function sameGenerationSettings(
+  actual: { temperature: number; candidateCount: number; repairCount: number; maxAttempts: number },
+  expected: { temperature: number; candidateCount: number; repairCount: number; maxAttempts: number },
+) {
+  return actual.temperature === expected.temperature &&
+    actual.candidateCount === expected.candidateCount &&
+    actual.repairCount === expected.repairCount &&
+    actual.maxAttempts === expected.maxAttempts;
+}
+
+function isQuestionMetadata(value: unknown, condition: "visual" | "odor", turn: number): value is Record<string, unknown> {
+  if (!isObject(value) || (value.conditionFocus !== condition && value.conditionFocus !== "neutral") ||
+      !(value.targetEvidenceId === null || isNonEmptyString(value.targetEvidenceId))) return false;
+  const validIds = new Set(["fragment", ...Array.from({ length: turn }, (_, index) => `answer-${index + 1}`)]);
+  if (value.targetEvidenceId !== null && !validIds.has(value.targetEvidenceId)) return false;
+  if (value.conditionFocus === "neutral") {
+    return value.targetEvidenceId === null && (value.transitionReason === "non_recall" || value.transitionReason === "insufficient_evidence");
+  }
+  return value.conditionFocus === condition && value.transitionReason === undefined;
+}
+
 export function parseResultData(body: unknown): ResultData | null {
   if (!isObject(body)) return null;
   const language = parseLanguage(body.language);
   const recordType = body.recordType === undefined ? "participant" : body.recordType;
   if (!language || (recordType !== "participant" && recordType !== "batch_synthetic") ||
+      (body.schemaVersion !== undefined && body.schemaVersion !== PROMPT_CONFIG.schemaVersion) ||
       (body.condition !== "visual" && body.condition !== "odor") ||
-      !isNonEmptyString(body.sessionId) || body.sessionId.length > 200 || !isNonEmptyString(body.fragment) || !isNonEmptyString(body.finalResult) ||
+      !isNonEmptyString(body.sessionId) || body.sessionId.length > 200 || !isNonEmptyString(body.fragment) || body.fragment.length > 100 || !isNonEmptyString(body.finalResult) ||
       !isTurnText(body.questions) || !isTurnText(body.answers) ||
       !Array.isArray(body.questionMetadata) || body.questionMetadata.length !== PROMPT_CONFIG.followUpTurns ||
-      !body.questionMetadata.every((value, index) => isQuestionMetadata(value, body.condition as ResultData["condition"], index + 1)) ||
+      !body.questionMetadata.every((value, index) => isQuestionMetadata(value, body.condition as "visual" | "odor", index)) ||
       body.narrativePromptVersion !== PROMPT_CONFIG.version ||
       validateNarrativeSentences(body.narrativeSentences, PROMPT_CONFIG.followUpTurns, PROMPT_CONFIG.narrativeMaxSentences, language).length > 0 ||
       !isRatingMap(body.evaluation, evaluationItems.map((item) => item.id), recordType === "batch_synthetic") ||
@@ -53,13 +61,25 @@ export function parseResultData(body: unknown): ResultData | null {
   for (const value of body.questionGeneration) {
     const generation = readGenerationMetadata(value);
     if (!generation || generation.attempts > PROMPT_CONFIG.maxFollowUpAttempts ||
-        generation.promptVersion !== PROMPT_CONFIG.followUpVersion) return null;
+        generation.promptVersion !== PROMPT_CONFIG.followUpVersion ||
+        !sameGenerationSettings(generation.settings, {
+          temperature: PROMPT_CONFIG.followUpTemperature,
+          candidateCount: PROMPT_CONFIG.followUpCandidateCount,
+          repairCount: PROMPT_CONFIG.followUpRepairCount,
+          maxAttempts: PROMPT_CONFIG.maxFollowUpAttempts,
+        })) return null;
     questionGeneration.push(generation);
   }
   const narrativeGeneration = readGenerationMetadata(body.narrativeGeneration);
   if (!narrativeGeneration || narrativeGeneration.source !== "generated" ||
       narrativeGeneration.attempts > PROMPT_CONFIG.maxNarrativeAttempts ||
-      narrativeGeneration.promptVersion !== body.narrativePromptVersion) return null;
+      narrativeGeneration.promptVersion !== body.narrativePromptVersion ||
+      !sameGenerationSettings(narrativeGeneration.settings, {
+        temperature: PROMPT_CONFIG.narrativeTemperature,
+        candidateCount: 1,
+        repairCount: 0,
+        maxAttempts: PROMPT_CONFIG.maxNarrativeAttempts,
+      })) return null;
 
   return {
     sessionId: body.sessionId, recordType, condition: body.condition, language,

@@ -21,11 +21,11 @@ export type QuestionValidationInput = QuestionCandidate & {
 };
 
 const odorPattern = /(?:匂い|におい|香り|臭い|\b(?:smells?|smelled|smelt|scents?|odou?rs?|aromas?|fragrances?)\b)/iu;
-const visualPattern = /(?:見え|見た|見える|目に入|光景|景色|(?<![色])色(?!々)|明る|暗|(?<![形])形(?!式)|(?<!観)光|配置|外見|見た目|\b(?:visual|see|seeing|seen|saw|looks?|looked|appearance|colou?rs?|brightness|bright|dark|shapes?|lights?|arrangements?)\b)/iu;
+const visualPattern = /(?:見え|見た|見える|目に入|光景|景色|色|明る|暗|形|光|配置|外見|見た目|\b(?:visual|see|seeing|seen|saw|looks?|looked|appearance|colou?rs?|brightness|bright|dark|shapes?|lights?|arrangements?)\b)/iu;
 const auditoryPattern = /(?:音|声|聞こ|\b(?:auditory|sounds?|voices?|hear|hearing|heard)\b)/iu;
-const bodilyPattern = /(?:触|感触|手触り|温度|湿度|熱|温か|暖か|冷た|冷え|寒|暑|身体|(?<!全)体(?:に|で|の|が|を|は)|肌|痛|疲れ|緊張|\b(?:bodily|body|touch|touched|textures?|temperatures?|sensations?|warm|cold|hot|pain|tired)\b)/iu;
+const bodilyPattern = /(?:触|感触|手触り|温度|湿度|熱|温か|暖か|冷た|冷え|寒|暑|身体|体(?:に|で|の|が|を|は)|肌|痛|疲れ|緊張|\b(?:bodily|body|touch|touched|textures?|temperatures?|sensations?|warm|cold|hot|pain|tired)\b)/iu;
 const emotionPattern = /(?:気持ち|考え|感情|気分|どう感じ|どのように感じ|どんな(?:ことを)?感じ|\b(?:emotions?|moods?|feelings?|thoughts?)\b|\bhow\b.*\b(?:feel|felt)\b)/iu;
-const sensoryPattern = new RegExp(`${visualPattern.source}|${auditoryPattern.source}|${bodilyPattern.source}|${odorPattern.source}|雰囲気|味|食感|表情|\\b(?:atmosphere|taste|flavou?rs?|expressions?)\\b`, "iu");
+const sensoryPattern = new RegExp(`${visualPattern.source}|${auditoryPattern.source}|${bodilyPattern.source}|${odorPattern.source}|雰囲気|空気|味|食感|表情|\\b(?:atmosphere|air|taste|flavou?rs?|expressions?)\\b`, "iu");
 const noRecallPattern = /(?:思い出せ(?:ません|ない|なかった)|覚えてい(?:ません|ない)|記憶(?:が|は)(?:ありません|ない)|分かりません|分からない|わかりません|わからない|覚えがありません|\bno\s+(?:memory|recall|odou?r|smell)\b|\b(?:do(?:\s+not|n['’]t)|did(?:\s+not|n['’]t)|cannot|can\s+not|can['’]t|could(?:\s+not|n['’]t))\s+(?:remember|recall|know)\b)/iu;
 // DEC-049: olfactory perception is object-based, so naming what an odor was an
 // odor of reports the percept rather than inferring it. Only explicit requests
@@ -44,29 +44,22 @@ function normalize(text: string) {
   return text.normalize("NFKC").replace(/\s+/gu, "").replace(/[？?。！!、,「」『』]/gu, "").toLowerCase();
 }
 
-function editDistance(left: string, right: string) {
-  const previous = Array.from({ length: right.length + 1 }, (_, index) => index);
-  for (let row = 1; row <= left.length; row += 1) {
-    const current = [row];
-    for (let column = 1; column <= right.length; column += 1) {
-      current[column] = Math.min(
-        current[column - 1] + 1,
-        previous[column] + 1,
-        previous[column - 1] + (left[row - 1] === right[column - 1] ? 0 : 1),
-      );
-    }
-    for (let column = 0; column <= right.length; column += 1) previous[column] = current[column];
-  }
-  return previous[right.length];
+function questionSimilarity(left: string, right: string) {
+  const a = normalize(left);
+  const b = normalize(right);
+  if (a === b) return 1;
+  const grams = (value: string) => new Set(Array.from({ length: Math.max(0, value.length - 1) }, (_, i) => value.slice(i, i + 2)));
+  const ag = grams(a); const bg = grams(b);
+  if (ag.size === 0 || bg.size === 0) return 0;
+  let overlap = 0;
+  for (const gram of ag) if (bg.has(gram)) overlap += 1;
+  return overlap / (ag.size + bg.size - overlap);
 }
 
-function isApproximateDuplicate(candidate: string, previous: string) {
-  const left = normalize(candidate);
-  const right = normalize(previous);
-  if (!left || !right) return false;
-  const distance = editDistance(left, right);
-  const maxLength = Math.max(left.length, right.length);
-  return distance <= 2 || (maxLength >= 12 && distance / maxLength <= 0.12);
+const safeCompounds = ["色々", "全体", "観光", "形式", "空気"];
+function matchesOutsideSafeCompounds(pattern: RegExp, text: string, compounds = safeCompounds) {
+  const stripped = compounds.reduce((value, compound) => value.replaceAll(compound, ""), text);
+  return pattern.test(stripped);
 }
 
 function validEvidenceIds(turn: number) {
@@ -78,19 +71,17 @@ function validateMetadata(input: QuestionValidationInput) {
   const metadata = input.metadata;
   const focuses: ConditionFocus[] = ["visual", "odor", "neutral"];
   // Validate the output contract, not a prescribed sequence or wording.
-  if ("turnFunction" in metadata || "nonRecallTransition" in metadata || "insufficientEvidenceTransition" in metadata) flags.push("obsolete_metadata");
   if (!focuses.includes(metadata.conditionFocus)) flags.push("invalid_condition_focus");
-  if (metadata.transitionReason !== null && metadata.transitionReason !== "non_recall" && metadata.transitionReason !== "insufficient_evidence") flags.push("invalid_transition_reason");
+  if (metadata.transitionReason !== undefined && !["non_recall", "insufficient_evidence"].includes(metadata.transitionReason)) flags.push("invalid_transition_reason");
   if (metadata.targetEvidenceId !== null && !validEvidenceIds(input.turn).has(metadata.targetEvidenceId)) {
     flags.push("invalid_target_evidence_id");
   }
   if (metadata.conditionFocus === "neutral") {
-    if (metadata.transitionReason === null) flags.push("neutral_without_transition");
+    if (!metadata.transitionReason) flags.push("neutral_without_transition");
     if (metadata.targetEvidenceId !== null) flags.push("neutral_target_must_be_null");
   } else {
     if (metadata.conditionFocus !== input.condition) flags.push("condition_focus_mismatch");
-    if (metadata.targetEvidenceId === null) flags.push("focused_target_required");
-    if (metadata.transitionReason !== null) flags.push("focused_question_with_transition");
+    if (metadata.transitionReason) flags.push("focused_question_with_transition");
   }
   return flags;
 }
@@ -104,21 +95,20 @@ export function validateQuestion(input: QuestionValidationInput): string[] {
   if (studyDisclosurePattern.test(question)) flags.push("study_disclosure");
   if (input.language && !matchesOutputLanguage(question, input.language)) flags.push("output_language_mismatch");
   if (previousQuestions.includes(normalize(question))) flags.push("duplicate");
-  else if (previousQuestions.some((previous) => isApproximateDuplicate(question, previous))) flags.push("near_duplicate");
+  else if (input.history.some((turn) => questionSimilarity(question, turn.question) >= 0.72)) flags.push("near_duplicate");
 
   // These patterns detect explicit cross-condition wording only. Missing a
   // keyword is not a violation; semantic condition fidelity needs evaluation.
-  if (input.metadata.conditionFocus === "neutral") {
-    if (sensoryPattern.test(question) || emotionPattern.test(question)) flags.push("neutral_focus_contamination");
-  }
+  const contamination = matchesOutsideSafeCompounds(sensoryPattern, question) || emotionPattern.test(question);
+  if (input.metadata.conditionFocus === "neutral" && contamination) flags.push("neutral_focus_contamination");
 
   if (input.condition === "visual" && input.metadata.conditionFocus !== "neutral") {
-    if (odorPattern.test(question)) flags.push("visual_odor_contamination");
-    if (auditoryPattern.test(question) || bodilyPattern.test(question) || emotionPattern.test(question)) flags.push("visual_condition_contamination");
+    if (matchesOutsideSafeCompounds(odorPattern, question)) flags.push("visual_odor_contamination");
+    if (matchesOutsideSafeCompounds(auditoryPattern, question) || matchesOutsideSafeCompounds(bodilyPattern, question) || emotionPattern.test(question)) flags.push("visual_condition_contamination");
   }
 
   if (input.condition === "odor" && input.metadata.conditionFocus !== "neutral") {
-    if (visualPattern.test(question) || auditoryPattern.test(question) || bodilyPattern.test(question) || emotionPattern.test(question)) flags.push("odor_condition_contamination");
+    if (matchesOutsideSafeCompounds(visualPattern, question) || matchesOutsideSafeCompounds(auditoryPattern, question) || matchesOutsideSafeCompounds(bodilyPattern, question) || emotionPattern.test(question)) flags.push("odor_condition_contamination");
     if (sourceInferencePattern.test(question)) flags.push("odor_source_inference");
   }
 

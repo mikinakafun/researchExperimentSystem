@@ -3,12 +3,11 @@ import { DEFAULT_LANGUAGE, type Language } from "../../lib/language";
 
 export type PromptCondition = "visual" | "odor";
 export type ConditionFocus = PromptCondition | "neutral";
-export type TransitionReason = "non_recall" | "insufficient_evidence";
 
 export type QuestionMetadata = {
   conditionFocus: ConditionFocus;
   targetEvidenceId: string | null;
-  transitionReason: TransitionReason | null;
+  transitionReason?: "non_recall" | "insufficient_evidence";
 };
 
 export type ConversationTurn = {
@@ -18,11 +17,14 @@ export type ConversationTurn = {
 };
 
 export const PROMPT_CONFIG = {
+  schemaVersion: "3",
   version: "prompt-catalog-v0.4.3-mock-draft",
-  followUpVersion: "prompt-catalog-v0.4.5-mock-draft",
+  followUpVersion: "prompt-catalog-v0.4.4-mock-draft",
   followUpTurns: 6,
   followUpTemperature: 0.55,
-  maxFollowUpAttempts: 3,
+  followUpCandidateCount: 3,
+  followUpRepairCount: 1,
+  maxFollowUpAttempts: 4,
   narrativeMaxSentences: 10,
   narrativeTemperature: 0.75,
   maxNarrativeAttempts: 3,
@@ -34,6 +36,13 @@ export function allowFallback(env: NodeJS.ProcessEnv = process.env): boolean {
   return env.ALLOW_FALLBACK?.trim().toLowerCase() !== "false";
 }
 
+export type GenerationSettings = {
+  temperature: number;
+  candidateCount: number;
+  repairCount: number;
+  maxAttempts: number;
+};
+
 export function buildFollowUpInstructions(
   condition: PromptCondition,
   turn: number,
@@ -44,8 +53,8 @@ export function buildFollowUpInstructions(
   if (!Number.isInteger(turn) || turn < 1 || turn > PROMPT_CONFIG.followUpTurns) {
     throw new Error(`Unsupported follow-up turn: ${turn}`);
   }
-  const guidancePath = `v0.4.5-mock-draft/follow-up-guidance.${language}.txt`;
-  return renderPrompt(`v0.4.5-mock-draft/follow-up.${language}.txt`, {
+  const guidancePath = `v0.4.4-mock-draft/follow-up-guidance.${language}.txt`;
+  return renderPrompt(`v0.4.4-mock-draft/follow-up.${language}.txt`, {
     CONDITION_GUIDANCE: readPromptSection(guidancePath, `condition-${condition}`),
     TRANSITION_GUIDANCE: readPromptSection(
       guidancePath,

@@ -1,6 +1,6 @@
 # ResearchPilotSystem
 
-既存のNext.js実験システムに、二条件（Visual / Odor）の研究仕様を適用していくための研究用mockです。仕様・制約・未実装差分は [`docs/SPEC.md`](docs/SPEC.md)、このREADMEはセットアップ・操作・オフライン検証・保存先検証の正本です。質問・保存・合成batchは二条件化済みですが、server側ブロック割付など未達の仕様があるため、参加者募集や実収集には使用できません。
+既存のNext.js実験システムに、二条件（Visual / Odor）の研究仕様を適用していくための研究用mockです。仕様・制約・未実装差分は [`docs/SPEC.md`](docs/SPEC.md)、このREADMEはセットアップ・操作・オフライン検証・保存先検証の正本です。現状は仕様に未達の二条件mockであり、参加者募集や実収集には使用できません。
 
 ## 前提と安全上の注意
 
@@ -70,7 +70,7 @@ node tests/ui-fixture-server.cjs
 npm run run:persona-batch -- --dry-run
 ```
 
-これはAPIを呼ばず、10 personasと予定セッションを検証します。プロンプト、validator、候補戦略を変更した場合は、仕様上の常時運用としてハーネスを再実行します。実APIバッチは次で、現行は10 personas × 2条件の20セッション相当です。基準約260 API calls（追質問120、模擬回答120、物語20。再試行分は追加）を行い、課金と合成結果保存を伴う任意操作です。これはserver側割付の検証ではなく、固定した合成条件のオフライン運用確認です。
+これはAPIを呼ばず、10 personasと予定セッションを検証します。プロンプト、validator、候補戦略を変更した場合は、仕様上の常時運用としてハーネスを再実行します。実APIバッチは次で、現行は10 personas × 2条件の20セッション相当です。基準約260 API calls（追質問120、模擬回答120、物語20。各処理の再試行分は追加）を行い、課金と合成結果保存を伴う任意操作です。
 
 ```bash
 npm run run:persona-batch
@@ -80,13 +80,13 @@ npm run run:persona-batch
 
 ## ローカル保存
 
-`RESULT_STORAGE` 未設定または `csv` では `data/results-v0.4.3-bilingual-schema-v2.csv` に追記します。現行CSVはbilingual schema v2で `language` 列を含み、旧CSVは移行・書換えしません。headerが期待値と異なるCSVへの追記は拒否します。完了セッションは一行のschema v2で、6質問・6回答・生成履歴・文章・評定・MC/DQを含みます。`data/*.csv` はGit管理外です。
+`RESULT_STORAGE` 未設定または `csv` では新規の `data/results-v0.4.4-bilingual-two-condition-schema-v3.csv` に追記します。旧schema v2のCSVは読み替え・追記・移行せず保持します。header/versionが期待値と異なるCSVへの追記は拒否します。完了セッションは一行のschema v3で、6質問・6回答・生成履歴・文章・評定・MC/DQを含みます。`data/*.csv` はGit管理外です。
 
-現行の `record_type` は `participant` と `batch_synthetic` です。participantは12評価項目と6 checksの完全な既定ID集合、および各値1〜7の整数を要求します。batch_syntheticはevaluationとchecksがともに空、またはともに全項目を含む場合だけ許容し、片方だけの部分入力は拒否します。
+現行の `record_type` は `participant` と `batch_synthetic` です。participantは12評価項目と6 checksの完全な既定ID集合、および各値1〜7の整数を要求します。batch_syntheticはevaluationとchecksがともに空、またはともに全項目を含む場合だけ許容し、片方だけの部分入力は拒否します。両record typeとも、各質問・物語のgeneration recordにmodel、request ID、prompt version、settings、attempts、rejectionsを保存し、fallback時はfallbackReasonも必須です。
 
-現行prompt versionは質問が `prompt-catalog-v0.4.5-mock-draft`、物語が `prompt-catalog-v0.4.3-mock-draft` です。既存結果を比較するときは、質問のgeneration record内にあるversionで区別します。`attempts` は採用候補を含むAPI内試行数で、`source=generated` は最後の試行を採用、`source=fallback` は全試行棄却を意味します。fallbackでは `model=fallback`、`requestId=null` です。現行保存形式は、各棄却候補のmodel/request IDや画面再送前に失敗したリクエスト履歴を保存しません。これは将来要求との差分です。
+現行prompt versionは質問が `prompt-catalog-v0.4.4-mock-draft`、物語が `prompt-catalog-v0.4.3-mock-draft` です。既存結果を比較するときは、質問のgeneration record内にあるversionで区別します。`attempts` は並列候補とrepairを含む、その生成API呼出しの全試行数です。`source=generated` は検証済み候補を採用、`source=fallback` は候補とrepairを全て棄却して固定質問へ置換したことを意味します。fallbackでは `model=fallback`、`requestId=null`、`fallbackReason`（`generation_rejected` / `non_recall` / `insufficient_evidence`）を保存します。`diagnostics.rejections` には候補またはrepairごとのstage、違反フラグ、候補情報、応答時のmodel/request IDを保存します。
 
-質問metadataは`conditionFocus`、`targetEvidenceId`、`transitionReason`（`non_recall` / `insufficient_evidence` / `null`）で構成し、廃止済みの`turnFunction`や二つの遷移booleanは受け付けません。generation recordには独立した`fallbackReason`（`non_recall`、`insufficient_evidence`、`generation_rejected`、または生成時の`null`）を含め、質問のgeneration versionと実行時versionを保存時に一致再検証します。質問fallbackはサーバー環境変数`ALLOW_FALLBACK`で切り替えられ、未設定または`true`では既存の固定fallbackを使い、`false`では最大試行後に生成エラーとして終了します。
+質問fallbackはサーバー環境変数`ALLOW_FALLBACK`で切り替えられます。未設定または`true`では固定fallbackを使い、`false`では候補とrepairをすべて棄却した後に生成エラーとして終了します。
 
 APIのlanguageは `ja` / `en` で、未指定は既存クライアント互換のため `ja`、その他の値は拒否します。言語を質問開始後に変更すると現行UIは同意画面へ戻り、初期断片を保持します。質問開始後は言語を固定します。JSON key、ID、enum値は言語間で不変で、100文字上限も両言語同じです。
 
@@ -102,7 +102,7 @@ SUPABASE_URL=https://<project>.supabase.co
 SUPABASE_SECRET_KEY=<server-only-secret>
 ```
 
-1. Supabase SQL Editorで [`supabase/migrations/202609030001_experiment_results.sql`](supabase/migrations/202609030001_experiment_results.sql) を新規テーブルとして一度だけ実行します。既存テーブルを削除して再作成しません。
+1. [`202609030001_experiment_results.sql`](supabase/migrations/202609030001_experiment_results.sql) は履歴として旧三条件/schema v2を作成し、[`202609110001_experiment_results_v3.sql`](supabase/migrations/202609110001_experiment_results_v3.sql) を続けて適用してv3の二条件を追加します。既存v2行は保持し、既存テーブルを削除・再作成しません。実環境への適用状態は未確認です。
 2. `npm run check:supabase` を実行します。OpenAI APIは呼ばず、合成行の保存、同一内容の再送、異内容の競合、読み戻し、CSV出力を確認します。実行ごとに `batch_synthetic` の検証行が残ります。
 3. `npm run dev` を再起動し、画面の保存先表示がSupabaseになっていることを確認します。
 4. 収集停止中にexportします。既定はparticipantだけです。全行は `npm run export:supabase -- --record-type all`、合成行を指定ファイルへ新規出力する場合は `npm run export:supabase -- --record-type batch_synthetic --output data/synthetic-export.csv` を実行します。既存ファイルは上書きしません。

@@ -16,17 +16,17 @@
 1. 初期断片と全履歴から、条件内で扱える対象ごとに「既知の内容」「不明・非想起の内容」「既に尋ねた点」を整理する。
 2. 既出対象について、まだ回答されていない未質問の点があれば、思い出せる範囲で一つだけ尋ねる。すでに明示された詳細を再質問しない。部分的な想起は使い、同じ対象の不明部分を繰り返し要求しない。
 3. 対象の指示が曖昧で、質問に必要な場合だけ短く確認する。十分に答えられた対象や非想起の対象は追及せず、別の既出対象へ移る。
-4. 条件内に尋ねられる材料がない場合は、ターン番号にかかわらず、中立的な出来事質問へ移る。非想起が理由ならnonRecallTransitionだけをtrueにし、それ以外の材料不足ならinsufficientEvidenceTransitionだけをtrueにする。
+4. 条件内に尋ねられる材料がない場合は、ターン番号にかかわらず、中立的な出来事質問へ移る。非想起が理由ならtransitionReasonを"non_recall"、それ以外の材料不足なら"insufficient_evidence"にする。
 
 {{TRANSITION_GUIDANCE}}
 
-turnFunctionはターン番号の順番を示す予定表ではなく、この質問が実際に果たす機能を記録する。質問の内容が最優先であり、固定の質問順を再現しないこと。
+turnFunctionフィールドは返さない。質問の内容を最優先し、固定の質問順を再現しないこと。
 想起された出来事の内側を尋ね、出来事の外の結末や前後を補わせないでください。
 参加者が述べていない事実を決めつけず、思い出せない内容を推測で埋めるよう求めないでください。
 質問は自然で答えやすい日本語の一問にしてください。表現を一定の文型に揃えたり、条件を示す単語を不自然に挿入したりする必要はありません。
 
 evidenceには初期断片と回答（idはfragment、answer-1など）、previousTurnsには過去の質問、回答、メタデータがあります。全履歴を確認し、targetEvidenceIdは実際に主に参照する既存IDだけにしてください。特定の証拠を指さない場合はnullにできます。
-conditionFocusは割付条件とし、中立的な出来事質問へ移る場合だけneutralにします。中立質問ではtargetEvidenceIdをnullにし、理由に応じてnonRecallTransitionまたはinsufficientEvidenceTransitionの一方だけをtrueにします。条件内の質問では両フラグをfalseにします。
+conditionFocusは割付条件とし、中立的な出来事質問へ移る場合だけneutralにします。中立質問ではtargetEvidenceIdをnullにし、transitionReasonを理由に応じて"non_recall"または"insufficient_evidence"の一方にします。条件内の質問ではtransitionReasonを省略します。
 {{RETRY_REASON_BLOCK}}
 
 JSONのみを返してください。

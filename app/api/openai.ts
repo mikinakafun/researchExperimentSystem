@@ -14,14 +14,16 @@ export const DEFAULT_MODEL = "gpt-4o-mini";
 
 export class OpenAIRequestError extends Error {
   status: number;
-  fallbackEligible: boolean;
 
-  constructor(message: string, status = 502, fallbackEligible = false) {
+  constructor(message: string, status = 502) {
     super(message);
     this.name = "OpenAIRequestError";
     this.status = status;
-    this.fallbackEligible = fallbackEligible;
   }
+}
+
+export class InvalidModelOutputError extends Error {
+  constructor(message: string) { super(message); this.name = "InvalidModelOutputError"; }
 }
 
 export function configuredModel() {
@@ -100,9 +102,9 @@ export async function createResponse(input: {
                       question: { type: "string" },
                       conditionFocus: { type: "string", enum: ["visual", "odor", "neutral"] },
                       targetEvidenceId: { anyOf: [{ type: "string" }, { type: "null" }] },
-                      transitionReason: { anyOf: [{ type: "string", enum: ["non_recall", "insufficient_evidence"] }, { type: "null" }] },
+                      transitionReason: { type: "string", enum: ["non_recall", "insufficient_evidence"] },
                     },
-                    required: ["question", "conditionFocus", "targetEvidenceId", "transitionReason"],
+                    required: ["question", "conditionFocus", "targetEvidenceId"],
                     additionalProperties: false,
                   },
                 },
@@ -118,7 +120,7 @@ export async function createResponse(input: {
       const providerMessage = payload?.error?.message?.trim();
       throw new OpenAIRequestError(
         providerMessage || `OpenAI API request failed with status ${response.status}.`,
-        response.status === 401 ? 502 : response.status,
+        response.status,
       );
     }
 
@@ -131,17 +133,21 @@ export async function createResponse(input: {
       throw new OpenAIRequestError("OpenAI API returned no text output.");
     }
 
+    if (!payload?.id || !payload.model) {
+      throw new InvalidModelOutputError("Provider response omitted required diagnostics.");
+    }
     return {
-      id: payload?.id ?? null,
-      model: payload?.model ?? configuredModel(),
+      id: payload.id,
+      model: payload.model,
       text,
     };
   } catch (error) {
     if (error instanceof OpenAIRequestError) throw error;
+    if (error instanceof InvalidModelOutputError) throw error;
     if (error instanceof Error && error.name === "AbortError") {
       throw new OpenAIRequestError("OpenAI API request timed out.", 504);
     }
-    throw new OpenAIRequestError("Could not reach the OpenAI API.");
+    throw new OpenAIRequestError("Could not reach the OpenAI API.", 503);
   } finally {
     clearTimeout(timeout);
   }
@@ -149,9 +155,11 @@ export async function createResponse(input: {
 
 export function jsonError(error: unknown) {
   const status = error instanceof OpenAIRequestError ? error.status : 500;
-  const message = error instanceof OpenAIRequestError && error.message === "OPENAI_API_KEY is not configured on the server."
-    ? error.message
-    : "Generation failed.";
+  const message = status === 401 || status === 403 ? "The generation service rejected authorization." :
+    status === 429 ? "The generation service quota is unavailable." :
+    status === 503 ? "The generation service is unavailable." :
+    status === 504 ? "The generation service timed out." :
+    "Generation failed.";
   return Response.json({ error: message }, { status });
 }
 
@@ -160,6 +168,6 @@ export function parseJsonObject(text: string) {
   try {
     return JSON.parse(cleaned) as Record<string, unknown>;
   } catch {
-    throw new OpenAIRequestError("OpenAI API returned invalid JSON.", 502, true);
+    throw new InvalidModelOutputError("OpenAI API returned invalid JSON.");
   }
 }

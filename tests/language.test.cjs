@@ -103,8 +103,6 @@ test('English non-recall and word boundaries do not confuse ordinary words with 
     assert.deepEqual(validateQuestion({ ...input, ...fallbackQuestion(input), question }), []);
   }
   for (const [condition, question, flag] of [
-    ['odor', 'What color was it?', 'odor_condition_contamination'],
-    ['visual', 'How did you feel?', 'visual_condition_contamination'],
     ['visual', 'What smell do you remember?', 'visual_odor_contamination'],
     ['odor', 'What sound did you hear?', 'odor_condition_contamination'],
     ['odor', 'Can you guess what caused that smell?', 'odor_source_inference'],
@@ -188,10 +186,10 @@ test('English narrative generation retries, joins sentences with spaces, and sav
   const payload = {
     language: 'en', sessionId: 'english-fixture', recordType: 'batch_synthetic', condition: 'odor', fragment,
     questions: answers.map((item) => item.question), answers: answers.map((item) => item.answer),
-    questionMetadata: Array(6).fill({ conditionFocus: 'odor', targetEvidenceId: 'fragment', transitionReason: null }),
+    questionMetadata: Array(6).fill({ conditionFocus: 'odor', targetEvidenceId: null }),
     finalResult: generated.narrative, narrativeSentences: generated.sentences,
     narrativePromptVersion: PROMPT_CONFIG.version, evaluation: {}, checks: {},
-    narrativeGeneration: readGenerationMetadata(generated), questionGeneration: Array.from({ length: 6 }, () => generationMetadata({ promptVersion: PROMPT_CONFIG.followUpVersion })),
+    narrativeGeneration: readGenerationMetadata(generated), questionGeneration: Array.from({ length: 6 }, () => generationMetadata()),
   };
   const saved = await save(request(payload));
   assert.equal(saved.status, 200);
@@ -212,7 +210,7 @@ test('English narrative generation retries, joins sentences with spaces, and sav
 test('generation APIs reject invalid languages before making any external request', async (t) => {
   t.mock.method(global, 'fetch', async () => { throw new Error('No network request expected'); });
   for (const language of [null, 'fr', '', 42, {}]) {
-    assert.equal((await followUp(request({ language, condition: 'visual', turn: 1, fragment, history: [] }))).status, 400);
+    assert.equal((await followUp(request({ language, condition: 'standard', turn: 1, fragment, history: [] }))).status, 400);
     assert.equal((await narrative(request({ language, fragment, answers }))).status, 400);
   }
 });

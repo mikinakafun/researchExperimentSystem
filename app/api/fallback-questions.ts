@@ -8,7 +8,7 @@ const conditionQuestions: Record<PromptCondition, string> = {
   odor: "その時、何か匂いを思い出せますか？",
 };
 
-const neutralQuestions = [
+const neutralQuestions: string[] = [
   "同じ出来事の中で、ほかに何が起きたか覚えていますか？",
   "その時にしていたことを、ほかに覚えていますか？",
   "同じ出来事の別の時点で、何をしていたか覚えていますか？",
@@ -22,7 +22,7 @@ const englishConditionQuestions: Record<PromptCondition, string> = {
   odor: "Do you remember any smell at the time?",
 };
 
-const englishNeutralQuestions = [
+const englishNeutralQuestions: string[] = [
   "What else do you remember happening during the same event?",
   "What else do you remember doing at the time?",
   "What do you remember doing at another point during the same event?",
@@ -54,8 +54,7 @@ export function fallbackQuestion(input: {
     question: focused[input.condition],
     metadata: {
       conditionFocus: input.condition,
-      targetEvidenceId: input.turn === 1 ? "fragment" : `answer-${input.turn - 1}`,
-      transitionReason: null,
+      targetEvidenceId: null,
     },
   };
   if (!hasNoRecallAtLatestTurn(input.history) && validateQuestion({ ...input, ...broadCandidate }).length === 0) {
@@ -64,7 +63,7 @@ export function fallbackQuestion(input: {
 
   // Fixed neutral fallback cannot determine semantic answer state; the route
   // records non-recall only from its existing lexical hint and otherwise uses
-  // insufficient_evidence as the reason for this safe generic path.
+  // insufficientEvidenceTransition as the reason for this safe generic path.
   const transitionMetadata = metadata({ history: input.history });
   for (const question of neutral) {
     const candidate = { question, metadata: transitionMetadata };

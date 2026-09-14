@@ -15,7 +15,7 @@ type Condition = "visual" | "odor";
 type QuestionMetadata = {
   conditionFocus: Condition | "neutral";
   targetEvidenceId: string | null;
-  transitionReason: "non_recall" | "insufficient_evidence" | null;
+  transitionReason?: "non_recall" | "insufficient_evidence";
 };
 
 const workflowSteps: Exclude<Step, "done">[] = ["welcome", "consent", "recall", "questions", "narrative", "evaluation", "check", "debrief"];
@@ -55,13 +55,15 @@ async function callApi(path: string, body: Record<string, unknown>, language: La
   };
 }
 
-function randomCondition(): Condition {
-  return ["visual", "odor"][Math.floor(Math.random() * 2)] as Condition;
-}
-
 function createSessionId() {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") return crypto.randomUUID();
   return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
+// Server-side stratified block assignment is gated by TASK-016; this keeps
+// the current mock on the required two-condition surface until that decision.
+function randomCondition(): Condition {
+  return Math.random() < 0.5 ? "visual" : "odor";
 }
 
 export default function Experiment({ storageKind }: { storageKind: StorageKind }) {
