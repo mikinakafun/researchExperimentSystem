@@ -5,6 +5,20 @@ import { validateNarrativeSentences, type NarrativeSentence } from "./narrative"
 import { checks, evaluationItems } from "./survey";
 import type { ResultData } from "./result";
 
+function isQuestionMetadata(value: unknown, condition: ResultData["condition"], turn: number): boolean {
+  if (!isObject(value) ||
+      "turnFunction" in value || "nonRecallTransition" in value || "insufficientEvidenceTransition" in value ||
+      !["visual", "odor", "neutral"].includes(value.conditionFocus as string) ||
+      (value.targetEvidenceId !== null && typeof value.targetEvidenceId !== "string") ||
+      (value.transitionReason !== null && value.transitionReason !== "non_recall" && value.transitionReason !== "insufficient_evidence")) return false;
+  if (value.conditionFocus === "neutral") {
+    return value.targetEvidenceId === null && value.transitionReason !== null;
+  }
+  return value.conditionFocus === condition && typeof value.targetEvidenceId === "string" &&
+    ["fragment", ...Array.from({ length: Math.max(0, turn - 1) }, (_, index) => `answer-${index + 1}`)].includes(value.targetEvidenceId) &&
+    value.transitionReason === null;
+}
+
 function isRatingMap(value: unknown, ids: string[], allowEmpty: boolean): value is Record<string, number> {
   if (!isObject(value)) return false;
   const keys = Object.keys(value);
@@ -22,11 +36,11 @@ export function parseResultData(body: unknown): ResultData | null {
   const language = parseLanguage(body.language);
   const recordType = body.recordType === undefined ? "participant" : body.recordType;
   if (!language || (recordType !== "participant" && recordType !== "batch_synthetic") ||
-      (body.condition !== "standard" && body.condition !== "visual" && body.condition !== "odor") ||
+      (body.condition !== "visual" && body.condition !== "odor") ||
       !isNonEmptyString(body.sessionId) || body.sessionId.length > 200 || !isNonEmptyString(body.fragment) || !isNonEmptyString(body.finalResult) ||
       !isTurnText(body.questions) || !isTurnText(body.answers) ||
       !Array.isArray(body.questionMetadata) || body.questionMetadata.length !== PROMPT_CONFIG.followUpTurns ||
-      !body.questionMetadata.every(isObject) ||
+      !body.questionMetadata.every((value, index) => isQuestionMetadata(value, body.condition as ResultData["condition"], index + 1)) ||
       body.narrativePromptVersion !== PROMPT_CONFIG.version ||
       validateNarrativeSentences(body.narrativeSentences, PROMPT_CONFIG.followUpTurns, PROMPT_CONFIG.narrativeMaxSentences, language).length > 0 ||
       !isRatingMap(body.evaluation, evaluationItems.map((item) => item.id), recordType === "batch_synthetic") ||
@@ -38,7 +52,8 @@ export function parseResultData(body: unknown): ResultData | null {
   const questionGeneration = [];
   for (const value of body.questionGeneration) {
     const generation = readGenerationMetadata(value);
-    if (!generation || generation.attempts > PROMPT_CONFIG.maxFollowUpAttempts) return null;
+    if (!generation || generation.attempts > PROMPT_CONFIG.maxFollowUpAttempts ||
+        generation.promptVersion !== PROMPT_CONFIG.followUpVersion) return null;
     questionGeneration.push(generation);
   }
   const narrativeGeneration = readGenerationMetadata(body.narrativeGeneration);

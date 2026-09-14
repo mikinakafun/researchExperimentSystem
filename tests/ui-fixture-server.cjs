@@ -12,7 +12,7 @@ require.extensions['.ts'] = (module, filename) => {
   }).outputText, filename);
 };
 const { fallbackQuestion } = require('../app/api/fallback-questions.ts');
-const { PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
+const { allowFallback, PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
 const { isLanguage, joinNarrative } = require('../lib/language.ts');
 const { parseResultData } = require('../lib/result-validation.ts');
 const requests = [];
@@ -35,14 +35,16 @@ http.createServer(async (req, res) => {
       if (req.url === '/api/follow-up') {
         // Deterministic error path, with no provider call.
         if (body.fragment === 'offline-error') return json(res, 503, { error: 'OPENAI_API_KEY is not configured on the server.' });
-        return json(res, 200, { ...fallbackQuestion(body), language: body.language, promptVersion: PROMPT_CONFIG.followUpVersion, source: 'fallback', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['offline_fixture'] })) } });
+        if (!allowFallback()) return json(res, 502, { error: 'Generation failed.' });
+        const candidate = fallbackQuestion(body);
+        return json(res, 200, { ...candidate, language: body.language, promptVersion: PROMPT_CONFIG.followUpVersion, source: 'fallback', fallbackReason: candidate.metadata.transitionReason ?? 'generation_rejected', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['offline_fixture'] })) } });
       }
       if (req.url === '/api/narrative') {
         const sentences = (body.language === 'en'
           ? ['I walked through the park with a friend.', 'We said goodbye and went home.']
           : ['友人と公園を歩いた。', '別れを告げて家に帰った。']
         ).map((text) => ({ text, sourceIds: ['fragment'], containsCreativeAddition: true }));
-        return json(res, 200, { language: body.language, narrative: joinNarrative(sentences, body.language), sentences, promptVersion: PROMPT_CONFIG.version, source: 'generated', model: 'offline-fixture', requestId: 'offline-narrative', attempts: 1, diagnostics: { rejections: [] } });
+        return json(res, 200, { language: body.language, narrative: joinNarrative(sentences, body.language), sentences, promptVersion: PROMPT_CONFIG.version, source: 'generated', model: 'offline-fixture', requestId: 'offline-narrative', attempts: 1, fallbackReason: null, diagnostics: { rejections: [] } });
       }
       if (req.url === '/api/save-result') {
         if (!parseResultData(body)) return json(res, 400, { error: 'Invalid result payload.' });

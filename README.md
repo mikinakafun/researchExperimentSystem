@@ -1,6 +1,6 @@
 # ResearchPilotSystem
 
-既存のNext.js実験システムに、二条件（Visual / Odor）の研究仕様を適用していくための研究用mockです。仕様・制約・未実装差分は [`docs/SPEC.md`](docs/SPEC.md)、このREADMEはセットアップ・操作・オフライン検証・保存先検証の正本です。現状は仕様に未達の三条件mockであり、参加者募集や実収集には使用できません。
+既存のNext.js実験システムに、二条件（Visual / Odor）の研究仕様を適用していくための研究用mockです。仕様・制約・未実装差分は [`docs/SPEC.md`](docs/SPEC.md)、このREADMEはセットアップ・操作・オフライン検証・保存先検証の正本です。質問・保存・合成batchは二条件化済みですが、server側ブロック割付など未達の仕様があるため、参加者募集や実収集には使用できません。
 
 ## 前提と安全上の注意
 
@@ -22,6 +22,8 @@ cp .env.example .env.local
 ```dotenv
 OPENAI_API_KEY=your_api_key_here
 OPENAI_MODEL=gpt-4o-mini
+# true enables fixed question fallback; false returns a generation error after retries
+ALLOW_FALLBACK=true
 # 既定値は csv。クラウド検証時だけ supabase
 RESULT_STORAGE=csv
 ```
@@ -68,7 +70,7 @@ node tests/ui-fixture-server.cjs
 npm run run:persona-batch -- --dry-run
 ```
 
-これはAPIを呼ばず、10 personasと予定セッションを検証します。プロンプト、validator、候補戦略を変更した場合は、仕様上の常時運用としてハーネスを再実行します。実APIバッチは次で、現行は10 personas × 3条件の30セッション相当です。基準約390 API calls（追質問180、模擬回答約180、物語30。再試行分は追加）を行い、課金と合成結果保存を伴う任意操作です。二条件化後は呼出し数が変わるため、この値を二条件の見積りとして扱いません。
+これはAPIを呼ばず、10 personasと予定セッションを検証します。プロンプト、validator、候補戦略を変更した場合は、仕様上の常時運用としてハーネスを再実行します。実APIバッチは次で、現行は10 personas × 2条件の20セッション相当です。基準約260 API calls（追質問120、模擬回答120、物語20。再試行分は追加）を行い、課金と合成結果保存を伴う任意操作です。これはserver側割付の検証ではなく、固定した合成条件のオフライン運用確認です。
 
 ```bash
 npm run run:persona-batch
@@ -82,7 +84,9 @@ npm run run:persona-batch
 
 現行の `record_type` は `participant` と `batch_synthetic` です。participantは12評価項目と6 checksの完全な既定ID集合、および各値1〜7の整数を要求します。batch_syntheticはevaluationとchecksがともに空、またはともに全項目を含む場合だけ許容し、片方だけの部分入力は拒否します。
 
-現行prompt versionは質問が `prompt-catalog-v0.4.4-mock-draft`、物語が `prompt-catalog-v0.4.3-mock-draft` です。既存結果を比較するときは、質問のgeneration record内にあるversionで区別します。`attempts` は採用候補を含むAPI内試行数で、`source=generated` は最後の試行を採用、`source=fallback` は全試行棄却を意味します。fallbackでは `model=fallback`、`requestId=null` です。現行保存形式は、各棄却候補のmodel/request IDや画面再送前に失敗したリクエスト履歴を保存しません。これは将来要求との差分です。
+現行prompt versionは質問が `prompt-catalog-v0.4.5-mock-draft`、物語が `prompt-catalog-v0.4.3-mock-draft` です。既存結果を比較するときは、質問のgeneration record内にあるversionで区別します。`attempts` は採用候補を含むAPI内試行数で、`source=generated` は最後の試行を採用、`source=fallback` は全試行棄却を意味します。fallbackでは `model=fallback`、`requestId=null` です。現行保存形式は、各棄却候補のmodel/request IDや画面再送前に失敗したリクエスト履歴を保存しません。これは将来要求との差分です。
+
+質問metadataは`conditionFocus`、`targetEvidenceId`、`transitionReason`（`non_recall` / `insufficient_evidence` / `null`）で構成し、廃止済みの`turnFunction`や二つの遷移booleanは受け付けません。generation recordには独立した`fallbackReason`（`non_recall`、`insufficient_evidence`、`generation_rejected`、または生成時の`null`）を含め、質問のgeneration versionと実行時versionを保存時に一致再検証します。質問fallbackはサーバー環境変数`ALLOW_FALLBACK`で切り替えられ、未設定または`true`では既存の固定fallbackを使い、`false`では最大試行後に生成エラーとして終了します。
 
 APIのlanguageは `ja` / `en` で、未指定は既存クライアント互換のため `ja`、その他の値は拒否します。言語を質問開始後に変更すると現行UIは同意画面へ戻り、初期断片を保持します。質問開始後は言語を固定します。JSON key、ID、enum値は言語間で不変で、100文字上限も両言語同じです。
 

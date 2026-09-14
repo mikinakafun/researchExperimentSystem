@@ -3,7 +3,7 @@ import path from "node:path";
 import { personas } from "../core/05-verification/personas.mjs";
 
 const BASE_URL = process.env.MOCK_BASE_URL || "http://127.0.0.1:3000";
-const CONDITIONS = ["standard", "visual", "odor"];
+const CONDITIONS = ["visual", "odor"];
 const today = new Date().toISOString().slice(0, 10).replaceAll("-", "");
 const BATCH_ID = process.env.BATCH_ID || `batch-${today}-persona`;
 const DATA_DIRECTORY = path.join(process.cwd(), "data");
@@ -121,8 +121,8 @@ function validatePersonas() {
 }
 
 function generationMetadata(payload) {
-  const { model, requestId, promptVersion, source, attempts, diagnostics } = payload;
-  return { model, requestId, promptVersion, source, attempts, diagnostics };
+  const { model, requestId, promptVersion, source, fallbackReason, attempts, diagnostics } = payload;
+  return { model, requestId, promptVersion, source, fallbackReason, attempts, diagnostics };
 }
 
 async function runSession(condition, persona) {
@@ -207,7 +207,7 @@ for (const result of results) {
   const odorRecall = !result.persona.odorMemory && result.condition === "odor" && result.turns.some((turn) => /匂いは思い出せません/u.test(turn.answer));
   if (odorRecall) odorRecallSessions.push(result.sessionId);
   for (const turn of result.turns) {
-    if ((result.condition === "standard" || result.condition === "visual") && ODOR_WORDS.test(turn.question)) leakSummary[result.condition].questions += 1;
+    if (result.condition === "visual" && ODOR_WORDS.test(turn.question)) leakSummary[result.condition].questions += 1;
     if (ODOR_WORDS.test(turn.answer)) leakSummary[result.condition].answers += 1;
   }
   if (ODOR_WORDS.test(result.narrative)) leakSummary[result.condition].narratives += 1;

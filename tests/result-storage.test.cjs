@@ -99,8 +99,9 @@ test('save route returns 400 for malformed inputs without writing, and retains r
   assert.equal(fs.existsSync(path.join(directory, 'data')), false);
 
   const retry = generationMetadata({ attempts: 2, diagnostics: { rejections: [{ attempt: 1, flags: ['condition_mismatch'], question: '棄却された質問？', metadata: { conditionFocus: 'visual' } }] } });
-  const fallback = generationMetadata({ source: 'fallback', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['request_failed'] })) } });
-  const payload = resultPayload({ questionGeneration: [retry, fallback, ...Array.from({ length: 4 }, () => generationMetadata())], narrativeGeneration: retry });
+  const retryQuestion = generationMetadata({ ...retry, promptVersion: require('../app/api/prompt-config.ts').PROMPT_CONFIG.followUpVersion });
+  const fallback = generationMetadata({ source: 'fallback', fallbackReason: 'generation_rejected', model: 'fallback', requestId: null, attempts: 3, diagnostics: { rejections: [1, 2, 3].map((attempt) => ({ attempt, flags: ['request_failed'] })) }, promptVersion: require('../app/api/prompt-config.ts').PROMPT_CONFIG.followUpVersion });
+  const payload = resultPayload({ questionGeneration: [retryQuestion, fallback, ...Array.from({ length: 4 }, () => generationMetadata({ promptVersion: require('../app/api/prompt-config.ts').PROMPT_CONFIG.followUpVersion }))], narrativeGeneration: retry });
   fs.mkdirSync(path.join(directory, 'data'));
   const legacy = path.join(directory, 'data/results-v0.4.3-bilingual.csv');
   fs.writeFileSync(legacy, 'legacy stays unchanged\n');

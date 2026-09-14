@@ -97,10 +97,10 @@ test('API retries invalid annotations and passes creative text through to versio
   const payload = {
     sessionId: 'offline-creative-fixture', recordType: 'batch_synthetic', condition: 'visual',
     fragment: '友人と公園を歩いた。', questions: answers.map((item) => item.question),
-    answers: answers.map((item) => item.answer), questionMetadata: Array(6).fill({ conditionFocus: 'visual' }),
+    answers: answers.map((item) => item.answer), questionMetadata: Array(6).fill({ conditionFocus: 'visual', targetEvidenceId: 'fragment', transitionReason: null }),
     finalResult: generated.narrative, narrativeSentences: generated.sentences,
     narrativePromptVersion: generated.promptVersion, evaluation: {}, checks: {},
-    narrativeGeneration: readGenerationMetadata(generated), questionGeneration: Array.from({ length: 6 }, () => generationMetadata()),
+    narrativeGeneration: readGenerationMetadata(generated), questionGeneration: Array.from({ length: 6 }, () => generationMetadata({ promptVersion: PROMPT_CONFIG.followUpVersion })),
   };
   const submit = (overrides = {}) => save(new Request('http://localhost/api/save-result', {
     method: 'POST', body: JSON.stringify({ ...payload, ...overrides }),

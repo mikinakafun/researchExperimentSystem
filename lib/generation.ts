@@ -7,11 +7,14 @@ export type GenerationRejection = {
   metadata?: Record<string, unknown>;
 };
 
+export type FallbackReason = "non_recall" | "insufficient_evidence" | "generation_rejected" | null;
+
 export type GenerationMetadata = {
   model: string;
   requestId: string | null;
   promptVersion: string;
   source: "generated" | "fallback";
+  fallbackReason: FallbackReason;
   attempts: number;
   diagnostics: { rejections: GenerationRejection[] };
 };
@@ -29,6 +32,7 @@ export function readGenerationMetadata(value: unknown): GenerationMetadata | nul
       !(value.requestId === null || isNonEmptyString(value.requestId)) ||
       !isNonEmptyString(value.promptVersion) ||
       (value.source !== "generated" && value.source !== "fallback") ||
+      (value.fallbackReason !== null && value.fallbackReason !== "non_recall" && value.fallbackReason !== "insufficient_evidence" && value.fallbackReason !== "generation_rejected") ||
       typeof value.attempts !== "number" || !Number.isInteger(value.attempts) || value.attempts < 1 ||
       !isObject(value.diagnostics) || !Array.isArray(value.diagnostics.rejections)) return null;
 
@@ -47,12 +51,14 @@ export function readGenerationMetadata(value: unknown): GenerationMetadata | nul
     });
   }
   if (rejections.length !== value.attempts - (value.source === "generated" ? 1 : 0)) return null;
-  if (value.source === "fallback" && (value.model !== "fallback" || value.requestId !== null)) return null;
+  if (value.source === "fallback" && (value.model !== "fallback" || value.requestId !== null || value.fallbackReason === null)) return null;
+  if (value.source === "generated" && value.fallbackReason !== null) return null;
   return {
     model: value.model,
     requestId: value.requestId,
     promptVersion: value.promptVersion,
     source: value.source,
+    fallbackReason: value.fallbackReason,
     attempts: value.attempts,
     diagnostics: { rejections },
   };

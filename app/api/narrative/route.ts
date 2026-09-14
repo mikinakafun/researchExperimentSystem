@@ -56,6 +56,7 @@ export async function POST(request: Request) {
             requestId: result.id,
             promptVersion: PROMPT_CONFIG.version,
             attempts: attempt,
+            fallbackReason: null,
             diagnostics: { rejections: rejectionLog },
           });
         }
@@ -63,7 +64,7 @@ export async function POST(request: Request) {
         console.warn("[narrative validation]", JSON.stringify({ attempt, flags }));
         retryReason = flags.join(", ");
       } catch (error) {
-        if (error instanceof OpenAIRequestError && [401, 403, 503].includes(error.status)) throw error;
+        if (error instanceof OpenAIRequestError && !error.fallbackEligible) throw error;
         const flag = error instanceof Error ? error.message : "invalid_output";
         rejectionLog.push({ attempt, flags: [flag] });
         console.warn("[narrative validation]", JSON.stringify({ attempt, flags: [flag] }));

@@ -14,7 +14,7 @@ require.extensions['.ts'] = (module, filename) => {
 const { parseLanguage, joinNarrative, matchesOutputLanguage } = require('../lib/language.ts');
 const { englishMessages, translate } = require('../lib/ui-language.ts');
 const { RESULT_CSV_PATH } = require('../lib/result-storage.ts');
-const { buildFollowUpInstructions, buildNarrativeInstructions, PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
+const { allowFallback, buildFollowUpInstructions, buildNarrativeInstructions, PROMPT_CONFIG } = require('../app/api/prompt-config.ts');
 const { fallbackQuestion } = require('../app/api/fallback-questions.ts');
 const { validateQuestion, saysNoRecall } = require('../app/api/question-validation.ts');
 const { validateNarrativeSentences } = require('../lib/narrative.ts');
@@ -46,9 +46,16 @@ test('language defaults, invalid input, and all UI translations are explicit', (
   }
 });
 
+test('fallback can be explicitly disabled while remaining enabled by default', () => {
+  assert.equal(allowFallback({}), true);
+  assert.equal(allowFallback({ ALLOW_FALLBACK: 'true' }), true);
+  assert.equal(allowFallback({ ALLOW_FALLBACK: ' FALSE ' }), false);
+  assert.equal(allowFallback({ ALLOW_FALLBACK: '0' }), true);
+});
+
 test('all condition, turn, transition, and retry prompts render in the selected language', () => {
   for (const language of ['ja', 'en']) {
-    for (const condition of ['standard', 'visual', 'odor']) {
+    for (const condition of ['visual', 'odor']) {
       for (let turn = 1; turn <= 6; turn++) {
         for (const nonRecall of [false, true]) {
           const prompt = buildFollowUpInstructions(condition, turn, nonRecall, 'test_retry', language);
@@ -67,7 +74,7 @@ test('all condition, turn, transition, and retry prompts render in the selected 
 
 test('fallback questions remain valid and distinct through all six turns, including repeated non-recall', () => {
   for (const language of ['ja', 'en']) {
-    for (const condition of ['standard', 'visual', 'odor']) {
+    for (const condition of ['visual', 'odor']) {
       for (const nonRecall of [false, true]) {
         const history = [];
         for (let turn = 1; turn <= 6; turn++) {
@@ -87,8 +94,8 @@ test('English non-recall and word boundaries do not confuse ordinary words with 
   for (const answer of ["I can't remember.", 'I cannot recall.', 'I don’t know.', 'I could not remember.', 'No smell.']) assert.ok(saysNoRecall(answer), answer);
   assert.equal(saysNoRecall('I remember a scent.'), false);
   for (const [condition, question] of [
-    ['standard', 'What did you do again?'],
-    ['standard', 'What happened when you arrived?'],
+    ['visual', 'What did you do again?'],
+    ['visual', 'What happened when you arrived?'],
     ['odor', 'What do you remember about the odor?'],
     ['odor', 'What do you remember that smell being a smell of?'],
   ]) {
@@ -96,8 +103,8 @@ test('English non-recall and word boundaries do not confuse ordinary words with 
     assert.deepEqual(validateQuestion({ ...input, ...fallbackQuestion(input), question }), []);
   }
   for (const [condition, question, flag] of [
-    ['standard', 'What color was it?', 'standard_sensory_contamination'],
-    ['standard', 'How did you feel?', 'standard_emotion_focus'],
+    ['odor', 'What color was it?', 'odor_condition_contamination'],
+    ['visual', 'How did you feel?', 'visual_condition_contamination'],
     ['visual', 'What smell do you remember?', 'visual_odor_contamination'],
     ['odor', 'What sound did you hear?', 'odor_condition_contamination'],
     ['odor', 'Can you guess what caused that smell?', 'odor_source_inference'],
@@ -181,10 +188,10 @@ test('English narrative generation retries, joins sentences with spaces, and sav
   const payload = {
     language: 'en', sessionId: 'english-fixture', recordType: 'batch_synthetic', condition: 'odor', fragment,
     questions: answers.map((item) => item.question), answers: answers.map((item) => item.answer),
-    questionMetadata: Array(6).fill({ conditionFocus: 'odor' }),
+    questionMetadata: Array(6).fill({ conditionFocus: 'odor', targetEvidenceId: 'fragment', transitionReason: null }),
     finalResult: generated.narrative, narrativeSentences: generated.sentences,
     narrativePromptVersion: PROMPT_CONFIG.version, evaluation: {}, checks: {},
-    narrativeGeneration: readGenerationMetadata(generated), questionGeneration: Array.from({ length: 6 }, () => generationMetadata()),
+    narrativeGeneration: readGenerationMetadata(generated), questionGeneration: Array.from({ length: 6 }, () => generationMetadata({ promptVersion: PROMPT_CONFIG.followUpVersion })),
   };
   const saved = await save(request(payload));
   assert.equal(saved.status, 200);
@@ -205,7 +212,7 @@ test('English narrative generation retries, joins sentences with spaces, and sav
 test('generation APIs reject invalid languages before making any external request', async (t) => {
   t.mock.method(global, 'fetch', async () => { throw new Error('No network request expected'); });
   for (const language of [null, 'fr', '', 42, {}]) {
-    assert.equal((await followUp(request({ language, condition: 'standard', turn: 1, fragment, history: [] }))).status, 400);
+    assert.equal((await followUp(request({ language, condition: 'visual', turn: 1, fragment, history: [] }))).status, 400);
     assert.equal((await narrative(request({ language, fragment, answers }))).status, 400);
   }
 });

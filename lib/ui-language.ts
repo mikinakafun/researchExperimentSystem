@@ -69,7 +69,7 @@ export const englishMessages = {
   "確認を確定して進む": "Confirm and continue",
   "説明": "Debrief",
   "この検証では、質問の向け方が、AIの創作を含む物語の受け取られ方に与える影響を確認します。文章には回答にない描写や出来事が含まれることがあります。": "This test examines how the focus of questions affects responses to stories that include AI-created content. The story may contain descriptions or events you did not report.",
-  "質問条件は、出来事の構造、視覚、匂いに関する注意のいずれかでした。条件名は回答終了まで表示していません。": "The questions focused on event structure, visual details, or smells. The condition names were not shown until after you finished answering.",
+  "質問条件は、視覚または匂いに関する注意のいずれかでした。条件名は回答終了まで表示していません。": "The questions focused on visual details or smells. The condition names were not shown until after you finished answering.",
   "完了すると、初期断片、6つの質問と回答、質問の分岐記録、生成文章と作成記録、条件、言語、評価結果がこのPCの次のファイルへ1行で追記されます。": "On completion, your initial fragment, six questions and answers, question metadata, generated story and annotations, condition, language, and ratings will be appended as one row to this file on this computer:",
   "保存して完了する": "Save and finish",
   "ご協力ありがとうございました": "Thank you for taking part",

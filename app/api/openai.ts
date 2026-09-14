@@ -14,11 +14,13 @@ export const DEFAULT_MODEL = "gpt-4o-mini";
 
 export class OpenAIRequestError extends Error {
   status: number;
+  fallbackEligible: boolean;
 
-  constructor(message: string, status = 502) {
+  constructor(message: string, status = 502, fallbackEligible = false) {
     super(message);
     this.name = "OpenAIRequestError";
     this.status = status;
+    this.fallbackEligible = fallbackEligible;
   }
 }
 
@@ -96,13 +98,11 @@ export async function createResponse(input: {
                     type: "object",
                     properties: {
                       question: { type: "string" },
-                      conditionFocus: { type: "string", enum: ["standard", "visual", "odor", "neutral"] },
-                      turnFunction: { type: "string", enum: ["broad_recall", "grounded_detail", "temporal_anchor", "action_relation", "second_grounded_detail", "unresolved_attribute"] },
+                      conditionFocus: { type: "string", enum: ["visual", "odor", "neutral"] },
                       targetEvidenceId: { anyOf: [{ type: "string" }, { type: "null" }] },
-                      nonRecallTransition: { type: "boolean" },
-                      insufficientEvidenceTransition: { type: "boolean" },
+                      transitionReason: { anyOf: [{ type: "string", enum: ["non_recall", "insufficient_evidence"] }, { type: "null" }] },
                     },
-                    required: ["question", "conditionFocus", "turnFunction", "targetEvidenceId", "nonRecallTransition", "insufficientEvidenceTransition"],
+                    required: ["question", "conditionFocus", "targetEvidenceId", "transitionReason"],
                     additionalProperties: false,
                   },
                 },
@@ -149,7 +149,9 @@ export async function createResponse(input: {
 
 export function jsonError(error: unknown) {
   const status = error instanceof OpenAIRequestError ? error.status : 500;
-  const message = error instanceof Error ? error.message : "Unexpected API error.";
+  const message = error instanceof OpenAIRequestError && error.message === "OPENAI_API_KEY is not configured on the server."
+    ? error.message
+    : "Generation failed.";
   return Response.json({ error: message }, { status });
 }
 
@@ -158,6 +160,6 @@ export function parseJsonObject(text: string) {
   try {
     return JSON.parse(cleaned) as Record<string, unknown>;
   } catch {
-    throw new OpenAIRequestError("OpenAI API returned invalid JSON.");
+    throw new OpenAIRequestError("OpenAI API returned invalid JSON.", 502, true);
   }
 }
