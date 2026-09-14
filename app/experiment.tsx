@@ -8,7 +8,9 @@ import type { NarrativeSentence } from "../lib/narrative";
 import { checks, evaluationItems } from "../lib/survey";
 import type { ResultData } from "../lib/result";
 import { readGenerationMetadata, type GenerationMetadata } from "../lib/generation";
+import { isDeveloperModeEnabled } from "../lib/developer-mode";
 import ReferenceMaterials from "./reference-materials";
+import DeveloperPanel from "./developer-panel";
 
 type Step = "welcome" | "consent" | "recall" | "questions" | "narrative" | "evaluation" | "check" | "debrief" | "done";
 type Condition = "visual" | "odor";
@@ -20,29 +22,42 @@ type QuestionMetadata = {
 
 const workflowSteps: Exclude<Step, "done">[] = ["welcome", "consent", "recall", "questions", "narrative", "evaluation", "check", "debrief"];
 
-async function callApi(path: string, body: Record<string, unknown>, language: Language) {
+export type DeveloperFailure = {
+  stage: string;
+  status?: number;
+  code?: string;
+  rejectionFlags?: string[];
+};
+
+class ApiCallError extends Error {
+  constructor(message: string, readonly failure: DeveloperFailure) {
+    super(message);
+  }
+}
+
+async function callApi(path: string, body: Record<string, unknown>, language: Language, developerMode = false) {
   const t = (key: MessageKey) => translate(language, key);
   const failureMessage = path === "/api/save-result"
     ? t("結果の保存に失敗しました。入力を保持したまま、もう一度お試しください。")
     : t("生成に失敗しました。入力内容を確認して、もう一度お試しください。");
   const response = await fetch(path, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: { "content-type": "application/json", ...(developerMode ? { "x-developer-mode": "1" } : {}) },
     body: JSON.stringify({ ...body, language }),
-  }).catch(() => { throw new Error(failureMessage); });
-  const payload = await response.json().catch(() => null) as { error?: string } | null;
+  }).catch(() => { throw new ApiCallError(failureMessage, { stage: "network" }); });
+  const payload = await response.json().catch(() => null) as { error?: string; errorCode?: string; diagnostics?: { rejections?: Array<{ flags?: string[] }> } } | null;
   if (!response.ok) {
     if (payload?.error === "Storage destination changed. Reload before starting a new session.") {
-      throw new Error(t("保存先の設定が変更されました。ページを開き直し、新しい検証を開始してください。"));
+      throw new ApiCallError(t("保存先の設定が変更されました。ページを開き直し、新しい検証を開始してください。"), { stage: path, status: response.status, code: "storage_destination_changed" });
     }
     if (payload?.error === "OPENAI_API_KEY is not configured on the server.") {
-      throw new Error(t("実APIの設定がありません。サーバーの環境変数を確認してください。"));
+      throw new ApiCallError(t("実APIの設定がありません。サーバーの環境変数を確認してください。"), { stage: path, status: response.status, code: "api_key_missing" });
     }
-    throw new Error(failureMessage);
+    throw new ApiCallError(failureMessage, { stage: path, status: response.status, code: payload?.errorCode ?? payload?.error, rejectionFlags: payload?.diagnostics?.rejections?.flatMap((item) => item.flags ?? []) });
   }
-  if (!payload || typeof payload !== "object") throw new Error(failureMessage);
+  if (!payload || typeof payload !== "object") throw new ApiCallError(failureMessage, { stage: path, status: response.status, code: "invalid_response" });
   const generation = path === "/api/save-result" ? null : readGenerationMetadata(payload);
-  if (path !== "/api/save-result" && !generation) throw new Error(failureMessage);
+  if (path !== "/api/save-result" && !generation) throw new ApiCallError(failureMessage, { stage: path, status: response.status, code: "generation_metadata_invalid" });
   return { ...payload, generation } as {
     question?: string;
     metadata?: QuestionMetadata;
@@ -86,6 +101,9 @@ export default function Experiment({ storageKind }: { storageKind: StorageKind }
     document.title = translate(language, "記憶に関する研究 | Mock");
     try { localStorage.setItem(LANGUAGE_STORAGE_KEY, language); } catch { /* Optional preference persistence. */ }
   }, [language, languageReady]);
+  useEffect(() => {
+    setDeveloperMode(isDeveloperModeEnabled(window.location.search));
+  }, []);
   const [step, setStep] = useState<Step>("welcome");
   const [consent, setConsent] = useState(false);
   const [fragment, setFragment] = useState("");
@@ -104,12 +122,19 @@ export default function Experiment({ storageKind }: { storageKind: StorageKind }
   const [condition, setCondition] = useState<Condition | null>(null);
   const [sessionId, setSessionId] = useState("");
   const [saved, setSaved] = useState(false);
+  const [developerMode, setDeveloperMode] = useState(false);
+  const [developerFailure, setDeveloperFailure] = useState<DeveloperFailure | null>(null);
   const questionProgress = step === "questions" ? (currentQuestion + 1) / 6 : 0;
   const workflowStep = step === "done" ? 0 : workflowSteps.indexOf(step) + 1;
   const workflowProgress = workflowStep / workflowSteps.length;
   const setRating = (id: string, value: number) => setRatings((current) => ({ ...current, [id]: value }));
   const allRatingsAnswered = evaluationItems.every(({ id }) => ratings[id] !== undefined);
   const allChecksAnswered = checks.every(({ id }) => ratings[id] !== undefined);
+
+  function recordDeveloperFailure(caught: unknown, stage: string) {
+    if (caught instanceof ApiCallError) setDeveloperFailure({ ...caught.failure, stage });
+    else setDeveloperFailure({ stage, code: "client_error" });
+  }
 
   const languageLocked = busy || !["welcome", "consent", "recall"].includes(step);
 
@@ -126,6 +151,7 @@ export default function Experiment({ storageKind }: { storageKind: StorageKind }
     const newSessionId = createSessionId();
     setSessionId(newSessionId);
     setSaved(false);
+    setDeveloperFailure(null);
     setCondition(assignedCondition);
     setBusy(true);
     setError(null);
@@ -141,18 +167,19 @@ export default function Experiment({ storageKind }: { storageKind: StorageKind }
         fragment,
         history: [],
         turn: 1,
-      }, language);
-      if (!payload.question || !payload.metadata || !payload.generation) throw new Error(t("実APIから検証済み質問を受け取れませんでした。"));
+      }, language, developerMode);
+      if (!payload.question || !payload.metadata || !payload.generation) throw new ApiCallError(t("実APIから検証済み質問を受け取れませんでした。"), { stage: "initial_question", status: 200, code: "generation_payload_invalid" });
       setQuestionTexts((current) => current.map((value, index) => index === 0 ? payload.question! : value));
       setQuestionMetadata((current) => current.map((value, index) => index === 0 ? payload.metadata! : value));
       setQuestionGeneration((current) => current.map((value, index) => index === 0 ? payload.generation! : value));
     } catch (caught) {
+      if (developerMode) recordDeveloperFailure(caught, "initial_question");
       setAnswers(Array(6).fill(""));
       setQuestionTexts(Array(6).fill(""));
       setQuestionMetadata(Array(6).fill(null));
       setQuestionGeneration(Array(6).fill(null));
       setCurrentQuestion(0);
-      setCondition(null);
+      setCondition(developerMode ? assignedCondition : null);
       setStep("recall");
       setError(caught instanceof Error ? caught.message : t("生成に失敗しました。もう一度お試しください。"));
     } finally {
@@ -177,6 +204,7 @@ export default function Experiment({ storageKind }: { storageKind: StorageKind }
     if (saved || busy || !sessionId || !condition || !fragment.trim() || questionTexts.length !== 6 || answers.length !== 6 || !narrative.trim() || !narrativeGeneration || questionGeneration.some((item) => !item) || !allRatingsAnswered || !allChecksAnswered) return;
     setBusy(true);
     setError(null);
+    setDeveloperFailure(null);
     try {
       const payload = await callApi("/api/save-result", {
         sessionId,
@@ -243,7 +271,7 @@ export default function Experiment({ storageKind }: { storageKind: StorageKind }
           metadata: questionMetadata[index] ?? undefined,
         })),
         turn: currentQuestion + 2,
-      }, language);
+      }, language, developerMode);
       if (!payload.question || !payload.metadata || !payload.generation) throw new Error(t("実APIから検証済み質問を受け取れませんでした。"));
       setQuestionTexts((current) => current.map((value, index) => index === currentQuestion + 1 ? payload.question! : value));
       setQuestionMetadata((current) => current.map((value, index) => index === currentQuestion + 1 ? payload.metadata! : value));
@@ -269,6 +297,7 @@ export default function Experiment({ storageKind }: { storageKind: StorageKind }
     setCondition(null);
     setSessionId("");
     setSaved(false);
+    setDeveloperFailure(null);
     setNarrative("");
     setNarrativeSentences([]);
     setNarrativeGeneration(null);
@@ -284,6 +313,7 @@ export default function Experiment({ storageKind }: { storageKind: StorageKind }
       <p className="hint" id="language-hint">{languageLocked ? t("質問開始後は言語を変更できません。終了して最初に戻ると変更できます。") : t("表示と生成に使う言語を選択してください。")}</p>
     </div>
     <div className="notice">{t(cloudStorage ? "これは接続検証用です。入力内容をOpenAI APIへ送信し、完了時に結果をSupabaseのクラウドDBへ保存します。" : "これはローカル検証用です。質問生成と文章生成で実OpenAI APIを呼び出し、入力内容を外部へ送信します。完了時に結果をローカルCSVへ保存します。")}</div>
+    {developerMode && <DeveloperPanel language={language} storageKind={storageKind} step={step} sessionId={sessionId} condition={condition} fragment={fragment} currentQuestion={currentQuestion} questionTexts={questionTexts} questionMetadata={questionMetadata} questionGeneration={questionGeneration} narrativeGeneration={narrativeGeneration} failure={developerFailure} />}
     <section className="panel" aria-busy={busy}>
       {error && <div className="error-alert" role="alert">{error}</div>}
       {busy && <div className="status-line" role="status">{step === "debrief" ? t("結果を保存中…") : t("OpenAI APIへ送信中…")}</div>}

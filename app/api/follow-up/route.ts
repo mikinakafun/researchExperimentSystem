@@ -11,7 +11,7 @@ function parseCandidate(parsed: Record<string, unknown>): { candidate: QuestionC
   if (typeof parsed.question !== "string") schemaFlags.push("question_schema");
   if (typeof parsed.conditionFocus !== "string") schemaFlags.push("condition_focus_schema");
   if (parsed.targetEvidenceId !== null && typeof parsed.targetEvidenceId !== "string") schemaFlags.push("target_evidence_schema");
-  if (parsed.transitionReason !== undefined && typeof parsed.transitionReason !== "string") schemaFlags.push("transition_reason_schema");
+  if (parsed.transitionReason !== undefined && parsed.transitionReason !== null && typeof parsed.transitionReason !== "string") schemaFlags.push("transition_reason_schema");
   const metadata: QuestionMetadata = {
     conditionFocus: String(parsed.conditionFocus ?? "") as QuestionMetadata["conditionFocus"],
     targetEvidenceId: typeof parsed.targetEvidenceId === "string" ? parsed.targetEvidenceId : null,
@@ -82,6 +82,9 @@ export async function POST(request: Request) {
       rejectionLog.push({ attempt: settings.candidateCount + 1, stage: "repair", candidateIndex: 0, flags: [error.message], ...(repairResponse ? { model: repairResponse.model, requestId: repairResponse.id } : {}) });
     }
     if (!allowFallback()) {
+      if (request.headers.get("x-developer-mode") === "1") {
+        return Response.json({ error: "Generation failed.", errorCode: "fallback_disabled_after_rejection", diagnostics: { rejections: rejectionLog }, settings }, { status: 502 });
+      }
       throw new OpenAIRequestError(`OpenAI returned no valid question after ${settings.maxAttempts} attempts.`);
     }
     const candidate = fallbackQuestion({ condition, turn, fragment, history, language });

@@ -308,6 +308,21 @@ test('API can disable fallback and returns generation failure after candidate an
   assert.deepEqual(await response.json(), { error: 'Generation failed.' });
 });
 
+test('developer mode receives safe rejection diagnostics when fallback is disabled', async (t) => {
+  const originalKey = process.env.OPENAI_API_KEY;
+  process.env.OPENAI_API_KEY = 'offline-test';
+  t.after(() => { if (originalKey === undefined) delete process.env.OPENAI_API_KEY; else process.env.OPENAI_API_KEY = originalKey; });
+  t.mock.method(global, 'fetch', async () => Response.json({ id: 'offline-invalid', model: 'offline-fixture', output: [{ content: [{ type: 'output_text', text: JSON.stringify({ question: 'その花を覚えていますか？', conditionFocus: 'visual', targetEvidenceId: 'fragment', transitionReason: 'invalid' }) }] }] }));
+  const originalEnv = process.env.ALLOW_FALLBACK;
+  process.env.ALLOW_FALLBACK = 'false';
+  t.after(() => { if (originalEnv === undefined) delete process.env.ALLOW_FALLBACK; else process.env.ALLOW_FALLBACK = originalEnv; });
+  const response = await POST(new Request('http://localhost/api/follow-up', { method: 'POST', headers: { 'x-developer-mode': '1' }, body: JSON.stringify({ condition: 'visual', turn: 1, fragment: '友人と公園を歩いた。', history: [] }) }));
+  const body = await response.json();
+  assert.equal(response.status, 502);
+  assert.equal(body.errorCode, 'fallback_disabled_after_rejection');
+  assert.ok(body.diagnostics.rejections.length > 0);
+});
+
 test('candidate parse rejections retain the provider model and request ID', async (t) => {
   const originalKey = process.env.OPENAI_API_KEY;
   process.env.OPENAI_API_KEY = 'offline-test';
@@ -349,4 +364,21 @@ test('safe Japanese compounds are ignored for contamination in every condition',
     assert.deepEqual(validateQuestion(input(`${word}について覚えていることはありますか？`, { condition })), []);
   }
   assert.ok(validateQuestion(input('空気の匂いについて覚えていますか？', { condition: 'visual' })).includes('visual_odor_contamination'));
+});
+
+test('follow-up structured output schema requires a nullable transition reason', async (t) => {
+  const originalKey = process.env.OPENAI_API_KEY;
+  process.env.OPENAI_API_KEY = 'offline-test';
+  t.after(() => { if (originalKey === undefined) delete process.env.OPENAI_API_KEY; else process.env.OPENAI_API_KEY = originalKey; });
+  let requestBody;
+  const valid = { question: '公園で覚えているものを教えてください。', metadata: { conditionFocus: 'visual', targetEvidenceId: 'fragment' } };
+  t.mock.method(global, 'fetch', async (_url, options) => {
+    requestBody = JSON.parse(options.body);
+    return Response.json({ id: 'offline-schema', model: 'offline-fixture', output: [{ content: [{ type: 'output_text', text: JSON.stringify({ ...valid, ...valid.metadata, transitionReason: null }) }] }] });
+  });
+  const response = await POST(new Request('http://localhost/api/follow-up', { method: 'POST', body: JSON.stringify({ language: 'ja', condition: 'visual', turn: 1, fragment: '友人と公園を歩いた。', history: [] }) }));
+  assert.equal(response.status, 200);
+  const schema = requestBody.text.format.schema;
+  assert.ok(schema.required.includes('transitionReason'));
+  assert.deepEqual(schema.properties.transitionReason.anyOf.at(-1), { type: 'null' });
 });
